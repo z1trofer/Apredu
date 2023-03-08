@@ -34,3 +34,35 @@ main{margin-top: 90px;}
 table{
     background-color: rgb(207, 207, 207);
 }
+
+
+/*------------------------------------------------------EMPLEADOS-----------------------------------------*/
+/*Contenido*/
+#btnEmpleados{
+    background-color: #60BDDE;
+}
+
+#buscarEm{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid black;
+}
+
+#colDivEM{
+    margin-top: 20px;
+}
+
+#dropform{
+    background-color: #60BDDE;
+    color: black;
+}
+
+#TablaEm{
+    margin-top: 20px;
+    background-color: #BFBFBF;
+}
+
+#icon_emp{
+    height: 30px;
+}
