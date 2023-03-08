@@ -7,12 +7,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
-    <title>Gestion De Personal</title>
+    <title>Gestión De Personal</title>
 </head>
 
 <body id="private">
 
-    <head>
+    <!---------------------- Modals ------------------------>
+    <!--modal para informacion del docente-->
+<div class="modal fade" id="ModalDocentesInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Informacion del docente</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm">
+                    <h5>Nombre</h5>
+                    <p>Ramón Ricardo</p>
+                </div>
+                <div class="col-sm">
+                    <h5>Apellido</h5>
+                    <p>Ramirez Martinez</p>
+                </div>
+                <div class="col-sm">
+                    <h5>DUI</h5>
+                    <p>3451232-3</p>
+                </div>
+                <div class="col-sm">
+                    <h5>F.de nacimiento</h5>
+                    <p>10/08/1975</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h5>Correo</h5>
+                    <p>RamonRam@gmail.com</p>
+                    
+                    <div class="row">
+                        <div class="col-10">
+                            <h5>Teléfonos <img src="../recursos/iconos/icons8-más-30.png" alt=""></h5>
+                            7777-7777 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
+                            1234-5678 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h5>Dirección</h5>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, facilis et. Saepe, illum earum amet omnis recusandae maiores laboriosam ab deserunt temporibus? Libero autem perspiciatis provident, placeat eaque exercitationem animi.
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="nav-private">
             <div class="container-fluid">
@@ -54,7 +108,6 @@
             </div>
         </nav>
         <!-- Navbar -->
-    </head>
     <main>
         <!--Sección Principal-->
 
@@ -94,7 +147,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
                             data-mdb-toggle="dropdown" aria-expanded="false">
@@ -105,19 +158,28 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn" id="dropform">Mostrar Docentes
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Mostrar Docentes <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" checked
+                                        id="flexSwitchCheckDefault" />
+                                </div>
+                            </h6>
+
+                            <div class="col">
+
+                            </div>
                         </div>
-                    </button>
+                    </div>
+
                 </div>
             </div>
         </div>
         <!----------------------------------tablA------------------------>
         <div class="container" id="TablaEm">
             <!--row de categorias-->
-            <div class="row">
+            <div class="row" id="titulos">
                 <div class="col-sm text-center">
                     <h3>Apellido</h3>
                 </div>
@@ -157,7 +219,7 @@
                             <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
                         </div>
                         <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
+                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal" data-mdb-target="#ModalDocentesInfo"><img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp"></button>
                         </div>
                     </div>
 
@@ -195,36 +257,6 @@
                 </div>
 
             </div>
-            
-            <hr class="hr" />
-
-            <div class="row">
-                <div class="col-sm text-center">
-                    <p>Ramirez Martinez</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>Ramón Ricardo</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>1234-5678</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>RamirezRam@gmail.com</p>
-                </div>
-                <div class="col-sm text-center">
-                    <div class="row">
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
-                        </div>
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
 
             <hr class="hr" />
 
@@ -278,6 +310,36 @@
                         </div>
                         <div class="col-sm">
                             <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <hr class="hr" />
+
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Ramirez Martinez</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Ramón Ricardo</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>1234-5678</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>RamirezRam@gmail.com</p>
+                </div>
+                <div class="col-sm text-center">
+                    <div class="row">
+                        <div class="col-sm">
+                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal" data-mdb-target=""><img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp"></button>
+                        </div>
+                        <div class="col-sm">
+                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal" data-mdb-target="#ModalDocentesInfo"><img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp"></button>
                         </div>
                     </div>
 
@@ -289,7 +351,7 @@
 
     </main>
     <footer>
-        <footer class="bg-dark text-center text-white fixed-bottom">
+        <footer class="bg-dark text-center text-white">
             <div class="container p-4 pb-0">
                 <!-- Seccion: Social -->
                 <section class="mb-4">

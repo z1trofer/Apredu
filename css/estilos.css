@@ -59,10 +59,31 @@ table{
 }
 
 #TablaEm{
+    border-radius: 20px;
     margin-top: 20px;
+    margin-bottom: 40px;
+    padding-top: 20px;
     background-color: #BFBFBF;
+    color: #4C4A59;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #icon_emp{
     height: 30px;
+}
+
+.hr{
+    color: black;
+    border-width: 1px;
+    border: solid gray ;
+}
+
+#titulos{
+    border-bottom: solid black;
+    margin-bottom: 10px;
+}
+
+#btnInfoDocente{
+    border: none;
+    background: none;
 }
