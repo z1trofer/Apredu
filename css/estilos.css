@@ -1,0 +1,36 @@
+#private{
+    background-color: #dadada;
+    color: rgb(0, 0, 0);
+}
+
+#private-container{
+    display: grid;
+    place-items: center;
+    margin-bottom: 30px;
+}
+
+#xd{
+    margin-top: 90px;
+    
+}
+
+#button-private{
+    background-color: #f3de69f8;
+    width: 300px;
+    height: 60px;
+}
+
+#icon-private{
+    width: 40px;
+    height: 40px;
+}
+
+#size-select{
+    width: 250px;
+}
+
+main{margin-top: 90px;}
+
+table{
+    background-color: rgb(207, 207, 207);
+}

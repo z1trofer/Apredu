@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <title>Página Principal</title>
+</head>
+
+<body id="private">
+
+    <head>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="nav-private">
+            <div class="container-fluid">
+                <!-- Boton desplegable -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                        <img src="../recursos/logo.png" alt="MDB Logo" loading="lazy" width="100" height="50" />
+                    </a>
+                </div>
+                <div class="d-flex align-items-center">
+                    <!-- Avatar -->
+                    <div class="dropdown">
+                        <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                            id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+                                height="25" alt="Black and White Portrait of a Man" loading="lazy" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                            <li>
+                                <a class="dropdown-item" href="#">My profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Settings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->
+    </head>
+        <main>
+            <!--Sección Principal-->
+            <div class="container" id="private-container">
+
+                <h1>¡Bienvenido de vuelta!</h1>
+                <img src="../recursos/logo.png" alt="">
+
+                <div class="container" id="private-container">
+                    <h4>
+                        Sesión iniciada como: Admin1
+                    </h4>
+                    <h3>Selecciona la opcion de mantenimiento que deseas realizar</h3>
+                </div> 
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <button type="button" class="btn btn btn-rounded" id="button-private"> <img src="../recursos/iconos/icons8-student-48.png" alt="" id="icon-private">Gestionar Estudiante</button>
+                                <p>Ver y actualizar la información, notas y conducta del estudiante.</p>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn btn-rounded" id="button-private"><img src="../recursos/iconos/teacher.png" alt="" id="icon-private"> Gestionar Docentes</button>
+                                <p>Ver y actualizar la información y actividades cotidianas del personal docente.</p>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn btn-rounded" id="button-private"><img src="../recursos/iconos/icons8-people-64.png" alt="" id="icon-private">Gestionar Usuarios</button>
+                                <p>Ver y actualizar la información y accesos de los usuarios.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <button type="button" class="btn btn btn-rounded" id="button-private"> <img src="../recursos/iconos/icons8-student-48.png" alt="" id="icon-private">Gestionar Notas</button>
+                                <p>Ver y actualizar la información, notas y conducta del estudiante.</p>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn btn-rounded" id="button-private"><img src="../recursos/iconos/teacher.png" alt="" id="icon-private"> Gestionar Empleados</button>
+                                <p>Ver y actualizar la información y actividades cotidianas del personal docente.</p>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn btn-rounded" id="button-private"><img src="../recursos/iconos/icons8-people-64.png" alt="" id="icon-private">Gestionar Usuarios</button>
+                                <p>Ver y actualizar la información y accesos de los usuarios.</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+        </main>
+    <footer>
+        <footer class="bg-dark text-center text-white">
+            <div class="container p-4 pb-0">
+              <!-- Seccion: Social -->
+              <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+          
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+          
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                  ><i class="fab fa-google"></i
+                ></a>
+          
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+          
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </section>
+            </div>         
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              © 2020 Copyright:
+              <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
+            <!-- Copyright -->
+          </footer>
+    </footer>
+
+    <!--JavaScrip-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+</body>
+
+</html>
