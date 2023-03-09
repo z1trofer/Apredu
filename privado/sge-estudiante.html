@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
     <title>Gestion Estudiante</title>
 </head>
 
@@ -77,8 +81,7 @@
             </div>
         </div>
 
-<br>
-
+        <br>
         <div class="container">
             <div class="row">
                 <div class="col-2">
@@ -94,15 +97,18 @@
                     </select>
                 </div>
             </div>
-
+            <br>
             <div class="container">
                 <table class="table table-striped" id="table-alum">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Grado</th>
+                            <th scope="col">Conducta</th>
+                            <th scope="col">Notas</th>
+                            <th scope="col">Información</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,12 +117,185 @@
                             <td>Mark</td>
                             <td>Otto</td>
                             <td>@mdo</td>
+                            <td><!-- Button trigger modal -->
+                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                    data-mdb-target="#myModal">
+                                    <img src="../recursos/iconos/conducta.png" alt="">
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">
+                                                    Cerrar
+                                                </button>
+                                                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                    data-mdb-target="#myModal2">
+                                    <img src="../recursos/iconos/notas.png" alt="">
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Notas Estudiantes</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Nombre</p>
+                                                <p>Grado</p>
+                                                <button type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark">Ver actividades</button>
+                                                <button type="button" class="btn btn-outline-success" data-mdb-ripple-color="dark">Ver notas</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">
+                                                    Cerrar
+                                                </button>
+                                                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                    data-mdb-target="#myModal3">
+                                    <img src="../recursos/iconos/informacion.png" alt="">
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Información estudiante</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">...</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">
+                                                    Cerrar
+                                                </button>
+                                                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
                             <td>Jacob</td>
                             <td>Thornton</td>
                             <td>@fat</td>
+                            <td><!-- Button trigger modal -->
+                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                    data-mdb-target="#myModal4">
+                                    <img src="../recursos/iconos/conducta.png" alt="">
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal4" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Title</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">...</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                    data-mdb-target="#myModal5">
+                                    <img src="../recursos/iconos/notas.png" alt="">
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal5" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Title</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">...</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                    data-mdb-target="#myModal6">
+                                    <img src="../recursos/iconos/informacion.png" alt="">
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal6" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Title</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">...</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
 
