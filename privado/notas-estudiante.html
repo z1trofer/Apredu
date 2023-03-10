@@ -70,17 +70,84 @@
                 </div>
                 <div class="col-4">
                     <h5>Año lectivo</h5>
-                    <select class="form-select" aria-label="Default select example" id="size-select" onchange="confirm('Año: '+this.value)">
+                    <select class="form-select" aria-label="Default select example" id="size-select"
+                        onchange="confirm('Año: '+this.value)">
                         <script>
-                        var myDate = new Date();
-                        var year = myDate.getFullYear();
-                        for(var i = 2000    ; i < year+1; i++){
-                        document.write('<option value="'+i+'">'+i+'</option>');
-                        }
+                            var myDate = new Date();
+                            var year = myDate.getFullYear();
+                            for (var i = 2000; i < year + 1; i++) {
+                                document.write('<option value="' + i + '">' + i + '</option>');
+                            }
                         </script>
-                        </select>
+                    </select>
                 </div>
             </div>
+        </div>
+
+        <br>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Materia</th>
+                        <th scope="col">Primer trimestre</th>
+                        <th scope="col">Segundo trimestre</th>
+                        <th scope="col">Tecer trimestre</th>
+                        <th scope="col">Nota global</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Lenguaje</th>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ciencias</th>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Matemáticas</th>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Sociales</th>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ingles</th>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ed. Fisica</th>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Computación</th>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
     <footer>
