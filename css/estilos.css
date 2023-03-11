@@ -86,6 +86,8 @@ table{
     background: none;
 }
 
+/*Modal informacion de docente*/
+
 #ModalDocentesInfo{
     font-size: 15px;
 }
@@ -93,6 +95,7 @@ table{
 #btnEm_grado{
     background-color: #7B7B7B;
     color: black;
+    word-wrap: break-word;
 }
 
 #table_act{
@@ -108,4 +111,9 @@ table{
     word-wrap: break-word;
     width: 100px;
     font-size: 10px;
+}
+
+#Asignaturas_Mod{
+    border-radius: 10px;
+    background-color: #ADADAD;
 }

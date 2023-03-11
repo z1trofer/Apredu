@@ -41,15 +41,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-4">
                             <h5>Correo</h5>
                             <p>RamonRam@gmail.com</p>
 
                             <div class="row">
-                                <div class="col-10">
+                                <div class="col-7">
                                     <h5>Teléfonos <img src="../recursos/iconos/icons8-más-30.png" alt=""></h5>
                                     7777-7777 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
                                     1234-5678 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <h5>Asignaturas</h5>
+                            <div id="Asignaturas_Mod" class="row">
+                                <div class="col">
+                                    <p>Matematicas</p>
+                                    <p>Sociales</p>
+                                    <p>Lenguaje</p>
+                                    <p>Ciencias</p>
                                 </div>
                             </div>
                         </div>
@@ -86,21 +97,11 @@
                             <button id="btnEm_grado" type="button" class="btn btn-primary" disabled>2° grado</button>
                         </div>
                         <div class="col-3">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-mdb-toggle="dropdown"
-                                    aria-expanded="false" id="btnEm_grado">
-                                    Estudios Sociales
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider" />
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Separated link</a></li>
-                                </ul>
-                            </div>
+                            <button type="button" class="btn btn-primary " data-mdb-toggle="dropdown"
+                                aria-expanded="false" id="btnEm_grado">
+                                Estudios Sociales
+                            </button>
+
                         </div>
                     </div>
                     <!--tabla-->
@@ -109,16 +110,11 @@
                             <div class="col-sm-2">
                                 <h5>Actividad</h5>
                                 <p>actividad cotidiana 1</p>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary btn-xs dropdown-toggle" type="button"
-                                        id="btnTipo_Act" data-mdb-toggle="dropdown">
-                                        Actividad Cotidiana
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                        <li><a class="dropdown-item" href="#">Apellido</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-primary" type="button" id="btnTipo_Act"
+                                    data-mdb-toggle="dropdown">
+                                    Activid..
+                                </button>
+
                             </div>
                             <div class="col-sm-4">
                                 <h5>Descripción</h5>
@@ -134,48 +130,34 @@
                             </div>
                             <div class="col-sm-2">
                                 <h5>Grado</h5>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnEm_grado"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        2° grado
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                        <li><a class="dropdown-item" href="#">Apellido</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    2° grado
+                                </button>
+
                             </div>
                             <div class="col-sm-3">
                                 <h5>Asignatura</h5>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnEm_grado"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        Estudios Sociales
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                        <li><a class="dropdown-item" href="#">Apellido</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    Estudios Sociales
+                                </button>
+                                <h5>Fecha de entrega</h5>
+                                <p>27/03/2023</p>
+
                             </div>
                         </div>
 
                         <hr class="hr" />
-                        
+
                         <div class="row">
                             <div class="col-sm-2">
                                 <h5>Actividad</h5>
                                 <p>actividad cotidiana 1</p>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary btn-xs dropdown-toggle" type="button"
-                                        id="btnTipo_Act" data-mdb-toggle="dropdown">
-                                        Actividad Cotidiana
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                        <li><a class="dropdown-item" href="#">Apellido</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-primary  " type="button" id="btnTipo_Act"
+                                    data-mdb-toggle="dropdown">
+                                    Activid..
+                                </button>
                             </div>
                             <div class="col-sm-4">
                                 <h5>Descripción</h5>
@@ -191,29 +173,20 @@
                             </div>
                             <div class="col-sm-2">
                                 <h5>Grado</h5>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnEm_grado"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        2° grado
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                        <li><a class="dropdown-item" href="#">Apellido</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    2° grado
+                                </button>
                             </div>
                             <div class="col-sm-3">
                                 <h5>Asignatura</h5>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnEm_grado"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        Estudios Sociales
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                        <li><a class="dropdown-item" href="#">Apellido</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    Estudios Sociales
+                                </button>
+
+                                <h5>Fecha de entrega</h5>
+                                <p>27/03/2023</p>
                             </div>
                         </div>
                     </div>
