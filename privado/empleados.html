@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <title>Gestión De Personal</title>
+</head>
+
+<body id="private">
+
+    <!---------------------- Modals ------------------------>
+    <!--modal para informacion del docente-->
+    <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informacion del docente</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h5>Nombre</h5>
+                            <p>Ramón Ricardo</p>
+                        </div>
+                        <div class="col-sm">
+                            <h5>Apellido</h5>
+                            <p>Ramirez Martinez</p>
+                        </div>
+                        <div class="col-sm">
+                            <h5>DUI</h5>
+                            <p>3451232-3</p>
+                        </div>
+                        <div class="col-sm">
+                            <h5>F.de nacimiento</h5>
+                            <p>10/08/1975</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <h5>Correo</h5>
+                            <p>RamonRam@gmail.com</p>
+
+                            <div class="row">
+                                <div class="col-7">
+                                    <h5>Teléfonos <img src="../recursos/iconos/icons8-más-30.png" alt=""></h5>
+                                    7777-7777 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
+                                    1234-5678 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <h5>Asignaturas</h5>
+                            <div id="Asignaturas_Mod" class="row">
+                                <div class="col">
+                                    <p>Matematicas</p>
+                                    <p>Sociales</p>
+                                    <p>Lenguaje</p>
+                                    <p>Ciencias</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5>Dirección</h5>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, facilis et. Saepe, illum
+                            earum amet omnis recusandae maiores laboriosam ab deserunt temporibus? Libero autem
+                            perspiciatis provident, placeat eaque exercitationem animi.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal para actividades-->
+    <div class="modal fade" id="ModalDocentesAct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informacion del docente</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <h5>Nombre</h5>
+                            <p>Ramón Ricardo Ramirez Martinez</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <button id="btnEm_grado" type="button" class="btn btn-primary" disabled>2° grado</button>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-primary " data-mdb-toggle="dropdown"
+                                aria-expanded="false" id="btnEm_grado">
+                                Estudios Sociales
+                            </button>
+
+                        </div>
+                    </div>
+                    <!--tabla-->
+                    <div id="table_act" class="row">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <h5>Actividad</h5>
+                                <p>actividad cotidiana 1</p>
+                                <button class="btn btn-primary" type="button" id="btnTipo_Act"
+                                    data-mdb-toggle="dropdown">
+                                    Activid..
+                                </button>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>Descripción</h5>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quae deserunt
+                                    nostrum
+                                    molestiae cumque ipsum, optio beatae et saepe eum error ducimus vel maiores
+                                    assumenda
+                                    tenetur dolorem aliquam facilis pariatur.</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <h5>%</h5>
+                                <p>15%</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <h5>Grado</h5>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    2° grado
+                                </button>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <h5>Asignatura</h5>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    Estudios Sociales
+                                </button>
+                                <h5>Fecha de entrega</h5>
+                                <p>27/03/2023</p>
+
+                            </div>
+                        </div>
+
+                        <hr class="hr" />
+
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <h5>Actividad</h5>
+                                <p>actividad cotidiana 1</p>
+                                <button class="btn btn-primary  " type="button" id="btnTipo_Act"
+                                    data-mdb-toggle="dropdown">
+                                    Activid..
+                                </button>
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>Descripción</h5>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quae deserunt
+                                    nostrum
+                                    molestiae cumque ipsum, optio beatae et saepe eum error ducimus vel maiores
+                                    assumenda
+                                    tenetur dolorem aliquam facilis pariatur.</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <h5>%</h5>
+                                <p>15%</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <h5>Grado</h5>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    2° grado
+                                </button>
+                            </div>
+                            <div class="col-sm-3">
+                                <h5>Asignatura</h5>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    Estudios Sociales
+                                </button>
+
+                                <h5>Fecha de entrega</h5>
+                                <p>27/03/2023</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="nav-private">
+        <div class="container-fluid">
+            <!-- Boton desplegable -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                    <img src="../recursos/logo.png" alt="MDB Logo" loading="lazy" width="100" height="50" />
+                </a>
+                <h2>Gestion de Personal</h2>
+            </div>
+            <div class="d-flex align-items-center">
+                <!-- Avatar -->
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                        id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25"
+                            alt="Black and White Portrait of a Man" loading="lazy" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                        <li>
+                            <a class="dropdown-item" href="#">My profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Settings</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <main>
+        <!--Sección Principal-->
+
+        <div class="container">
+            <div class="row align-items-center" id="colDivEM">
+                <div class="col-sm-2">
+                    <!--añadir empleados boton-->
+                    <button type="button" class="btn" id="btnEmpleados">añadir empleados</button>
+                </div>
+                <div class="col-10">
+                    <!--buscador-->
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="search" id="form1" class="form-control" />
+                            <label class="form-label" for="form1">Search</label>
+                        </div>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="colDivEM">
+                <!--filtros empleados-->
+                <div class="col-sm-2">
+                    <h3>filtrar por:</h3>
+                </div>
+                <div class="col-sm-2">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
+                            data-mdb-toggle="dropdown" aria-expanded="false">
+                            A-Z
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Nombre</a></li>
+                            <li><a class="dropdown-item" href="#">Apellido</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
+                            data-mdb-toggle="dropdown" aria-expanded="false">
+                            Descendente
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Ascendente</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Mostrar Docentes <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" checked
+                                        id="flexSwitchCheckDefault" />
+                                </div>
+                            </h6>
+
+                            <div class="col">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!----------------------------------tablA------------------------>
+        <div class="container" id="TablaEm">
+            <!--row de categorias-->
+            <div class="row" id="titulos">
+                <div class="col-sm text-center">
+                    <h3>Apellido</h3>
+                </div>
+                <div class="col-sm text-center">
+                    <h3>Nombre</h3>
+                </div>
+                <div class="col-sm text-center">
+                    <h3>Teléfono</h3>
+                </div>
+                <div class="col-sm text-center">
+                    <h3>Correo</h3>
+                </div>
+                <div class="col-sm">
+
+                </div>
+
+            </div>
+
+
+            <!--rows con datos-->
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Ramirez Martinez</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Ramón Ricardo</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>1234-5678</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>RamirezRam@gmail.com</p>
+                </div>
+                <div class="col-sm text-center">
+                    <div class="row">
+                        <div class="col-sm">
+                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesAct"><img
+                                    src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp"></button>
+                        </div>
+                        <div class="col-sm">
+                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesInfo"><img src="../recursos/iconos/icons8-editar-30.png"
+                                    id="icon_emp"></button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <hr class="hr" />
+            <!----->
+
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Ramirez Martinez</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Ramón Ricardo</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>1234-5678</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>RamirezRam@gmail.com</p>
+                </div>
+                <div class="col-sm text-center">
+                    <div class="row">
+                        <div class="col-sm">
+                            <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
+                        </div>
+                        <div class="col-sm">
+                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <hr class="hr" />
+
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Ramirez Martinez</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Ramón Ricardo</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>1234-5678</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>RamirezRam@gmail.com</p>
+                </div>
+                <div class="col-sm text-center">
+                    <div class="row">
+                        <div class="col-sm">
+                            <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
+                        </div>
+                        <div class="col-sm">
+                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <hr class="hr" />
+
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Ramirez Martinez</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Ramón Ricardo</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>1234-5678</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>RamirezRam@gmail.com</p>
+                </div>
+                <div class="col-sm text-center">
+                    <div class="row">
+                        <div class="col-sm">
+                            <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
+                        </div>
+                        <div class="col-sm">
+                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <hr class="hr" />
+
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Ramirez Martinez</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Ramón Ricardo</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>1234-5678</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>RamirezRam@gmail.com</p>
+                </div>
+                <div class="col-sm text-center">
+                    <div class="row">
+                        <div class="col-sm">
+                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal" data-mdb-target=""><img
+                                    src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp"></button>
+                        </div>
+                        <div class="col-sm">
+                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesInfo"><img src="../recursos/iconos/icons8-editar-30.png"
+                                    id="icon_emp"></button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+    <footer>
+        <footer class="bg-dark text-center text-white">
+            <div class="container p-4 pb-0">
+                <!-- Seccion: Social -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-facebook-f"></i></a>
+
+                    <!-- Twitter -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-twitter"></i></a>
+
+                    <!-- Google -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-google"></i></a>
+
+                    <!-- Instagram -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-instagram"></i></a>
+
+                    <!-- Linkedin -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </section>
+            </div>
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </footer>
+
+    <!--JavaScrip-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+</body>
+
+</html>

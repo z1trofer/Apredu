@@ -37,3 +37,86 @@ main{
 table{
     background-color: rgb(207, 207, 207);
 }
+
+
+/*------------------------------------------------------EMPLEADOS-----------------------------------------*/
+/*Contenido*/
+#btnEmpleados{
+    background-color: #60BDDE;
+}
+
+#buscarEm{
+
+    border-bottom: solid black;
+}
+
+#colDivEM{
+    margin-top: 20px;
+}
+
+#dropform{
+    background-color: #60BDDE;
+    color: black;
+}
+
+#TablaEm{
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding-top: 20px;
+    background-color: #BFBFBF;
+    color: #4C4A59;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#icon_emp{
+    height: 30px;
+}
+
+.hr{
+    color: black;
+    border-width: 1px;
+    border: solid gray ;
+}
+
+#titulos{
+    border-bottom: solid black;
+    margin-bottom: 10px;
+}
+
+#btnInfoDocente{
+    border: none;
+    background: none;
+}
+
+/*Modal informacion de docente*/
+
+#ModalDocentesInfo{
+    font-size: 15px;
+}
+
+#btnEm_grado{
+    background-color: #7B7B7B;
+    color: black;
+    word-wrap: break-word;
+}
+
+#table_act{
+    background-color: #C7C7C7;
+    border-radius: 15px;
+    padding-top: 20px;
+    font-size: small;
+}
+
+#btnTipo_Act{
+    color: black;
+    background-color: #7B7B7B;
+    word-wrap: break-word;
+    width: 100px;
+    font-size: 10px;
+}
+
+#Asignaturas_Mod{
+    border-radius: 10px;
+    background-color: #ADADAD;
+}
