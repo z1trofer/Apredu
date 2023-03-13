@@ -10,6 +10,7 @@
 }
 
 
+
 #xd{
     margin-top: 90px;
     
@@ -34,8 +35,9 @@ main{
     margin-top: 150px;
 }
 
-table{
+#tabla{
     background-color: rgb(207, 207, 207);
+    margin-bottom: 20px;
 }
 
 

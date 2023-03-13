@@ -13,49 +13,63 @@
 
 <body id="private">
 
-    <head>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="nav-private">
-            <div class="container-fluid">
-                <!-- Boton desplegable -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="img_navbar">
+                <img src="../recursos/logo.png" style="width: 9rem;" alt="">
+            </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <a class="navbar-brand mt-2 mt-lg-0" href="#">
-                        <img src="../recursos/logo.png" alt="MDB Logo" loading="lazy" width="100" height="50" />
-                    </a>
-                    <p>Notas del estudiante</p>
-                </div>
-                <div class="d-flex align-items-center">
-                    <!-- Avatar -->
-                    <div class="dropdown">
-                        <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
-                            id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
-                            aria-expanded="false">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
-                                height="25" alt="Black and White Portrait of a Man" loading="lazy" />
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                            <li>
-                                <a class="dropdown-item" href="#">My profile</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Settings</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+                <!-- Left links -->
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="empleados.html">Empleados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="estudiantes.html">Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="notas.html">notas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="estudiantes.html">Alumnos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="usuarios.html">Usuarios</a>
+                    </li>
+                </ul>
+                <!-- Left links -->
             </div>
-        </nav>
-        <!-- Navbar -->
-    </head>
+            <div class="dropdown">
+                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
+                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                    <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
+                        alt="Black and White Portrait of a Man" loading="lazy" />
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                    <li>
+                        <a class="dropdown-item" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
     <main>
         <!--Sección principal-->
         <div class="container">
@@ -70,15 +84,11 @@
                 </div>
                 <div class="col-4">
                     <h5>Año lectivo</h5>
-                    <select class="form-select" aria-label="Default select example" id="size-select"
-                        onchange="confirm('Año: '+this.value)">
-                        <script>
-                            var myDate = new Date();
-                            var year = myDate.getFullYear();
-                            for (var i = 2000; i < year + 1; i++) {
-                                document.write('<option value="' + i + '">' + i + '</option>');
-                            }
-                        </script>
+                    <select class="form-select" aria-label="Default select example" id="size-select">
+                        <option selected>2023</option>
+                        <option value="1">2024</option>
+                        <option value="2">2025</option>
+                        <option value="3">2026</option>
                     </select>
                 </div>
             </div>
@@ -86,7 +96,7 @@
 
         <br>
         <div class="container">
-            <table class="table">
+            <table class="table" id="tabla">
                 <thead>
                     <tr>
                         <th scope="col">Materia</th>
@@ -151,7 +161,7 @@
         </div>
     </main>
     <footer>
-        <footer class="bg-dark text-center text-white fixed-bottom">
+        <footer class="bg-dark text-center text-white">
             <div class="container p-4 pb-0">
                 <!-- Seccion: Social -->
                 <section class="mb-4">
