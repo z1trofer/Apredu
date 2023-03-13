@@ -205,7 +205,7 @@
         <!-- Container wrapper -->
         <div class="container">
             <!-- Navbar brand -->
-            <a class="img_navbar">
+            <a class="img_navbar" href="principal.html">
                 <img src="../recursos/logo.png" style="width: 9rem;" alt="">
             </a>
 
@@ -225,7 +225,7 @@
                         <a class="nav-link active" href="empleados.html">Empleados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="estudiantes.html">Actividades</a>
+                        <a class="nav-link active" href="actividades.html">Actividades</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="notas.html">notas</a>
@@ -264,7 +264,8 @@
             <div class="row align-items-center" id="colDivEM">
                 <div class="col-sm-2 EmpleadosBTN">
                     <!--añadir empleados boton-->
-                    <button type="button" class="btn" id="btnEmpleados">añadir empleados</button>
+                    <button type="button" class="btn" id="btnEmpleados" data-mdb-toggle="modal"
+                    data-mdb-target="#ModalDocentesInfo">añadir empleados</button>
                 </div>
                 <div class="col-10">
                     <!--buscador-->
@@ -326,185 +327,129 @@
             </div>
         </div>
         <!----------------------------------tablA------------------------>
-        <div class="container" id="TablaEm">
-            <!--row de categorias-->
-            <div class="row" id="titulos">
-                <div class="col-sm text-center">
-                    <h3>Apellido</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Nombre</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Teléfono</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Correo</h3>
-                </div>
-                <div class="col-sm">
+        <div class="container">
+            <table class="table table-striped" id="table-alum">
+                <thead>
+                    <tr>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>2345-1123</td>
+                        <td>Mark_Aasd@gmail.com</td>
 
-                </div>
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesAct">
+                                <img src="../recursos/iconos/notas.png" alt="">
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesInfo">
+                                <img src="../recursos/iconos/informacion.png" alt="">
+                            </button>
 
-            </div>
+                            <!-- Modal -->
+                       
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>2345-1123</td>
+                        <td>Mark_Aasd@gmail.com</td>
 
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesAct">
+                                <img src="../recursos/iconos/notas.png" alt="">
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesInfo">
+                                <img src="../recursos/iconos/informacion.png" alt="">
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>2345-1123</td>
+                        <td>Mark_Aasd@gmail.com</td>
 
-            <!--rows con datos-->
-            <div class="row">
-                <div class="col-sm text-center">
-                    <p>Ramirez Martinez</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>Ramón Ricardo</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>1234-5678</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>RamirezRam@gmail.com</p>
-                </div>
-                <div class="col-sm text-center">
-                    <div class="row">
-                        <div class="col-sm">
-                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesAct"><img
-                                    src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp"></button>
-                        </div>
-                        <div class="col-sm">
-                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesInfo"><img src="../recursos/iconos/icons8-editar-30.png"
-                                    id="icon_emp"></button>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
-            <hr class="hr" />
-            <!----->
-
-            <div class="row">
-                <div class="col-sm text-center">
-                    <p>Ramirez Martinez</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>Ramón Ricardo</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>1234-5678</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>RamirezRam@gmail.com</p>
-                </div>
-                <div class="col-sm text-center">
-                    <div class="row">
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
-                        </div>
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
-                        </div>
-                    </div>
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesAct">
+                                <img src="../recursos/iconos/notas.png" alt="">
+                            </button>
 
 
-                </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesInfo">
+                                <img src="../recursos/iconos/informacion.png" alt="">
+                            </button>
 
-            </div>
+                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>2345-1123</td>
+                        <td>Mark_Aasd@gmail.com</td>
 
-            <hr class="hr" />
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesAct">
+                                <img src="../recursos/iconos/notas.png" alt="">
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesInfo">
+                                <img src="../recursos/iconos/informacion.png" alt="">
+                            </button>
 
-            <div class="row">
-                <div class="col-sm text-center">
-                    <p>Ramirez Martinez</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>Ramón Ricardo</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>1234-5678</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>RamirezRam@gmail.com</p>
-                </div>
-                <div class="col-sm text-center">
-                    <div class="row">
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
-                        </div>
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
-                        </div>
-                    </div>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>2345-1123</td>
+                        <td>Mark_Aasd@gmail.com</td>
 
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesAct">
+                                <img src="../recursos/iconos/notas.png" alt="">
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalDocentesInfo">
+                                <img src="../recursos/iconos/informacion.png" alt="">
+                            </button>
 
-                </div>
+                        
+                        </td>
+                    </tr>
+                    
+                </tbody>
 
-            </div>
-
-            <hr class="hr" />
-
-            <div class="row">
-                <div class="col-sm text-center">
-                    <p>Ramirez Martinez</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>Ramón Ricardo</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>1234-5678</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>RamirezRam@gmail.com</p>
-                </div>
-                <div class="col-sm text-center">
-                    <div class="row">
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp">
-                        </div>
-                        <div class="col-sm">
-                            <img src="../recursos/iconos/icons8-editar-30.png" id="icon_emp">
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
-
-            <hr class="hr" />
-
-            <div class="row">
-                <div class="col-sm text-center">
-                    <p>Ramirez Martinez</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>Ramón Ricardo</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>1234-5678</p>
-                </div>
-                <div class="col-sm text-center">
-                    <p>RamirezRam@gmail.com</p>
-                </div>
-                <div class="col-sm text-center">
-                    <div class="row">
-                        <div class="col-sm">
-                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal" data-mdb-target=""><img
-                                    src="../recursos/iconos/icons8-para-hacer-50.png" id="icon_emp"></button>
-                        </div>
-                        <div class="col-sm">
-                            <button id="btnInfoDocente" type="button" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesInfo"><img src="../recursos/iconos/icons8-editar-30.png"
-                                    id="icon_emp"></button>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
+            </table>
         </div>
-
     </main>
     <footer>
         <footer class="bg-dark text-center text-white">

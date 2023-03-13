@@ -7,10 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
-    <link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <title>Gestion Estudiante</title>
 </head>
 
@@ -21,7 +18,7 @@
         <!-- Container wrapper -->
         <div class="container">
             <!-- Navbar brand -->
-            <a class="img_navbar">
+            <a class="img_navbar" href="principal.html">
                 <img src="../recursos/logo.png" style="width: 9rem;" alt="">
             </a>
 
@@ -41,7 +38,7 @@
                         <a class="nav-link active" href="empleados.html">Empleados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="estudiantes.html">Actividades</a>
+                        <a class="nav-link active" href="actividades.html">Actividades</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="notas.html">notas</a>
@@ -78,7 +75,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-2">
-                    <button type="button" class="btn btn-primary">Button</button>
+                    <button type="button" class="btn btn-primary" id="btnEmpleados" data-mdb-toggle="modal"
+                    data-mdb-target="#ModalEstInfo">Añadir Estuidnate</button>
                 </div>
                 <div class="col-10">
 
@@ -102,12 +100,20 @@
                     <p>Filtar por:
                     </p>
                 </div>
-                <div class="col-10">
+                <div class="col-5">
                     <select class="form-select" aria-label="Default select example" id="size-select">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option selected>grados</option>
+                        <option value="1">nombre ascendente</option>
+                        <option value="2">nombre descendentes</option>
+                        <option value="3">apellido ascendente</option>
+                    </select>
+                </div>
+                <div class="col-5">
+                    <select class="form-select" aria-label="Default select example" id="size-select">
+                        <option selected>2° grado</option>
+                        <option value="1">3° grado</option>
+                        <option value="2">4° grado</option>
+                        <option value="3">5° grado</option>
                     </select>
                 </div>
             </div>
@@ -143,17 +149,51 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante
+                                                </h5>
                                                 <button type="button" class="btn-close" data-mdb-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h5>Nombre</h5>
+                                                        <p>Juan Pablo Dominguez Perez</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>Grado</h5>
+                                                        <p>segundo grado</p>
+                                                    </div>
+                                                </div>
+                                                <h5 class="text-center">fichas de conducta</h5>
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <h5>Docente</h5>
+                                                    </div>
+                                                    <div class="col text-center">
+                                                        <h5>Descripción</h5>
+                                                    </div>
+
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row FIcha">
+                                                        <div class="col text-center">
+                                                            <h5>Allan Carcamo</h5>
+                                                        </div>
+                                                        <div class="col text-center">
+                                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                                                Deserunt consectetur possimus quis recusandae alias. Commodi
+                                                                perferendis harum magnam quae sint inventore illum, vero tenetur
+                                                                dolor quo fugit molestiae impedit quas.</p>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-mdb-dismiss="modal">
-                                                    Cerrar
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                                                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success">Guardar Cambios</button>
                                             </div>
                                         </div>
                                     </div>
@@ -178,8 +218,10 @@
                                             <div class="modal-body">
                                                 <p>Nombre</p>
                                                 <p>Grado</p>
-                                                <button type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark">Ver actividades</button>
-                                                <button type="button" class="btn btn-outline-success" data-mdb-ripple-color="dark">Ver notas</button>
+                                                <button type="button" class="btn btn-outline-warning"
+                                                    data-mdb-ripple-color="dark">Ver actividades</button>
+                                                <button type="button" class="btn btn-outline-success"
+                                                    data-mdb-ripple-color="dark">Ver notas</button>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
@@ -194,27 +236,68 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                    data-mdb-target="#myModal3">
+                                    data-mdb-target="#ModalEstInfo">
                                     <img src="../recursos/iconos/informacion.png" alt="">
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="myModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
+                                <div class="modal fade" id="ModalEstInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Información estudiante</h5>
-                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                                <h5 class="modal-title" id="exampleModalLabel">Informacion del estudiante</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">...</div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <h5>Nombre</h5>
+                                                        <p>Juan Pablo</p>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h5>Apellido</h5>
+                                                        <p>Dominguez Perez</p>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h5>Grado</h5>
+                                                        <p>2° grado</p>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h5>F.de nacimiento</h5>
+                                                        <p>10/08/2014</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <h5>Dirección</h5>
+                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, facilis et. Saepe, illum
+                                                        earum amet omnis recusandae maiores laboriosam ab deserunt temporibus? Libero autem
+                                                        perspiciatis provident, placeat eaque exercitationem animi.
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <h5>NIE</h5>
+                                                        <p>345123</p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <h5>Responsables ante La Institución</h5>
+                                                        <div class="row EstResForm overflow-auto">
+                                                            <div class="col">
+                                                                <h5>Marta Alejandra Portillo Perez</h5>
+                                                                <p>Madre del alumno</p>
+                                                                tel: 1232-2323, 2327-6565
+                                                                <hr>
+                                                                <h5>Marta Alejandra Portillo Perez</h5>
+                                                                <p>Madre del alumno</p>
+                                                                tel: 1232-2323, 2327-6565
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-mdb-dismiss="modal">
-                                                    Cerrar
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                                                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success">Guardar Cambios</button>
                                             </div>
                                         </div>
                                     </div>
@@ -317,7 +400,7 @@
             </div>
     </main>
     <footer>
-        <footer class="bg-dark text-center text-white fixed-bottom">
+        <footer class="bg-dark text-center text-white">
             <div class="container p-4 pb-0">
                 <!-- Seccion: Social -->
                 <section class="mb-4">
