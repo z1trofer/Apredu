@@ -1,0 +1,170 @@
+nav {
+    height: 80px;
+}
+
+.encabezado {
+
+    display: flex;
+    justify-content: center;
+}
+
+.row_sobrenosotros {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: auto;
+
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    background: #DA5B32;
+    border-radius: 10px;
+    height: 200px;
+}
+
+#mision_vision {
+    color: white;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: auto;
+    line-height: 39px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.card-text {
+    color: white;
+
+
+
+}
+
+.niveles_educativos {
+    background-color: #4C4A59;
+    color: #4C4A59;
+}
+
+
+
+
+.container-2 {
+    background-color: #4C4A59;
+}
+
+#carta_mision {
+    margin-left: 20px;
+}
+
+#imgcarrusel {
+    margin-left: 210px;
+}
+
+#espacio {
+    margin-top: 20px;
+}
+
+#niveles {
+    position: relative;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+}
+
+#titulos_niveles {
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 31px;
+
+    color: #FFFFFF;
+}
+
+tbody {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+}
+
+#Servicios {
+    color: black;
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    padding: 3px;
+}
+
+#imagen_login {
+    width: 350px;
+    margin-left: -400px;
+    margin-top: -300px;
+    padding: 50px;
+}
+
+#imagen3_login {
+    width: 280px;
+    margin-top: auto;
+}
+
+.intro {
+    height: 100%;
+}
+
+
+
+.gradient-custom {
+    background: #0097B2;
+
+}
+
+#card_login {
+    background: #F5F5F5;
+    width: auto;
+    height: 380px;
+    border: 1px solid rgba(76, 74, 89, 0.31);
+
+}
+
+#boton_acceder {
+    width: 250px;
+    background-color: #0097B2;
+    color: #FFFFFF;
+}
+
+#inicio_sesion {
+
+    font-style: normal;
+    font-weight: 700;
+
+    line-height: 44px;
+
+    color: #0097B2;
+}
+
+.linea{
+    width: 300px;
+height: 0px;
+left: 700px;
+top: 501.14px;
+
+border: 1px solid rgba(76, 74, 89, 0.31);
+}

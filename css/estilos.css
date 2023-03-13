@@ -203,3 +203,293 @@ form label input {
     color: white;
     text-decoration: none;
 }
+
+/*DESDE AQUÍ materia_mate */
+
+#rectangulo_identificativo_mate{
+    position: absolute;
+width: 1440px;
+height: 150px;
+left: 0px;
+top: 100px;
+
+
+
+background: rgba(218, 91, 50, 0.48);
+}
+
+#Letra_rectangulo{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    color: #FFFFFF;
+}
+
+#pestañas_acceso{
+    margin-top: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+#ex1{
+margin-left: 50px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+
+
+color: #000000;
+}
+
+#ex1-tab-1-mate{
+    background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+#ex1-tab-mate{
+    background: rgba(218, 91, 50, 0.48);
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 10px;
+}
+
+#viñetas{
+    width: 15rem;
+    margin-top: 50px;
+}
+
+#descripcion_trimestre{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+line-height: 29px;
+text-align: center;
+
+/* identical to box height */
+
+
+color: #000000;
+}
+
+#portadas_mate{
+    width: 1050px;
+}
+
+#Actividades_cards{
+    margin-top: 20px;
+    background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.24);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 25px;
+margin-bottom: 20px;
+}
+
+#img_porcentajes{
+    width: 5rem;
+    margin-left: 150px;
+}
+
+/* Diferentes de materia_ciencias */
+
+#rectangulo_identificativo_ciencia{
+    position: absolute;
+    width: 1440px;
+    height: 150px;
+    left: 0px;
+    top: 100px;
+
+background: rgba(56, 179, 91, 0.48);
+}
+
+#ex1-tab-ciencia{
+    background: rgba(56, 179, 91, 0.48);
+border: 1px solid rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+#portadas_ciencias{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+   
+}
+
+/* DASHBOARD PUBLICO */
+#cuadro_usuario{
+    width: auto;
+height: 71px;
+left: 85px;
+top: 697px;
+
+background: rgba(76, 74, 89, 0.23);
+border-radius: 30px;
+}
+
+#nombre_usuario{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+    
+    
+    color: #000000;
+}
+
+#iconos_naranja{
+    margin-left: 150px;
+    width: 10rem;
+    padding: 10px;
+
+}
+
+#etiquetas_materias{
+    padding: 20px;
+    width: 600px;
+}
+
+#texto_seccion_dashboard{
+    text-align: center;
+    padding: 20px;
+
+}
+
+#card_evaluaciones{
+    margin-left: 90px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Diferentes de materia_lenguaje */
+
+#rectangulo_identificativo_lenguaje{
+    position: absolute;
+    width: 1440px;
+    height: 150px;
+    left: 0px;
+    top: 100px;
+
+background: rgb(222, 197, 53);
+}
+
+#ex1-tab-1-lenguaje{
+    background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+#ex1-tab-lenguaje{
+    background: rgb(249, 215, 45);
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 10px;
+}
+
+#portadas_lenguaje{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Diferentes de materia_sociales */
+
+#rectangulo_identificativo_sociales{
+    position: absolute;
+    width: 1440px;
+    height: 150px;
+    left: 0px;
+    top: 100px;
+
+background: rgb(37, 69, 144);
+}
+
+#ex1-tab-1-sociales{
+    background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+#ex1-tab-sociales{
+    background: rgb(50, 132, 199);
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 10px;
+}
+
+#portadas_sociales{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Diferentes de materia_ingles */
+
+#rectangulo_identificativo_ingles{
+    position: absolute;
+    width: 1440px;
+    height: 150px;
+    left: 0px;
+    top: 100px;
+
+background: rgb(53, 162, 213);
+}
+
+#ex1-tab-1-ingles{
+    background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+#ex1-tab-ingles{
+    background: rgb(97, 155, 202);
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 10px;
+}
+
+#portadas_ingles{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Diferentes de materia_computacion */
+
+#rectangulo_identificativo_computacion{
+    position: absolute;
+    width: 1440px;
+    height: 150px;
+    left: 0px;
+    top: 100px;
+
+background: rgb(92, 127, 148);
+}
+
+#ex1-tab-1-computacion{
+    background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+#ex1-tab-computacion{
+    background: rgb(104, 136, 163);
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 10px;
+}
+
+#portadas_computacion{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+}
