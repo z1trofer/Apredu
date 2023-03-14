@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <title>Notas del estudiante</title>
+    <title>Ingresar Notas</title>
 </head>
 
 <body id="private">
@@ -71,94 +71,88 @@
     </nav>
     <!-- Navbar -->
     <main>
-        <!--Sección principal-->
-        <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h4>Docente</h4>
+                <h5>Ramon Ricardo Ramirez Martinez</h5>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
+                        data-mdb-toggle="dropdown" aria-expanded="false">
+                        Primer Trimestre
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#">Segundo Trimestre</a></li>
+                        <li><a class="dropdown-item" href="#">Tercer Trimestre</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="Materias_Grid">
             <div class="row">
-                <div class="col-4">
-                    <h5>Nombre del estudiante:</h5>
-                    <p>Paul Eliseo Rivas Nolasco</p>
+                <div class="col">
+                    <div class="btn-group">
+                        <button
+                          class="btn btn-primary btn-lg dropdown-toggle"
+                          type="button"
+                          data-mdb-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Estudios Sociales
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">2° grado</a></li>
+                        </ul>
+                      </div>
                 </div>
-                <div class="col-4">
-                    <h5>Grado que cursa:</h5>
-                    <p>Primer Grado</p>
+                <div class="col">
+                    <div class="btn-group">
+                        <button
+                        class="btn btn-success btn-lg dropdown-toggle"
+                        type="button"
+                        data-mdb-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Ciencias Naturales
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">2° grado</a></li>
+                      </ul>
+                      </div>
                 </div>
-                <div class="col-4">
-                    <h5>Año lectivo</h5>
-                    <select class="form-select" aria-label="Default select example" id="size-select">
-                        <option selected>2023</option>
-                        <option value="1">2024</option>
-                        <option value="2">2025</option>
-                        <option value="3">2026</option>
-                    </select>
+                <div class="col">
+                    <div class="btn-group">
+                        <button
+                        class="btn btn-warning btn-lg dropdown-toggle"
+                        type="button"
+                        data-mdb-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Matematicas
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="notas_subir.html">2° grado</a></li>
+                      </ul>
+                      </div>
+                </div>
+                <div class="col">
+                    <div class="btn-group">
+                        <button
+                          class="btn btn-danger btn-lg dropdown-toggle"
+                          type="button"
+                          data-mdb-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Lenguaje y Literatura
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">2° grado</a></li>
+                        </ul>
+                      </div>
                 </div>
             </div>
         </div>
 
-        <br>
-        <div class="container">
-            <table class="table" id="tabla">
-                <thead>
-                    <tr>
-                        <th scope="col">Materia</th>
-                        <th scope="col">Primer trimestre</th>
-                        <th scope="col">Segundo trimestre</th>
-                        <th scope="col">Tecer trimestre</th>
-                        <th scope="col">Nota global</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Lenguaje</th>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Ciencias</th>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Matemáticas</th>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Sociales</th>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Ingles</th>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Ed. Fisica</th>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Computación</th>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>9</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
     </main>
     <footer>
         <footer class="bg-dark text-center text-white">
