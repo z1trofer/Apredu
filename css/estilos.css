@@ -59,6 +59,7 @@ main{
 #btnEmpleados{
     background-color: #60BDDE;
     color: #4C4A59;
+    margin-bottom: 20px;
 }
 
 #buscarEm{
@@ -89,11 +90,11 @@ main{
     height: 30px;
 }
 
-.hr{
+/*.hr{
     color: black;
     border-width: 1px;
     border: solid gray ;
-}
+}*/
 
 #titulos{
     border-bottom: solid black;
@@ -508,4 +509,19 @@ border-radius: 10px;
     width: 1000px;
     display: flex;
     justify-content: center;
+}
+
+
+/*-----------------------INGRESAR NOTAS DOCENTE----------------------------*/
+#Materias_Grid{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#repro{
+    color: red;
+}
+
+#apro{
+    color: green;
 }
