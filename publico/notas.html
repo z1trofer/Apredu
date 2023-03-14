@@ -35,7 +35,7 @@
                 <!-- Left links -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Dashboard</a>
+                        <a class="nav-link active" aria-current="page" href="dashboard.html">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Notas</a>
@@ -58,67 +58,146 @@
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
+    <main>
+        <div class="container">
+            <div class="row">
+                <img src="../recursos/portada_dashboard.png" alt="">
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <h4>Materias</h4>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-mdb-toggle="dropdown" aria-expanded="false">
+                            Trimestre 1
+                        </a>
 
-    <div class="container">
-        <div class="row">
-            <img src="../recursos/portada_dashboard.png" alt="">
-        </div>
-        <br>
-        <br>
-        <div class="row">
-            <div class="col">
-                <h4>Materias</h4>               
-            </div>
-            <div class="col">
-                <div class="dropdown">
-                    <a
-                      class="btn btn-primary dropdown-toggle"
-                      href="#"
-                      role="button"
-                      id="dropdownMenuLink"
-                      data-mdb-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Trimestre 1
-                    </a>
-                  
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Trimestre 2</a></li>
-                      <li><a class="dropdown-item" href="#">Trimestre 3</a></li>
-                      <li><a class="dropdown-item" href="#">Trimestre 4</a></li>
-                    </ul>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Trimestre 2</a></li>
+                            <li><a class="dropdown-item" href="#">Trimestre 3</a></li>
+                            <li><a class="dropdown-item" href="#">Trimestre 4</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <br>
-        <br>
-        <!----------------------------------tablA------------------------>
-        <div class="container" id="TablaNotas">
-            <!--row de categorias-->
-            <div class="row" id="titulos">
-                <div class="col-sm text-center">
-                    <h3>Materia</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Actividad 1</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Actividad 2</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Actividad 3</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Actividad 4</h3>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Promedio</h3>
-                </div>
+            <br>
+            <br>
+
+            <!----------------------------------tablA------------------------>
+            <div class="container">
+                <table class="table" id="tabla_notas">
+                    <thead>
+                        <tr id="tr_tabla">
+                            <th scope="col">Materia</th>
+                            <th scope="col">Actividad 1</th>
+                            <th scope="col">Actividad 2</th>
+                            <th scope="col">Actividad 3</th>
+                            <th scope="col">Actividad 4</th>
+                            <th scope="col">Promedio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Lenguaje</th>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ciencias</th>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Matemáticas</th>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sociales</th>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ingles</th>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ed. Fisica</th>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Computación</th>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>9</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <a href=""><button class="btn" id="btn_boleta">Generar boleta de notas</button></a>
             </div>
         </div>
-    </div>
-    
-    
+    </main>
+    <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <img src="../recursos/logo_abajo.png" style="width: 20rem;" alt="">
+            </section>
+            <div class="row">
+                <div class="col">
+                    DIRECCIÓN: San Salvador,El Salvador
+                </div>
+                <div class="col">
+                    CONTACTO:+503 7787-8604
+                </div>
+
+            </div>
+
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                    class="fab fa-facebook-f"></i></a>
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                    class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Copyright -->
+    </footer>
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 </body>

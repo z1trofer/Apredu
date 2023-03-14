@@ -525,3 +525,10 @@ border-radius: 10px;
 #apro{
     color: green;
 }
+
+/*-----------------------NOTAS PUBLICO----------------------------*/
+#btn_boleta{
+    background-color: #DA5B32;
+    color: white;
+    margin-bottom: 30px;
+}
