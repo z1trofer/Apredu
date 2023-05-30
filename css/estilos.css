@@ -209,11 +209,11 @@ form label input {
     color: #10a9c4;
 }
 
-#username::placeholder {
+#usuario::placeholder {
     color:rgb(223, 223, 223);
   }
 
-#password::placeholder {
+#clave::placeholder {
     color:rgb(223, 223, 223);
   }
 
