@@ -14,7 +14,8 @@ class Usuarios extends UsuariosQueries
     public $estado = null;
 
     //atributos xtra
-    public $tipo_empleado = null;
+    public $cargo = null;
+    public $id_cargo = null;
 
     /*
     *   Métodos para validar y asignar valores de los atributos.
@@ -70,10 +71,21 @@ class Usuarios extends UsuariosQueries
         }
     }
 
+    //tipo empleado
     public function setTipo_empleado($value)
     {
+        if (Validator::validateAlphanumeric($value, 1, 50)) {
+            $this->cargo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setId_cargo($value)
+    {
         if (Validator::validateNaturalNumber($value)) {
-            $this->tipo_empleado = $value;
+            $this->id_cargo = $value;
             return true;
         } else {
             return false;
@@ -111,6 +123,11 @@ class Usuarios extends UsuariosQueries
 
     public function getTipo_empleado()
     {
-        return $this->tipo_empleado;
+        return $this->cargo;
+    }
+
+    public function getId_cargo()
+    {
+        return $this->id_cargo;
     }
 }

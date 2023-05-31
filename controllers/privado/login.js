@@ -8,15 +8,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
     if (JSON.session) {
         // Se direcciona a la página web de bienvenida.
-        location.href = 'dashboard.html';
-    } else if (JSON.status) {
-        // Se muestra el formulario para iniciar sesión.
-        document.getElementById('login-container').removeAttribute("hidden");
-        sweetAlert(4, JSON.message, true);
+        location.href = 'principal.html';
     } else {
         // Se muestra el formulario para registrar el primer usuario.
-        document.getElementById('signup-container').removeAttribute("hidden");
-        sweetAlert(4, JSON.exception, true);
+        //sweetAlert(2, 'aaaaaa', false);
     }
 });
 
@@ -28,11 +23,14 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
     const FORM = new FormData(LOGIN_FORM);
     // Petición para iniciar sesión.
     const JSON = await dataFetch(USER_API, 'login', FORM);
-     
+    debugger
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        sweetAlert(1, JSON.message, true, 'dashboard.html');
+        console.log(JSON.message);
+        location.href = 'principal.html';
+        sweetAlert(1, JSON.message, true, 'principal.html');
     } else {
+        console.log(JSON.execption);
         sweetAlert(2, JSON.exception, false);
     }
 });

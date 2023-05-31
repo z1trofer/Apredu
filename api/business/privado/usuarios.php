@@ -14,11 +14,23 @@ if (isset($_GET['action'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
+            case 'getSession':
+                if (isset($_SESSION['usuario'])) {
+                    $result['status'] = 1;
+                    $result['session'] = 1;
+                    $result['usuario'] = $_SESSION['usuario'];
+                    $result['tipo'] = $_SESSION['tipo'];
+                    $result['id_cargo'] = $_SESSION['id_cargo'];
+                } else {
+                    $result['exception'] = 'La sesión ya no es válida';
+                }
+                break;
                 //Obtener el usuario administrador
             case 'getUser':
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
                     $result['usuario'] = $_SESSION['usuario'];
+                    $result['tipo'] = $_SESSION['tipo'];
                 } else {
                     $result['exception'] = 'Alias de usuario indefinido';
                 }
@@ -174,36 +186,48 @@ if (isset($_GET['action'])) {
     } else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET['action']) {
-            case 'getUser':
-                if (isset($_SESSION['usuario'])&&isset($_SESSION['tipo'])) {
-                    $result['status'] = 1;
-                    $result['session'] = 1;
-                    $result['usuario'] = $_SESSION['usuario'];
-                } else {
-                    $result['exception'] = 'La sesión ya no es válida';
-                }
-                break;
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Error con el usuario';
                 } elseif (!$usuario->setClave($_POST['clave'])) {
                     $result['exception'] = 'Error con la clave';
-                } elseif ($data = $usuario->LogIn()) {
-                    if ($data == false){
-                        $result['exception'] = 'Clave o Usuario incorrectos';
-                    } else if ($data == 'zzz') {
-                        $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
-                    } elseif ($data == true) {
-                        $_SESSION['id_usuario'] = $usuario->getId();
-                        $_SESSION['usuario'] = $usuario->getUser();
-                        $_SESSION['tipo'] = $usuario->getTipo_empleado();
-                        $result['dataset'] = $data;
-                        $result['status'] = 1;
-                        $result['message'] = 'Autenticación correcta';
-                    }
                 } else {
-                    $result['exception'] = 'Clave o Usuario incorrectos';
+                    $data = $usuario->LogIn($_POST['clave']);
+                }
+                if ($data == false) {
+                    $result['exception'] = 'Clave o contraseña incorrectos';
+                } /*else if ($data == 'zzz') {
+                        $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
+                    } */ elseif ($data != false) {
+                    $_SESSION['id_usuario'] = $usuario->getId();
+                    $_SESSION['usuario'] = $usuario->getUser();
+                    $_SESSION['tipo'] = $usuario->getTipo_empleado();
+                    $_SESSION['id_cargo'] = $usuario->getId_cargo();
+                    $result['dataset'] = $data;
+                    $result['status'] = 1;
+                    $result['message'] = 'Autenticación correcta';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+            case 'logOut':
+                if (session_destroy()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Sesión eliminada correctamente';
+                } else {
+                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
+                }
+                break;
+            case 'getSession':
+                if (isset($_SESSION['usuario'])) {
+                    $result['status'] = 1;
+                    $result['session'] = 1;
+                    $result['usuario'] = $_SESSION['usuario'];
+                    $result['tipo'] = $_SESSION['tipo'];
+                    $result['id_cargo'] = $_SESSION['id_cargo'];
+                } else {
+                    $result['exception'] = 'La sesión ya no es válida';
                 }
                 break;
             default:

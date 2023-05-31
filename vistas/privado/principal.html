@@ -12,62 +12,78 @@
 
 <body id="private">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <!-- Container wrapper -->
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="img_navbar" href="principal.html">
-                <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
-            </a>
-
-            <!-- Toggle button -->
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                <!-- Left links -->
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="empleados.html">Empleados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="actividades.html">Actividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="notas_ingresar.html">Notas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="estudiantes.html">Alumnos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="usuarios.html">Usuarios</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <div class="dropdown">
-                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                    <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                        alt="Black and White Portrait of a Man" loading="lazy" />
+    <header id="navbar">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <!-- Container wrapper -->
+            <div class="container">
+                <!-- Navbar brand -->
+                <a class="img_navbar" href="principal.html">
+                    <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
-                        <a class="dropdown-item" href="index.html">Logout</a>
-                    </li>
-                </ul>
+
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+                    <!-- Left links -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="empleados.html">Empleados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="actividades.html">Actividades</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="notas_ingresar.html">Notas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="estudiantes.html">Alumnos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="usuarios.html">Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="userActive" class="nav-link active">user</a>
+                            
+                        </li>
+                    </ul>
+                    <!-- Left links -->
+                </div>
+
+               <!-- <div class="row">
+                    <div class="col">
+                        <p>sdfgsdfd</p>
+                        <p>sdfgsdfd</p>
+                    </div>
+                </div>-->
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                        id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+
+
+                        <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
+                            alt="Black and White Portrait of a Man" loading="lazy" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                        <li>
+                            <a class="dropdown-item" href="index.html">DocenteS</a>
+                            <a class="dropdown-item" href="index.html">Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-    </nav>
+            <!-- Collapsible wrapper -->
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+    </header>
     <!-- Navbar -->
     <main>
         <!--Sección Principal-->
@@ -76,13 +92,13 @@
             <h1>¡Bienvenido de vuelta!</h1>
             <img src="../../recursos/logo.png" alt="">
             <div class="container" id="private-container">
-                <h4>
+                <h4 id="userM">
                     Sesión iniciada como: Admin1
                 </h4>
                 <h3>Selecciona la opcion de mantenimiento que deseas realizar</h3>
             </div>
             <div class="container">
-                <div class="row">
+                <div id='onlydocentes' class="row">
                     <div class="col-12 col-sm-9  col-md-9  col-lg-4 col-xl-4">
                         <a href="estudiantes.html"> <button hrft type="button" class="btn btn btn-rounded"
                                 id="button-private"> <img src="../../recursos/iconos/icons8-student-48.png" alt=""
@@ -91,7 +107,8 @@
                     </div>
                     <div class="col-12 col-sm-9  col-md-9  col-lg-4 col-xl-4">
                         <a href="empleados.html"><button type="button" class="btn btn btn-rounded"
-                                id="button-private"><img src="../../recursos/iconos/teacher.png" alt="" id="icon-private">
+                                id="button-private"><img src="../../recursos/iconos/teacher.png" alt=""
+                                    id="icon-private">
                                 Gestionar Empleados</button></a>
                         <p>Ver y actualizar la información y actividades cotidianas del personal.</p>
                     </div>
@@ -164,8 +181,11 @@
 
     <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="../../recursos/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/account.js"></script>
+    <script src="../../controllers/privado/principal.js"></script>
+
 </body>
 
 </html>
