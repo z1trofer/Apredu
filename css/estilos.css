@@ -533,3 +533,31 @@ border-radius: 10px;
     color: white;
     margin-bottom: 30px;
 }
+
+/*----------------------INPUT DEL NIE----------------------------*/
+#nie{
+    width: 100px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;  
+    outline: none;    
+}
+
+textarea, input.try{
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline: none;    
+}
+
+textarea.try{
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline: none;    
+}
+
+div.telefono{
+    background-color: #ebebeb;
+    border-radius: 10px;
+}
