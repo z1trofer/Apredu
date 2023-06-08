@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
 
-            
-            NAVBAR.innerHTML = `        <!-- Navbar -->
+            NAVBAR.innerHTML = `        
+            <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <!-- Container wrapper -->
                 <div class="container">
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <a class="nav-link active" href="usuarios.html">Usuarios</a>
                             </li>
                             <li class="nav-item">
-                            <a id="userActive" class="nav-link active">${JSON.usuario}</a>
+                            
                             </li>
                         </ul>
                         <!-- Left links -->
@@ -71,7 +71,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                             <li>
-                                <a class="dropdown-item">${JSON.tipo}</a>
+                            <a class="dropdown-item" id="userActive" class="nav-link active">${JSON.usuario}</a>
+                                <a class="dropdown-item">cargo: ${JSON.tipo}</a>
                                 <a class="dropdown-item" onclick="logOut()">Logout</a>
                             </li>
                         </ul>

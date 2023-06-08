@@ -13,62 +13,9 @@
 
 <body id="private">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <!-- Container wrapper -->
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="img_navbar" href="principal.html">
-                <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
-            </a>
-
-            <!-- Toggle button -->
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                <!-- Left links -->
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="empleados.html">Empleados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="actividades.html">Actividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="notas_ingresar.html">Notas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="estudiantes.html">Alumnos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="usuarios.html">Usuarios</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <div class="dropdown">
-                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                    <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                        alt="Black and White Portrait of a Man" loading="lazy" />
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
-                        <a class="dropdown-item" href="index.html">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-    </nav>
+    <header id="navbar">
+        
+    </header>
     <!-- Navbar -->
     <main>
         <!--Sección Principal-->
@@ -164,7 +111,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5>Nombre</h5>
-                                                    <p>Juan Pablo Dominguez Perez</p>
+                                                    <p>Javier Enrique</p>
                                                 </div>
                                                 <div class="col">
                                                     <h5>Grado</h5>
@@ -375,12 +322,13 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-sm">
+                                                    <input type="hidden" name="id_estudiante" id="id_estudiante">
                                                     <h5>Nombre</h5>
-                                                    <p>Juan Pablo</p>
+                                                    <input type="text" id="nombre_estudiante" name="nombre_estudiante" class="validate try" required>
                                                 </div>
                                                 <div class="col-sm">
                                                     <h5>Apellido</h5>
-                                                    <p>Dominguez Perez</p>
+                                                    <input type="text" id="apellido_estudiante" name="apellido_estudiante" class="validate try" required>
                                                 </div>
                                                 <div class="col-sm">
                                                     <h5>Grado</h5>
@@ -394,26 +342,24 @@
                                                 </div>
                                                 <div class="col-sm">
                                                     <h5>F.de nacimiento</h5>
-                                                    <p>10/08/2014</p>
+                                                    <input type="date" id="fecha_estudiante" name="fecha_estudiante" class="validate try" required>
                                                 </div>
                                             </div>
+                                            <br>
+                                            <br>
                                             <div class="row">
-                                                <div class="col-5">
+                                                <div class="col-4">
                                                     <h5>Dirección</h5>
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                    Ratione, facilis et. Saepe, illum
-                                                    earum amet omnis recusandae maiores laboriosam ab deserunt
-                                                    temporibus? Libero autem
-                                                    perspiciatis provident, placeat eaque exercitationem animi.
+                                                    <textarea name="direccion_estudiante" id="direccion_estudiante" class="Validate try" rows="3"></textarea>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <h5>NIE</h5>
-                                                    <p>345123</p>
+                                                    <input type="text" name="nie" id="nie" class="Validate try" required>
                                                 </div>
                                                 <div class="col-5">
                                                     <h5>Responsables ante La Institución</h5>
                                                     <div class="row EstResForm overflow-auto">
-                                                        <div class="col">
+                                                        <div class="col-5">
 
                                                             <h5>Marta Alejandra Portillo Perez</h5>
                                                             <p>Madre del alumno</p>
@@ -432,11 +378,12 @@
                                                 </div>
 
                                             </div>
+                                            <button type="button" class="btn btn-danger"
+                                            data-mdb-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-success">Guardar Cambios</button>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
-                                                data-mdb-dismiss="modal">Cancelar</button>
-                                            <button type="button" class="btn btn-success">Guardar Cambios</button>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -458,11 +405,8 @@
                                                 <h5>Alumno: Juan Pablo Perez Dominguez</h5>
                                                 <hr>
                                             </div>
-                                            <div class="row align-items-center">
-                                                <div class="col-9">
-                                                    <h5>Nombre</h5>
-                                                    <p>Marta Alejandra Portillo Perez</p>
-                                                </div>
+                                            <div class="row align-items-center">             
+                                                <h6>Alumno: Juan Pablo Perez Dominguez</h6>                                 
                                                 <div class="col-3">
                                                     <button type="button" class="btn btn-primary">Añadir +</button>
                                                 </div>
@@ -470,37 +414,40 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5>Nombres</h5>
-                                                    <p>Marta Alejandra</p>
+                                                    <input type="text" id="nombre_responsable" name="nombre_responsable" class="Validate try" required>
                                                 </div>
                                                 <div class="col">
                                                     <h5>Apellidos</h5>
-                                                    <p>Portillo Perez</p>
+                                                    <input type="text" id="apellido_responsable" name="apellido_responsable" class="Validate try" required>
                                                 </div>
                                                 <div class="col">
                                                     <h5>Correo</h5>
-                                                    <p>MartaAAS@gmail.com</p>
+                                                    <input type="text" id="correo_responsable" name="correo_responsable" class="Validate try" required>
                                                 </div>
                                             </div>
+                                            <br>
+                                            <br>
                                             <div class="row">
                                                 <div class="col">
                                                     <h5>DUI</h5>
-                                                    <p>2323222-2</p>
+                                                    <input type="text" id="dui" name="dui" class="Validate try" required>
                                                 </div>
-                                                <div class="col">
-                                                    <h5>Telefonos <img src="../recursos/iconos/icons8-más-30.png"
+                                                <div class="col telefono">
+                                                    <h5>Telefonos <img src="../../recursos/iconos/icons8-más-30.png"
                                                             alt=""></h5>
-                                                    <p>1233-5657 <img src="../recursos/iconos/icons8-menos-24.png">
+                                                    <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
                                                     </p>
-                                                    <p>1233-5657 <img src="../recursos/iconos/icons8-menos-24.png">
+                                                    <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
                                                     </p>
                                                 </div>
                                                 <div class="col">
                                                     <h5>Dirección</h5>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
-                                                        consequatur quisquam? Reprehenderit quaerat natus aspernatur
-                                                        rem. Perferendis iure accusantium dolores laudantium earum
-                                                        quas, in inventore cum sed ut, ea molestiae?</p>
+                                                    <textarea name="direccion_responsable" id="direccion_responsable" class="Validate try" rows="3"></textarea>
                                                 </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <h5>Parentesco</h5>
@@ -670,6 +617,9 @@
 
     <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="../../recursos/js/sweetalert.min.js"></script>
+    <script src="../../controllers/components.js"></script>
+    <script src="../../controllers/privado/account.js"></script>
 </body>
 
 </html>
