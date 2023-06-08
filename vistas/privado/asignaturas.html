@@ -1,71 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/estilos.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/estilos.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <title>Document</title>
 </head>
+
 <body>
-    <header id="navbar">
+  <header id="navbar">
 
-    </header>
-    <main>
+  </header>
+  <main>
 
-            <h1>Agregar asignaturas</h1>
-            <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <h4>agregar asignatura</h4>
-          <input class="visually-hidden" type="number" id="id" name="id">
-          <div class="input-field col s12 m6">
-            <label for="nombres">Nombre de la asignatura</label>
-              <input id="nombre" type="text" name="nombre" class="validate" required>            
+    <div class="container">
+      <h1>Agregar asignaturas</h1>
+      <!-- Button trigger modal -->
+      <button onclick="openCreate()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar asignatura
+      </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <div class="modal-body">
+            <form id="save-form" >
+              <h4>agregar asignatura</h4>
+              <input class="visually-hidden" type="number" id="id_asignatura" name="id_asignatura">
+              <div class="input-field col s12 m6">
+                <label for="nombres">Nombre de la asignatura</label>
+                <input id="asignatura" type="text" name="asignatura" class="validate" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-        <div class="container">        
-            <table class="table table-striped" id="table-alum">
+    <div class="container col-6">
+      <label>Buscar Asignatura:</label>
+      <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+  </div>
+      <div class="container">
+        <table class="table table-responsive-sm">
             <thead>
+                <tr id="records"></tr>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Grado</th>
+                  <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
                 </tr>
             </thead>
-            <tbody id="tbody-rows"></tbody>
-            </table>
-        </div>
+            <tbody id="tbody-rows">
+                
+            </tbody>
+        </table>
+    </div>
 
-    </main>
-    <footer>
 
-    </footer>
+  </main>
+  <footer>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="../../recursos/js/sweetalert.min.js"></script>
-    <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/account.js"></script>
+  </footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="../../recursos/js/sweetalert.min.js"></script>
+  <script src="../../controllers/components.js"></script>
+  <script src="../../controllers/privado/account.js"></script>
+  <script src="../../controllers/privado/asignaturas.js"></script>
 </body>
+
 </html>
