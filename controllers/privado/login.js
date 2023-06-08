@@ -23,7 +23,7 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
     const FORM = new FormData(LOGIN_FORM);
     // Petición para iniciar sesión.
     const JSON = await dataFetch(USER_API, 'login', FORM);
-    debugger
+     
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         console.log(JSON.message);

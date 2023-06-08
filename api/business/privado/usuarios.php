@@ -10,7 +10,7 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['id_empleado'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
@@ -194,22 +194,23 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Error con la clave';
                 } else {
                     $data = $usuario->LogIn($_POST['clave']);
+                    if ($data == false) {
+                        $result['exception'] = 'Clave o contraseña incorrectos';
+                    } else if ($data == 'zzz') {
+                            $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
+                        } elseif ($data != false) {
+                        $_SESSION['id_empleado'] = $usuario->getId();
+                        $_SESSION['usuario'] = $usuario->getUser();
+                        $_SESSION['tipo'] = $usuario->getTipo_empleado();
+                        $_SESSION['id_cargo'] = $usuario->getId_cargo();
+                        $result['dataset'] = $data;
+                        $result['status'] = 1;
+                        $result['message'] = 'Autenticación correcta';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
                 }
-                if ($data == false) {
-                    $result['exception'] = 'Clave o contraseña incorrectos';
-                } else if ($data == 'zzz') {
-                        $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
-                    } elseif ($data != false) {
-                    $_SESSION['id_empleado'] = $usuario->getId();
-                    $_SESSION['usuario'] = $usuario->getUser();
-                    $_SESSION['tipo'] = $usuario->getTipo_empleado();
-                    $_SESSION['id_cargo'] = $usuario->getId_cargo();
-                    $result['dataset'] = $data;
-                    $result['status'] = 1;
-                    $result['message'] = 'Autenticación correcta';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
+
                 break;
             case 'logOut':
                 if (session_destroy()) {

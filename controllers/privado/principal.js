@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function validarPermisos(){
-    debugger
+     
     switch (tipoUsuario) {
         case 2:
             document.getElementById('onlydocentes').hidden = true;
