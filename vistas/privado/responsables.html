@@ -30,18 +30,71 @@
         </div>
         <div class="modal-body">
           <form id="save-form">
-
-
-
+            <h4>Agregar Responsables</h4>
+            <input class="visually-hidden" type="number" id="id_asignatura" name="id_asignatura">
+            <div class="input-field col s12 m6">
+              <label for="nombres">Nombre</label>
+              <input id="nombres" type="text" name="nombres" class="validate form-control" required>
+            </div>
+            <div class="input-field col s12 m6">
+              <label for="apellidos">Apellidos</label>
+              <input id="apellidos" type="text" name="apellidos" class="validate form-control" required>
+            </div>
+            <div class="input-field col s12 m6">
+              <label for="dui">Dui</label>
+              <input id="dui" type="text" name="dui" class="validate form-control" required>
+            </div>
+            <div class="input-field col s12 m6">
+              <label for="correo">Correo</label>
+              <input id="correo" type="text" name="correo" class="validate form-control" required>
+            </div>
+            <div class="input-field col s12 m6">
+              <label for="lugar">Lugar de trabajo</label>
+              <input id="lugar" type="text" name="lugar" class="validate form-control" required>
+            </div>
+            <div class="input-field col s12 m6">
+              <label for="telefono">Telefono de trabajo</label>
+              <input id="telefono" type="text" name="telefono" class="validate form-control" required>
+            </div>
+            <div class="input-field col s12 m6">
+              <label for="parentesco">Parentesco</label>
+              <input id="parentesco" type="text" name="parentesco" class="validate form-control" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
   </div>
+        </div>
+
+
+        <div class="container col-6">
+          <label>Buscar Responsables:</label>
+          <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+      </div>
+          <div class="container">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr id="records"></tr>
+                    <tr>
+                      <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Dui</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Lugar</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Parentesco</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-rows">
+                    
+                </tbody>
+            </table>
         </div>
     </main>
     <footer>
@@ -55,5 +108,6 @@
     <script src="../../recursos/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/account.js"></script>
+    <script src="../../controllers/privado/responsablesVista.js"></script>
 </body>
 </html>
