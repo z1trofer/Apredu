@@ -197,8 +197,8 @@ if (isset($_GET['action'])) {
                     if ($data == false) {
                         $result['exception'] = 'Clave o contraseña incorrectos';
                     } else if ($data == 'zzz') {
-                            $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
-                        } elseif ($data != false) {
+                        $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
+                    } elseif ($data != false) {
                         $_SESSION['id_empleado'] = $usuario->getId();
                         $_SESSION['usuario'] = $usuario->getUser();
                         $_SESSION['tipo'] = $usuario->getTipo_empleado();
@@ -210,7 +210,6 @@ if (isset($_GET['action'])) {
                         $result['exception'] = Database::getException();
                     }
                 }
-
                 break;
             case 'logOut':
                 if (session_destroy()) {

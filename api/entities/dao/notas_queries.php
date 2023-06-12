@@ -17,10 +17,22 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
+    //Obtener los trimestres del año lectivo
     function ObtenerTrimestres($anio) {
         $sql = "SELECT trimestres.id_trimestre, trimestres.trimestre, anios.id_anio, anios.anio, trimestres.estado
         From trimestres INNER JOIN anios USING (id_anio) WHERE anios.anio = ?";
         $params = array($anio);
+        return Database::getRows($sql, $params);
+    }
+
+    //obtener actividades segun docente, asignatura y trimestre
+    function ObtenerActividades() {
+        $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad
+        from actividades
+        INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+        where id_empleado = ? and id_asignatura = ?
+        order by id_actividad asc";
+        $params = array($this->id_empleado,$this->id_asignatura);
         return Database::getRows($sql, $params);
     }
 

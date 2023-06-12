@@ -18,9 +18,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+
+//funcion para controlar las opciones disponibles segun el nivel de usuario
 function validarPermisos(){
      
     switch (tipoUsuario) {
+        //caso nivel de usuario docente/profesor
         case 2:
             document.getElementById('onlydocentes').hidden = true;
             things = document.getElementsByClassName('doc');
