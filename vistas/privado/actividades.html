@@ -12,63 +12,63 @@
 
 <body id="private">
     <!-- Navbar -->
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <!-- Container wrapper -->
-            <div class="container">
-                <!-- Navbar brand -->
-                <a class="img_navbar" href="principal.html">
-                    <img src="../recursos/logo.png" style="width: 9rem;" alt="">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="img_navbar" href="principal.html">
+                <img src="../recursos/logo.png" style="width: 9rem;" alt="">
+            </a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+                <!-- Left links -->
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="empleados.html">Empleados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="actividades.html">Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="notas_ingresar.html">Notas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="estudiantes.html">Alumnos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="usuarios.html">Usuarios</a>
+                    </li>
+                </ul>
+                <!-- Left links -->
+            </div>
+            <div class="dropdown">
+                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
+                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                    <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
+                        alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
-    
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                    <!-- Left links -->
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="empleados.html">Empleados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="actividades.html">Actividades</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="notas_ingresar.html">Notas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="estudiantes.html">Alumnos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="usuarios.html">Usuarios</a>
-                        </li>
-                    </ul>
-                    <!-- Left links -->
-                </div>
-                <div class="dropdown">
-                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-                        role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                        <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                            alt="Black and White Portrait of a Man" loading="lazy" />
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                        <li>
-                            <a class="dropdown-item" href="index.html">Logout</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                    <li>
+                        <a class="dropdown-item" href="index.html">Logout</a>
+                    </li>
+                </ul>
             </div>
-            <!-- Collapsible wrapper -->
-            </div>
-            <!-- Container wrapper -->
-        </nav>
-        <!-- Navbar -->
+        </div>
+        <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
     <main>
         <!--Sección Principal-->
 
@@ -76,7 +76,118 @@
             <div class="row align-items-center" id="colDivEM">
                 <div class="col-sm-2">
                     <!--añadir empleados boton-->
-                    <button type="button" class="btn" id="btnEmpleados">añadir Actividad</button>
+                    <button type="button" class="btn" id="btnEmpleados" data-mdb-toggle="modal"
+                        data-mdb-target="#ModalActividad" onclick="createActividades()">añadir Actividad</button>
+                </div>
+                <!-- comienzo del modal -->
+                <div class="modal fade" id="ModalActividad" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modal-title">Informacion del docente</h5>
+                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="save-form" method="post" action="">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <input class="visually-hidden-focusable" type="number" id="id" name="id">
+
+                                        <div class="col-sm">
+                                            <h5>Nombre de la actividad</h5>
+                                            <input id="nombre" name="nombre" type="text" class="form-control is-valid"
+                                                id="validationServer01" required>
+                                            <div class="invalid-feedback">
+                                                Por favor ingrese una datos en el área de texto.
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <h5>Ponderación</h5>
+                                            <div class="mb-3">
+                                                <select class="form-select" required aria-label="select example"
+                                                    id="ponderacion" name="ponderacion">
+                                                    <option value="">Seleccione una opcion</option>
+                                                    <option value="10">10</option>
+                                                    <option value="15">15</option>
+                                                    <option value="20">20</option>
+                                                    <option value="25">25</option>
+                                                    <option value="30">30</option>
+                                                    <option value="35">35</option>
+                                                    <option value="40">40</option>
+                                                    <option value="45">45</option>
+                                                    <option value="50">50</option>
+                                                </select>
+                                                <div class="invalid-feedback">Ejemplo de comentarios de selección no
+                                                    válidos
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <h5>Fecha límite</h5>
+                                            <input id="fecha_entrega" name="fecha_entrega" type="date"
+                                                class="form-control is-valid" id="validationServer01" required>
+                                            <div class="invalid-feedback">
+                                                Por favor ingrese una datos en el área de texto.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <h5>Tipo de actividad</h5>
+                                            <div class="mb-3">
+                                                <select class="form-select" required aria-label="select example"
+                                                    id="tipo_actividad" name="tipo_actividad">
+                                                    <option value="">Seleccione una opcion</option>
+                                                </select>
+                                                <div class="invalid-feedback">Ejemplo de comentarios de selección no
+                                                    válidos
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <h5>Asignación</h5>
+                                            <div class="mb-3">
+                                                <select class="form-select" required aria-label="select example"
+                                                    id="detalle" name="detalle">
+                                                    <option value="">Seleccione una opcion</option>
+                                                </select>
+                                                <div class="invalid-feedback">Ejemplo de comentarios de selección no
+                                                    válidos
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <h5>Trimestre</h5>
+                                            <div class="mb-3">
+                                                <select class="form-select" required aria-label="select example"
+                                                    id="trimestre" name="trimestre">
+                                                    <option value="">Seleccione una opcion</option>
+                                                </select>
+                                                <div class="invalid-feedback">Ejemplo de comentarios de selección no
+                                                    válidos
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <h5>Descripción</h5>
+                                            <textarea name="descripcion" id="descripcion" cols="40" rows="4"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger"
+                                        data-mdb-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-10">
                     <!--buscador-->
@@ -131,10 +242,10 @@
                     <p>Actividad Cotidiana 1</p>
 
                     <h3>Tipo de actividad</h3>
-                    <button class="btn btn-primary" type="button" id="btnEm_grado"
-                    data-mdb-toggle="dropdown" aria-expanded="false">
-                    Actividad Cotidiana
-                </button>
+                    <button class="btn btn-primary" type="button" id="btnEm_grado" data-mdb-toggle="dropdown"
+                        aria-expanded="false">
+                        Actividad Cotidiana
+                    </button>
                 </div>
                 <div class="col-sm text-center">
                     <h3>Descripción</h3>
@@ -162,10 +273,10 @@
                     <p>Examen de Trimestre</p>
 
                     <h3>Tipo de actividad</h3>
-                    <button class="btn btn-primary" type="button" id="btnEm_grado"
-                    data-mdb-toggle="dropdown" aria-expanded="false">
-                    Examen
-                </button>
+                    <button class="btn btn-primary" type="button" id="btnEm_grado" data-mdb-toggle="dropdown"
+                        aria-expanded="false">
+                        Examen
+                    </button>
                 </div>
                 <div class="col-sm text-center">
                     <h3>Descripción</h3>
@@ -181,7 +292,7 @@
                     <p>31/03/2023</p>
                 </div>
                 <div class="col-sm-1 text-center">
-                    <img src="../recursos/iconos/icons8-editar-30.png" alt="">
+                    <img src="../../recursos/iconos/icons8-editar-30.png" alt="">
                 </div>
             </div>
         </div>
@@ -217,13 +328,19 @@
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2023 Copyright:
                 <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
-              </div>
+            </div>
             <!-- Copyright -->
         </footer>
     </footer>
 
     <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="../../recursos/js/sweetalert.min.js"></script>
+    <script src="../../controllers/components.js"></script>
+
+    <script src="../../controllers/privado/account.js" defer></script>
+
+    <script src="../../controllers/privado/actividades.js"></script>
 </body>
 
 </html>
