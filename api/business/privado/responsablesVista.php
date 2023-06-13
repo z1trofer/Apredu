@@ -45,7 +45,7 @@ if (isset($_GET['action'])) {
                     else if (!$responsable->setParentesco($_POST['parentesco'])) {
                         $result['exception'] = 'Parentesco incorrectos';
                     }
-                     elseif ($responsable->createRow()) {
+                    elseif ($responsable->createRow()) {
                         $result['status'] = 1;
                         $result['message'] = 'Responsable creado correctamente';
                     } else {

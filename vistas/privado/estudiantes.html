@@ -21,12 +21,15 @@
         <!--Sección Principal-->
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12">
+                <div class="col-3 col-sm-2">
                     <button type="button" class="btn btn-primary" id="btnEmpleados" data-mdb-toggle="modal"
                         data-mdb-target="#ModalEstInfo">Añadir Estudiante</button>
                 </div>
+                <div class="col-3 col-sm-2">
+                    <button type="button" class="btn btn-primary" id="btnEmpleados" data-mdb-toggle="modal"
+                        data-mdb-target="#ModalEstResInfo">Añadir Responsable</button>
+                </div>
                 <div class="col-12 col-sm-12">
-
                     <div class="input-group">
                         <div class="form-outline">
                             <input type="search" id="form1" class="form-control" />
@@ -85,8 +88,9 @@
                             <th scope="col">Información</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody-rows">
                         <tr>
+                            ---
                             <td>Juan Pablo</td>
                             <td>Dominguez Perez</td>
                             <td>2° grado</td>
@@ -328,72 +332,75 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-sm">
-                                                    <input type="hidden" name="id_estudiante" id="id_estudiante">
-                                                    <h5>Nombre</h5>
-                                                    <input type="text" id="nombre_estudiante" name="nombre_estudiante"
-                                                        class="validate try" required>
-                                                </div>
-                                                <div class="col-sm">
-                                                    <h5>Apellido</h5>
-                                                    <input type="text" id="apellido_estudiante"
-                                                        name="apellido_estudiante" class="validate try" required>
-                                                </div>
-                                                <div class="col-sm">
-                                                    <h5>Grado</h5>
-                                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                                        id="dropform" data-mdb-toggle="dropdown" aria-expanded="false">
-                                                        2° grado
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item" href="#">3° grado</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-sm">
-                                                    <h5>F.de nacimiento</h5>
-                                                    <input type="date" id="fecha_estudiante" name="fecha_estudiante"
-                                                        class="validate try" required>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <h5>Dirección</h5>
-                                                    <textarea name="direccion_estudiante" id="direccion_estudiante"
-                                                        class="Validate try" rows="3"></textarea>
-                                                </div>
-                                                <div class="col-3">
-                                                    <h5>NIE</h5>
-                                                    <input type="text" name="nie" id="nie" class="Validate try"
-                                                        required>
-                                                </div>
-                                                <div class="col-5">
-                                                    <h5>Responsables ante La Institución</h5>
-                                                    <div class="row EstResForm overflow-auto">
-                                                        <div class="col-5">
-
-                                                            <h5>Marta Alejandra Portillo Perez</h5>
-                                                            <p>Madre del alumno</p>
-                                                            tel: 1232-2323, 2327-6565
-                                                            <hr>
-                                                            <h5>Marta Alejandra Portillo Perez</h5>
-                                                            <p>Madre del alumno</p>
-                                                            tel: 1232-2323, 2327-6565
-                                                            <hr>
-                                                            <button type="button" data-mdb-target="#ModalEstResInfo"
-                                                                data-mdb-toggle="modal" data-mdb-dismiss="modal"
-                                                                class="btn btn-primary">Agregar Responsable
-                                                                +</button>
-                                                        </div>
+                                            <form id="save-formE">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <input type="hidden" name="id_estudiante" id="id_estudiante">
+                                                        <h5>Nombre</h5>
+                                                        <input type="text" id="nombre_estudiante"
+                                                            name="nombre_estudiante" class="validate try" required>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h5>Apellido</h5>
+                                                        <input type="text" id="apellido_estudiante"
+                                                            name="apellido_estudiante" class="validate try" required>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h5>Grado</h5>
+                                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                                            id="dropform" data-mdb-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            2° grado
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <li><a class="dropdown-item" href="#">3° grado</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h5>F.de nacimiento</h5>
+                                                        <input type="date" id="fecha_estudiante" name="fecha_estudiante"
+                                                            class="validate try" required>
                                                     </div>
                                                 </div>
+                                                <br>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h5>Dirección</h5>
+                                                        <textarea name="direccion_estudiante" id="direccion_estudiante"
+                                                            class="Validate try" rows="3"></textarea>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <h5>NIE</h5>
+                                                        <input type="text" name="nie" id="nie" class="Validate try"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <h5>Responsables ante La Institución</h5>
+                                                        <div class="row EstResForm overflow-auto">
+                                                            <div class="col-5">
 
-                                            </div>
-                                            <button type="button" class="btn btn-danger"
-                                                data-mdb-dismiss="modal">Cancelar</button>
-                                            <button type="button" class="btn btn-success">Guardar Cambios</button>
+                                                                <h5>Marta Alejandra Portillo Perez</h5>
+                                                                <p>Madre del alumno</p>
+                                                                tel: 1232-2323, 2327-6565
+                                                                <hr>
+                                                                <h5>Marta Alejandra Portillo Perez</h5>
+                                                                <p>Madre del alumno</p>
+                                                                tel: 1232-2323, 2327-6565
+                                                                <hr>
+                                                                <button type="button" data-mdb-target="#ModalEstResInfo"
+                                                                    data-mdb-toggle="modal" data-mdb-dismiss="modal"
+                                                                    class="btn btn-primary">Agregar Responsable
+                                                                    +</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <button type="button" class="btn btn-danger"
+                                                    data-mdb-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                                            </form>
                                         </div>
                                         <div class="modal-footer">
 
@@ -401,7 +408,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!--modal responsable estudiante -->
                             <div class="modal fade" id="ModalEstResInfo" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -414,188 +420,105 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="row">
-                                                <h5>Alumno: Juan Pablo Perez Dominguez</h5>
-                                                <hr>
-                                            </div>
-                                            <div class="row align-items-center">
-                                                <h6>Alumno: Juan Pablo Perez Dominguez</h6>
-                                                <div class="col-3">
-                                                    <button type="button" class="btn btn-primary">Añadir +</button>
+                                            <form id="save-formR">
+                                                <div class="row">
+                                                    <h5>Alumno: Juan Pablo Perez Dominguez</h5>
+                                                    <hr>
+                                                    <input class="visually-hidden" type="text" id="id_responsable"
+                                                        name="id_responsable">
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h5>Nombres</h5>
-                                                    <input type="text" id="nombre_responsable" name="nombre_responsable"
-                                                        class="Validate try" required>
+                                                <div class="row align-items-center">
+                                                    <div class="col-3">
+                                                        <button type="submit" class="btn btn-primary" id="create">Añadir+</button>
+                                                    </div>
                                                 </div>
-                                                <div class="col">
-                                                    <h5>Apellidos</h5>
-                                                    <input type="text" id="apellido_responsable"
-                                                        name="apellido_responsable" class="Validate try" required>
-                                                </div>
-                                                <div class="col">
-                                                    <h5>Correo</h5>
-                                                    <input type="text" id="correo_responsable" name="correo_responsable"
-                                                        class="Validate try" required>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h5>DUI</h5>
-                                                    <input type="text" id="dui" name="dui" class="Validate try"
-                                                        required>
-                                                </div>
-                                                <div class="col telefono">
-                                                    <h5>Telefonos <img src="../../recursos/iconos/icons8-más-30.png"
-                                                            alt=""></h5>
-                                                    <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
-                                                    </p>
-                                                    <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
-                                                    </p>
-                                                </div>
-                                                <div class="col">
-                                                    <h5>Dirección</h5>
-                                                    <textarea name="direccion_responsable" id="direccion_responsable"
-                                                        class="Validate try" rows="3"></textarea>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <div>
                                                 <div class="row">
                                                     <div class="col">
+                                                        <h5>Nombres</h5>
+                                                        <input type="text" id="nombre_responsable"
+                                                            name="nombre_responsable" class="Validate try" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>Apellidos</h5>
+                                                        <input type="text" id="apellido_responsable"
+                                                            name="apellido_responsable" class="Validate try" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>Correo</h5>
+                                                        <input type="text" id="correo_responsable"
+                                                            name="correo_responsable" class="Validate try" required>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h5>DUI</h5>
+                                                        <input type="text" id="dui" name="dui" class="Validate try"
+                                                            required>
+                                                    </div>
+                                                    <div class="col telefono">
+                                                        <h5>Telefonos <img src="../../recursos/iconos/icons8-más-30.png"
+                                                                alt=""></h5>
+                                                        <p>1233-5657 <img
+                                                                src="../../recursos/iconos/icons8-menos-24.png">
+                                                        </p>
+                                                        <p>1233-5657 <img
+                                                                src="../../recursos/iconos/icons8-menos-24.png">
+                                                        </p>
+                                                    </div>
+                                                    <div class="col">
                                                         <h5>Parentesco</h5>
-                                                        <button class="btn btn-primary dropdown-toggle" type="button"
-                                                            id="dropform" data-mdb-toggle="dropdown"
+                                                        <button class="btn btn-primary dropdown-toggle"
+                                                            type="button" id="parentesco" name="parentesco" data-mdb-toggle="dropdown"
                                                             aria-expanded="false">
                                                             Madre
                                                         </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <li><a class="dropdown-item" href="#">Padre</a></li>
+                                                        <ul class="dropdown-menu"
+                                                            aria-labelledby="dropdownMenuButton">
+                                                            <li><a class="dropdown-item" onclick="opcionParentesco('Padre')">Padre</a></li>
+                                                            <li><a class="dropdown-item" onclick="opcionParentesco('Madre')">Madre</a></li>
+                                                            <li><a class="dropdown-item" onclick="opcionParentesco('Abuelo/a')">Abuelo/a</a></li>
+                                                            <li><a class="dropdown-item" onclick="opcionParentesco('Tío/a')">Tío/a</a></li>
+                                                            <li><a class="dropdown-item" onclick="opcionParentesco('Tutor legal')">Tutor legal</a></li>
                                                         </ul>
-                                                    </div>
-                                                    <div class="col">
-                                                        <h5>Lugar de trabajo</h5>
-                                                        <input type="text" id="trabajo" name="trabajo"
-                                                            class="Validate try" required>
-                                                    </div>
-                                                    <div class="col">
-                                                        <h5>Tel.Tabajo</h5>
-                                                        <input type="text" id="telefono_trabajo" name="telefono_trabajo"
-                                                            class="Validate try" required">
+                                                        <input class="visually-hidden" type="text" id="parentesco_responsable"
+                                                        name="parentesco_responsable">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <br>
-                                            <button type="button" data-mdb-target="#ModalEstInfo"
-                                                data-mdb-toggle="modal" data-mdb-dismiss="modal"
-                                                class="btn btn-danger">Cancelar
-                                            </button>
-                                            <button type="button" data-mdb-target="#ModalEstInfo"
-                                                data-mdb-toggle="modal" data-mdb-dismiss="modal"
-                                                class="btn btn-success">Guardar Cambios
-                                            </button>
+                                                <br>
+                                                <br>
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5>Lugar de trabajo</h5>
+                                                            <input type="text" id="trabajo" name="trabajo"
+                                                                class="Validate try" required>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h5>Tel.Tabajo</h5>
+                                                            <input type="text" id="telefono_trabajo"
+                                                                name="telefono_trabajo" class="Validate try" required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <button type="button" data-mdb-target="#ModalEstInfo"
+                                                    data-mdb-toggle="modal" data-mdb-dismiss="modal"
+                                                    class="btn btn-danger">Cancelar
+                                                </button>
+                                                <button type="button" data-mdb-target="#ModalEstInfo"
+                                                    data-mdb-toggle="modal" data-mdb-dismiss="modal"
+                                                    class="btn btn-success">Guardar Cambios
+                                                </button>
+                                            </form>
                                         </div>
-                                        
                                         <div class="modal-footer">
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>2° grado</td>
-                            <td><!-- Button trigger modal -->
-                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                    data-mdb-target="#myModal4">
-                                    <img src="../recursos/iconos/conducta.png" alt="">
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="myModal4" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Title</h5>
-                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">...</div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-mdb-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                    data-mdb-target="#myModal5">
-                                    <img src="../recursos/iconos/notas.png" alt="">
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="myModal5" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Title</h5>
-                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">...</div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-mdb-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                    data-mdb-target="#myModal6">
-                                    <img src="../recursos/iconos/informacion.png" alt="">
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="myModal6" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Title</h5>
-                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">...</div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-mdb-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -643,6 +566,7 @@
     <script src="../../recursos/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/account.js"></script>
+    <script src="../../controllers/privado/estudiantes.js"></script>
 </body>
 
 </html>
