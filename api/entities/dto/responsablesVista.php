@@ -80,7 +80,7 @@ class ResponsablesVista extends ResponsablesVistaQueries{
 
     public function setTelefonoTrabajo($value)
     {
-        if (Validator::validatePhone($value)) {
+        if (Validator::validateAlphanumeric($value, 1, 60)) {
             $this->telefono_trabajo = $value;
             return true;
         } else {
@@ -110,6 +110,11 @@ class ResponsablesVista extends ResponsablesVistaQueries{
     public function getNombreResponsable()
     {
         return $this->nombre_responsable;
+    }
+
+    public function getApellidoResponsable()
+    {
+        return $this->apellido_responsable;
     }
 
     public function getDui()

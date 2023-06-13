@@ -10,8 +10,8 @@ class ResponsablesVistaQueries
     public function createRow()
     {
         $sql = 'INSERT INTO responsables(nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco)
-        VALUES ( ?,?,?,?,?,?,?);';
-        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono_trabajo, $this->parentesco, $_SESSION['id_empleado']);
+        VALUES ( ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono_trabajo, $this->parentesco);
         return Database::executeRow($sql, $params);
     }
 
