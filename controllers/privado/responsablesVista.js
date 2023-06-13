@@ -99,15 +99,21 @@ function openCreate() {
 async function openUpdate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('id_asignatura', id);
+    FORM.append('id_responsable', id);
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(RESPONSABLES_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
       SAVE_FORM.reset();
         // Se inicializan los campos del formulario.
-        document.getElementById('id_asignatura').value = JSON.dataset.id_asignatura;
-        document.getElementById('asignatura').value = JSON.dataset.asignatura;
+        document.getElementById('id_responsable').value = JSON.dataset.id_responsable;
+        document.getElementById('nombres').value = JSON.dataset.nombre_responsable;
+        document.getElementById('apellidos').value = JSON.dataset.apellido_responsable;
+        document.getElementById('dui').value = JSON.dataset.dui;
+        document.getElementById('correo').value = JSON.dataset.correo_responsable;
+        document.getElementById('lugar').value = JSON.dataset.lugar_de_trabajo;
+        document.getElementById('telefono').value = JSON.dataset.telefono_trabajo;
+        document.getElementById('parentesco').value = JSON.dataset.parentesco;
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -125,7 +131,7 @@ async function openDelete(id) {
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('id_subcategoria', id);
+        FORM.append('id_responsable', id);
         // Petición para eliminar el registro seleccionado.
         const JSON = await dataFetch(RESPONSABLES_API, 'delete', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.

@@ -80,7 +80,7 @@ class ResponsablesVista extends ResponsablesVistaQueries{
 
     public function setTelefonoTrabajo($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 60)) {
+        if (Validator::validatePhone($value)) {
             $this->telefono_trabajo = $value;
             return true;
         } else {

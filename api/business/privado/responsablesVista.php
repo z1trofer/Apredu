@@ -51,7 +51,6 @@ if (isset($_GET['action'])) {
             case 'readOne':
                 if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
                     $result['exception'] = 'responsable incorrecto';
-                    print_r($_POST);
                 } elseif ($result['dataset'] = $responsable->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
@@ -67,19 +66,19 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Responsable incorrecto';
                     } elseif (!$responsable->readOne()) {
                         $result['exception'] = 'Responsable inexistente';
-                    }else if (!$responsable->setNombresResponsable($_POST['asignatura'])) {
+                    }else if (!$responsable->setNombresResponsable($_POST['nombres'])) {
                         $result['exception'] = 'Nombres incorrectos';
-                    } else if (!$responsable->setApellidosResponsable($_POST['asignatura'])) {
+                    } else if (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
                         $result['exception'] = 'Apellidos incorrectos';
-                    }else if (!$responsable->setDui($_POST[''])) {
+                    }else if (!$responsable->setDui($_POST['dui'])) {
                         $result['exception'] = 'Dui incorrectos';
-                    } else if (!$responsable->setCorreo($_POST[''])) {
+                    } else if (!$responsable->setCorreo($_POST['correo'])) {
                         $result['exception'] = 'Correo incorrectos';
-                    }else if (!$responsable->setLugarTrabajo($_POST[''])) {
+                    }else if (!$responsable->setLugarTrabajo($_POST['lugar'])) {
                         $result['exception'] = 'Lugar incorrectos';
-                    } else if (!$responsable->setTelefonoTrabajo($_POST[''])) {
+                    } else if (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
                         $result['exception'] = 'Telefono incorrectos';
-                    }else if (!$responsable->setParentesco($_POST[''])) {
+                    }else if (!$responsable->setParentesco($_POST['parentesco'])) {
                         $result['exception'] = 'Parentesco incorrectos';
                     }elseif ($responsable->updateRow()) {
                         $result['status'] = 1;

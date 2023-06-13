@@ -40,7 +40,7 @@ class ResponsablesVistaQueries
         $sql = 'UPDATE responsables
                 SET nombre_responsable =?, apellido_responsable =?, dui =?, correo_responsable =?, lugar_de_trabajo =?, telefono_trabajo =?, parentesco=? 
                 WHERE id_responsable = ?';
-        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo_responsable, $this->lugar_de_trabajo, $this->telefono_trabajo, $this->parentesco,  $this->id_responsable);
+        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono_trabajo, $this->parentesco,  $this->id_responsable);
         return Database::executeRow($sql, $params);
     }
 
