@@ -9,7 +9,7 @@ class ResponsablesQueries
         $sql = 'INSERT INTO responsables(
             nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco)
             VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono_trabajo, $this->parentesco, $_SESSION['id_empleado']);
+        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono_trabajo, $this->parentesco);
         return Database::executeRow($sql, $params);
     }
 
@@ -20,7 +20,7 @@ class ResponsablesQueries
         id_responsable, nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco
         FROM responsables
         ORDER BY nombre_responsable';
-        return Database::getRows($sql)
+        return Database::getRows($sql);
     }
 
     //Método para consultar una columna específica de la tabla por medio de su id

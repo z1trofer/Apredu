@@ -12,12 +12,12 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
                 //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
                 case 'readAll':
-                if ($result['dataset'] = $estudiante->readAll()) {
+                if ($result['dataset'] = $estudiante->readEstudiantes()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen '.count($result['dataset']).' registros';
                 } elseif (Database::getException()) {
@@ -26,25 +26,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-                //Acción para buscar un dato en la tabla de clientes
-            case 'search':
-                $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
-                    $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $categoria->searchRows($_POST['search'])) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay coincidencias';
-                }
-                break;
                  //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readEstudiante':
-                if (!$estudiante->setId($_POST['id'])) {
+                if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
                     $result['exception'] = 'estudiante incorrecto';
-                } elseif ($result['dataset'] = $cliente->readOne()) {
+                } elseif ($result['dataset'] = $estudiante->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -52,6 +38,48 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'cliente inexistente';
                 }
                 break;
+            case 'createResponsable':
+                $_POST = Validator::validateForm($_POST);
+                if (!$responsable->setNombresResponsable($_POST['nombre_responsable'])) {
+                    $result['exception'] = 'Nombres incorrectos';
+                } elseif (!$responsable->setApellidosResponsable($_POST['apellido_responsable'])) {
+                    $result['exception'] = 'Apellidos incorrectos';
+                } elseif (!$responsable->setDui($_POST['dui'])) {
+                    $result['exception'] = 'Dui incorrecto';
+                }elseif (!$responsable->setCorreo($_POST['correo_responsable'])) {
+                    $result['exception'] = 'Correo incorrecto';
+                }elseif (!$responsable->setLugarTrabajo($_POST['trabajo'])) {
+                    $result['exception'] = 'Lugar de trabajo incorrecto';
+                }  elseif (!$responsable->setTelefonoTrabajo($_POST['telefono_trabajo'])) {
+                    $result['exception'] = 'Telefono de trabajo incorrecto';
+                }elseif (!$responsable->setParentesco($_POST['parentesco_responsable'])) {
+                    $result['exception'] = 'Parentesco incorrecto';
+                }elseif ($responsable->createResponsable()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Usuario creado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+                case 'create':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$estudiante->setNombresEstudiante($_POST['nombre_estudiante'])) {
+                        $result['exception'] = 'Nombres incorrectos';
+                    } elseif (!$estudiante->setApellidos($_POST['apellido'])) {
+                        $result['exception'] = 'Apellidos incorrectos';
+                    } elseif (!$estudiante->setCorreo($_POST['correo'])) {
+                        $result['exception'] = 'Correo incorrecto';
+                    } elseif (!$estudiante->setAlias($_POST['alias'])) {
+                        $result['exception'] = 'Alias incorrecto';
+                    }  elseif (!$estudiante->setClave($_POST['clave'])) {
+                        $result['exception'] = Validator::getPasswordError();
+                    }   elseif ($estudiante->createRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Usuario creado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
                 // Acción para actualizar un dato en la tabla de clientes
             case 'update':
                 $_POST = Validator::validateForm($_POST);

@@ -2,7 +2,7 @@
 require_once('../../helpers/validator.php');
 require_once('../../entities/dao/responsables_queries.php');
 
-class Resposnables extends ResponsablesQueries{
+class Responsables extends ResponsablesQueries{
 
         //Atributos del responsable
         public $id_responsable = null;
@@ -30,7 +30,7 @@ class Resposnables extends ResponsablesQueries{
 
     public function setNombresResponsable($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 60)) {
+        if (Validator::validateAlphabetic($value, 1, 30)) {
             $this->nombre_responsable = $value;
             return true;
         } else {
@@ -40,7 +40,7 @@ class Resposnables extends ResponsablesQueries{
 
     public function setApellidosResponsable($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 60)) {
+        if (Validator::validateAlphabetic($value, 1, 30)) {
             $this->apellido_responsable = $value;
             return true;
         } else {
@@ -122,9 +122,9 @@ class Resposnables extends ResponsablesQueries{
         return $this->correo;
     }
 
-    public function getNombreResponsable()
+    public function getApellidoResponsable()
     {
-        return $this->nombre_responsable;
+        return $this->apellido_responsable;
     }
 
     public function getLugarTrabajo()
