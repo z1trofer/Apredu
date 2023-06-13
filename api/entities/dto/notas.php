@@ -9,6 +9,7 @@ class Notas extends NotasQueries
     // Declaración de atributos, notas.
     public $id_empleado = null;
     public $id_asignatura = null;
+    public $id_trimestre = null;
     public $id_grado = null;
     /*
     *   Métodos para validar y asignar valores de los atributos.
@@ -34,10 +35,20 @@ class Notas extends NotasQueries
         }
     }
 
+    public function setId_trimestre($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_trimestre = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function setId_grado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->id_grado;
+            $this->id_grado = $value;
             return true;
         } else {
             return false;
@@ -56,6 +67,11 @@ class Notas extends NotasQueries
     public function getId_asignatura()
     {
         return $this->id_asignatura;
+    }
+
+    public function getId_trimestre()
+    {
+        return $this->id_trimestre;
     }
 
     public function getId_grado()

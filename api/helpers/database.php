@@ -21,7 +21,7 @@ class Database
     {
         try {
             // Se crea la conexión mediante la clase PDO con el controlador de PostgreSQL.
-            self::$connection = new PDO('pgsql:host=' . SERVER . ';dbname=' . DATABASE . ';port=5432', USERNAME, PASSWORD);
+            self::$connection = new PDO('mysql:host=' . SERVER . ';dbname=' . DATABASE, USERNAME, PASSWORD);
             // Se prepara la sentencia SQL.
             self::$statement = self::$connection->prepare($query);
             // Se ejecuta la sentencia preparada y se retorna el resultado.
@@ -89,23 +89,26 @@ class Database
         self::$error = $message . PHP_EOL;
         // Se compara el código del error para establecer un error personalizado.
         switch ($code) {
-            case '7':
-                self::$error = 'Existe un problema al conectar con el servidor';
+            case '2002':
+                self::$error = 'Servidor desconocido';
                 break;
-            case '42703':
-                self::$error = $message;
+            case '1049':
+                self::$error = 'Base de datos desconocida';
                 break;
-            case '23505':
-                self::$error = 'Violación de unicidad';
+            case '1045':
+                self::$error = 'Acceso denegado';
                 break;
-            case '42P01':
-                self::$error = 'Nombre de tabla desconocido';
+            case '42S02':
+                self::$error = 'Tabla no encontrada';
                 break;
-            case '23503':
-                self::$error = 'Violación de llave foránea';
+            case '42S22':
+                self::$error = 'Columna no encontrada';
+                break;
+            case '23000':
+                self::$error = 'Violación de restricción de integridad';
                 break;
             default:
-                self::$error = 'Ocurrió un problema en la base de datos'.$message;
+                self::$error = 'Ocurrió un problema en la base de datos';
         }
     }
 

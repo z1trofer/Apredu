@@ -17,20 +17,10 @@ let id_trimestre = null;
 let trimestre = null;
 
 
-/*
-console.log(
-    DATE.getHours(),
-    DATE.toLocaleString('es-SV', {
-      timeZone: 'America/El_Salvador',
-    }),
-    DATE.toLocaleTimeString('de-DE', {
-        timeZone: 'Europe/Berlin',
-        
-      })+' berlin',
-      DATE.getFullYear(),
-      DATE.getHours()
-  ); // 👉️ "1/15/2022, 11:54:44 PM"
-*/
+document.addEventListener('DOMContentLoaded', async () => {
+    await CargarTrimestres();
+    CargarAsignaturas();
+});
 
 async function CargarTrimestres() {
     //se instancia un formulario
@@ -55,13 +45,15 @@ async function CargarTrimestres() {
                 trimestre = row.trimestre;
                 document.getElementById('TrimestreSelect').innerHTML = row.trimestre;
                 dropdown.innerHTML += `
-                <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.trimestre}')">${row.trimestre}</a></li>
+                <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
                 `
             }
 
         });
+        return true;
     } else {
         console.log('error al cargar los trimestres');
+        return false;
     }
 }
 
@@ -87,7 +79,7 @@ async function CargarAsignaturas(){
                 debugger
                 //si la respuesta es true solo se agrega el grado a la asignatura ya ingresada
                 document.getElementById('grados' + row.id_asignatura).innerHTML += `
-                <li><a class="dropdown-item" href="notas_subir.html?asignatura=${row.id_asignatura}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
+                <li><a class="dropdown-item" href="notas_subir.html?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
 
             `;
             } else {
@@ -106,7 +98,8 @@ async function CargarAsignaturas(){
                   ${row.asignatura}
                 </button>
                 <ul class="dropdown-menu" id="grados${row.id_asignatura}">
-                  <li><a class="dropdown-item" href="notas_subir.html?asignatura=${row.id_asignatura}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
+                  <li><a class="dropdown-item" 
+                  href="notas_subir.html?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
                 </ul>
               </div>
         </div>
@@ -116,19 +109,19 @@ async function CargarAsignaturas(){
 
                 //se compara el id de la asignatura para asignar un color al boton
                 switch (row.id_asignatura) {
-                    case 1:
+                    case "1":
                         color.className = "btn btn-warning btn-lg dropdown-toggle";
                         break;
-                    case 2:
+                    case "2":
                         color.className = "btn btn-success btn-lg dropdown-toggle";
                         break;
-                    case 4:
+                    case "4":
                         color.className = "btn btn-secondary btn-lg dropdown-toggle";
                         break;
-                    case 5:
+                    case "5":
                         color.className = "btn btn-dark btn-lg dropdown-toggle";
                         break;
-                    case 6:
+                    case "6":
                         color.className = "btn btn-danger btn-lg dropdown-toggle";
                         break;
                     default:
@@ -148,16 +141,9 @@ async function CargarAsignaturas(){
  
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-
-
-        CargarTrimestres();
-        CargarAsignaturas();
-
-});
-
 //funcion para cambiar el trimestre seleccionado
-function OpcionTrimestre(trimestreFun) {
+function OpcionTrimestre(id_trimestreFun, trimestreFun) {
+    id_trimestre = id_trimestreFun;
     trimestre = trimestreFun;
     document.getElementById('TrimestreSelect').innerHTML = trimestre;
 };

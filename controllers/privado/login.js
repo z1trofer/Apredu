@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Método manejador de eventos para cuando se envía el formulario de inicio de sesión.
 LOGIN_FORM.addEventListener('submit', async (event) => {
+    debugger
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.

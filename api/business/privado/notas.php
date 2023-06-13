@@ -29,9 +29,25 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if ($result['dataset'] = $notas->ObtenerTrimestres($_POST['anio'])) {
                     $result['status'] = 1;
-                } else{
+                } else {
                     $result['exception'] = 'Error al obtener los trimestres';
-                } 
+                }
+                break;
+            case 'ObtenerActividades':
+                $_POST = Validator::validateForm($_POST);
+                if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'empleado incorrecto'.$_SESSION['id_empleado'];
+                } elseif (!$notas->setId_asignatura($_POST['asignatura'])) {
+                    $result['exception'] = 'asignatura, incorrecta';
+                } elseif (!$notas->setId_trimestre($_POST['trimestre'])) {
+                    $result['exception'] = 'trimestre incorrecto';
+                } elseif (!$notas->setId_grado($_POST['grado'])) {
+                    $result['exception'] = 'grado0 incorrecto';
+                } elseif ($result['dataset'] = $notas->ObtenerActividades()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = $result['exception'] = Database::getException().$_SESSION['id_empleado'];
+                }
                 break;
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
