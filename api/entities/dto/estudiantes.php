@@ -15,6 +15,7 @@ class Estudiantes extends EstudiantesQueries{
     public $usuario_estudiante = null;
     public $clave = null;
     public $estado = null; //por defecto null en la base
+    public $id_nota = null;
     
     //Setter del estudiante
     public function setIdEstudiante($value)

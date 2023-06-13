@@ -23,7 +23,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-                //Acción para crear un nueva subcategoría 
+                //Acción para crear un nuevo Responsable 
                 case 'create':
                     $_POST = Validator::validateForm($_POST);
                     if (!$responsable->setNombresResponsable($_POST['nombres'])) {
@@ -32,20 +32,15 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Apellidos incorrectos';
                     }else if (!$responsable->setDui($_POST['dui'])) {
                         $result['exception'] = 'Dui incorrectos';
-                    }
-                    else if (!$responsable->setCorreo($_POST['correo'])) {
+                    }else if (!$responsable->setCorreo($_POST['correo'])) {
                         $result['exception'] = 'Correo incorrectos';
-                    }
-                    else if (!$responsable->setLugarTrabajo($_POST['lugar'])) {
+                    }else if (!$responsable->setLugarTrabajo($_POST['lugar'])) {
                         $result['exception'] = 'Lugar incorrectos';
-                    }
-                    else if (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
+                    } else if (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
                         $result['exception'] = 'Telefono incorrectos';
-                    }
-                    else if (!$responsable->setParentesco($_POST['parentesco'])) {
+                    } else if (!$responsable->setParentesco($_POST['parentesco'])) {
                         $result['exception'] = 'Parentesco incorrectos';
-                    }
-                     elseif ($responsable->createRow()) {
+                    } elseif ($responsable->createRow()) {
                         $result['status'] = 1;
                         $result['message'] = 'Responsable creado correctamente';
                     } else {
