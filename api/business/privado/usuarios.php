@@ -21,6 +21,7 @@ if (isset($_GET['action'])) {
                     $result['usuario'] = $_SESSION['usuario'];
                     $result['tipo'] = $_SESSION['tipo'];
                     $result['id_cargo'] = $_SESSION['id_cargo'];
+                    $result['id_empleado'] = $_SESSION['id_empleado'];
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
@@ -195,10 +196,10 @@ if (isset($_GET['action'])) {
                 } else {
                     $data = $usuario->LogIn($_POST['clave']);
                     if ($data == false) {
-                        $result['exception'] = 'Clave o contraseña incorrectos';
+                        $result['exception'] = Database::getException();
                     } else if ($data == 'zzz') {
-                            $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
-                        } elseif ($data != false) {
+                        $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
+                    } elseif ($data != false) {
                         $_SESSION['id_empleado'] = $usuario->getId();
                         $_SESSION['usuario'] = $usuario->getUser();
                         $_SESSION['tipo'] = $usuario->getTipo_empleado();
@@ -210,7 +211,6 @@ if (isset($_GET['action'])) {
                         $result['exception'] = Database::getException();
                     }
                 }
-
                 break;
             case 'logOut':
                 if (session_destroy()) {
@@ -227,6 +227,7 @@ if (isset($_GET['action'])) {
                     $result['usuario'] = $_SESSION['usuario'];
                     $result['tipo'] = $_SESSION['tipo'];
                     $result['id_cargo'] = $_SESSION['id_cargo'];
+                    $result['id_empleado'] = $_SESSION['id_empleado'];
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
                 }

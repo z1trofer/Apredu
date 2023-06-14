@@ -29,9 +29,51 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if ($result['dataset'] = $notas->ObtenerTrimestres($_POST['anio'])) {
                     $result['status'] = 1;
-                } else{
+                } else {
                     $result['exception'] = 'Error al obtener los trimestres';
-                } 
+                }
+                break;
+            case 'ObtenerActividades':
+                $_POST = Validator::validateForm($_POST);
+                if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'empleado incorrecto';
+                } elseif (!$notas->setId_asignatura($_POST['asignatura'])) {
+                    $result['exception'] = 'asignatura, incorrecta';
+                } elseif (!$notas->setId_trimestre($_POST['trimestre'])) {
+                    $result['exception'] = 'trimestre incorrecto';
+                } elseif (!$notas->setId_grado($_POST['grado'])) {
+                    $result['exception'] = 'grado0 incorrecto';
+                } elseif ($result['dataset'] = $notas->ObtenerActividades()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            case 'ObtenerActividad':
+                $_POST = Validator::validateForm($_POST);
+                if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'empleado incorrecto';
+                } elseif (!$notas->setId_actividad($_POST['actividad'])) {
+                    $result['exception'] = 'asignatura, incorrecta';
+                } elseif ($result['dataset'] = $notas->ObtenerActividad()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            case 'ActualizarNotas':
+                $_POST = Validator::validateForm($_POST);
+                if (!$notas->setId_nota($_POST['id'])) {
+                    $result['exception'] = 'No Hay id nota';
+                } elseif ($notas->CambiarNotas($_POST['nota'])) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = Database::getException();
+                }
                 break;
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';

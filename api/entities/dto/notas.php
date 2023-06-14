@@ -9,7 +9,10 @@ class Notas extends NotasQueries
     // Declaración de atributos, notas.
     public $id_empleado = null;
     public $id_asignatura = null;
+    public $id_trimestre = null;
     public $id_grado = null;
+    public $id_actividad = null;
+    public $id_nota = null;
     /*
     *   Métodos para validar y asignar valores de los atributos.
     */
@@ -34,15 +37,46 @@ class Notas extends NotasQueries
         }
     }
 
-    public function setId_grado($value)
+    public function setId_trimestre($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->id_grado;
+            $this->id_trimestre = $value;
             return true;
         } else {
             return false;
         }
     }
+
+    public function setId_grado($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_grado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setId_actividad($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_actividad = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setId_nota($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_nota = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
     /*
@@ -58,8 +92,23 @@ class Notas extends NotasQueries
         return $this->id_asignatura;
     }
 
+    public function getId_trimestre()
+    {
+        return $this->id_trimestre;
+    }
+
     public function getId_grado()
     {
         return $this->id_grado;
+    }
+
+    public function getId_actividad()
+    {
+        return $this->id_actividad;
+    }
+
+    public function getId_nota()
+    {
+        return $this->id_nota;
     }
 }

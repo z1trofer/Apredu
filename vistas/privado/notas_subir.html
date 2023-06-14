@@ -14,61 +14,10 @@
 <body id="private">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <!-- Container wrapper -->
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="img_navbar" href="principal.html">
-                <img src="../recursos/logo.png" style="width: 9rem;" alt="">
-            </a>
+    <header id="navbar">
+        <!-- Navbar -->
 
-            <!-- Toggle button -->
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                <!-- Left links -->
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="empleados.html">Empleados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="actividades.html">Actividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="notas_ingresar.html">Notas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="estudiantes.html">Alumnos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="usuarios.html">Usuarios</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <div class="dropdown">
-                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                    <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                        alt="Black and White Portrait of a Man" loading="lazy" />
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
-                        <a class="dropdown-item" href="index.html">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-    </nav>
+    </header>
     <!-- Navbar -->
     <main>
         <!--Sección principal-->
@@ -76,19 +25,50 @@
                 <div class="row">
                     <div class="col text-center">
                         <h4>Docente</h4>
-                        <h5>Ramon Ricardo Ramirez Martinez</h5>
+                        <h5 id="docenteNota">Ramon Ricardo Ramirez Martinez</h5>
                     
                     </div>
                 </div>
                 <div class="row">
                     <div class="col text-center">
-                        <p>2° grado</p>
+                        <p id="gradoNota">2° grado</p>
                     </div>
                     <div class="col text-center">
-                        <p>Primer Trimestre</p>
+                        <p id="trimestreNota">Primer Trimestre</p>
                     </div>
                     <div class="col text-center">
-                        <p>Matematicas</p>
+                        <p id="asignaturaNota">Matematicas</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="btnactividad"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Actividad...
+                            </button>
+                            <ul id="activiadadlist" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="actvdetalles" class="margin row" hidden>
+                    <div class="col text-center">
+                        <H4>Ponderación</H4>
+                        <p id="txtponderacion">25%
+                        </p>
+                    </div>
+                    <div class="col">
+                        <H4>Descripción</H4>
+                        <p id="txtdescripcion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sunt enim animi nesciunt sapiente voluptates non facere! Quos, tenetur repellat, est ratione doloribus delectus a eligendi commodi aspernatur totam dolor.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary" type="button" id="btnsubir" aria-expanded="false" onclick="UpdateNotas()">
+                        Guardar Cambios
+                        </button>
                     </div>
                 </div>
 
@@ -102,53 +82,34 @@
                         <th scope="col">#</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Nombres</th>
-                        <th scope="col">actividad cotidiana 1</th>
-                        <th scope="col">actividad cotidiana 2</th>
-                        <th scope="col">examen</th>
-                        <th scope="col">Promedio</th>
+                        <th scope="col">nota</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="rows_actividades">
+                   <tr>
                         <th scope="col">1</th>
                         <th scope="col">Alvarez Figueroa</th>
                         <th scope="col">Jaime Ricardo</th>
                         <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
-                        <th scope="col" id="apro">10</th>
-                        <th scope="col" id="apro">8</th>
                     </tr>
                     <tr>
                         <th scope="col">2</th>
                         <th scope="col">Bermudez Cartajena</th>
                         <th scope="col">Juan Fransisco</th>
-                        <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
-                        <th scope="col" id="apro">10</th>
                         <th scope="col" id="apro">8</th>
                     </tr>
                     <tr>
                         <th scope="col">3</th>
                         <th scope="col">Cornejo Perez</th>
                         <th scope="col">Alejandra Elizabeth</th>
-                        <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
                         <th scope="col" id="apro">10</th>
-                        <th scope="col" id="apro">8</th>
                     </tr>
                     <tr>
                         <th scope="col">4</th>
                         <th scope="col">Zelaya Garcia</th>
                         <th scope="col">Rodolfo Antonio</th>
-                        <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
-                        <th scope="col" id="apro">10</th>
-                        <th scope="col" id="apro">8</th>
-                    </tr>
-
-                </tr>
-
-                
+                        <th scope="col" id="repro"><input id="input" value="23"></th>
+                    </tr>    
                 </tbody>
             </table>
         </div>
@@ -190,6 +151,10 @@
 
     <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="../../recursos/js/sweetalert.min.js"></script>
+    <script src="../../controllers/components.js"></script>
+    <script src="../../controllers/privado/account.js"></script>
+    <script src="../../controllers/privado/notas_subir.js"></script>
 </body>
 
 </html>
