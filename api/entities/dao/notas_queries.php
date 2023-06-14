@@ -33,8 +33,23 @@ class NotasQueries
         where id_empleado = ? and id_asignatura = ? and id_trimestre = ? and id_grado = ?
         order by id_actividad asc";
         $params = array($this->id_empleado, $this->id_asignatura, $this->id_trimestre, $this->id_grado);
-        //return $params;
         return Database::getRows($sql, $params);
     }
+
+    function ObtenerActividad() {
+        $sql = "SELECT  id_nota, ROW_NUMBER() OVER(ORDER BY estudiantes.apellido_estudiante asc) as 'n_lista', estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, actividades.nombre_actividad, actividades.descripcion, actividades.ponderacion, notas.nota from notas 
+        INNER JOIN estudiantes USING(id_estudiante) INNER JOIN actividades USING (id_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
+        where id_actividad = ? and detalle_asignaturas_empleados.id_empleado = ?";
+        $params = array($this->id_actividad, $this->id_empleado);
+        return Database::getRows($sql, $params);
+    }
+
+    function CambiarNotas($nota) {
+        $sql = "UPDATE notas SET nota = ? where id_nota = ?";
+        $params = array($nota, $this->id_nota);
+        return Database::executeRow($sql, $params);
+    }
+
 
 }

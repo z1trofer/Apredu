@@ -519,11 +519,11 @@ border-radius: 10px;
     margin-bottom: 50px;
 }
 
-#repro{
+.repro{
     color: red;
 }
 
-#apro{
+.apro{
     color: green;
 }
 
@@ -535,6 +535,22 @@ border-radius: 10px;
 #TrimestreSelect{
     background:rgb(53, 162, 213);
 }
+
+.notaIn{
+    background-color:#a5a4a4;
+    font-size: 14px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    /*border-width: 1px;
+
+    border-color: #727272;*/
+}
+
+.margin{
+    margin-top: 20px;
+}
+
 
 
 /*-----------------------NOTAS PUBLICO----------------------------*/

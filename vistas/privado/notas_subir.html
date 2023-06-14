@@ -52,6 +52,25 @@
                         </div>
                     </div>
                 </div>
+                <div id="actvdetalles" class="margin row" hidden>
+                    <div class="col text-center">
+                        <H4>Ponderación</H4>
+                        <p id="txtponderacion">25%
+                        </p>
+                    </div>
+                    <div class="col">
+                        <H4>Descripción</H4>
+                        <p id="txtdescripcion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sunt enim animi nesciunt sapiente voluptates non facere! Quos, tenetur repellat, est ratione doloribus delectus a eligendi commodi aspernatur totam dolor.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary" type="button" id="btnsubir" aria-expanded="false" onclick="UpdateNotas()">
+                        Guardar Cambios
+                        </button>
+                    </div>
+                </div>
 
         </div>
 
@@ -63,53 +82,34 @@
                         <th scope="col">#</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Nombres</th>
-                        <th scope="col">actividad cotidiana 1</th>
-                        <th scope="col">actividad cotidiana 2</th>
-                        <th scope="col">examen</th>
-                        <th scope="col">Promedio</th>
+                        <th scope="col">nota</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="rows_actividades">
+                   <tr>
                         <th scope="col">1</th>
                         <th scope="col">Alvarez Figueroa</th>
                         <th scope="col">Jaime Ricardo</th>
                         <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
-                        <th scope="col" id="apro">10</th>
-                        <th scope="col" id="apro">8</th>
                     </tr>
                     <tr>
                         <th scope="col">2</th>
                         <th scope="col">Bermudez Cartajena</th>
                         <th scope="col">Juan Fransisco</th>
-                        <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
-                        <th scope="col" id="apro">10</th>
                         <th scope="col" id="apro">8</th>
                     </tr>
                     <tr>
                         <th scope="col">3</th>
                         <th scope="col">Cornejo Perez</th>
                         <th scope="col">Alejandra Elizabeth</th>
-                        <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
                         <th scope="col" id="apro">10</th>
-                        <th scope="col" id="apro">8</th>
                     </tr>
                     <tr>
                         <th scope="col">4</th>
                         <th scope="col">Zelaya Garcia</th>
                         <th scope="col">Rodolfo Antonio</th>
-                        <th scope="col" id="repro">5</th>
-                        <th scope="col" id="apro">8</th>
-                        <th scope="col" id="apro">10</th>
-                        <th scope="col" id="apro">8</th>
-                    </tr>
-
-                </tr>
-
-                
+                        <th scope="col" id="repro"><input id="input" value="23"></th>
+                    </tr>    
                 </tbody>
             </table>
         </div>
