@@ -22,6 +22,7 @@ class Database
         try {
             // Se crea la conexión mediante la clase PDO con el controlador de PostgreSQL.
             self::$connection = new PDO('mysql:host=' . SERVER . ';dbname=' . DATABASE, USERNAME, PASSWORD);
+
             // Se prepara la sentencia SQL.
             self::$statement = self::$connection->prepare($query);
             // Se ejecuta la sentencia preparada y se retorna el resultado.

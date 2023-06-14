@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/estilos.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <title>Responsables</title>
+</head>
+
+<body>
+  <header id="navbar">
+
+  </header>
+  <main>
+    <div class="container">
+      <h1>Responsables</h1>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar Responsables
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="save-form">
+                <h4>Agregar Responsables</h4>
+                <input class="-hidden" type="number" id="id_responsable" name="id_responsable">
+                <div class="input-field col s12 m6">
+                  <label for="nombres">Nombre</label>
+                  <input id="nombres" type="text" name="nombres" class="validate form-control" required>
+                </div>
+                <div class="input-field col s12 m6">
+                  <label for="apellidos">Apellidos</label>
+                  <input id="apellidos" type="text" name="apellidos" class="validate form-control" required>
+                </div>
+                <div class="input-field col s12 m6">
+                  <label for="dui">Dui</label>
+                  <input id="dui" type="text" name="dui" class="validate form-control" required>
+                </div>
+                <div class="input-field col s12 m6">
+                  <label for="correo">Correo</label>
+                  <input id="correo" type="text" name="correo" class="validate form-control" required>
+                </div>
+                <div class="input-field col s12 m6">
+                  <label for="lugar">Lugar de trabajo</label>
+                  <input id="lugar" type="text" name="lugar" class="validate form-control" required>
+                </div>
+                <div class="input-field col s12 m6">
+                  <label for="telefono">Telefono de trabajo</label>
+                  <input id="telefono" type="text" name="telefono" class="validate form-control" required>
+                </div>
+                <div class="input-field col s12 m6">
+                  <label for="parentesco">Parentesco</label>
+                  <input id="parentesco" type="text" name="parentesco" class="validate form-control" required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container col-6">
+      <label>Buscar Responsables:</label>
+      <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+    </div>
+    <div class="container">
+      <table class="table table-responsive-sm">
+        <thead>
+          <tr id="records"></tr>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Dui</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Lugar</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Parentesco</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-rows">
+
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer>
+
+  </footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="../../recursos/js/sweetalert.min.js"></script>
+  <script src="../../controllers/components.js"></script>
+  <script src="../../controllers/privado/account.js"></script>
+  <script src="../../controllers/privado/responsablesVista.js"></script>
+</body>
+
+</html>

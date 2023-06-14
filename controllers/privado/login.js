@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+let idgrado = null
+
 // Método manejador de eventos para cuando se envía el formulario de inicio de sesión.
 LOGIN_FORM.addEventListener('submit', async (event) => {
     debugger
