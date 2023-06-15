@@ -45,9 +45,9 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
-    function CambiarNotas($nota) {
+    function CambiarNotas() {
         $sql = "UPDATE notas SET nota = ? where id_nota = ?";
-        $params = array($nota, $this->id_nota);
+        $params = array($this->nota, $this->id_nota);
         return Database::executeRow($sql, $params);
     }
 

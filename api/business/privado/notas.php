@@ -69,7 +69,9 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$notas->setId_nota($_POST['id'])) {
                     $result['exception'] = 'No Hay id nota';
-                } elseif ($notas->CambiarNotas($_POST['nota'])) {
+                } elseif (!$notas->setnota($_POST['nota'])) {
+                    $result['exception'] = 'La nota no es valida';
+                } elseif ($notas->CambiarNotas()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = Database::getException();

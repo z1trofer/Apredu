@@ -13,6 +13,7 @@ class Notas extends NotasQueries
     public $id_grado = null;
     public $id_actividad = null;
     public $id_nota = null;
+    public $nota = null;
     /*
     *   Métodos para validar y asignar valores de los atributos.
     */
@@ -77,6 +78,15 @@ class Notas extends NotasQueries
         }
     }
 
+    public function setnota($value)
+    {
+        if (Validator::validateMoney($value)) {
+            $this->nota = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     /*
@@ -110,5 +120,10 @@ class Notas extends NotasQueries
     public function getId_nota()
     {
         return $this->id_nota;
+    }
+
+    public function getnota()
+    {
+        return $this->nota;
     }
 }
