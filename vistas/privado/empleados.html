@@ -18,77 +18,93 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion del docente</h5>
+                    <h5 class="modal-title" id="modal-title">Informacion del docente</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm">
-                            <h5>Nombre</h5>
-                            <p>Ramón Ricardo</p>
-                        </div>
-                        <div class="col-sm">
-                            <h5>Apellido</h5>
-                            <p>Ramirez Martinez</p>
-                        </div>
-                        <div class="col-sm">
-                            <h5>DUI</h5>
-                            <p>3451232-3</p>
-                        </div>
-                        <div class="col-sm">
-                            <h5>F.de nacimiento</h5>
-                            <p>10/08/1975</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <h5>Correo</h5>
-                            <p>RamonRam@gmail.com</p>
+                <form id="save-form" method="post" action="">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
 
-                            <div class="row">
-                                <div class="col-7">
-                                    <h5>Teléfonos <img src="../recursos/iconos/icons8-más-30.png" alt=""></h5>
-                                    7777-7777 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
-                                    1234-5678 <img src="../recursos/iconos/icons8-menos-24.png" alt="">
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="nombres" name="nombres" class="form-control" />
+                                    <label class="form-label" for="typeText">Nombres</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4 Empleados_Asig">
-                            <h6>Cargo
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle disabled" type="button" id="dropform"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        Docente
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Ascendente</a></li>
-                                    </ul>
-                                </div>
-                            </h6>
-                            <h5>Asignaturas</h5>
-                            <div id="Asignaturas_Mod" class="row">
-                                <div class="col">
-                                    <p>Matematicas</p>
-                                    <p>Sociales</p>
-                                    <p>Lenguaje</p>
-                                    <p>Ciencias</p>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="apellidos" name="apellidos" class="form-control" />
+                                    <label class="form-label" for="typeText">Apellidos</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <h5>Dirección</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, facilis et. Saepe, illum
-                            earum amet omnis recusandae maiores laboriosam ab deserunt temporibus? Libero autem
-                            perspiciatis provident, placeat eaque exercitationem animi.
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="dui" name="dui" class="form-control" />
+                                    <label class="form-label">DUI</label>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="usuario" name="usuario" class="form-control" />
+                                    <label class="form-label" for="typeText">Nombre de usuario</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input id="fecha_nacimiento" type="date" name="fecha_nacimiento"
+                                        class="form-control" />
+                                    <label class="form-label" for="typeDate">Fecha de nacimiento</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="email" id="correo" name="correo" class="form-control" />
+                                    <label class="form-label" for="typeEmail">Correo electrónico</label>
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col">
+                                <div class="row g-3 align-items-center">
+                                    <div class="form-outline col-auto">
+                                        <input type="password" id="clave" name="clave" class="form-control"
+                                            aria-describedby="textExample2" />
+                                        <label class="form-label" for="formTextExample2">Password</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col-sm-4">
+                                <div class="mb-4">
+                                    <select class="form-select" required aria-label="select example" id="cargo"
+                                        name="cargo">
+                                        <option value="">Seleccione un cargo</option>
+                                    </select>
+                                    <div class="invalid-feedback">Ejemplo de comentarios de selección no válidos
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-outline">
+                                    <textarea class="form-control" id="direccion" name="direccion" rows="5"></textarea>
+                                    <label class="form-label" for="textAreaExample">Dirección</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success">Guardar Cambios</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
+
         </div>
+    </div>
     </div>
     <!--modal para actividades-->
     <div class="modal fade" id="ModalDocentesAct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -105,13 +121,18 @@
                             <p>Ramón Ricardo Ramirez Martinez</p>
                         </div>
                         <div class="col-sm-3">
-                            <button id="btnEm_grado" type="button" class="btn btn-primary">2° grado</button>
+                            <select class="form-select" required aria-label="select example" id="grados"
+                                name="grados">
+                                <option value="">Seleccione una opcion</option>
+
+                            </select>
                         </div>
                         <div class="col-3 Respon_BTN">
-                            <button type="button" class="btn btn-primary " data-mdb-toggle="dropdown"
-                                aria-expanded="false" id="btnEm_grado">
-                                Estudios Sociales
-                            </button>
+                            <select class="form-select" required aria-label="select example" id="grados"
+                                name="grados">
+                                <option value="">Seleccione una opcion</option>
+
+                            </select>
 
                         </div>
                     </div>
@@ -119,7 +140,7 @@
                     <div id="table_act" class="row">
                         <div class="row">
                             <div class="col-sm-2">
-                                <h5>Actividad</h5>
+                                <th>Actividad</th>
                                 <p>actividad cotidiana 1</p>
                                 <button class="btn btn-primary" type="button" id="btnTipo_Act"
                                     data-mdb-toggle="dropdown">
@@ -128,7 +149,7 @@
 
                             </div>
                             <div class="col-sm-4">
-                                <h5>Descripción</h5>
+                                <th>Descripción</th>
                                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quae deserunt
                                     nostrum
                                     molestiae cumque ipsum, optio beatae et saepe eum error ducimus vel maiores
@@ -136,11 +157,11 @@
                                     tenetur dolorem aliquam facilis pariatur.</p>
                             </div>
                             <div class="col-sm-1">
-                                <h5>%</h5>
+                                <th>%</th>
                                 <p>15%</p>
                             </div>
                             <div class="col-sm-2">
-                                <h5>Grado</h5>
+                                <th>Grado</th>
                                 <button class="btn btn-primary" type="button" id="btnEm_grado"
                                     data-mdb-toggle="dropdown" aria-expanded="false">
                                     2° grado
@@ -148,58 +169,18 @@
 
                             </div>
                             <div class="col-sm-3">
-                                <h5>Asignatura</h5>
+                                <th>Asignatura</th>
                                 <button class="btn btn-primary" type="button" id="btnEm_grado"
                                     data-mdb-toggle="dropdown" aria-expanded="false">
                                     Estudios Sociales
                                 </button>
-                                <h5>Fecha de entrega</h5>
+                                <th>Fecha de entrega</th>
                                 <p>27/03/2023</p>
 
                             </div>
                         </div>
 
                         <hr class="hr" />
-
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <h5>Actividad</h5>
-                                <p>actividad cotidiana 1</p>
-                                <button class="btn btn-primary  " type="button" id="btnTipo_Act"
-                                    data-mdb-toggle="dropdown">
-                                    Activid..
-                                </button>
-                            </div>
-                            <div class="col-sm-4">
-                                <h5>Descripción</h5>
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quae deserunt
-                                    nostrum
-                                    molestiae cumque ipsum, optio beatae et saepe eum error ducimus vel maiores
-                                    assumenda
-                                    tenetur dolorem aliquam facilis pariatur.</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <h5>%</h5>
-                                <p>15%</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <h5>Grado</h5>
-                                <button class="btn btn-primary" type="button" id="btnEm_grado"
-                                    data-mdb-toggle="dropdown" aria-expanded="false">
-                                    2° grado
-                                </button>
-                            </div>
-                            <div class="col-sm-3">
-                                <h5>Asignatura</h5>
-                                <button class="btn btn-primary" type="button" id="btnEm_grado"
-                                    data-mdb-toggle="dropdown" aria-expanded="false">
-                                    Estudios Sociales
-                                </button>
-
-                                <h5>Fecha de entrega</h5>
-                                <p>27/03/2023</p>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -276,19 +257,21 @@
                 <div class="col-sm-10 EmpleadosBTN">
                     <!--añadir empleados boton-->
                     <button type="button" class="btn" id="btnEmpleados" data-mdb-toggle="modal"
-                    data-mdb-target="#ModalDocentesInfo">añadir empleados</button>
+                        data-mdb-target="#ModalDocentesInfo" onclick="openCreate()">añadir empleados</button>
                 </div>
                 <div class="col-10">
                     <!--buscador-->
-                    <div class="input-group">
-                        <div class="form-outline">
-                            <input type="search" id="form1" class="form-control" />
-                            <label class="form-label" for="form1">Search</label>
+                    <form method="post" id="search-form" action="">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input type="search" id="search" name="search" class="form-control" />
+                                <label class="form-label" for="form1">Search</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="row" id="colDivEM">
@@ -339,124 +322,20 @@
         </div>
         <!----------------------------------tablA------------------------>
         <div class="container">
-            <table class="table table-striped" id="table-alum">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Apellido</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Telefono</th>
+                        <th scope="col">Cargo</th>
                         <th scope="col">Correo</th>
                         <th scope="col"></th>
+                        <th scope="col">Acciones</th>
+
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>2345-1123</td>
-                        <td>Mark_Aasd@gmail.com</td>
+                <tbody id="table-alum">
 
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesAct">
-                                <img src="../recursos/iconos/notas.png" alt="">
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesInfo">
-                                <img src="../recursos/iconos/informacion.png" alt="">
-                            </button>
-
-                            <!-- Modal -->
-                       
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>2345-1123</td>
-                        <td>Mark_Aasd@gmail.com</td>
-
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesAct">
-                                <img src="../recursos/iconos/notas.png" alt="">
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesInfo">
-                                <img src="../recursos/iconos/informacion.png" alt="">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>2345-1123</td>
-                        <td>Mark_Aasd@gmail.com</td>
-
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesAct">
-                                <img src="../recursos/iconos/notas.png" alt="">
-                            </button>
-
-
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesInfo">
-                                <img src="../recursos/iconos/informacion.png" alt="">
-                            </button>
-
-                        
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>2345-1123</td>
-                        <td>Mark_Aasd@gmail.com</td>
-
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesAct">
-                                <img src="../recursos/iconos/notas.png" alt="">
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesInfo">
-                                <img src="../recursos/iconos/informacion.png" alt="">
-                            </button>
-
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>2345-1123</td>
-                        <td>Mark_Aasd@gmail.com</td>
-
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesAct">
-                                <img src="../recursos/iconos/notas.png" alt="">
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalDocentesInfo">
-                                <img src="../recursos/iconos/informacion.png" alt="">
-                            </button>
-
-                        
-                        </td>
-                    </tr>
-                    
                 </tbody>
 
             </table>
@@ -492,11 +371,13 @@
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2023 Copyright:
                 <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
-              </div>
+            </div>
             <!-- Copyright -->
         </footer>
     </footer>
-
+    <script src="../../recursos/js/sweetalert.min.js"></script>
+    <script src="../../controllers/components.js"></script>
+    <script src="../../controllers/privado/empleados.js"></script>
     <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 </body>
