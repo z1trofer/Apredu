@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>login</title>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -16,6 +16,9 @@
 </head>
 
 <body>
+    <header>
+
+    </header>
     <!-- Sección principal -->
     <div class="container">
         <section class="intro">
@@ -30,38 +33,43 @@
                         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                             <div id="card_login" class="card" style="border-radius: 1rem;">
                                 <div class="card-body p-5 text-center">
-                                    <div class="my-md-5 pb-5">
-                                        <br>
-                                        <h1 class="fw-bold mb-0">BIENVENIDO</h1>
-                                        <br>
+                                    <form id="login-form" action="">
+                                        <div class="my-md-5 pb-5">
+                                            <br>
+                                            <h1 class="fw-bold mb-0">BIENVENIDO</h1>
+                                            <br>
 
-                                        <h4 id="inicio_sesion">INICIO DE SESIÓN</h4>
-                                        <br>
-                                        <div class="form-outline mb-4">
-                                            <input type="email" id="typeEmail" class="form-control form-control-lg" />
-                                            <label class="form-label" for="typeEmail">Usuario</label>
-                                            <div class="linea">
+                                            <h4 id="inicio_sesion">INICIO DE SESIÓN</h4>
+                                            <br>
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="usuario" name="usuario"
+                                                    class="form-control form-control-lg" />
+                                                <label class="form-label" >Usuario</label>
+                                                <div class="linea">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline mb-5">
+                                                <input type="password" id="clave" name="clave"
+                                                    class="form-control form-control-lg" />
+                                                <label class="form-label" for="typePassword">Contraseña</label>
+                                                <div class="linea">
+
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <a href="">
+                                                    <button id="boton_acceder"
+                                                        class="btn btn-primary btn-lg btn-rounded gradient-custom text-body px-10"
+                                                        input type="submit" value="Registrar" data-tooltip="Ingresar">
+                                                        ACCEDER</button></a>
+                                                <br>
+                                                <br>
+                                                <p class="mb-0"> <a href="#!" class="text-body fw-bold">¿Olvidaste tu
+                                                        contraseña?</a></p>
                                             </div>
                                         </div>
-
-                                        <div class="form-outline mb-5">
-                                            <input type="password" id="typePassword"
-                                                class="form-control form-control-lg" />
-                                            <label class="form-label" for="typePassword">Contraseña</label>
-                                            <div class="linea">
-
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <a href="dashboard.html"><button id="boton_acceder"
-                                                    class="btn btn-primary btn-lg btn-rounded gradient-custom text-body px-10"
-                                                    type="submit"> ACCEDER</button></a>
-                                            <br>
-                                            <br>
-                                            <p class="mb-0"> <a href="#!" class="text-body fw-bold">¿Olvidaste tu
-                                                    contraseña?</a></p>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -70,6 +78,19 @@
             </div>
         </section>
     </div>
+
+    <div id="fot">
+        <footer class="bg-dark text-center text-white ">
+
+        </footer>
+    </div>
+
+
+
+    <script src="../../recursos/js/sweetalert.min.js"></script>
+    <script src="../../controllers/components.js"></script>
+    <script src="../../controllers/public/account.js"></script>
+    <script src="../../controllers/public/login.js"></script>
 </body>
 
 </html>

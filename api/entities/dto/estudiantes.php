@@ -90,7 +90,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setUsuarioEstudiante($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
+        if (Validator::validateAlphanumeric($value, 1, 50)) {
             $this->usuario_estudiante = $value;
             return true;
         } else {
@@ -100,7 +100,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setClave($value)
     {
-        if (Validator::validateString($value, 1, 40)) {
+        if (Validator::validateString($value, 1, 60)) {
             $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
