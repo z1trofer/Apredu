@@ -38,6 +38,16 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'cliente inexistente';
                 }
                 break;
+                case 'readGrado':
+                    if ($result['dataset'] = $estudiante->readGrado()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay grados registrados';
+                    }
+                    break;
             case 'createResponsable':
                 $_POST = Validator::validateForm($_POST);
                 if (!$responsable->setNombresResponsable($_POST['nombre_responsable'])) {
@@ -73,7 +83,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'dirección incorrecta';
                     } elseif (!$estudiante->setNie($_POST['nie'])) {
                         $result['exception'] = 'Nie incorrecto';
-                    } elseif (!$estudiante->setIdGrado($_POST['grados'])) {
+                    } elseif (!$estudiante->setIdGrado($_POST['grados_estudiante'])) {
                         $result['exception'] = 'Grado incorrecto';
                     } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
                         $result['exception'] = 'Alias incorrecto';

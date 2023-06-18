@@ -11,7 +11,38 @@ const RECORDS = document.getElementById('records');
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
+    const TODAY = new Date();
+    // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
+    let day = ('0' + TODAY.getDate()).slice(-2);
+    // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
+    var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
+    // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
+    let year = TODAY.getFullYear() - 4;
+    // Se declara e inicializa una variable para establecer el formato de la fecha.
+    let date = `${year}-${month}-${day}`;
+    // Se asigna la fecha como valor máximo en el campo del formulario.
+    document.getElementById('fecha_estudiante').max = date;
 });
+
+//Funcion de fillSelect pero adaptada para la lista de grados
+async function fillList(filename, action, list, selected = null) {
+    const JSON = await dataFetch(filename, action);
+    let content = '';
+    if (JSON.status) {
+        JSON.dataset.forEach(row => {
+            value = Object.values(row)[0];
+            text = Object.values(row)[1];
+            if (value != selected) {
+                content += `<li><a class="dropdown-item" onclick="opcionGrado('${value}')">${text}</a></li>`;
+            } else {
+                content += `<li><a class="dropdown-item" onclick="opcionGrado('${value}')" class="active">${text}</a></li>`;
+            }
+        });
+    } else {
+        content += '<li><a class="dropdown-item">No hay opciones disponibles</a></li>';
+    }
+    document.getElementById(list).innerHTML = content;
+}
 
 // función para cambiar el valor del botón del parentesco y asignarle un valor a un input oculto de parentesco_responsable
 function opcionParentesco(parentesco) {
@@ -21,7 +52,7 @@ function opcionParentesco(parentesco) {
 
 function opcionGrado(grado) {
     document.getElementById('grado').innerHTML = grado;
-    document.getElementById('grados').value = grado;
+    document.getElementById('grados_estudiante').value = grado;
 }
 
 // Método manejador de eventos para cuando se envía el formulario de guardar.
@@ -100,4 +131,5 @@ function openCreate() {
     // Se restauran los elementos del formulario.
     SAVE_FORM_E.reset();
     SAVE_FORM_R.reset();
+    fillList(ESTUDIANTE_API, 'readGrado','lectura');
 }

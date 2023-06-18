@@ -8,7 +8,7 @@ class EstudiantesQueries
     {
         $sql = 'INSERT INTO estudiantes(
             nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado)
-            VALUES (?, ?, ?, ?, ?, (select id_grado from grados where grado = ?), ?, ?)';
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave);
     }
 
@@ -57,5 +57,12 @@ class EstudiantesQueries
         } else {
             return false;
         }
+    }
+
+    public function readGrado()
+    {
+        $sql = 'SELECT id_grado, grado
+                FROM grados';
+            return Database::getRows($sql);
     }
 }
