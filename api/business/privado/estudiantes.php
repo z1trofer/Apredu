@@ -87,6 +87,8 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Grado incorrecto';
                     } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
                         $result['exception'] = 'Alias incorrecto';
+                    } elseif (!$estudiante->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                        $result['exception'] = 'Estado incorrecto';
                     }  elseif (!$estudiante->setClave($_POST['clave'])) {
                         $result['exception'] = Validator::getPasswordError();
                     }   elseif ($estudiante->CreateEstudiante()) {

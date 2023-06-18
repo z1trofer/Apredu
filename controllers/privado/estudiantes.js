@@ -11,17 +11,7 @@ const RECORDS = document.getElementById('records');
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
-    const TODAY = new Date();
-    // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
-    let day = ('0' + TODAY.getDate()).slice(-2);
-    // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
-    var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
-    // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
-    let year = TODAY.getFullYear() - 4;
-    // Se declara e inicializa una variable para establecer el formato de la fecha.
-    let date = `${year}-${month}-${day}`;
-    // Se asigna la fecha como valor máximo en el campo del formulario.
-    document.getElementById('fecha_estudiante').max = date;
+
 });
 
 //Funcion de fillSelect pero adaptada para la lista de grados

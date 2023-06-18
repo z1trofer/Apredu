@@ -8,8 +8,9 @@ class EstudiantesQueries
     {
         $sql = 'INSERT INTO estudiantes(
             nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave);
+           VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave, $this->estado);
+        return Database::executeRow($sql, $params);
     }
 
     //Método para leer los registros de la tabla ordenandolos por sus apellidos por medio de una query general a la tabla
