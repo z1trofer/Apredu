@@ -7,17 +7,18 @@ class EstudiantesQueries
     public function CreateEstudiante()
     {
         $sql = 'INSERT INTO estudiantes(
-            id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado)
+            VALUES (?, ?, ?, ?, ?, (select id_grado from grados where grado = ?), ?, ?)';
         $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave);
     }
 
     //Método para leer los registros de la tabla ordenandolos por sus apellidos por medio de una query general a la tabla
-    public function ReadEstudiantes()
+    public function readAll()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado
-            FROM estudiantes
-            order by nombre_estudiante';
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, usuario_estudiante, clave, estado
+                FROM estudiantes
+                INNER JOIN grados USING(id_grado)
+                order by id_grado ASC';
         return Database::getRows($sql);
     }
 

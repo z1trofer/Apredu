@@ -30,7 +30,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
-        
+
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {
@@ -73,7 +73,7 @@ async function fillTable(form = null) {
                     <button onclick="openDelete(${row.id_responsable})" type="button" class="btn btn-danger">Eliminar</button>
                     </td>
                 </tr>
-            `;      
+            `;
         });
         RECORDS.textContent = JSON.message;
     } else {
@@ -87,8 +87,8 @@ async function fillTable(form = null) {
 *   Retorno: ninguno.
 */
 function openCreate() {
-  // Se restauran los elementos del formulario.
-  SAVE_FORM.reset();
+    // Se restauran los elementos del formulario.
+    SAVE_FORM.reset();
 }
 
 /*
@@ -104,7 +104,7 @@ async function openUpdate(id) {
     const JSON = await dataFetch(RESPONSABLES_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-      SAVE_FORM.reset();
+        SAVE_FORM.reset();
         // Se inicializan los campos del formulario.
         document.getElementById('id_responsable').value = JSON.dataset.id_responsable;
         document.getElementById('nombres').value = JSON.dataset.nombre_responsable;
@@ -147,43 +147,42 @@ async function openDelete(id) {
 }
 
 //Buscador
-(function(document) {
+(function (document) {
     'buscador';
 
-    var LightTableFilter = (function(Arr) {
+    var LightTableFilter = (function (Arr) {
 
-      var _input;
+        var _input;
 
-      function _onInputEvent(e) {
-        _input = e.target;
-        var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-        Arr.forEach.call(tables, function(table) {
-          Arr.forEach.call(table.tBodies, function(tbody) {
-            Arr.forEach.call(tbody.rows, _filter);
-          });
-        });
-      }
-
-      function _filter(row) {
-        var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-        row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-      }
-
-      return {
-        init: function() {
-          var inputs = document.getElementsByClassName('light-table-filter');
-          Arr.forEach.call(inputs, function(input) {
-            input.oninput = _onInputEvent;
-          });
+        function _onInputEvent(e) {
+            _input = e.target;
+            var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+            Arr.forEach.call(tables, function (table) {
+                Arr.forEach.call(table.tBodies, function (tbody) {
+                    Arr.forEach.call(tbody.rows, _filter);
+                });
+            });
         }
-      };
+
+        function _filter(row) {
+            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        }
+
+        return {
+            init: function () {
+                var inputs = document.getElementsByClassName('light-table-filter');
+                Arr.forEach.call(inputs, function (input) {
+                    input.oninput = _onInputEvent;
+                });
+            }
+        };
     })(Array.prototype);
 
-    document.addEventListener('readystatechange', function() {
-      if (document.readyState === 'complete') {
-        LightTableFilter.init();
-      }
+    document.addEventListener('readystatechange', function () {
+        if (document.readyState === 'complete') {
+            LightTableFilter.init();
+        }
     });
 
-  })(document);
- 
+})(document);

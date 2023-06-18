@@ -17,15 +17,15 @@ if (isset($_GET['action'])) {
         switch ($_GET['action']) {
                 //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
                 case 'readAll':
-                if ($result['dataset'] = $estudiante->readEstudiantes()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
+                    if ($result['dataset'] = $estudiante->readAll()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
+                    break;
                  //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readEstudiante':
                 if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
@@ -61,21 +61,27 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-                case 'create':
+                case 'CreateEstudiante':
                     $_POST = Validator::validateForm($_POST);
                     if (!$estudiante->setNombresEstudiante($_POST['nombre_estudiante'])) {
                         $result['exception'] = 'Nombres incorrectos';
-                    } elseif (!$estudiante->setApellidos($_POST['apellido'])) {
+                    } elseif (!$estudiante->setApellidosEstudiante($_POST['apellido_estudiante'])) {
                         $result['exception'] = 'Apellidos incorrectos';
-                    } elseif (!$estudiante->setCorreo($_POST['correo'])) {
-                        $result['exception'] = 'Correo incorrecto';
-                    } elseif (!$estudiante->setAlias($_POST['alias'])) {
+                    } elseif (!$estudiante->setNacimiento($_POST['fecha_estudiante'])) {
+                        $result['exception'] = 'Fecha incorrecta';
+                    } elseif (!$estudiante->setDireccionEstudiante($_POST['direccion_estudiante'])) {
+                        $result['exception'] = 'dirección incorrecta';
+                    } elseif (!$estudiante->setNie($_POST['nie'])) {
+                        $result['exception'] = 'Nie incorrecto';
+                    } elseif (!$estudiante->setIdGrado($_POST['grados'])) {
+                        $result['exception'] = 'Grado incorrecto';
+                    } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
                         $result['exception'] = 'Alias incorrecto';
                     }  elseif (!$estudiante->setClave($_POST['clave'])) {
                         $result['exception'] = Validator::getPasswordError();
-                    }   elseif ($estudiante->createRow()) {
+                    }   elseif ($estudiante->CreateEstudiante()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Usuario creado correctamente';
+                        $result['message'] = 'Estudiante creado correctamente';
                     } else {
                         $result['exception'] = Database::getException();
                     }
