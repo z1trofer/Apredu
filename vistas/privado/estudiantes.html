@@ -119,16 +119,63 @@
                                     <p>2° grado</p>
                                 </div>
                             </div>
-                            <button type="button">
-                                <h5 class="text-center">Fichas de conducta <img
-                                        src="../../recursos/iconos/icons8-más-30.png" alt=""></h5>
+                            <h5 class="text-center">Fichas de conducta</h5>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#ModalEstConducta">
+                                <img src="../../recursos/iconos/icons8-más-30.png" alt="">
                             </button>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <h5>Docente</h5>
+                            <!--modal de las fichas / conducta estudiante -->
+                            <div class="modal fade" id="#ModalEstConducta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                            aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                            <input type="hidden" name="id_estudiante" id="id_estudiante">
+                                            <h5>Nombre</h5>
+                                            <input type="text" id="estudiante" name="estudiante"
+                                                class="validate try" required>
+                                        </div>
+                                        <div class="col-sm">
+                                            <h5>Descripción</h5>
+                                            <textarea name="descripcion_ficha" id="descripcion_ficha"
+                                                class="Validate try" rows="3"></textarea>
+                                        </div>
+                                        <div class="col-sm">
+                                            <h5>Fecha</h5>
+                                            <input type="date" id="fecha_ficha" name="fecha_ficha"
+                                                class="validate try" required>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h5>Docente</h5>
+                                            <textarea name="docente_estudiante" id="docente_estudiante"
+                                                class="Validate try" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-danger"
+                                        data-mdb-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-success">Guardar Cambios</button>
                                 </div>
-                                <div class="col text-center">
-                                    <h5>Descripción</h5>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <h5>Docente</h5>
+                        </div>
+                            <div class="col text-center">
+                                <h5>Descripción</h5>
                                 </div>
                             </div>
                             <div class="container">
@@ -143,53 +190,6 @@
                                             perferendis harum magnam quae sint inventore illum, vero
                                             tenetur
                                             dolor quo fugit molestiae impedit quas.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--modal de las fichas / conducta estudiante -->
-                        <div class="modal fade" id="ModalEstConducta" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante/h5>
-                                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <input type="hidden" name="id_estudiante" id="id_estudiante">
-                                                <h5>Nombre</h5>
-                                                <input type="text" id="estudiante" name="estudiante"
-                                                    class="validate try" required>
-                                            </div>
-                                            <div class="col-sm">
-                                                <h5>Descripción</h5>
-                                                <textarea name="descripcion_ficha" id="descripcion_ficha"
-                                                    class="Validate try" rows="3"></textarea>
-                                            </div>
-                                            <div class="col-sm">
-                                                <h5>F.de nacimiento</h5>
-                                                <input type="date" id="fecha_ficha" name="fecha_ficha"
-                                                    class="validate try" required>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <h5>Docente</h5>
-                                                <textarea name="docente_estudiante" id="docente_estudiante"
-                                                    class="Validate try" rows="3"></textarea>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-danger"
-                                            data-mdb-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-success">Guardar Cambios</button>
-                                    </div>
-                                    <div class="modal-footer">
                                     </div>
                                 </div>
                             </div>
