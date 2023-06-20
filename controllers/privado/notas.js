@@ -46,7 +46,7 @@ async function CargarTrimestres() {
         JSON.dataset.forEach(async row => {
             //el dropdown se llena con el trimestre que poseea el valor de true
             if (row.estado == true || TIPO_US != 2) {
-                debugger
+                 
                 //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
                 id_trimestre = row.id_trimestre;
                 trimestre = row.trimestre;
@@ -57,7 +57,6 @@ async function CargarTrimestres() {
                 <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
                 `
             }
-
         });
     } else {
         //se envia un mensaje con el error respectivo
@@ -149,13 +148,12 @@ async function CargarAsignaturas(){
         //se manda un mensaje con el error respectivo
         sweetAlert(2, "Ha habido un problema al cargar las asignaturas", false);
     }
- 
 }
 
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
 function OpcionTrimestre(id_trimestreFun, trimestreFun) {
-    debugger
+     
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_trimestre = id_trimestreFun;
     trimestre = trimestreFun;

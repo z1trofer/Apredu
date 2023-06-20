@@ -1,33 +1,43 @@
 // Constantes para completar las rutas de la API.
 const ACTIVIDADES_API = 'business/privado/actividades.php';
+const NOTAS_API = 'business/privado/notas.php';
 const titulo_modal = document.getElementById('modal-title');
 const TBODY_ROWS = document.getElementById('TablaEm');
 const FORMULARIO = document.getElementById('save-form');
-// Constante para establecer el formulario de buscar.
+//constante para obtener fechas
+const DATE = new Date();
+//se guarda el año en una constante
+const ANIO = DATE.getFullYear();
+
+//variables para busqueda parametrizada
+let id_trimestre = null;
+let id_grado = null;
+let id_asignatura = null;
 
 
 // javascript se manda a llamar el id y en php el name
 
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
-// Llamada a la función para llenar la tabla con los registros disponibles.
-fillTable();
+    // Llamada a la función para llenar la tabla con los registros disponibles.
+    fillTable();
+    CargarTrimestres();
 });
 
 
-FORMULARIO.addEventListener('submit', async(event) =>{
-event.preventDefault();
-(document.getElementById('id').value) ? action = 'update' : action = 'create';
-const FORM = new FormData(FORMULARIO);
-const JSON = await dataFetch(ACTIVIDADES_API, action, FORM);
-if (JSON.status) {
-// Se carga nuevamente la tabla para visualizar los cambios.
-fillTable();
-// Se muestra un mensaje de éxito.
-sweetAlert(1, JSON.message, true);
-} else {
-sweetAlert(2, JSON.exception, false);
-}
+FORMULARIO.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    const FORM = new FormData(FORMULARIO);
+    const JSON = await dataFetch(ACTIVIDADES_API, action, FORM);
+    if (JSON.status) {
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        fillTable();
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, JSON.message, true);
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
 });
 
 /*
@@ -36,21 +46,21 @@ sweetAlert(2, JSON.exception, false);
 * Retorno: ninguno.
 */
 async function fillTable(form = null) {
-// Se inicializa el contenido de la tabla.
-TBODY_ROWS.innerHTML = '';
-// RECORDS.textContent ='';
-// Se verifica la acción a realizar.
-(form) ? action = 'search' : action = 'readAll';
-// Petición para obtener los registros disponibles.
-const JSON = await dataFetch(ACTIVIDADES_API, action, form);
-// Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-if (JSON.status) {
-// Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-JSON.dataset.forEach(row => {
-// Se establece un icono para el estado del producto.
+    // Se inicializa el contenido de la tabla.
+    TBODY_ROWS.innerHTML = '';
+    // RECORDS.textContent ='';
+    // Se verifica la acción a realizar.
+    (form) ? action = 'search' : action = 'readAll';
+    // Petición para obtener los registros disponibles.
+    const JSON = await dataFetch(ACTIVIDADES_API, action, form);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+        JSON.dataset.forEach(row => {
+            // Se establece un icono para el estado del producto.
 
-// Se crean y concatenan las filas de la tabla con los datos de cada registro.
-TBODY_ROWS.innerHTML += `
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+            TBODY_ROWS.innerHTML += `
 <tr>
     <div class="row">
         <div class="col-sm text-center">
@@ -95,60 +105,118 @@ TBODY_ROWS.innerHTML += `
 
 </tr>
 `;
-});
+        });
 
-// RECORDS.textContent = JSON.message;
+        // RECORDS.textContent = JSON.message;
 
-} else {
-sweetAlert(4, JSON.exception, true);
-}
+    } else {
+        sweetAlert(4, JSON.exception, true);
+    }
 }
 
 function createActividades() {
-// FORMULARIO.reset();
-titulo_modal.textContent ='Asignar una nueva actividad';
-fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad');
-fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle');
-fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre');
+    // FORMULARIO.reset();
+    titulo_modal.textContent = 'Asignar una nueva actividad';
+    fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad');
+    fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle');
+    fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre');
 }
 
 async function updateActividades(id_actividad) {
-// FORMULARIO.reset();
-const FORM = new FormData();
-FORM.append('id_actividad', id_actividad);
-const JSON = await dataFetch(ACTIVIDADES_API, 'readOne', FORM);
-if (JSON.status) {
-titulo_modal.textContent ='Modificar actividad asignada';
-document.getElementById('id').value = JSON.dataset.id_actividad;
-document.getElementById('nombre').value = JSON.dataset.nombre_actividad;
-document.getElementById('ponderacion').value = JSON.dataset.ponderacion;
-document.getElementById('fecha_entrega').value = JSON.dataset.fecha_entrega;
-document.getElementById('descripcion').value = JSON.dataset.descripcion;
-fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', JSON.dataset.tipo_actividad);
-fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', JSON.dataset.asignacion);
-fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', JSON.dataset.trimestre);
-fillSelect(ACTIVIDADES_API, 'readAll', 'nombre', JSON.dataset.id_actividad);
-}
+    // FORMULARIO.reset();
+    const FORM = new FormData();
+    FORM.append('id_actividad', id_actividad);
+    const JSON = await dataFetch(ACTIVIDADES_API, 'readOne', FORM);
+    if (JSON.status) {
+        titulo_modal.textContent = 'Modificar actividad asignada';
+        document.getElementById('id').value = JSON.dataset.id_actividad;
+        document.getElementById('nombre').value = JSON.dataset.nombre_actividad;
+        document.getElementById('ponderacion').value = JSON.dataset.ponderacion;
+        document.getElementById('fecha_entrega').value = JSON.dataset.fecha_entrega;
+        document.getElementById('descripcion').value = JSON.dataset.descripcion;
+        fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', JSON.dataset.tipo_actividad);
+        fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', JSON.dataset.asignacion);
+        fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', JSON.dataset.trimestre);
+        fillSelect(ACTIVIDADES_API, 'readAll', 'nombre', JSON.dataset.id_actividad);
+    }
 }
 
 async function DeleteActividades(id_actividad) {
-// Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-const RESPONSE = await confirmAction('¿Desea eliminar la actividad de forma permanente?');
-// Se verifica la respuesta del mensaje.
-if (RESPONSE) {
-// Se define una constante tipo objeto con los datos del registro seleccionado.
-const FORM = new FormData();
-FORM.append('id_actividad', id_actividad);
-// Petición para eliminar el registro seleccionado.
-const JSON = await dataFetch(ACTIVIDADES_API, 'delete', FORM);
-// Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-if (JSON.status) {
-// Se carga nuevamente la tabla para visualizar los cambios.
-fillTable();
-// Se muestra un mensaje de éxito.
-sweetAlert(1, JSON.message, true);
-} else {
-sweetAlert(2, JSON.exception, false);
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const RESPONSE = await confirmAction('¿Desea eliminar la actividad de forma permanente?');
+    // Se verifica la respuesta del mensaje.
+    if (RESPONSE) {
+        // Se define una constante tipo objeto con los datos del registro seleccionado.
+        const FORM = new FormData();
+        FORM.append('id_actividad', id_actividad);
+        // Petición para eliminar el registro seleccionado.
+        const JSON = await dataFetch(ACTIVIDADES_API, 'delete', FORM);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (JSON.status) {
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            fillTable();
+            // Se muestra un mensaje de éxito.
+            sweetAlert(1, JSON.message, true);
+        } else {
+            sweetAlert(2, JSON.exception, false);
+        }
+    }
 }
-}
+
+//----------------------------------------Filtros---------------------------------
+//función Cargar Trimestres
+async function CargarTrimestres() {
+    //se instancia un formulario
+    const FORM = new FormData();
+    //se instancia el año como parametro en el formulario
+    FORM.append('anio', ANIO);
+    //se llama a la API para obtener los trimestres del año respectivo
+    const JSON = await dataFetch(NOTAS_API, 'ObtenerTrimestres', FORM);
+    //se comprueba la respuesta de la api
+    if (JSON.status) {
+        //se declara el combobox de trimestres en la variable dropdown
+        dropdown = document.getElementById('listTrimestre');
+        //se limpia el dropdown para asegurarse que no haya ningun contenido
+        dropdown.innerHTML = '';
+        //se llena el dropdown mediante la respuesta de la api
+        JSON.dataset.forEach(async row => {
+            //el dropdown se llena con el trimestre que poseea el valor de true
+                //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
+                id_trimestre = row.id_trimestre;
+                //trimestre = row.trimestre;
+                //se asigna el nombre del trimestre en el boton
+                document.getElementById('dropTrimestre').innerHTML = row.trimestre;
+                //se llena el dropdown con el trimestre especifico
+                dropdown.innerHTML += `
+                <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
+                `
+        });
+    } else {
+        //se envia un mensaje con el error respectivo
+        sweetAlert(2, "Ocurrio un error al cargar los trimestres, por favor comuniquese con un administrador", false);
+    }
+};
+
+//funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
+//parametros: id_trimestre y el nombre del trimestre
+function OpcionTrimestre(id_trimestreFun, trimestreFun) {
+     
+    //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
+    id_trimestre = id_trimestreFun;
+    //se designa el texto del boton como el trimestre seleccionado
+    document.getElementById('dropTrimestre').innerHTML = trimestreFun;
+};
+
+
+
+
+
+///
+//----busqueda
+async function BusquedaParametrizada(){
+    const FORM = new FormData();
+    FORM.append('id_trimeste', id_trimestre);
+    //FORM.append('id_trimeste', id_trimestre);
+    //FORM.append('id_trimeste', id_trimestre);
+    const JSON = await dataFetch(ACTIVIDADES_API, 'BuscarActividades', FORM);
 }

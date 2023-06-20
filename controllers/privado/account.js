@@ -11,7 +11,7 @@ const NAVBAR = document.getElementById('navbar');
 document.addEventListener('DOMContentLoaded', async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const JSON = await dataFetch(USER_API, 'getSession');
-    debugger
+     
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
     if (JSON.session) {
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             //si el nivel de usuario es docente se ocultan los menus respectivos
             if(JSON.id_cargo == 2){
-                debugger
+                 
                 menus = document.getElementsByClassName('doce');
                 for (let i = 0; i < menus.length; i++) {
                     menus[i].hidden = true;
