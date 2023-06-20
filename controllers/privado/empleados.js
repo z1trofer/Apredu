@@ -10,6 +10,8 @@ const TBODY_ROWS = document.getElementById('table-alum');
 const RECORDS = document.getElementById('records');
 const SEARCH_FORM = document.getElementById('search-form');
 const FORM_INFOACTI = document.getElementById('info-form');
+// Constante para cargar la tabla de la ficha de actividades
+const TBODY_ROWS_ACT = document.getElementById('table_act');
 
 
 // Constante tipo objeto para establecer las opciones del componente Modal.
@@ -118,6 +120,7 @@ async function fillTable(form = null) {
     }
 }
 
+
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
 *   Parámetros: ninguno.
@@ -195,10 +198,10 @@ async function openDetalleActividad(form = null) {
 
 
     // Se inicializa el contenido de la tabla.
-    TBODY_ROWS.innerHTML = '';
+    TBODY_ROWS_ACT.innerHTML = '';
 
     // Se verifica la acción a realizar.
-    (form) ? action = 'search' : action = 'readPorDetalle';
+    (form) ? action = 'readGrados_empleado' : action = 'readPorDetalle';
     // Petición para obtener los registros disponibles.
     const JSON = await dataFetch(EMPLEADOS_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -206,7 +209,7 @@ async function openDetalleActividad(form = null) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TBODY_ROWS.innerHTML += `
+            TBODY_ROWS_ACT.innerHTML += `
                
                <tr>
                <td>${row.nombre_actividad}</td>

@@ -61,7 +61,7 @@ class EmpleadosQueries
         $sql = 'SELECT empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.direccion, empleados.clave, empleados.correo_empleado
         FROM empleados
         INNER JOIN cargos_empleados USING (id_cargo)
-        WHERE nombre_empleado ILIKE ? OR apellido_empleado ILIKE ?
+        WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ?
         ORDER BY nombre_empleado';
         $params = array("%$value%", "%$value%");
         return Database::getRows($sql, $params);
@@ -73,7 +73,7 @@ class EmpleadosQueries
         WHERE id_empleado = ?';
         $params = array($_SESSION['id_empleado']);
         if ($data = Database::getRow($sql, $params)) {
-            $this->id_empleado = $data['id_empleado'];
+            $this->id_empleado = $_SESSION['id_empleado'];
             return true;
         } else {
            $sql = 'SELECT actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, detalle_asignaturas_empleados.id_detalle_asignatura_empleado,
@@ -84,8 +84,7 @@ class EmpleadosQueries
 					  INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado,asignaturas.asignatura,grados.grado as asignacion
         FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
         INNER JOIN asignaturas USING(id_asignatura)
-        INNER JOIN grados USING (id_grado)) as consulta using (id_detalle_asignatura_empleado)
-       ORDER BY id_asignatura  and id_grado ';
+        INNER JOIN grados USING (id_grado)) as consulta using (id_detalle_asignatura_empleado)';
         $params = array("%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
