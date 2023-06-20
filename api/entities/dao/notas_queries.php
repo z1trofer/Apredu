@@ -17,6 +17,17 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
+    //funcion para obtener todas las materias y grados
+    function ObtenerMaterias(){
+        $sql = "SELECT empleados.id_empleado, CONCAT(empleados.nombre_empleado,' ', empleados.apellido_empleado) AS nombre, 
+        asignaturas.id_asignatura, asignaturas.asignatura, grados.id_grado, grados.grado FROM detalle_asignaturas_empleados
+        INNER JOIN empleados USING(id_empleado)
+        INNER JOIN asignaturas USING(id_asignatura)
+        INNER JOIN grados USING (id_grado)
+         order by id_asignatura";
+        return Database::getRows($sql);
+    }
+
     //Obtener los trimestres del año lectivo
     function ObtenerTrimestres($anio) {
         $sql = "SELECT trimestres.id_trimestre, trimestres.trimestre, anios.id_anio, anios.anio, trimestres.estado
@@ -33,6 +44,17 @@ class NotasQueries
         where id_empleado = ? and id_asignatura = ? and id_trimestre = ? and id_grado = ?
         order by id_actividad asc";
         $params = array($this->id_empleado, $this->id_asignatura, $this->id_trimestre, $this->id_grado);
+        return Database::getRows($sql, $params);
+    }
+
+    //obtener actividades sin el docente
+    function ObtenerActividadesDirector() {
+        $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad
+        from actividades
+        INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+        where id_asignatura = ? and id_trimestre = ? and id_grado = ?
+        order by id_actividad asc";
+        $params = array($this->id_asignatura, $this->id_trimestre, $this->id_grado);
         return Database::getRows($sql, $params);
     }
 

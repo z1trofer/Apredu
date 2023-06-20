@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Se direcciona a la página web de bienvenida.
         location.href = 'principal.html';
     } else {
-        // Se muestra el formulario para registrar el primer usuario.
-        //sweetAlert(2, 'aaaaaa', false);
+        //se envia un mensaje de error
+        sweetAlert(2, 'La sesión ya no es valida', false);
     }
 });
 

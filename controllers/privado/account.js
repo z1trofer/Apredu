@@ -7,14 +7,11 @@
 const USER_API = 'business/privado/usuarios.php';
 // Constantes para obtener la etiqueta donde va el usuario
 const NAVBAR = document.getElementById('navbar');
-//
-
-
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const JSON = await dataFetch(USER_API, 'getSession');
-     
+    debugger
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
     if (JSON.session) {
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
@@ -43,19 +40,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
                             </li>
                             <li class="nav-item doc">
-                                <a class="nav-link active" href="empleados.html">Empleados</a>
+                                <a class="nav-link active doce" href="empleados.html">Empleados</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="actividades.html">Actividades</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="notas_ingresar.html">Notas</a>
+                                <a class="nav-link active " href="notas_ingresar.html">Notas</a>
                             </li>
                             <li class="nav-item doc">
-                                <a class="nav-link active" href="estudiantes.html">Alumnos</a>
+                                <a class="nav-link active doce" href="estudiantes.html">Alumnos</a>
                             </li>
                             <li class="nav-item doc">
-                                <a class="nav-link active" href="usuarios.html">Usuarios</a>
+                                <a class="nav-link active doce" href="usuarios.html">Usuarios</a>
                             </li>
                             <li class="nav-item">
                             
@@ -82,6 +79,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
                 <!-- Container wrapper -->
             </nav>`;
+
+            //si el nivel de usuario es docente se ocultan los menus respectivos
+            if(JSON.id_cargo == 2){
+                debugger
+                menus = document.getElementsByClassName('doce');
+                for (let i = 0; i < menus.length; i++) {
+                    menus[i].hidden = true;
+                    
+                }
+            }
             // Se inicializa el componente Dropdown para que funcione la lista desplegable en los menús.
         } else {
             sweetAlert(3, JSON.exception, false, 'index.html');
