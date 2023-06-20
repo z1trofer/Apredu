@@ -191,7 +191,7 @@ async function openDelete(id_empleado) {
     }
 }
 
-async function openDetalleActividad(form = null) {
+async function openDetalleActividad(id_empleado) {
     titulo_modal.textContent = 'Información de las actividades';
     fillSelect(EMPLEADOS_API, 'readreadGrados_empleado', 'grados');
     fillSelect(EMPLEADOS_API, 'readAsignaturas_empleado', 'asignaturas');
@@ -203,7 +203,7 @@ async function openDetalleActividad(form = null) {
     // Se verifica la acción a realizar.
     (form) ? action = 'readGrados_empleado' : action = 'readPorDetalle';
     // Petición para obtener los registros disponibles.
-    const JSON = await dataFetch(EMPLEADOS_API, action, form);
+    const JSON = await dataFetch(EMPLEADOS_API, 'readGrados_empleado', form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.

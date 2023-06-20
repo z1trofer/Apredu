@@ -68,26 +68,9 @@ class EmpleadosQueries
     }
 
     public function CargarPorDetalleAsigGrado($value){
-        $sql = 'SELECT id_empleado 
-        FROM empleados
-        WHERE id_empleado = ?';
-        $params = array($_SESSION['id_empleado']);
-        if ($data = Database::getRow($sql, $params)) {
-            $this->id_empleado = $_SESSION['id_empleado'];
-            return true;
-        } else {
-           $sql = 'SELECT actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, detalle_asignaturas_empleados.id_detalle_asignatura_empleado,
-		consulta.asignacion
-           FROM actividades 
-		              INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
-					  INNER JOIN trimestres USING (id_trimestre)
-					  INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado,asignaturas.asignatura,grados.grado as asignacion
-        FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
-        INNER JOIN asignaturas USING(id_asignatura)
-        INNER JOIN grados USING (id_grado)) as consulta using (id_detalle_asignatura_empleado)';
-        $params = array("%$value%", "%$value%");
+         $sql = "SELECT actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, detalle_asignaturas_empleados.id_detalle_asignatura_empleado, asignacion FROM actividades INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado) INNER JOIN trimestres USING (id_trimestre) INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado,concat(asignaturas.asignatura,' de ' ,grados.grado)  as asignacion FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado) INNER JOIN asignaturas USING(id_asignatura) INNER JOIN grados USING (id_grado)) as consulta using (id_detalle_asignatura_empleado) WHERE asignacion LIKE 'Matemáticas de Cuarto grado';";
+        $params = array("%$value%");
         return Database::getRows($sql, $params);
-    }
 
     }
 
@@ -96,7 +79,7 @@ class EmpleadosQueries
         $sql = 'SELECT id_asignatura, asignatura FROM detalle_asignaturas_empleados
         INNER JOIN asignaturas USING(id_asignatura)
          where id_empleado = ?';
-        $params = array($_SESSION['id_empleado']);
+        $params = array($this->id_empleado);
         return Database::getRows($sql);
     }
 
@@ -105,7 +88,7 @@ class EmpleadosQueries
         $sql = 'SELECT id_grado, grado FROM detalle_asignaturas_empleados
         INNER JOIN grados USING(id_grado)
          where id_empleado = ?';
-        $params = array($_SESSION['id_empleado']);
+        $params = array($this->id_empleado);
         return Database::getRows($sql);
     }
 }
