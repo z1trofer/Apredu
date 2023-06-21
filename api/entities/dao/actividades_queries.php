@@ -40,11 +40,24 @@ class ActividadesQueries
     }
 
     // Para cargar combobox
+    public function readGrados()
+    {
+        $sql = "SELECT id_grado, grado
+            FROM grados";
+        return Database::getRows($sql);
+    }
+
+    public function readAsignaturas()
+    {
+        $sql = "SELECT id_asignatura, asignatura
+            FROM asignaturas";
+        return Database::getRows($sql);
+    }
+
     public function readTrimestres()
     {
         $sql = "SELECT id_trimestre, trimestre, anios.anio
-            FROM trimestres LEFT JOIN anios USING(id_anio)
-            WHERE anio = '2023'";
+            FROM trimestres LEFT JOIN anios using(id_anio) where anio ='2023'";
         return Database::getRows($sql);
     }
 
@@ -56,6 +69,55 @@ class ActividadesQueries
         INNER JOIN asignaturas USING(id_asignatura)
         INNER JOIN grados USING (id_grado)";
         return Database::getRows($sql);
+    }
+
+    // Para la búsqueda parametrizada
+    public function FiltrarActividades($filtros)
+    {
+        $sql = null;
+        $first = false;
+        //verificar si se estan filtrando los grados
+        if($filtros['trimestre'] != 'Trimestres')
+        {
+            $sql = 'SELECT actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, trimestres.trimestre
+            from actividades
+            INNER JOIN trimestres using(id_trimestre)
+            WHERE actividades.id_trimestre = '.$filtros['trimestre'].' ORDER BY';
+            //si no es el caso se manda a llamar una consulta mas simple
+        }else{
+            $sql = 'SELECT actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, trimestres.trimestre
+            from actividades
+            INNER JOIN trimestres using(id_trimestre) ORDER BY
+             ';
+        };
+         //revisa los demas parametros
+         if($filtros['grado'] != 'Grados')
+         {
+             if($first == false)
+             {
+                 $sql = $sql.' id_grado = '.$filtros['grado'];
+                 $first = true;
+             }else{
+                 $sql = $sql.' AND id_grado = '.$filtros['grado'];
+ 
+             }
+             
+         };
+         if($filtros['asignatura'] != 'Asignaturas')
+         {
+             if($first == false)
+             {
+                 $sql = $sql.'id_asignatura = '.$filtros['asignatura'];
+                 $first = true;
+             }else{
+                 $sql = $sql.' AND id_asignatura = '.$filtros['asignatura'];
+ 
+             }
+         };
+
+         $sql = $sql.' GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
+         ORDER BY actividades.nombre_actividad ASC';
+         return Database::getRows($sql);
     }
 
     public function createRow()

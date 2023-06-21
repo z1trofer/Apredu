@@ -54,7 +54,11 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readGrados_empleado':
-                if ($result['dataset'] = $Empleados_p->readGrados_empleado()) {
+                if (!$Empleados_p->setid_empleado($_POST['id'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$data = $Empleados_p->readOne()) {
+                    $result['exception'] = 'Empleado inexistente';
+                }elseif ($result['dataset'] = $Empleados_p->readGrados_empleado()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
