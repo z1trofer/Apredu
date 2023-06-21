@@ -116,6 +116,38 @@ async function fillSelect(filename, action, select,Tittle, selected = null) {
     
 }
 
+async function fillSelect2(filename, action, select, data =null, selected = null) {
+    // Petición para obtener los datos.
+    const FORM = new FormData();
+    FORM.append('data', data);
+    const JSON = await dataFetch(filename, action, FORM);
+    let content = '';
+     
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje.
+    if (JSON.status) {
+        content += `<option selected>Seleccione una opción</option>`;
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        JSON.dataset.forEach(row => {
+            // Se obtiene el dato del primer campo.
+            value = Object.values(row)[0];
+            // Se obtiene el dato del segundo campo.
+            text = Object.values(row)[1];
+            // Se verifica cada valor para enlistar las opciones.
+            if (value != selected) {
+                content += `<option value="${value}">${text}</option>`;
+            } else {
+                content += `<option value="${value}" selected>${text}</option>`;
+            }
+        });
+    } else {
+        content += '<option>No hay opciones disponibles</option>';
+    }
+    // Se agregan las opciones a la etiqueta select mediante el id.
+    document.getElementById(select).innerHTML = content;
+    // Se inicializa el componente Select del formulario para que funcione el menú de opciones.
+    
+}
+
 /*
 *   Función para generar un gráfico de barras verticales.
 *   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título del gráfico).

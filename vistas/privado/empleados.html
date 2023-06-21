@@ -111,36 +111,38 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion del docente</h5>
+                    <h5 class="modal-title" id="modal-title2">Informacion del docente</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <input class="visually-hidden-focusable" type="number" id="id" name="id">
-
+                            
                             <h5>Nombre</h5>
-                            <p>Ramón Ricardo Ramirez Martinez</p>
+                            <h3 id="nombre_empleado">Ramón Ricardo Ramirez Martinez</h3>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-select" required aria-label="select example" id="grados"
-                                name="grados">
-                                <option value="">Seleccione una opcion</option>
-
-                            </select>
-                        </div>
-                        <div class="col-3 Respon_BTN">
-                            <select class="form-select" required aria-label="select example" id="grados"
-                                name="grados">
-                                <option value="">Seleccione una opcion</option>
-
-                            </select>
-
-                        </div>
+                            <select class="form-select" required aria-label="select example" id="grado"
+                            name="grado">
+                            <option value="">Seleccione una opcion</option>
+                            
+                        </select>
                     </div>
-                    <!--tabla-->
-                    <div id="table_act" class="row">
-                        <div class="row">
+                    <div class="col-3 Respon_BTN">
+                        <select class="form-select" required aria-label="select example" id="asignatura"
+                        name="asignatura">
+                        <option value="">Seleccione una opcion</option>
+                        
+                    </select>
+                    
+                </div>
+            </div>
+            <!--tabla-->
+            
+            <div id="table_act" class="row">
+                <div class="row">
+                    
                             <div class="col-sm-2">
                                 <th>Actividad</th>
                                 <p>actividad cotidiana 1</p>
@@ -184,7 +186,7 @@
 
                         <hr class="hr" />
                     </div>
-
+            
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
