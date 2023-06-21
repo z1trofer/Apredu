@@ -67,6 +67,16 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
+    //obtener notas de una actividad sin el id_empleado
+    function ObtenerActividadDirector() {
+        $sql = "SELECT  id_nota, ROW_NUMBER() OVER(ORDER BY estudiantes.apellido_estudiante asc) as 'n_lista', estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, actividades.nombre_actividad, actividades.descripcion, actividades.ponderacion, notas.nota from notas 
+        INNER JOIN estudiantes USING(id_estudiante) INNER JOIN actividades USING (id_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
+        where id_actividad = ?";
+        $params = array($this->id_actividad);
+        return Database::getRows($sql, $params);
+    }
+
     function CambiarNotas() {
         $sql = "UPDATE notas SET nota = ? where id_nota = ?";
         $params = array($this->nota, $this->id_nota);

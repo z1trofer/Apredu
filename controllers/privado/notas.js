@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //función para cargar los Trimestres
     await CargarTrimestres();
     //Función para cargar las asignaturas 
-    CargarAsignaturas();
+    await CargarAsignaturas();
 });
 
 async function GetTipoUsuario(){
@@ -48,8 +48,8 @@ async function CargarTrimestres() {
             if (row.estado == true || TIPO_US != 2) {
                  
                 //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
-                id_trimestre = row.id_trimestre;
-                trimestre = row.trimestre;
+                //id_trimestre = row.id_trimestre;
+                //trimestre = row.trimestre;
                 //se asigna el nombre del trimestre en el boton
                 document.getElementById('TrimestreSelect').innerHTML = row.trimestre;
                 //se llena el dropdown con el trimestre especifico
@@ -95,7 +95,7 @@ async function CargarAsignaturas(){
             if (row.id_asignatura == materia) {
                 //si la respuesta es true solo se agrega el grado a la asignatura ya ingresada junto con parametros para asignar las notas
                 document.getElementById('grados' + row.id_asignatura).innerHTML += `
-                <li><a class="dropdown-item" href="notas_subir.html?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
+                <li><a class="dropdown-item" onclick="getIdTrimestre(${row.id_asignatura}, ${row.id_grado}, '${row.grado}', '${row.nombre}', '${row.asignatura}')">${row.grado}</a></li>
             `;
             } else {
                 // de lo contrario se agrega una nueva asignatura con el primer grado que esta tenga
@@ -112,8 +112,7 @@ async function CargarAsignaturas(){
                   ${row.asignatura}
                 </button>
                 <ul class="dropdown-menu" id="grados${row.id_asignatura}">
-                  <li><a class="dropdown-item" 
-                  href="notas_subir.html?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
+                  <li><a class="dropdown-item" onclick="getIdTrimestre(${row.id_asignatura}, ${row.id_grado}, '${row.grado}', '${row.nombre}', '${row.asignatura}')">${row.grado}</a></li>
                 </ul>
               </div>
         </div>
@@ -150,10 +149,15 @@ async function CargarAsignaturas(){
     }
 }
 
+function getIdTrimestre(asginatura, id_grado, grado, docente, materia){
+    location.href = "notas_subir.html?asignatura="+asginatura+"&idtrimestre="+id_trimestre+"&idgrado="+id_grado+"&grado="+grado+"&docente="+docente+"&trimestre="+trimestre+"&materia="+materia;
+    //url = '?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}'
+}
+
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
 function OpcionTrimestre(id_trimestreFun, trimestreFun) {
-     
+    debugger
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_trimestre = id_trimestreFun;
     trimestre = trimestreFun;
