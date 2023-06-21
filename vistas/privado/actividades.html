@@ -12,62 +12,10 @@
 
 <body id="private">
     <!-- Navbar -->
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <!-- Container wrapper -->
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="img_navbar" href="principal.html">
-                <img src="../recursos/logo.png" style="width: 9rem;" alt="">
-            </a>
+    <header id="navbar">
+        <!-- Navbar -->
 
-            <!-- Toggle button -->
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                <!-- Left links -->
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="empleados.html">Empleados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="actividades.html">Actividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="notas_ingresar.html">Notas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="estudiantes.html">Alumnos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="usuarios.html">Usuarios</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <div class="dropdown">
-                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                    <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                        alt="Black and White Portrait of a Man" loading="lazy" />
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
-                        <a class="dropdown-item" href="index.html">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-    </nav>
+    </header>
     <!-- Navbar -->
     <main>
         <!--Sección Principal-->
@@ -195,43 +143,50 @@
                     </h4>
                 </div>
             </div>
-            <div class="row" id="colDivEM">
-                <!--filtros empleados-->
-                <div class="col text-center">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            Primer Trimestre
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Nombre</a></li>
-                            <li><a class="dropdown-item" href="#">Apellido</a></li>
-                        </ul>
+            <form id="search" role="search" action="">
+                <div class="row" id="colDivEM">
+                    <!--filtros empleados-->
+
+                    <div class="col text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropTrimestre"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Primer Trimestre
+                            </button>
+                            <ul id="listTrimestre" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Nombre</a></li>
+                                <li><a class="dropdown-item" href="#">Apellido</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="col text-center">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            2° grado
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Ascendente</a></li>
-                        </ul>
+                    <div class="col text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropGrado"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                2° grado
+                            </button>
+                            <ul id="listGrados" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Ascendente</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="col text-center">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            MAtematicas
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Ascendente</a></li>
-                        </ul>
+                    <div class="col text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropAsignatura"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                MAtematicas
+                            </button>
+                            <ul id="listAsignatura" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Ascendente</a></li>
+                            </ul>
+                        </div>
                     </div>
+                    <div class="col text-center">
+                        <button id="buscar" type="button" class="btn btn-primary" onclick="BusquedaParametrizada()">Buscar</button>
+                    </div>
+
                 </div>
-            </div>
+            </form>
         </div>
         <!----------------------------------tablA------------------------>
         <div class="container" id="TablaEm">
@@ -337,10 +292,9 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     <script src="../../recursos/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
-
     <script src="../../controllers/privado/account.js" defer></script>
-
     <script src="../../controllers/privado/actividades.js"></script>
+
 </body>
 
 </html>

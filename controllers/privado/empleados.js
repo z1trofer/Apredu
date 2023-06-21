@@ -5,12 +5,49 @@ const EMPLEADOS_API = 'business/privado/empleados.php';
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.
 const titulo_modal = document.getElementById('modal-title');
+const titulo_modal2 = document.getElementById('modal-title2');
+const SAVE_FORM_DETALLE = document.getElementById('save-form-detalle');
 // Constantes para establecer el contenido de la tabla.
 const TBODY_ROWS = document.getElementById('table-alum');
 const RECORDS = document.getElementById('records');
 const SEARCH_FORM = document.getElementById('search-form');
 const FORM_INFOACTI = document.getElementById('info-form');
+// Constante para cargar la tabla de la ficha de actividades
+const TBODY_ROWS_ACT = document.getElementById('table_act');
+// 
+const CMB_ASIGNATURA = document.getElementById('asignatura');
+const CMB_GRADO = document.getElementById('grado');
 
+// Variable
+var valor_asignatura;
+var valor_grado;
+var valor_empleado;
+
+function CapturandoDatos() {
+    console.log(valor_asignatura);
+    console.log(valor_grado);
+    // fillTable2(id_empleado);
+    CargandoDatos( valor_empleado, valor_grado, valor_asignatura);
+}
+
+function CargandoDatos(empleado, grado, asignatura){
+    fillTable2(empleado, grado, asignatura);
+}
+
+
+CMB_ASIGNATURA.addEventListener('change', () => {
+    // CAPTURANDO EL ID DE ASIGNATURA CADA VEZ QUE SE CAMBIA
+    valor_asignatura = CMB_ASIGNATURA.options[CMB_ASIGNATURA.selectedIndex].value;
+    // fillTable2(null, null, valor_asignatura);
+    CapturandoDatos();
+
+});
+
+CMB_GRADO.addEventListener('change', () => {
+    // CAPTURANDO EL ID DE GRADO CADA VEZ QUE SE CAMBIA
+    valor_grado = CMB_GRADO.options[CMB_GRADO.selectedIndex].value;
+    // fillTable2(null, valor_grado, null);
+});
 
 // Constante tipo objeto para establecer las opciones del componente Modal.
 
@@ -31,6 +68,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Se asigna la fecha como valor máximo en el campo del formulario.
     document.getElementById('fecha_nacimiento').max = date;
 });
+
+// SAVE_FORM_DETALLE.addEventListener('submit', async(event) =>{
+//     event.preventDefault();
+//     (document.getElementById('id').value) ? action = 'update' : action = 'create';
+//     const FORM = new FormData(SAVE_FORM_DETALLE);
+//     const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
+//     if (JSON.status) {
+//         // Se carga nuevamente la tabla para visualizar los cambios.
+//         fillTable2();      
+//         // Se muestra un mensaje de éxito.
+//         sweetAlert(1, JSON.message, true);
+//     } else {
+//         sweetAlert(2, JSON.exception, false);
+//     }
+// });
+
 
 SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -118,6 +171,7 @@ async function fillTable(form = null) {
     }
 }
 
+
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
 *   Parámetros: ninguno.
@@ -127,6 +181,18 @@ function openCreate() {
     // Se restauran los elementos del formulario.
     titulo_modal.textContent = 'Asignar un nuevo empleado';
     fillSelect(EMPLEADOS_API, 'readCargos', 'cargo');
+}
+
+function openDetalleActividad(id_empleado) {
+    console.log(id_empleado);
+    titulo_modal2.textContent = 'Información de actividades';
+    fillSelect2(EMPLEADOS_API, 'readAsignaturas_empleado', 'asignatura', id_empleado);
+    fillSelect2(EMPLEADOS_API, 'readGrados_empleado', 'grado', id_empleado);
+    fillTable2(id_empleado);
+    valor_empleado = id_empleado;
+    document.getElementById('nombre_empleado').value = JSON.dataset.nombre_empleado;
+    CapturandoDatos();
+
 }
 
 /*
@@ -188,40 +254,125 @@ async function openDelete(id_empleado) {
     }
 }
 
-async function openDetalleActividad(form = null) {
-    titulo_modal.textContent = 'Información de las actividades';
-    fillSelect(EMPLEADOS_API, 'readreadGrados_empleado', 'grados');
-    fillSelect(EMPLEADOS_API, 'readAsignaturas_empleado', 'asignaturas');
-
-
+async function fillTable2(id_empleado, id_grado = null, id_asignatura = null) {
     // Se inicializa el contenido de la tabla.
-    TBODY_ROWS.innerHTML = '';
+    if (id_grado == null && id_asignatura == null) {
+        const FORM = new FormData();
+        FORM.append('id_empleado', id_empleado);
+        const JSON = await dataFetch(EMPLEADOS_API, 'readSinFiltros', FORM);
+        if (JSON.status) {
+            TBODY_ROWS_ACT.innerHTML = '';
 
-    // Se verifica la acción a realizar.
-    (form) ? action = 'search' : action = 'readPorDetalle';
-    // Petición para obtener los registros disponibles.
-    const JSON = await dataFetch(EMPLEADOS_API, action, form);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (JSON.status) {
-        // Se recorre el conjunto de registros fila por fila.
-        JSON.dataset.forEach(row => {
-            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TBODY_ROWS.innerHTML += `
-               
-               <tr>
-               <td>${row.nombre_actividad}</td>
-               <td>${row.ponderacion}</td>
-               <td>${row.grado}</td>
-               <td>${row.asignatura}</td>
+            JSON.dataset.forEach((row) => {
 
-               </tr>
-               
-           `;
-        });
-    } else {
-        sweetAlert(4, JSON.exception, true);
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TBODY_ROWS_ACT.innerHTML += `
+            <div class="row">
+                    
+            <div class="col-sm-2">
+                <th>Actividad</th>
+                <p>${row.nombre_actividad}</p>
+                <button class="btn btn-primary" type="button" id="btnTipo_Act"
+                    data-mdb-toggle="dropdown">
+                    Activid..
+                </button>
+
+            </div>
+            <div class="col-sm-4">
+                <th>Descripción</th>
+                <p>${row.descripcion}</p>
+            </div>
+            <div class="col-sm-1">
+                <th>%</th>
+                <p>${row.ponderacion}</p>
+            </div>
+            <div class="col-sm-2">
+                <th>Grado</th>
+                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                    ${row.grado}
+                </button>
+
+            </div>
+            <div class="col-sm-3">
+                <th>Asignatura</th>
+                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                    ${row.asignatura}              
+            </button>
+                <th>Fecha de entrega</th>
+                <p>${row.fecha_entrega}</p>
+
+            </div>
+        </div>
+
+        <hr class="hr" />       
+            `;
+            })
+        } else {
+            console.log("Error al mostrar");
+        }
+    } else if(id_grado != null && id_asignatura == null) {
+        console.log('No se admiten un valor nulo');
+    }else{
+        const FORM = new FormData();
+        FORM.append('id_empleado', id_empleado);
+        FORM.append('id_grado', id_grado);
+        FORM.append('id_asignatura', id_asignatura);
+        const JSON = await dataFetch(EMPLEADOS_API, 'readPorDetalle', FORM);
+        if (JSON.status) {
+            TBODY_ROWS_ACT.innerHTML = '';
+
+            JSON.dataset.forEach((row) => {
+
+                // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+                TBODY_ROWS_ACT.innerHTML += `
+            <div class="row">
+                    
+            <div class="col-sm-2">
+                <th>Actividad</th>
+                <p>${row.nombre_actividad}</p>
+                <button class="btn btn-primary" type="button" id="btnTipo_Act"
+                    data-mdb-toggle="dropdown">
+                    Activid..
+                </button>
+
+            </div>
+            <div class="col-sm-4">
+                <th>Descripción</th>
+                <p>${row.descripcion}</p>
+            </div>
+            <div class="col-sm-1">
+                <th>%</th>
+                <p>${row.ponderacion}</p>
+            </div>
+            <div class="col-sm-2">
+                <th>Grado</th>
+                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                    ${row.grado}
+                </button>
+
+            </div>
+            <div class="col-sm-3">
+                <th>Asignatura</th>
+                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                    ${row.asignatura}
+                </button>
+                <th>Fecha de entrega</th>
+                <p> ${row.fecha_entrega}</p>
+
+            </div>
+        </div>
+
+        <hr class="hr" />       
+            `;
+            })
+        }
     }
 }
+
 
 //Buscador
 (function (document) {

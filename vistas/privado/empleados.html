@@ -111,34 +111,38 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion del docente</h5>
+                    <h5 class="modal-title" id="modal-title2">Informacion del docente</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row align-items-center">
                         <div class="col-sm-6">
+                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
+                            
                             <h5>Nombre</h5>
-                            <p>Ramón Ricardo Ramirez Martinez</p>
+                            <h3 id="nombre_empleado">Ramón Ricardo Ramirez Martinez</h3>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-select" required aria-label="select example" id="grados"
-                                name="grados">
-                                <option value="">Seleccione una opcion</option>
-
-                            </select>
-                        </div>
-                        <div class="col-3 Respon_BTN">
-                            <select class="form-select" required aria-label="select example" id="grados"
-                                name="grados">
-                                <option value="">Seleccione una opcion</option>
-
-                            </select>
-
-                        </div>
+                            <select class="form-select" required aria-label="select example" id="grado"
+                            name="grado">
+                            <option value="">Seleccione una opcion</option>
+                            
+                        </select>
                     </div>
-                    <!--tabla-->
-                    <div id="table_act" class="row">
-                        <div class="row">
+                    <div class="col-3 Respon_BTN">
+                        <select class="form-select" required aria-label="select example" id="asignatura"
+                        name="asignatura">
+                        <option value="">Seleccione una opcion</option>
+                        
+                    </select>
+                    
+                </div>
+            </div>
+            <!--tabla-->
+            
+            <div id="table_act" class="row">
+                <div class="row">
+                    
                             <div class="col-sm-2">
                                 <th>Actividad</th>
                                 <p>actividad cotidiana 1</p>
@@ -182,7 +186,7 @@
 
                         <hr class="hr" />
                     </div>
-
+            
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
@@ -193,61 +197,10 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <!-- Container wrapper -->
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="img_navbar" href="principal.html">
-                <img src="../recursos/logo.png" style="width: 9rem;" alt="">
-            </a>
+    <header id="navbar">
+        <!-- Navbar -->
 
-            <!-- Toggle button -->
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                <!-- Left links -->
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="empleados.html">Empleados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="actividades.html">Actividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="notas_ingresar.html">Notas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="estudiantes.html">Alumnos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="usuarios.html">Usuarios</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <div class="dropdown">
-                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                    <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                        alt="Black and White Portrait of a Man" loading="lazy" />
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
-                        <a class="dropdown-item" href="index.html">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-    </nav>
+    </header>
     <!-- Navbar -->
     <main>
         <!--Sección Principal-->
@@ -377,6 +330,7 @@
     </footer>
     <script src="../../recursos/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
+    <script src="../../controllers/privado/account.js"></script>
     <script src="../../controllers/privado/empleados.js"></script>
     <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>

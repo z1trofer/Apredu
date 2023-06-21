@@ -18,6 +18,9 @@ class Empleados extends EmpleadosQueries
     protected $usuario_empleado = null;
     protected $clave = null;
     protected $estado = null;
+    protected $id_grado = null;
+    protected $id_asignatura = null;
+
 
 
     /*
@@ -135,6 +138,25 @@ class Empleados extends EmpleadosQueries
         }
     }
     
+    public function setid_grado($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_grado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setid_asignatura($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_asignatura = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
    
     
     /*
@@ -188,6 +210,16 @@ class Empleados extends EmpleadosQueries
     public function getestado()
     {
         return $this->estado;
+    }
+
+    public function getid_grado()
+    {
+        return $this->id_grado;
+    }
+
+    public function getid_asignatura()
+    {
+        return $this->id_asignatura;
     }
     
     

@@ -24,13 +24,29 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readPorDetalle':
-                if ($result['dataset'] = $Empleados_p->CargarPorDetalleAsigGrado($_SESSION['id_empleado'])) {
+                if (!$Empleados_p->setid_empleado($_POST['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                }elseif (!$Empleados_p->setid_grado($_POST['id_grado'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                } elseif (!$Empleados_p->setid_asignatura($_POST['id_asignatura'])) {
+                    $result['exception'] = 'Asignatura incorrecta';
+                } elseif ($result['dataset'] = $Empleados_p->ObtenerActividades()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    $result['exception'] = 'Empleado inexistente';
+                }
+                break;
+            case 'readSinFiltros':
+                if (!$Empleados_p->setid_empleado($_POST['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif ($result['dataset'] = $Empleados_p->readSinFiltros()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'Empleado inexistente';
                 }
                 break;
             case 'readCargos':
@@ -44,23 +60,25 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readAsignaturas_empleado':
-                if ($result['dataset'] = $Empleados_p->readAsignaturas_empleado()) {
+                if (!$Empleados_p->setid_empleado($_POST['data'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif ($result['dataset'] = $Empleados_p->readAsignaturas_empleado()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    $result['exception'] = 'Empleado inexistente';
                 }
                 break;
             case 'readGrados_empleado':
-                if ($result['dataset'] = $Empleados_p->readGrados_empleado()) {
+                if (!$Empleados_p->setid_empleado($_POST['data'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif ($result['dataset'] = $Empleados_p->readGrados_empleado()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    $result['exception'] = 'Empleado inexistente';
                 }
                 break;
             case 'search':

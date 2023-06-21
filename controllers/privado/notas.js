@@ -5,89 +5,103 @@
 
 //Declaración API notas
 const NOTAS_API = 'business/privado/notas.php';
-
+//declaración de la sección donde apareceran las materias
 const CONT_MATERIAS = document.getElementById('cont_materias');
-//cantante para obtener fechas
+//constante para obtener fechas
 const DATE = new Date();
 //se guarda el año en una constante
 const ANIO = DATE.getFullYear();
-
-//variable definir trimestre
+//variables definir trimestre
 let id_trimestre = null;
 let trimestre = null;
-
-
+//se declara constante con el tipo_usuario
+const TIPO_US = GetTipoUsuario();
+//evento Content load para cuando se cargue la pagina
 document.addEventListener('DOMContentLoaded', async () => {
+    //función para cargar los Trimestres
     await CargarTrimestres();
-    CargarAsignaturas();
+    //Función para cargar las asignaturas 
+    await CargarAsignaturas();
 });
 
+async function GetTipoUsuario(){
+    return await dataFetch(USER_API, 'getSession');
+}
+
+//función Cargar Trimestres
 async function CargarTrimestres() {
     //se instancia un formulario
     const FORM = new FormData();
-    //se instancia el año en el formulario
+    //se instancia el año como parametro en el formulario
     FORM.append('anio', ANIO);
-    //se llama a la api
+    //se llama a la API para obtener los trimestres del año respectivo
     const JSON = await dataFetch(NOTAS_API, 'ObtenerTrimestres', FORM);
     //se comprueba la respuesta de la api
     if (JSON.status) {
-        //se declara el dropdown en una variable
+        //se declara el combobox de trimestres en la variable dropdown
         dropdown = document.getElementById('trimestres_drop');
-        //se limpia el dropdown
+        //se limpia el dropdown para asegurarse que no haya ningun contenido
         dropdown.innerHTML = '';
-
-        //se llena el dropdown por cada fila
-        JSON.dataset.forEach(row => {
-            //se llena el trimistre que esta habilitado para editar
-            if (row.estado == true) {
-                debugger
-                id_trimestre = row.id_trimestre;
-                trimestre = row.trimestre;
+        //se llena el dropdown mediante la respuesta de la api
+        JSON.dataset.forEach(async row => {
+            //el dropdown se llena con el trimestre que poseea el valor de true
+            if (row.estado == true || TIPO_US != 2) {
+                 
+                //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
+                //id_trimestre = row.id_trimestre;
+                //trimestre = row.trimestre;
+                //se asigna el nombre del trimestre en el boton
                 document.getElementById('TrimestreSelect').innerHTML = row.trimestre;
+                //se llena el dropdown con el trimestre especifico
                 dropdown.innerHTML += `
                 <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
                 `
             }
-
         });
-        return true;
     } else {
-        console.log('error al cargar los trimestres');
-        return false;
+        //se envia un mensaje con el error respectivo
+        sweetAlert(2, "Ocurrio un error al cargar los trimestres, por favor comuniquese con un administrador", false);
     }
 }
 
 async function CargarAsignaturas(){
+    //se declara la variable materia
     let materia = null;
-    //se coloca el año respectivo
+    //se carga el año actual en el label respectivo
     document.getElementById('aniooo').innerHTML = 'año ' + ANIO;
-    // Petición para consultar los usuarios registrados.
-    const JSON = await dataFetch(NOTAS_API, 'ObtenerMateriasDocente');
-    // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
+    //se declara la variable accion
+    accion = null;
+    //se copara el tipo de usuario para determinar la accion a realizar
+    if(TIPO_US == 2){
+        accion = 'ObtenerMateriasDocente';
+    }else{
+        accion = 'ObtenerMaterias';
+    }
+    //llamada a la API obtener las materias del docente logeado
+    const JSON = await dataFetch(NOTAS_API, accion);
+    //Se compara la respuesta de la api
     if (JSON.status) {
-        //se cargan los trimestres segun el trimestre actual habilitado
-
-        //añadiendo nombre del docente
-        document.getElementById('docenteNombre').innerHTML = JSON.dataset[1].nombre;
-        //se asigna el docente a la variable docente
+        //Se Carga el nombre del docente logeado en el label
+        if(accion == 'ObtenerMateriasDocente'){
+            document.getElementById('docenteNombre').innerHTML = JSON.dataset[1].nombre;
+        }else{
+            document.getElementById('docenteNombre').hidden = true;
+        }
         //se vacia el contenedor de las asignaturas
         CONT_MATERIAS.innerHTML = '';
         //se llena el contenedor con los datos
         JSON.dataset.forEach(row => {
             //se compara la variable materia con el id_asignatura de los datos
             if (row.id_asignatura == materia) {
-                debugger
-                //si la respuesta es true solo se agrega el grado a la asignatura ya ingresada
+                //si la respuesta es true solo se agrega el grado a la asignatura ya ingresada junto con parametros para asignar las notas
                 document.getElementById('grados' + row.id_asignatura).innerHTML += `
-                <li><a class="dropdown-item" href="notas_subir.html?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
-
+                <li><a class="dropdown-item" onclick="getIdTrimestre(${row.id_asignatura}, ${row.id_grado}, '${row.grado}', '${row.nombre}', '${row.asignatura}')">${row.grado}</a></li>
             `;
             } else {
-                debugger
                 // de lo contrario se agrega una nueva asignatura con el primer grado que esta tenga
                 CONT_MATERIAS.innerHTML += `
                 
-            <div class="col">
+            <div class="col margin">
             <div class="btn-group">
                 <button id="dropasig${row.id_asignatura}" 
                   class="btn btn-primary btn-lg dropdown-toggle"
@@ -98,15 +112,13 @@ async function CargarAsignaturas(){
                   ${row.asignatura}
                 </button>
                 <ul class="dropdown-menu" id="grados${row.id_asignatura}">
-                  <li><a class="dropdown-item" 
-                  href="notas_subir.html?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}">${row.grado}</a></li>
+                  <li><a class="dropdown-item" onclick="getIdTrimestre(${row.id_asignatura}, ${row.id_grado}, '${row.grado}', '${row.nombre}', '${row.asignatura}')">${row.grado}</a></li>
                 </ul>
               </div>
         </div>
             `;
                 //se obtiene el id del boton de la asignatura
                 color = document.getElementById('dropasig' + row.id_asignatura);
-
                 //se compara el id de la asignatura para asignar un color al boton
                 switch (row.id_asignatura) {
                     case "1":
@@ -130,20 +142,25 @@ async function CargarAsignaturas(){
                 //se define la variable materia como el id_asignatura de la materia
                 materia = row.id_asignatura;
             }
-
         });
-        // Se direcciona a la página web de bienvenida.
-
     } else {
-        // Se muestra el formulario para registrar el primer usuario.
-        //sweetAlert(2, 'aaaaaa', false);
+        //se manda un mensaje con el error respectivo
+        sweetAlert(2, "Ha habido un problema al cargar las asignaturas", false);
     }
- 
 }
 
-//funcion para cambiar el trimestre seleccionado
+function getIdTrimestre(asginatura, id_grado, grado, docente, materia){
+    location.href = "notas_subir.html?asignatura="+asginatura+"&idtrimestre="+id_trimestre+"&idgrado="+id_grado+"&grado="+grado+"&docente="+docente+"&trimestre="+trimestre+"&materia="+materia;
+    //url = '?asignatura=${row.id_asignatura}&idtrimestre=${id_trimestre}&idgrado=${row.id_grado}&docente=${row.nombre}&trimestre=${trimestre}&grado=${row.grado}&materia=${row.asignatura}'
+}
+
+//funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
+//parametros: id_trimestre y el nombre del trimestre
 function OpcionTrimestre(id_trimestreFun, trimestreFun) {
+    debugger
+    //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_trimestre = id_trimestreFun;
     trimestre = trimestreFun;
+    //se designa el texto del boton como el trimestre seleccionado
     document.getElementById('TrimestreSelect').innerHTML = trimestre;
 };

@@ -25,6 +25,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+            case 'ObtenerMaterias':
+                if ($result['dataset'] = $notas->ObtenerMaterias()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
             case 'ObtenerTrimestres':
                 $_POST = Validator::validateForm($_POST);
                 if ($result['dataset'] = $notas->ObtenerTrimestres($_POST['anio'])) {
@@ -43,12 +52,22 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'trimestre incorrecto';
                 } elseif (!$notas->setId_grado($_POST['grado'])) {
                     $result['exception'] = 'grado0 incorrecto';
-                } elseif ($result['dataset'] = $notas->ObtenerActividades()) {
-                    $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
+                } elseif ($_SESSION['tipo'] == 2) {
+                    if ($result['dataset'] = $notas->ObtenerActividades()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    if ($result['dataset'] = $notas->ObtenerActividadesDirector()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
                 }
                 break;
             case 'ObtenerActividad':
@@ -57,12 +76,22 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'empleado incorrecto';
                 } elseif (!$notas->setId_actividad($_POST['actividad'])) {
                     $result['exception'] = 'asignatura, incorrecta';
-                } elseif ($result['dataset'] = $notas->ObtenerActividad()) {
-                    $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
+                } elseif ($_SESSION['tipo'] == 2) {
+                    if ($result['dataset'] = $notas->ObtenerActividad()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    if ($result['dataset'] = $notas->ObtenerActividadDirector()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
                 }
                 break;
             case 'ActualizarNotas':

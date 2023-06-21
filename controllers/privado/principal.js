@@ -21,13 +21,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 //funcion para controlar las opciones disponibles segun el nivel de usuario
 function validarPermisos(){
-    debugger
+     
     switch (tipoUsuario) {
         //caso nivel de usuario docente/profesor
         case "2":
+            //se esconden los contenidos que no correspondan
             document.getElementById('onlydocentes').hidden = true;
+            //se declara en la variable un arreglo con los elementos que tengan la clase "doc"
             things = document.getElementsByClassName('doc');
+            //se inicia un bucle que recorre el arreglo
             for (let index = 0; index < things.length; index++) {
+                //se esconde el elemento que no deba ver el docente
                 things[index].hidden = true;
               }
             break;

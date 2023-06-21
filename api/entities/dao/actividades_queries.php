@@ -40,11 +40,24 @@ class ActividadesQueries
     }
 
     // Para cargar combobox
+    public function readGrados()
+    {
+        $sql = "SELECT id_grado, grado
+            FROM grados";
+        return Database::getRows($sql);
+    }
+
+    public function readAsignaturas()
+    {
+        $sql = "SELECT id_asignatura, asignatura
+            FROM asignaturas";
+        return Database::getRows($sql);
+    }
+
     public function readTrimestres()
     {
         $sql = "SELECT id_trimestre, trimestre, anios.anio
-            FROM trimestres LEFT JOIN anios USING(id_anio)
-            WHERE anio = '2023'";
+            FROM trimestres LEFT JOIN anios using(id_anio) where anio ='2023'";
         return Database::getRows($sql);
     }
 
@@ -56,6 +69,19 @@ class ActividadesQueries
         INNER JOIN asignaturas USING(id_asignatura)
         INNER JOIN grados USING (id_grado)";
         return Database::getRows($sql);
+    }
+
+    // Para la búsqueda parametrizada
+    public function FiltrarActividades($filtros)
+    {
+        $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad
+        FROM actividades 
+        INNER JOIN tipo_actividades USING (id_tipo_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+        WHERE id_trimestre = ".$filtros['trimestre']." and detalle_asignaturas_empleados.id_grado = ".$filtros['grado']." and id_asignatura = ".$filtros['asignatura'].
+        " GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
+        ORDER BY actividades.nombre_actividad ASC";
+         return Database::getRows($sql);
     }
 
     public function createRow()

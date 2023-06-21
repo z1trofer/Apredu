@@ -10,6 +10,8 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
+    // Arreglo para el filtrado parametrizado
+    $filtro = array('trimestre' => 0, 'grado' => 0, 'asignatura' => 0);
     if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
@@ -23,8 +25,43 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                case 'FiltrosActividades':
+                    $_POST = Validator::validateForm($_POST);
+                    $filtro['grado'] = $_POST['grado'];
+                    $filtro['asignatura'] = $_POST['asignatura'];
+                    $filtro['trimestre'] = $_POST['trimestre'];
+                     if ($result['dataset'] = $Actividades_p->FiltrarActividades($filtro)) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
+                    break;
+
             case 'readTipoActividades':
                 if ($result['dataset'] = $Actividades_p->readTipoActividades()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            case 'readGrados':
+                if ($result['dataset'] = $Actividades_p->readGrados()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            case 'readAsignaturas':
+                if ($result['dataset'] = $Actividades_p->readAsignaturas()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
@@ -78,15 +115,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
                 } elseif (!$Actividades_p->setid_tipo_actividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Tipo de actividad incorrecto';
-                }elseif (!isset($_POST['detalle'])) {
+                } elseif (!isset($_POST['detalle'])) {
                     $result['exception'] = 'Seleccione un detalle';
                 } elseif (!$Actividades_p->setid_detalle_asignatura_empleado($_POST['detalle'])) {
                     $result['exception'] = 'Tipo de asignación incorrecto';
-                }elseif (!isset($_POST['trimestre'])) {
+                } elseif (!isset($_POST['trimestre'])) {
                     $result['exception'] = 'Seleccione un trimestre';
                 } elseif (!$Actividades_p->setid_trimestre($_POST['trimestre'])) {
                     $result['exception'] = 'Trimestre mal ingresado';
-                }elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
+                } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
                 } elseif ($Actividades_p->createRow()) {
                     $result['status'] = 1;
@@ -122,17 +159,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
                 } elseif (!$Actividades_p->setid_tipo_actividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Tipo de actividad incorrecto';
-                }elseif (!isset($_POST['detalle'])) {
+                } elseif (!isset($_POST['detalle'])) {
                     $result['exception'] = 'Seleccione un detalle';
                 } elseif (!$Actividades_p->setid_detalle_asignatura_empleado($_POST['detalle'])) {
                     $result['exception'] = 'Tipo de asignación incorrecto';
-                }elseif (!isset($_POST['trimestre'])) {
+                } elseif (!isset($_POST['trimestre'])) {
                     $result['exception'] = 'Seleccione un trimestre';
                 } elseif (!$Actividades_p->setid_trimestre($_POST['trimestre'])) {
                     $result['exception'] = 'Trimestre mal ingresado';
-                }elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
+                } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
-                }elseif ($Actividades_p->updateRow()) {
+                } elseif ($Actividades_p->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha actualizado correctamente';
                 } else {
