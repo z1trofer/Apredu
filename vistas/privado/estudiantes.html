@@ -32,7 +32,7 @@
                 <div class="col-12 col-sm-12">
                     <div class="input-group">
                         <div class="form-outline">
-                            <input type="search" id="form1" class="form-control" />
+                            <input type="search" id="buscador" class="form-control" data-table="table"/>
                             <label class="form-label" for="form1">Search</label>
                         </div>
                         <button type="button" class="btn btn-primary">
@@ -81,6 +81,7 @@
                     <thead>
                         <tr id="records"></tr>
                         <tr>
+                            <th scope="col">Id</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Grado</th>
@@ -369,7 +370,7 @@
                             <form id="save-formE">
                                 <div class="row">
                                     <div class="col-sm">
-                                        <input type="" name="id_estudiante" id="id_estudiante">
+                                        <input type="hidden" name="id_estudiante" id="id_estudiante">
                                         <h5>Nombre</h5>
                                         <input type="text" id="nombre_estudiante" name="nombre_estudiante"
                                             class="validate try" required>
@@ -386,23 +387,12 @@
                                             Grados
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura" name="lectura">
-                                            <!--<li><a class="dropdown-item" onclick="opcionGrado('Maternidad')">Maternidad</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Kinder 4')">Kinder 4</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Kinder 5')">Kinder 5</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Parvularia')">Parvularia</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Primer grado')">Primer grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Segundo grado')">Segundo grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Tercer grado')">Tercer grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Cuarto grado')">Cuarto grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Quinto grado')">Quinto grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Sexto grado')">Sexto grado</a></li>-->
                                         </ul>
-                                        <input type="text" id="grados_estudiante" name="grados_estudiante"> 
+                                        <input type="" id="grados_estudiante" name="grados_estudiante"> 
                                     </div>
                                     <div class="col-sm">
                                         <h5>F.de nacimiento</h5>
-                                        <input type="text" id="fecha_estudiante" name="fecha_estudiante"
-                                            class="validate try" required>
+                                        <input type="date" id="nacimiento" name="nacimiento" class="validate try" required>
                                     </div>
                                 </div>
                                 <br>
@@ -457,68 +447,6 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="save-formE">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <input type="hidden" name="id_estudiante" id="id_estudiante">
-                                        <h5>Nombre</h5>
-                                        <input type="text" id="nombre_estudiante" name="nombre_estudiante"
-                                            class="validate try" required>
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>Apellido</h5>
-                                        <input type="text" id="apellido_estudiante" name="apellido_estudiante"
-                                            class="validate try" required>
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>Grado</h5>
-                                        <button class="btn btn-primary dropdown-toggle" type="button" id="grado" name="grado"
-                                            data-mdb-toggle="dropdown" aria-expanded="false">
-                                            Grados
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <!--<li><a class="dropdown-item" onclick="opcionGrado('Maternidad')">Maternidad</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Kinder 4')">Kinder 4</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Kinder 5')">Kinder 5</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Parvularia')">Parvularia</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Primer grado')">Primer grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Segundo grado')">Segundo grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Tercer grado')">Tercer grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Cuarto grado')">Cuarto grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Quinto grado')">Quinto grado</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionGrado('Sexto grado')">Sexto grado</a></li>-->
-                                        </ul>
-                                        <input class="text" type="text" id="grados"
-                                            name="grados">
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>F.de nacimiento</h5>
-                                        <input type="date" id="fecha_estudiante" name="fecha_estudiante"
-                                            class="validate try" required>
-                                    </div>
-                                </div>
-                                <br>
-                                <br>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <h5>Dirección</h5>
-                                        <textarea name="direccion_estudiante" id="direccion_estudiante"
-                                            class="Validate try" rows="3"></textarea>
-                                    </div>
-                                    <div class="col-3">
-                                        <h5>NIE</h5>
-                                        <input type="text" name="nie" id="nie" class="Validate try" required>
-                                    </div>
-                                    <div class="form-check form-switch col-3">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="estados"
-                                            name="estados" />
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Inactivo /
-                                            Activo</label>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
-                                <button  type="submit" class="btn btn-success">Guardar Cambios</button>
-                            </form>
                         </div>
                     </div>
                 </div>

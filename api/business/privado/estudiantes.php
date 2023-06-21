@@ -27,15 +27,15 @@ if (isset($_GET['action'])) {
                     }
                     break;
                  //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
-            case 'readEstudiante':
+            case 'readOne':
                 if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
                     $result['exception'] = 'estudiante incorrecto';
                 } elseif ($result['dataset'] = $estudiante->readOne()) {
                     $result['status'] = 1;
-                } elseif (Database::getException()) {
+                } elseif (Database::getException()){
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'cliente inexistente';
+                    $result['exception'] = 'estudiante inexistente';
                 }
                 break;
                 case 'readGrado':
@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Nombres incorrectos';
                     } elseif (!$estudiante->setApellidosEstudiante($_POST['apellido_estudiante'])) {
                         $result['exception'] = 'Apellidos incorrectos';
-                    } elseif (!$estudiante->setNacimiento($_POST['fecha_estudiante'])) {
+                    } elseif (!$estudiante->setNacimiento($_POST['nacimiento'])) {
                         $result['exception'] = 'Fecha incorrecta';
                     } elseif (!$estudiante->setDireccionEstudiante($_POST['direccion_estudiante'])) {
                         $result['exception'] = 'dirección incorrecta';

@@ -8,7 +8,7 @@ class EstudiantesQueries
     {
         $sql = 'INSERT INTO estudiantes(
             nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado)
-           VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave, $this->estado);
         return Database::executeRow($sql, $params);
     }
@@ -24,12 +24,12 @@ class EstudiantesQueries
     }
 
     //Método para consultar una columna específica de la tabla por medio de su id
-    public function ReadOneEstudiante()
+    public function ReadOne()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado
-            FROM estudiantes
-            WHERE id_estudiante =?';       
-        $params = array($this->id);
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, usuario_estudiante, clave, estado
+                FROM estudiantes
+            WHERE id_estudiante = ?';       
+        $params = array($this->id_estudiante);
         return Database::getRow($sql, $params);
     }
 
@@ -47,23 +47,19 @@ class EstudiantesQueries
         }
     }
 
-    //se valida la contraseña
-    public function checkPassword($password)
-    {
-        $sql = 'SELECT clave FROM estudiantes WHERE id_estudiante = ?';
-        $params = array($this->id_estudiante);
-        $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave'])) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function readGrado()
     {
         $sql = 'SELECT id_grado, grado
                 FROM grados';
             return Database::getRows($sql);
+    }
+
+    public function UpdateEstudiante()
+    {
+        $sql = 'UPDATE estudiantes
+        SET id_estudiante=?, nombre_estudiante=?, apellido_estudiante=?, fecha_nacimiento=?, direccion=?, nie=?, id_grado=?, usuario_estudiante=?, clave=?, estado=?
+        WHERE id_estudiante=?';
+        $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave, $this->estado, $this->id_estudiante);
+        return Database::executeRow($sql, $params);
     }
 }

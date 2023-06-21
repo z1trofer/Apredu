@@ -50,7 +50,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setNacimiento($value)
     {
-        if (Validator::validateString($value, 1, 200)) {
+        if (Validator::validateDate($value)) {
             $this->nacimiento = $value;
             return true;
         } else {
