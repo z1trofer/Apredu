@@ -143,46 +143,50 @@
                     </h4>
                 </div>
             </div>
-            <div class="row" id="colDivEM">
-                <!--filtros empleados-->
-                <form id="search" role="search" action="">
-                <div class="col text-center">
-                    
-                    <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropTrimestre"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            Primer Trimestre
-                        </button>
-                        <ul id="listTrimestre" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Nombre</a></li>
-                            <li><a class="dropdown-item" href="#">Apellido</a></li>
-                        </ul>
+            <form id="search" role="search" action="">
+                <div class="row" id="colDivEM">
+                    <!--filtros empleados-->
+
+                    <div class="col text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropTrimestre"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Primer Trimestre
+                            </button>
+                            <ul id="listTrimestre" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Nombre</a></li>
+                                <li><a class="dropdown-item" href="#">Apellido</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="col text-center">
-                    <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropGrado"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            2° grado
-                        </button>
-                        <ul id="listGrados" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Ascendente</a></li>
-                        </ul>
+                    <div class="col text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropGrado"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                2° grado
+                            </button>
+                            <ul id="listGrados" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Ascendente</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="col text-center">
-                    <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropAsignatura"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            MAtematicas
-                        </button>
-                        <ul id="listAsignatura" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Ascendente</a></li>
-                        </ul>
+                    <div class="col text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropAsignatura"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                MAtematicas
+                            </button>
+                            <ul id="listAsignatura" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Ascendente</a></li>
+                            </ul>
+                        </div>
                     </div>
+                    <div class="col text-center">
+                        <button id="buscar" type="button" class="btn btn-primary" onclick="BusquedaParametrizada()">Buscar</button>
+                    </div>
+
                 </div>
             </form>
-            </div>
         </div>
         <!----------------------------------tablA------------------------>
         <div class="container" id="TablaEm">
@@ -290,7 +294,7 @@
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/account.js" defer></script>
     <script src="../../controllers/privado/actividades.js"></script>
-    
+
 </body>
 
 </html>

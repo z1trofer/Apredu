@@ -126,7 +126,7 @@ async function fillTable(form = null) {
     // Petición para obtener los registros disponibles.
     // const JSON = await dataFetch(ACTIVIDADES_API, action, form);
     const JSON = await dataFetch(ACTIVIDADES_API, action,form);
-
+    debugger
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -317,12 +317,16 @@ async function CargarGrados() {
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
 function OpcionGrado(id_gradoFun, gradoFun) {
-
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_grado = id_gradoFun;
     //se designa el texto del boton como el trimestre seleccionado
     document.getElementById('dropGrado').innerHTML = gradoFun;
 };
+/*
+document.getElementById('buscar').addEventListener('onclick', async (event) => {
+    debugger
+
+});*/
 
 //función Cargar Grados
 async function CargarAsignaturas() {
@@ -360,7 +364,6 @@ async function CargarAsignaturas() {
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
 function OpcionAsignatura(id_asignaturaFun, asignaturaFun) {
-
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_asignatura = id_asignaturaFun;
     //se designa el texto del boton como el trimestre seleccionado
@@ -375,8 +378,8 @@ function OpcionAsignatura(id_asignaturaFun, asignaturaFun) {
 //----busqueda
 async function BusquedaParametrizada() {
     const FORM = new FormData();
-    FORM.append('id_trimeste', id_trimestre);
-    FORM.append('id_grado', id_grado);
-    FORM.append('id_asignatura', id_asignatura);
-    const JSON = await dataFetch(ACTIVIDADES_API, 'FiltrosActividades', FORM);
+    FORM.append('trimestre', id_trimestre);
+    FORM.append('grado', id_grado);
+    FORM.append('asignatura', id_asignatura);
+    fillTable(FORM);
 }

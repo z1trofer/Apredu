@@ -11,7 +11,7 @@ if (isset($_GET['action'])) {
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     // Arreglo para el filtrado parametrizado
-    $filtro = array('search' => 0, 'trimestre' => 0, 'grado' => 0, 'asignatura' => 0);
+    $filtro = array('trimestre' => 0, 'grado' => 0, 'asignatura' => 0);
     if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
@@ -27,11 +27,10 @@ if (isset($_GET['action'])) {
                 break;
                 case 'FiltrosActividades':
                     $_POST = Validator::validateForm($_POST);
-                    $filtro['search'] = $_POST['search'];
                     $filtro['grado'] = $_POST['grado'];
                     $filtro['asignatura'] = $_POST['asignatura'];
                     $filtro['trimestre'] = $_POST['trimestre'];
-                    if ($result['dataset'] = $Actividades_p->FiltrarActividades($filtro)) {
+                     if ($result['dataset'] = $Actividades_p->FiltrarActividades($filtro)) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     } elseif (Database::getException()) {

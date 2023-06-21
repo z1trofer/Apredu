@@ -74,49 +74,13 @@ class ActividadesQueries
     // Para la búsqueda parametrizada
     public function FiltrarActividades($filtros)
     {
-        $sql = null;
-        $first = false;
-        //verificar si se estan filtrando los grados
-        if($filtros['trimestre'] != 'Trimestres')
-        {
-            $sql = 'SELECT actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, trimestres.trimestre
-            from actividades
-            INNER JOIN trimestres using(id_trimestre)
-            WHERE actividades.id_trimestre = '.$filtros['trimestre'].' ORDER BY';
-            //si no es el caso se manda a llamar una consulta mas simple
-        }else{
-            $sql = 'SELECT actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, trimestres.trimestre
-            from actividades
-            INNER JOIN trimestres using(id_trimestre) ORDER BY
-             ';
-        };
-         //revisa los demas parametros
-         if($filtros['grado'] != 'Grados')
-         {
-             if($first == false)
-             {
-                 $sql = $sql.' id_grado = '.$filtros['grado'];
-                 $first = true;
-             }else{
-                 $sql = $sql.' AND id_grado = '.$filtros['grado'];
- 
-             }
-             
-         };
-         if($filtros['asignatura'] != 'Asignaturas')
-         {
-             if($first == false)
-             {
-                 $sql = $sql.'id_asignatura = '.$filtros['asignatura'];
-                 $first = true;
-             }else{
-                 $sql = $sql.' AND id_asignatura = '.$filtros['asignatura'];
- 
-             }
-         };
-
-         $sql = $sql.' GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
-         ORDER BY actividades.nombre_actividad ASC';
+        $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad
+        FROM actividades 
+        INNER JOIN tipo_actividades USING (id_tipo_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+        WHERE id_trimestre = ".$filtros['trimestre']." and detalle_asignaturas_empleados.id_grado = ".$filtros['grado']." and id_asignatura = ".$filtros['asignatura'].
+        " GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
+        ORDER BY actividades.nombre_actividad ASC";
          return Database::getRows($sql);
     }
 
