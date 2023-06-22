@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     <title>Gestión de Estudiante</title>
 </head>
 
@@ -32,7 +33,7 @@
                 <div class="col-12 col-sm-12">
                     <div class="input-group">
                         <div class="form-outline">
-                            <input type="search" id="buscador" class="form-control" data-table="table"/>
+                            <input class="form-control me-2 light-table-filter" data-table="table" type="text">
                             <label class="form-label" for="form1">Search</label>
                         </div>
                         <button type="button" class="btn btn-primary">
@@ -81,7 +82,6 @@
                     <thead>
                         <tr id="records"></tr>
                         <tr>
-                            <th scope="col">Id</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Grado</th>
@@ -137,7 +137,7 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-sm">
-                                            <input type="hidden" name="id_estudiante" id="id_estudiante">
+                                            <input type="hidden" name="id_estudiante2" id="id_estudiante2">
                                             <h5>Nombre</h5>
                                             <input type="text" id="estudiante" name="estudiante"
                                                 class="validate try" required>
@@ -351,10 +351,6 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                data-mdb-target="#ModalEstInfo2">
-                <img src="../../recursos/iconos/informacion.png" alt="">
-            </button>
             <!-- Modal información del estudiante -->
             <div class="modal fade" id="ModalEstInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -388,7 +384,7 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura" name="lectura">
                                         </ul>
-                                        <input type="" id="grados_estudiante" name="grados_estudiante"> 
+                                        <input type="hidden" id="grados_estudiante" name="grados_estudiante"> 
                                     </div>
                                     <div class="col-sm">
                                         <h5>F.de nacimiento</h5>
@@ -413,9 +409,9 @@
                                             class="validate try" required>
                                     </div>
                                     <div class="col-sm">
-                                        <h5>Clave</h5>
+                                        <h5 id="nombre_clave">Clave</h5>
                                         <input type="password" id="clave" name="clave"
-                                            class="validate try" required>
+                                            class="validate try">
                                     </div>
                                     <div class="col-sm">
                                         <h5>Estado del estudiante</h5>
@@ -425,28 +421,15 @@
                                             <label class="form-check-label" for="flexSwitchCheckDefault"> Inactivo/ 
                                                 Activo</label>
                                         </div>
-                                    </div>                                   
+                                    </div>         
                                 </div>
-                                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                                <br> 
+                                <button id="cancelar" type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                <button onclick="" id="eliminar_estudiante" type="button" class="btn btn-danger">Eliminar</button>
                             </form>
                         </div>
                         <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="ModalEstInfo2" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Informacion del
-                                estudiante</h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
                         </div>
                     </div>
                 </div>
@@ -592,7 +575,7 @@
         </footer>
     </footer>
     <!--JavaScrip-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+
     <script src="../../recursos/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/account.js"></script>

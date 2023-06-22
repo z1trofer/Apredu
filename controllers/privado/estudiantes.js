@@ -2,8 +2,6 @@
 const ESTUDIANTE_API = 'business/privado/estudiantes.php';
 // Constante para establecer el formulario de guardar para el estudiante.
 const SAVE_FORM_E = document.getElementById('save-formE');
-// Constante para establecer el formulario de actualizar para el estudiante.
-const SAVE_FORM_U = document.getElementById('save-formU');
 // Constante para establecer el formulario de guardar para el responsable.
 const SAVE_FORM_R = document.getElementById('save-formR');
 // Constantes para establecer el contenido de la tabla.
@@ -85,7 +83,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (document.getElementById('id_estudiante').value) ? action = 'update' : action = 'CreateEstudiante';
+    (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'CreateEstudiante';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_E);
     // Petición para guardar los datos del formulario.
@@ -119,7 +117,6 @@ async function fillTable(form = null) {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `  
                 <tr>
-                <td>${row.id_estudiante}</td>
                     <td>${row.apellido_estudiante}</td>
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
@@ -143,8 +140,12 @@ async function openUpdate(id) {
     const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
+        document.getElementById('eliminar_estudiante').onclick = openDelete(JSON.dataset.id_estudiante);
         // Se restauran los elementos del formulario.
-        SAVE_FORM.reset();
+        SAVE_FORM_E.reset();
+        //se oculta la clave
+        document.getElementById('clave').hidden = true;
+        document.getElementById('nombre_clave').hidden = true;
         // Se inicializan los campos del formulario.
         document.getElementById('id_estudiante').value = JSON.dataset.id_estudiante;
         document.getElementById('nombre_estudiante').value = JSON.dataset.nombre_estudiante;
@@ -153,6 +154,9 @@ async function openUpdate(id) {
         document.getElementById('direccion_estudiante').value = JSON.dataset.direccion;
         document.getElementById('nie').value = JSON.dataset.nie;
         document.getElementById('usuario_estudiante').value = JSON.dataset.usuario_estudiante;
+        document.getElementById('clave').value = JSON.dataset.clave;
+        document.getElementById('grados_estudiante').value = JSON.dataset.id_grado;
+        document.getElementById('grado').innerHTML = JSON.dataset.grado;
         if (JSON.dataset.estado) {
             document.getElementById('estados').checked = true;
         } else {
@@ -160,6 +164,9 @@ async function openUpdate(id) {
         }
         fillList(ESTUDIANTE_API, 'readGrado', 'lectura', JSON.dataset.id_grado);
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
+        document.getElementById('cancelar').hidden = true;
+        document.getElementById('eliminar_estudiante').hidden = false;
+
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -169,7 +176,35 @@ function openCreate() {
     // Se restauran los elementos del formulario.
     SAVE_FORM_E.reset();
     SAVE_FORM_R.reset();
-    fillList(ESTUDIANTE_API, 'readGrado', 'lectura');
+    fillList(ESTUDIANTE_API, 'readGrado', 'lectura')
+    document.getElementById('eliminar_estudiante').hidden = true;
+}
+
+/*
+*   Función asíncrona para eliminar un registro.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+async function openDelete(id) {
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const RESPONSE = await confirmAction('¿Desea eliminar el estudiante de forma permanente?');
+    // Se verifica la respuesta del mensaje.
+    if (RESPONSE) {
+        // Se define una constante tipo objeto con los datos del registro seleccionado.
+        const FORM = new FormData();
+        FORM.append('id_estudiante', id);
+        // Petición para eliminar el registro seleccionado.
+        const JSON = await dataFetch(ESTUDIANTE_API, 'deleteEstudiante', FORM);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (JSON.status) {
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            fillTable();
+            // Se muestra un mensaje de éxito.
+            sweetAlert(1, JSON.message, true);
+        } else {
+            sweetAlert(2, JSON.exception, false);
+        }
+    }
 }
 
 //Buscador

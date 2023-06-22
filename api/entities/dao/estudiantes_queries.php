@@ -26,9 +26,10 @@ class EstudiantesQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function ReadOne()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, usuario_estudiante, clave, estado
-                FROM estudiantes
-            WHERE id_estudiante = ?';       
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, grado, usuario_estudiante, clave, estado
+            FROM estudiantes
+            INNER JOIN grados USING(id_grado)
+            WHERE id_estudiante = ?';
         $params = array($this->id_estudiante);
         return Database::getRow($sql, $params);
     }
@@ -46,7 +47,7 @@ class EstudiantesQueries
             return false;
         }
     }
-
+    //Metodo para leer los grados de la tabla "grados"
     public function readGrado()
     {
         $sql = 'SELECT id_grado, grado
@@ -54,12 +55,22 @@ class EstudiantesQueries
             return Database::getRows($sql);
     }
 
+    //Metodo para actualizar un dato de la tabla por medio del id
     public function UpdateEstudiante()
     {
         $sql = 'UPDATE estudiantes
-        SET id_estudiante=?, nombre_estudiante=?, apellido_estudiante=?, fecha_nacimiento=?, direccion=?, nie=?, id_grado=?, usuario_estudiante=?, clave=?, estado=?
+        SET nombre_estudiante=?, apellido_estudiante=?, fecha_nacimiento=?, direccion=?, nie=?, id_grado=?, usuario_estudiante=?, clave=?, estado=?
         WHERE id_estudiante=?';
         $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave, $this->estado, $this->id_estudiante);
         return Database::executeRow($sql, $params);
     }
+
+        //Metodo para eliminar un dato de la tabla por medio del id
+        public function deleteEstudiante()
+        {
+            $sql = 'DELETE FROM estudiantes
+                    WHERE id_estudiante = ?';
+            $params = array($this->id_estudiante);
+            return Database::executeRow($sql, $params);
+        }
 }
