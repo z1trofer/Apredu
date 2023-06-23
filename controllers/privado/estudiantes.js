@@ -172,6 +172,9 @@ function openCreate() {
     fillList(ESTUDIANTE_API, 'readGrado', 'lectura');
 }
 
+
+
+
 //Buscador
 (function (document) {
     'buscador';

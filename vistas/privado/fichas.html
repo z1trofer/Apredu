@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <title>Fichas de conducta</title>
+</head>
+<header id="navbar">
+
+</header>
+
+<main>
+    <h1>Fichas</h1>
+    <div class="container">
+        <div class="container col-6">
+            <label>Buscar Estudiante:</label>
+            <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+        </div>
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr id="records"></tr>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Grado</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-rows">
+
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar ficha</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="save-form" action="">
+                            <input class="visually-hidden" type="number" id="id_ficha" name="id_ficha">
+                            <input class="visually-hidden" type="number" id="id_estudiante" name="id_estudiante">
+
+                            <div class="input-field col s12 m6">
+                                <label for="nombres">Descripcion</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" rows="7"></textarea>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <label for="nombres">Fecha</label>
+                                <input class="form-control" type="text" id="fecha" name="fecha" class="validate try"
+                                    required>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <p>Seleccione un empleado</p>
+                                <select class="form-select" aria-label="Seleccione empleado" id="nombre_empleado"
+                                    name="nombre_empleado">
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+
+</footer>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+<script src="../../recursos/js/sweetalert.min.js"></script>
+<script src="../../controllers/components.js"></script>
+<script src="../../controllers/privado/account.js"></script>
+<script src="../../controllers/privado/fichas.js"></script>
+</body>
+
+</html>
