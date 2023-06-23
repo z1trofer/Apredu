@@ -29,7 +29,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$grado->setGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                }elseif ($categoria->createRow()) {
+                }elseif ($grado->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Grado creado correctamente';
                 } else {
@@ -38,43 +38,41 @@ if (isset($_GET['action'])) {
                 break;
                 //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
-                if (!$categoria->setId($_POST['id_categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif ($result['dataset'] = $categoria->readOne()) {
+                if (!$grado->setId($_POST['id_grado'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                } elseif ($result['dataset'] = $grado->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Categoría inexistente';
+                    $result['exception'] = 'Grado inexistente';
                 }
                 break;
-                // Acción para actualizar un dato en la tabla categorías
+                // Acción para actualizar un dato en la tabla grados
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$categoria->setId($_POST['id'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$data = $categoria->readOne()) {
-                    $result['exception'] = 'Categoría inexistente';
-                } elseif (!$categoria->setNombre($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$categoria->setDescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif ($categoria->updateRow()) {
+                if (!$grado->setId($_POST['id'])) {
+                    $result['exception'] = 'Grado incorrecta';
+                } elseif (!$data = $grado->readOne()) {
+                    $result['exception'] = 'Grado inexistente';
+                } elseif (!$grado->setGrado($_POST['grado'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                } elseif ($grado->updateRow()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Categoría modificada correctamente';
+                        $result['message'] = 'Grado modificado correctamente';
                     } else {
                         $result['exception'] = Database::getException();
                     }
                 break;
                 // Acción para eliminar un dato de la tabla categorías
             case 'delete':
-                if (!$categoria->setId($_POST['id_categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$data = $categoria->readOne()) {
-                    $result['exception'] = 'Categoría inexistente';
-                } elseif ($categoria->deleteRow()) {
+                if (!$grado->setId($_POST['id_grado'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                } elseif (!$data = $grado->readOne()) {
+                    $result['exception'] = 'Grado inexistente';
+                } elseif ($grado->deleteRow()) {
                     $result['status'] = 1;                   
-                    $result['message'] = 'Categoría eliminada correctamente';
+                    $result['message'] = 'Grado eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
