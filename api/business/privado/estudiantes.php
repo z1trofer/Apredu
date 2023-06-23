@@ -98,45 +98,45 @@ if (isset($_GET['action'])) {
                         $result['exception'] = Database::getException();
                     }
                     break;
-                // Acción para actualizar un dato en la tabla de clientes
-            case 'update':
+                // Acción para actualizar un dato en la tabla de estudiantes
+            case 'updateEstudiante':
                 $_POST = Validator::validateForm($_POST);
-                if (!$cliente->setId($_POST['id'])) {
-                    $result['exception'] = 'Cliente incorrecta';
-                } elseif (!$data = $cliente->readOne()) {
-                    $result['exception'] = 'Cliente inexistente';
-                } elseif (!$cliente->setNombres($_POST['nombre'])) {
+                if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
+                    $result['exception'] = 'estudiante incorrecto';
+                } elseif (!$data = $estudiante->readOne()) {
+                    $result['exception'] = 'Estudiante inexistente';
+                } elseif (!$estudiante->setNombresEstudiante($_POST['nombre_estudiante'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                }elseif (!$cliente->setApellidos($_POST['apellido'])) {
+                }elseif (!$estudiante->setApellidosEstudiante($_POST['apellido_estudiante'])) {
                     $result['exception'] = 'Apellido incorrecto';
-                }elseif (!$cliente->setDUI($_POST['dui'])) {
-                    $result['exception'] = 'Dui incorrecto';
-                }elseif (!$cliente->setCorreo($_POST['correo'])) {
-                    $result['exception'] = 'Correo incorrecto';
-                }elseif (!$cliente->setDireccion($_POST['direccion'])) {
-                    $result['exception'] = 'Direccion incorrecto';
-                }elseif (!$cliente->setClave($_POST['clave'])) {
-                    $result['exception'] = 'clave incorrecto';
-                }elseif (!$cliente->setEstado(isset($_POST['estados']) ? 1 : 0)) {
+                }elseif (!$estudiante->setNacimiento($_POST['nacimiento'])) {
+                    $result['exception'] = 'Fecha de nacimiento incorrecta';
+                }elseif (!$estudiante->setDireccionEstudiante($_POST['direccion_estudiante'])) {
+                    $result['exception'] = 'Direccion incorrecta';
+                }elseif (!$estudiante->setNie($_POST['nie'])) {
+                    $result['exception'] = 'Nie incorrecto';
+                }elseif (!$estudiante->setIdGrado($_POST['grados_estudiante'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
+                    $result['exception'] = 'Alias incorrecto';
+                }elseif (!$estudiante->setEstado(isset($_POST['estados']) ? 1 : 0)) {
                     $result['exception'] = 'Estado incorrecto';   
-                }elseif (!$cliente->setTelefono($_POST['telefono'])) {
-                    $result['exception'] = 'Telefono incorrecto';
-                }  elseif ($cliente->updateRow()) {
+                }  elseif ($estudiante->UpdateEstudiante()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Estado del cliente modificada correctamente';
+                        $result['message'] = 'Estudiante modificado correctamente';
                     } else {
                         $result['exception'] = Database::getException();
                     }    
                 break;
                 //Acción para eliminar un dato en la tabla de clientes
-            case 'delete':
-                if (!$cliente->setId($_POST['id_cliente'])) {
-                    $result['exception'] = 'cliente incorrecta';
-                } elseif (!$data = $cliente->readOne()) {
+            case 'deleteEstudiante':
+                if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
+                    $result['exception'] = 'cliente incorrecto';
+                } elseif (!$data = $estudiante->readOne()) {
                     $result['exception'] = 'cliente inexistente';
-                } elseif ($cliente->deleteRow()) {
+                } elseif ($estudiante->deleteEstudiante()) {
                     $result['status'] = 1;                   
-                    $result['message'] = 'cliente eliminada correctamente';
+                    $result['message'] = 'Estudiante eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
