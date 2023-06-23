@@ -6,7 +6,7 @@ require_once('../../helpers/database.php');
 class FichasQueries
 {
     //Método para leer los registros de la tabla ordenandolos por sus apellidos por medio de una query general a la tabla
-    public function readAll()
+    public function readAllFichas()
     {
         $sql ='SELECT id_ficha, id_estudiante, descripcion_ficha, fecha_ficha, id_empleado
                 FROM fichas
@@ -14,7 +14,22 @@ class FichasQueries
                 order by id_estudiante ASC';
         return Database::getRows($sql);
     }
+    public function readAll()
+    {
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, usuario_estudiante, clave, estado
+                FROM estudiantes
+                INNER JOIN grados USING(id_grado)
+                order by id_grado ASC';
+        return Database::getRows($sql);
+    }
 
+    public function readOneestudiante()
+    {
+        $sql = 'SELECT id_estudiante FROM estudiantes
+    WHERE id_estudiante = ?';
+        $params = array($this->id_estudiante);
+        return Database::getRow($sql, $params);
+    }
     /*funcion para leer datos*/
     public function readOne()
     {
@@ -37,7 +52,7 @@ class FichasQueries
     // Para cargar combobox
     public function readEmpleado()
     {
-        $sql = 'SELECT id_empleado, nombre FROM empleados';
+        $sql = 'SELECT id_empleado, nombre_empleado FROM empleados';
         return Database::getRows($sql);
     }
 
