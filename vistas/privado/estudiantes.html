@@ -36,7 +36,7 @@
                             <input class="form-control me-2 light-table-filter" data-table="table" type="text">
                             <label class="form-label" for="form1">Search</label>
                         </div>
-                        <button type="button" class="btn btn-primary">
+                        <button onclick="BusquedaParametrizada()" type="button" class="btn btn-primary">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -51,6 +51,7 @@
                     <p>Filtar por:
                     </p>
                 </div>
+                <!--filtros estudiantes-->
                 <div class="col-5">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
@@ -65,16 +66,11 @@
                 </div>
                 <div class="col-5">
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropGrados"
                             data-mdb-toggle="dropdown" aria-expanded="false">
                             1° grado
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">2° grado</a></li>
-                            <li><a class="dropdown-item" href="#">3° grado</a></li>
-                            <li><a class="dropdown-item" href="#">4° grado</a></li>
-                            <li><a class="dropdown-item" href="#">5° grado</a></li>
-                            <li><a class="dropdown-item" href="#">6° grado</a></li>
+                        <ul id="listGrados" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         </ul>
                     </div>
                 </div>
@@ -103,105 +99,64 @@
                 data-mdb-target="#myModal">
                 <img src="../../recursos/iconos/conducta.png" alt="">
             </button>
-            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="save_formC" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante
-                            </h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5>Nombre</h5>
-                                    <p>Javier Enrique</p>
-                                </div>
-                                <div class="col">
-                                    <h5>Grado</h5>
-                                    <p>2° grado</p>
-                                </div>
+                        <form action="">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante
+                                </h5>
+                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                            <h5 class="text-center">Fichas de conducta</h5>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#ModalEstConducta">
-                                <img src="../../recursos/iconos/icons8-más-30.png" alt="">
-                            </button>
-                            <!--modal de las fichas / conducta estudiante -->
-                            <div class="modal fade" id="#ModalEstConducta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante</h5>
-                                        <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                            aria-label="Close">
-                                        </button>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <input type="hidden" name="id_estudiante_ficha" id="id_estudiante_ficha">
+                                    <div class="col">
+                                        <h5>Nombre</h5>
+                                        <p id="nombre_ficha"></p>
+                                        <p id="apellido_ficha"></p>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                            <input type="hidden" name="id_estudiante2" id="id_estudiante2">
-                                            <h5>Nombre</h5>
-                                            <input type="text" id="estudiante" name="estudiante"
-                                                class="validate try" required>
+                                    <div class="col">
+                                        <h5>Grado</h5>
+                                        <p id="grado_ficha"></p>
+                                    </div>
+                                </div>
+                                <h5 class="text-center">Fichas de conducta</h5>
+                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                    data-mdb-target="#ModalEstConducta">
+                                    <img src="../../recursos/iconos/icons8-más-30.png" alt="">
+                                </button>
+                                <!--modal de las fichas / conducta estudiante -->
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <h5>Docente</h5>
+                                    </div>
+                                    <div class="col text-center">
+                                        <h5>Descripción</h5>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="row FIcha">
+                                        <div class="col text-center">
+                                            <h5 id="docente_ficha"></h5>
                                         </div>
-                                        <div class="col-sm">
-                                            <h5>Descripción</h5>
-                                            <textarea name="descripcion_ficha" id="descripcion_ficha"
-                                                class="Validate try" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-sm">
-                                            <h5>Fecha</h5>
-                                            <input type="date" id="fecha_ficha" name="fecha_ficha"
-                                                class="validate try" required>
+                                        <div class="col text-center">
+                                            <textarea name="ficha_descripcion" id="ficha_descripcion" cols="30" rows="4"></textarea>
                                         </div>
                                     </div>
                                     <br>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <h5>Docente</h5>
-                                            <textarea name="docente_estudiante" id="docente_estudiante"
-                                                class="Validate try" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-danger"
-                                        data-mdb-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-success">Guardar Cambios</button>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col text-center">
-                            <h5>Docente</h5>
-                        </div>
-                            <div class="col text-center">
-                                <h5>Descripción</h5>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row FIcha">
-                                    <div class="col text-center">
-                                        <h5>Allan Carcamo</h5>
-                                    </div>
-                                    <div class="col text-center">
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                            Deserunt consectetur possimus quis recusandae alias.
-                                            Commodi
-                                            perferendis harum magnam quae sint inventore illum, vero
-                                            tenetur
-                                            dolor quo fugit molestiae impedit quas.</p>
+                                    <div>
+                                        <button type="submitg" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-success">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-success">Guardar Cambios</button>
-                        </div>
+                            <div class="modal-footer">
+
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -381,17 +336,19 @@
                                     </div>
                                     <div class="col-sm">
                                         <h5>Grado</h5>
-                                        <button class="btn btn-primary dropdown-toggle" type="button" id="grado" name="grado"
-                                            data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" id="grado"
+                                            name="grado" data-mdb-toggle="dropdown" aria-expanded="false">
                                             Grados
                                         </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura" name="lectura">
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura"
+                                            name="lectura">
                                         </ul>
-                                        <input type="hidden" id="grados_estudiante" name="grados_estudiante"> 
+                                        <input type="hidden" id="grados_estudiante" name="grados_estudiante">
                                     </div>
                                     <div class="col-sm">
                                         <h5>F.de nacimiento</h5>
-                                        <input type="date" id="nacimiento" name="nacimiento" class="validate try" required>
+                                        <input type="date" id="nacimiento" name="nacimiento" class="validate try"
+                                            required>
                                     </div>
                                 </div>
                                 <br>
@@ -413,23 +370,23 @@
                                     </div>
                                     <div class="col-sm">
                                         <h5 id="nombre_clave">Clave</h5>
-                                        <input type="password" id="clave" name="clave"
-                                            class="validate try">
+                                        <input type="password" id="clave" name="clave" class="validate try">
                                     </div>
                                     <div class="col-sm">
                                         <h5>Estado del estudiante</h5>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" id="estados"
                                                 name="estados" />
-                                            <label class="form-check-label" for="flexSwitchCheckDefault"> Inactivo/ 
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"> Inactivo/
                                                 Activo</label>
                                         </div>
-                                    </div>         
+                                    </div>
                                 </div>
-                                <br> 
-                                <button id="cancelar" type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                                <br>
+                                <button id="cancelar" type="button" class="btn btn-danger"
+                                    data-mdb-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                <button onclick="" id="eliminar_estudiante" type="button" class="btn btn-danger">Eliminar</button>
+                                <button id="eliminar_estudiante" type="button" class="btn btn-danger">Eliminar</button>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -584,4 +541,5 @@
     <script src="../../controllers/privado/account.js"></script>
     <script src="../../controllers/privado/estudiantes.js"></script>
 </body>
+
 </html>

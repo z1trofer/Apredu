@@ -16,6 +16,7 @@ class Estudiantes extends EstudiantesQueries{
     public $clave = null;
     public $estado = null; //por defecto null en la base
     public $id_nota = null;
+    public $descripcion_ficha = null;
     
     //Setter del estudiante
     public function setIdEstudiante($value)
@@ -118,6 +119,16 @@ class Estudiantes extends EstudiantesQueries{
         }
     }
 
+    public function setdescripcion_ficha($value)
+    {
+        if (Validator::validateString($value, 1, 150)) {
+            $this->descripcion_ficha = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /*
     *   Métodos para obtener valores de los atributos del estudiante.
@@ -170,6 +181,11 @@ class Estudiantes extends EstudiantesQueries{
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    public function getdescripcion_ficha()
+    {
+        return $this->descripcion_ficha;
     }
 
 }

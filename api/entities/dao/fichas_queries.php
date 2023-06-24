@@ -8,10 +8,9 @@ class FichasQueries
     //Método para leer los registros de la tabla ordenandolos por sus apellidos por medio de una query general a la tabla
     public function readAllFichas()
     {
-        $sql ='SELECT id_ficha, id_estudiante, descripcion_ficha, fecha_ficha, id_empleado
-                FROM fichas
-                INNER JOIN estudiantes USING(id_estudiante)
-                order by id_estudiante ASC';
+        $sql ='SELECT id_ficha, nombre_estudiante, apellido_estudiante, grado, descripcion_ficha, fecha_ficha, nombre_empleado
+        FROM fichas  INNER JOIN estudiantes USING(id_estudiante) INNER JOIN empleados USING(id_empleado) INNER JOIN grados USING(id_grado)
+        ORDER BY fecha_ficha';
         return Database::getRows($sql);
     }
     public function readAll()
@@ -30,14 +29,25 @@ class FichasQueries
         $params = array($this->id_estudiante);
         return Database::getRow($sql, $params);
     }
+
+    public function readOneFichaXestudiante()
+    {
+        $sql = 'SELECT id_ficha, descripcion_ficha, fecha_ficha, nombre_empleado, nombre_estudiante
+        FROM fichas 
+        INNER JOIN estudiantes USING (id_estudiante)
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN empleados USING (id_empleado)
+        WHERE id_estudiante = ?';
+        $params = array($this->id_estudiante);
+        return Database::getRows($sql, $params);
+    }
     /*funcion para leer datos*/
     public function readOne()
     {
-        $sql = 'SELECT id_ficha, id_estudiante, descripcion_ficha, fecha_ficha, id_empleado
+        $sql = 'SELECT id_ficha,id_estudiante,descripcion_ficha, fecha_ficha, nombre_empleado
         FROM fichas 
-        INNER JOIN estudiantes USING (id_estudiante)
         INNER JOIN empleados USING (id_empleado)
-        Where id_ficha = ?';
+        WHERE id_ficha = ?';
         $params = array($this->id_ficha);
         return Database::getRow($sql, $params);
     }
@@ -58,16 +68,16 @@ class FichasQueries
 
     public function createRow()
     {
-        $sql = 'INSERT INTO fichas (id_estudiante, descripcion_ficha, fecha_ficha, id_empleado)
-        VALUES (?, ?, ?, ?)';
-        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->fecha_ficha, $this->id_empleado);
+        $sql = 'INSERT INTO fichas (id_estudiante, descripcion_ficha, id_empleado)
+        VALUES (?, ?, ?)';
+        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
     public function updateRow()
     {
-        $sql = 'UPDATE fichas SET id_estudiante = ?, descripcion_ficha = ?, fecha_ficha = ?, id_empleado = ? WHERE id_ficha = ? ';
-        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->fecha_ficha, $this->id_empleado);
+        $sql = 'UPDATE fichas SET id_estudiante = ?, descripcion_ficha = ?, fecha_ficha = ?, id_empleado = ? WHERE id_ficha = ?';
+        $params = array($this->id_estudiante, $this->descripcion_ficha,$this->fecha_ficha, $this->id_empleado,$this->id_ficha);
         return Database::executeRow($sql, $params);
     }
 

@@ -15,7 +15,52 @@
 </header>
 
 <main>
-    <h1>Fichas</h1>
+    <div class="container">
+        <h5>Vista de fichas general</h5>
+        <!-- Button trigger modal -->
+<button onclick="openFichas()" type="button" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#FichasGenerales">
+    <i class="fa-solid fa-eye"></i>
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="FichasGenerales" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="FichasGenerales">Fichas de conducta</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="container col-6">
+                    <label>Buscar Ficha de conducta:</label>
+                    <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+                </div>
+                <table class="table table-responsive-sm">
+                    <thead>
+                        <tr id="records2"></tr>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Grado</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Profesor que la asigno</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-rows2">
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
     <div class="container">
         <div class="container col-6">
             <label>Buscar Estudiante:</label>
@@ -50,33 +95,65 @@
                     </div>
                     <div class="modal-body">
                         <form id="save-form" action="">
-                            <input class="visually-hidden" type="number" id="id_ficha" name="id_ficha">
-                            <input class="visually-hidden" type="number" id="id_estudiante" name="id_estudiante">
+                            <input class="-hidden" type="number" id="id_ficha" name="id_ficha">
+                            <input class="-hidden" type="number" id="id_estudiante" name="id_estudiante">
 
                             <div class="input-field col s12 m6">
                                 <label for="nombres">Descripcion</label>
                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="7"></textarea>
                             </div>
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12 m6 actu">
                                 <label for="nombres">Fecha</label>
-                                <input class="form-control" type="text" id="fecha" name="fecha" class="validate try"
+                                <input class="form-control" type="date" id="fecha" name="fecha" class="validate try"
                                     required>
                             </div>
-                            <div class="input-field col s12 m6">
+                            <div class="input-field col s12 m6 actu">
                                 <p>Seleccione un empleado</p>
                                 <select class="form-select" aria-label="Seleccione empleado" id="nombre_empleado"
                                     name="nombre_empleado">
                                 </select>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div>
+         <!-- Modal -->
+  <div class="modal fade" id="VerInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Fichas</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr id="records3"></tr>
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Profesor que la asigno</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-rows3">
+    
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
     </div>
 </main>
 

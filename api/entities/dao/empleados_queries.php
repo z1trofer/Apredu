@@ -17,7 +17,7 @@ class EmpleadosQueries
     /*funcion para leer datos*/
     public function readOne()
     {
-        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.direccion, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
+        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.direccion, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado, cargos_empleados.id_cargo
         FROM empleados 
         INNER JOIN cargos_empleados USING (id_cargo)
         Where id_empleado = ?';

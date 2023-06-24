@@ -5,24 +5,24 @@ const SAVE_FORM_E = document.getElementById('save-formE');
 // Constante para establecer el formulario de guardar para el responsable.
 const SAVE_FORM_R = document.getElementById('save-formR');
 // Constantes para establecer el contenido de la tabla.
+const SAVE_FORM_C = document.getElementById('save_formC');
+
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
+
+//variables para busqueda parametrizada
+let id_grado = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
+    CargarGrados();
     const TODAY = new Date();
-    // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
     let day = ('0' + TODAY.getDate()).slice(-2);
-    // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
     var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
-    // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
     let year = TODAY.getFullYear() - 5;
-    // Se declara e inicializa una variable para establecer el formato de la fecha.
     let date = `${year}-${month}-${day}`;
-    // Se asigna la fecha como valor máximo en el campo del formulario.
     document.getElementById('nacimiento').max = date;
-
 });
 
 //Funcion de fillSelect pero adaptada para la lista de grados
@@ -97,6 +97,28 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     }
 });
 
+
+
+// Método manejador de eventos para cuando se envía el formulario de guardar.
+SAVE_FORM_R.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se verifica la acción a realizar.
+    (document.getElementById('id_responsable').value) ? action = 'update' : action = 'createResponsable';
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(SAVE_FORM_R);
+    // Petición para guardar los datos del formulario.
+    const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+        fillTable();
+
+        sweetAlert(1, JSON.message, true);
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+
+});
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
@@ -107,7 +129,7 @@ async function fillTable(form = null) {
     TBODY_ROWS.innerHTML = '';
     RECORDS.textContent = '';
     // Se verifica la acción a realizar.
-    (form) ? action = 'search' : action = 'readAll';
+    (form) ? action = 'FiltrosEstudiantes' : action = 'readAll';
     // Petición para obtener los registros disponibles.
     const JSON = await dataFetch(ESTUDIANTE_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -120,7 +142,7 @@ async function fillTable(form = null) {
                     <td>${row.apellido_estudiante}</td>
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
-                    <td><button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#myModal"><img src="../../recursos/iconos/conducta.png" alt=""></button></td>
+                    <td><button onclick="openFicha(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#save_formC"><img src="../../recursos/iconos/conducta.png" alt=""></button></td>
                     <td><button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#myModal2"><img src="../../recursos/iconos/notas.png" alt=""></button></td>
                     <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><img src="../../recursos/iconos/informacion.png" alt=""></button></td>
                 </tr>
@@ -140,7 +162,6 @@ async function openUpdate(id) {
     const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        document.getElementById('eliminar_estudiante').onclick = openDelete(JSON.dataset.id_estudiante);
         // Se restauran los elementos del formulario.
         SAVE_FORM_E.reset();
         //se oculta la clave
@@ -166,6 +187,7 @@ async function openUpdate(id) {
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
         document.getElementById('cancelar').hidden = true;
         document.getElementById('eliminar_estudiante').hidden = false;
+        document.getElementById('eliminar_estudiante').value = openDelete(JSON.dataset.id_estudiante);
 
     } else {
         sweetAlert(2, JSON.exception, false);
@@ -178,7 +200,10 @@ function openCreate() {
     SAVE_FORM_R.reset();
     fillList(ESTUDIANTE_API, 'readGrado', 'lectura')
     document.getElementById('eliminar_estudiante').hidden = true;
+
 }
+
+
 
 
 /*
@@ -215,7 +240,7 @@ async function CargarGrados() {
     //se instancia el año como parametro en el formulario
     FORM.append('id_grado', id_grado);
     //se llama a la API para obtener los trimestres del año respectivo
-    const JSON = await dataFetch(ACTIVIDADES_API, 'readGrados', FORM);
+    const JSON = await dataFetch(ESTUDIANTE_API, 'readGrado', FORM);
     //se comprueba la respuesta de la api
     if (JSON.status) {
         //se declara el combobox de trimestres en la variable dropdown
@@ -229,7 +254,7 @@ async function CargarGrados() {
             id_grado = row.id_grado;
             //trimestre = row.trimestre;
             //se asigna el nombre del trimestre en el boton
-            document.getElementById('dropGrado').innerHTML = row.grado;
+            document.getElementById('dropGrados').innerHTML = row.grado;
             //se llena el dropdown con el trimestre especifico
             dropdown.innerHTML += `
                 <li><a class="dropdown-item" onclick="OpcionGrado('${row.id_grado}','${row.grado}')">${row.grado}</a></li>
@@ -247,7 +272,7 @@ function OpcionGrado(id_gradoFun, gradoFun) {
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_grado = id_gradoFun;
     //se designa el texto del boton como el trimestre seleccionado
-    document.getElementById('dropGrado').innerHTML = gradoFun;
+    document.getElementById('dropGrados').innerHTML = gradoFun;
 };
 /*
 document.getElementById('buscar').addEventListener('onclick', async (event) => {
@@ -256,44 +281,67 @@ document.getElementById('buscar').addEventListener('onclick', async (event) => {
 });*/
 
 
-//Buscador
-(function (document) {
-    'buscador';
+async function openFicha(id) {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('id_estudiante', id);
+    // Petición para obtener los datos del registro solicitado.
+    const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
+    const JSON2 = await dataFetch(USER_API, 'getSession');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+        // Se restauran los elementos del formulario.
+        SAVE_FORM_C.reset();
+        // Se inicializan los campos del formulario.
+        document.getElementById('id_estudiante_ficha').value = JSON.dataset.id_estudiante;
+        document.getElementById('nombre_ficha').value = JSON.dataset.nombre_estudiante;
+        document.getElementById('apellido_ficha').value = JSON.dataset.apellido_estudiante;
+        document.getElementById('docente_ficha').value = JSON2.dataset.nombre_empleado;
+        // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+}
 
-    var LightTableFilter = (function (Arr) {
+//--------------filtro
 
-        var _input;
+//función Cargar Grados
+async function CargarGrados() {
+    //se instancia un formulario
+    const FORM = new FormData();
+    //se instancia el año como parametro en el formulario
+    FORM.append('id_grado', id_grado);
+    //se llama a la API para obtener los trimestres del año respectivo
+    const JSON = await dataFetch(ESTUDIANTE_API, 'readGrado', FORM);
+    //se comprueba la respuesta de la api
+    if (JSON.status) {
+        //se declara el combobox de trimestres en la variable dropdown
+        dropdown = document.getElementById('listGrados');
+        //se limpia el dropdown para asegurarse que no haya ningun contenido
+        dropdown.innerHTML = '';
+        //se llena el dropdown mediante la respuesta de la api
+        JSON.dataset.forEach(async row => {
+            //el dropdown se llena con el trimestre que poseea el valor de true
+            //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
+            id_grado = row.id_grado;
+            //trimestre = row.trimestre;
+            //se asigna el nombre del trimestre en el boton
+            document.getElementById('dropGrados').innerHTML = row.grado;
+            //se llena el dropdown con el trimestre especifico
+            dropdown.innerHTML += `
+                <li><a class="dropdown-item" onclick="OpcionGrado('${row.id_grado}','${row.grado}')">${row.grado}</a></li>
+                `
+        });
+    } else {
+        //se envia un mensaje con el error respectivo
+        sweetAlert(2, "Ocurrio un error al cargar los grados, por favor comuniquese con un administrador", false);
+    }
+};
 
-        function _onInputEvent(e) {
-            _input = e.target;
-            var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-            Arr.forEach.call(tables, function (table) {
-                Arr.forEach.call(table.tBodies, function (tbody) {
-                    Arr.forEach.call(tbody.rows, _filter);
-                });
-            });
-        }
-
-        function _filter(row) {
-            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-        }
-
-        return {
-            init: function () {
-                var inputs = document.getElementsByClassName('light-table-filter');
-                Arr.forEach.call(inputs, function (input) {
-                    input.oninput = _onInputEvent;
-                });
-            }
-        };
-    })(Array.prototype);
-
-    document.addEventListener('readystatechange', function () {
-        if (document.readyState === 'complete') {
-            LightTableFilter.init();
-        }
-    });
-
-})(document);
+//----busqueda
+async function BusquedaParametrizada() {
+    const FORM = new FormData();
+    FORM.append('grado', id_grado);
+    fillTable(FORM);
+}
 

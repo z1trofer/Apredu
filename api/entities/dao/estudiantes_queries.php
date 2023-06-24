@@ -55,6 +55,18 @@ class EstudiantesQueries
             return Database::getRows($sql);
     }
 
+    public function readConducta()
+    {
+        $sql = 'SELECT id_ficha, id_estudiante ,nombre_estudiante, descripcion_ficha, fecha_ficha, nombre_empleado, id_grado, grado
+        FROM estudiantes 
+        INNER JOIN empleados USING (id_empleado)
+        INNER JOIN grados USING (id_grado)
+        Where id_ficha = ?';
+        $params = array($this->id_ficha);
+        return Database::getRow($sql, $params);
+    }
+
+
     //Metodo para actualizar un dato de la tabla por medio del id
     public function UpdateEstudiante()
     {
@@ -73,4 +85,26 @@ class EstudiantesQueries
             $params = array($this->id_estudiante);
             return Database::executeRow($sql, $params);
         }
+
+        //busqueda parametrizada por grados
+        public function FiltrarEstudiante($filtros)
+        {
+            $sql = "SELECT estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, grados.grado
+            FROM estudiantes 
+            INNER JOIN grados USING(id_grado)
+            WHERE id_grado = ".$filtros['grado']."
+            GROUP BY  estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, grados.grado
+            ORDER BY grados.grado ASC";
+            return Database::getRows($sql);
+        }
+    
+
+    public function createFicha()
+    {
+        $sql = 'INSERT INTO fichas (id_estudiante, descripcion_ficha, id_empleado)
+        VALUES (?, ?, ?)';
+        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->$_GET);
+        return Database::executeRow($sql, $params);
+    }
+
 }

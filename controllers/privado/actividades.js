@@ -26,8 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
     CargarTrimestres();
     CargarGrados();
     CargarAsignaturas();
+    CargarNombreDocente();
   
 });
+//funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session
+async function CargarNombreDocente(){
+    //se declara el label en una varianle
+    label = document.getElementById('nombre_empleado');
+    //se llama a la API para obtener los datos
+    const SESSION = await dataFetch(USER_API, 'getSession');
+    //se verifica el id_cargo
+    if(SESSION.id_cargo == 2){
+        //se llena el label con el nombre del docente
+        label.innerHTML = "Docente: "+SESSION.nombre;
+    }else{
+        //se deja el label vacio
+        label.innerHTML = " ";
+    }
+};
 
 SEARCH_FORM.addEventListener('submit', async (event) => {
     //metodo para evitar que se recargue la pagina
@@ -191,9 +207,9 @@ async function fillTable(form = null) {
 function createActividades() {
     // FORMULARIO.reset();
     titulo_modal.textContent = 'Asignar una nueva actividad';
-    fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad');
-    fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle');
-    fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre');
+    fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', 'Seleccione un tipo de actividad');
+    fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', 'Seleccione una asignación');
+    fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', 'Seleccione un trimestre');
 }
 
 async function updateActividades(id_actividad) {
@@ -208,9 +224,9 @@ async function updateActividades(id_actividad) {
         document.getElementById('ponderacion').value = JSON.dataset.ponderacion;
         document.getElementById('fecha_entrega').value = JSON.dataset.fecha_entrega;
         document.getElementById('descripcion').value = JSON.dataset.descripcion;
-        fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', JSON.dataset.tipo_actividad);
-        fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', JSON.dataset.asignacion);
-        fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', JSON.dataset.trimestre);
+        fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad','Seleccione un tipo de actividad' ,JSON.dataset.id_tipo_actividad);
+        fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle','Seleccione una asignación' ,JSON.dataset.id_detalle_asignatura_empleado);
+        fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre','Seleccione un trimestre' ,JSON.dataset.id_trimestre);
         fillSelect(ACTIVIDADES_API, 'readAll', 'nombre', JSON.dataset.id_actividad);
     }
 }

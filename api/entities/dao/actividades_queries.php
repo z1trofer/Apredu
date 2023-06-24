@@ -35,7 +35,7 @@ class ActividadesQueries
     public function readOne()
     {
         $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, detalle_asignaturas_empleados.id_detalle_asignatura_empleado,
-		consulta.asignacion, trimestres.trimestre
+		consulta.asignacion, detalle_asignaturas_empleados.id_detalle_asignatura_empleado, trimestres.trimestre, trimestres.id_trimestre, tipo_actividades.id_tipo_actividad
            FROM actividades 
            INNER JOIN tipo_actividades USING (id_tipo_actividad)
 		              INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
