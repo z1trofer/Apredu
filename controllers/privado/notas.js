@@ -15,7 +15,7 @@ const ANIO = DATE.getFullYear();
 let id_trimestre = null;
 let trimestre = null;
 //se declara constante con el tipo_usuario
-const TIPO_US = GetTipoUsuario();
+
 //evento Content load para cuando se cargue la pagina
 document.addEventListener('DOMContentLoaded', async () => {
     //función para cargar los Trimestres
@@ -23,10 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     //Función para cargar las asignaturas 
     await CargarAsignaturas();
 });
-
-async function GetTipoUsuario(){
-    return await dataFetch(USER_API, 'getSession');
-}
 
 //función Cargar Trimestres
 async function CargarTrimestres() {
@@ -38,6 +34,7 @@ async function CargarTrimestres() {
     const JSON = await dataFetch(NOTAS_API, 'ObtenerTrimestres', FORM);
     //se comprueba la respuesta de la api
     if (JSON.status) {
+        const SESSION = await dataFetch(USER_API, 'getSession');
         //se declara el combobox de trimestres en la variable dropdown
         dropdown = document.getElementById('trimestres_drop');
         //se limpia el dropdown para asegurarse que no haya ningun contenido
@@ -45,11 +42,11 @@ async function CargarTrimestres() {
         //se llena el dropdown mediante la respuesta de la api
         JSON.dataset.forEach(async row => {
             //el dropdown se llena con el trimestre que poseea el valor de true
-            if (row.estado == true || TIPO_US != 2) {
+            if (row.estado == true || SESSION.id_cargo != 2) {
                  
                 //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
-                //id_trimestre = row.id_trimestre;
-                //trimestre = row.trimestre;
+                id_trimestre = row.id_trimestre;
+                trimestre = row.trimestre;
                 //se asigna el nombre del trimestre en el boton
                 document.getElementById('TrimestreSelect').innerHTML = row.trimestre;
                 //se llena el dropdown con el trimestre especifico
@@ -65,6 +62,7 @@ async function CargarTrimestres() {
 }
 
 async function CargarAsignaturas(){
+    const SESSION = await dataFetch(USER_API, 'getSession');
     //se declara la variable materia
     let materia = null;
     //se carga el año actual en el label respectivo
@@ -72,15 +70,17 @@ async function CargarAsignaturas(){
     //se declara la variable accion
     accion = null;
     //se copara el tipo de usuario para determinar la accion a realizar
-    if(TIPO_US == 2){
+    if(SESSION.id_cargo == 2){
         accion = 'ObtenerMateriasDocente';
     }else{
         accion = 'ObtenerMaterias';
     }
+    debugger
     //llamada a la API obtener las materias del docente logeado
     const JSON = await dataFetch(NOTAS_API, accion);
     //Se compara la respuesta de la api
     if (JSON.status) {
+        debugger
         //Se Carga el nombre del docente logeado en el label
         if(accion == 'ObtenerMateriasDocente'){
             document.getElementById('docenteNombre').innerHTML = JSON.dataset[1].nombre;
