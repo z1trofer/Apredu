@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <title>Asignaturas</title>
+    <title>Grados</title>
 </head>
 
 <body>
@@ -18,16 +18,16 @@
     <main>
 
         <div class="container">
-            <h1>Agregar asignaturas</h1>
+            <h1>Agregar grados</h1>
             <!-- Button trigger modal -->
             <button onclick="openCreate()" type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
-                Agregar asignatura
+                Agregar grado
             </button>
         </div>
 
 
-        <!-- Modal de la asignatura-->
+        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -37,15 +37,15 @@
                     </div>
                     <div class="modal-body">
                         <form id="save-form">
-                            <h4>agregar asignatura</h4>
-                            <input class="visually-hidden" type="number" id="id_asignatura" name="id_asignatura">
+                            <h4>agregar grado</h4>
+                            <input class="visually-hidden" type="number" id="id_grado" name="id_grado">
                             <div class="input-field col s12 m6">
-                                <label for="nombres">Nombre de la asignatura</label>
-                                <input id="asignatura" type="text" name="asignatura" class="validate" required>
+                                <label for="nombres">Nombre del grado</label>
+                                <input id="grado" type="text" name="grado" class="validate" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Gurdar cambios</button>
                             </div>
                         </form>
                     </div>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="container col-6">
-            <label>Buscar Asignatura:</label>
+            <label>Buscar Grado:</label>
             <input class="form-control me-2 light-table-filter" data-table="table" type="text">
         </div>
 
@@ -65,18 +65,15 @@
                         <tr id="records"></tr>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
+                            <th scope="col">Grado</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-rows">
-
+    
                     </tbody>
                 </table>
             </div>
         </div>
-
-
-
 
     </main>
     <footer>
@@ -90,7 +87,6 @@
     <script src="../../recursos/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/account.js"></script>
-    <script src="../../controllers/privado/asignaturas.js"></script>
     <script src="../../controllers/privado/grados.js"></script>
 </body>
 

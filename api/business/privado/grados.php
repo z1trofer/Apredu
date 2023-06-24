@@ -6,16 +6,16 @@ if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $grado = new Grado;
+    $grados = new Grados;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'readAll':
                 //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
-                if ($result['dataset'] = $grado->readAll()) {
+                if ($result['dataset'] = $grados->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen '.count($result['dataset']).' registros';
                 } elseif (Database::getException()) {
@@ -27,9 +27,9 @@ if (isset($_GET['action'])) {
                 // Acción para crear un dato en la tabla de grados
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grado->setGrado($_POST['grado'])) {
+                if (!$grados->setGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                }elseif ($grado->createRow()) {
+                }elseif ($grados->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Grado creado correctamente';
                 } else {
@@ -38,9 +38,9 @@ if (isset($_GET['action'])) {
                 break;
                 //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
-                if (!$grado->setId($_POST['id_grado'])) {
+                if (!$grados->setId($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif ($result['dataset'] = $grado->readOne()) {
+                } elseif ($result['dataset'] = $grados->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -51,13 +51,13 @@ if (isset($_GET['action'])) {
                 // Acción para actualizar un dato en la tabla grados
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grado->setId($_POST['id'])) {
+                if (!$grados->setId($_POST['id'])) {
                     $result['exception'] = 'Grado incorrecta';
-                } elseif (!$data = $grado->readOne()) {
+                } elseif (!$data = $grados->readOne()) {
                     $result['exception'] = 'Grado inexistente';
-                } elseif (!$grado->setGrado($_POST['grado'])) {
+                } elseif (!$grados->setGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif ($grado->updateRow()) {
+                } elseif ($grados->updateRow()) {
                         $result['status'] = 1;
                         $result['message'] = 'Grado modificado correctamente';
                     } else {
@@ -66,11 +66,11 @@ if (isset($_GET['action'])) {
                 break;
                 // Acción para eliminar un dato de la tabla categorías
             case 'delete':
-                if (!$grado->setId($_POST['id_grado'])) {
+                if (!$grados->setId($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif (!$data = $grado->readOne()) {
+                } elseif (!$data = $grados->readOne()) {
                     $result['exception'] = 'Grado inexistente';
-                } elseif ($grado->deleteRow()) {
+                } elseif ($grados->deleteRow()) {
                     $result['status'] = 1;                   
                     $result['message'] = 'Grado eliminado correctamente';
                 } else {

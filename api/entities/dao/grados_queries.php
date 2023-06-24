@@ -3,7 +3,7 @@ require_once('../../helpers/database.php');
 /*
 *	Clase para manejar el acceso a datos de la entidad Grado.
 */
-class GradoQueries
+class GradosQueries
 {
     /*
     *   Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
@@ -22,9 +22,9 @@ class GradoQueries
     //Método para leer todos los registros de la tabla, ordenados por el nombre del grado
     public function readAll()
     {
-        $sql = 'SELECT id_grado, grado, 
+        $sql = 'SELECT id_grado, grado 
                 FROM grados
-                ORDER BY grado';
+                ORDER BY id_grado';
         return Database::getRows($sql);
     }
 

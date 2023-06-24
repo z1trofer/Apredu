@@ -4,7 +4,7 @@ require_once('../../entities/dao/grados_queries.php');
 /*
 *	Clase para manejar la transferencia de datos de la entidad Grado.
 */
-class Grado extends GradoQueries
+class Grados extends GradosQueries
 {
     // Declaración de atributos (propiedades).
     protected $id = null;
