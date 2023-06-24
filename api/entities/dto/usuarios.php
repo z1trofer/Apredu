@@ -53,12 +53,8 @@ class Usuarios extends UsuariosQueries
 
     public function setEmpleado($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
             $this->empleado = $value;
             return true;
-        } else {
-            return false;
-        }
     }
 
     public function setEstado($value)

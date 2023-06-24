@@ -26,8 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
     CargarTrimestres();
     CargarGrados();
     CargarAsignaturas();
+    CargarNombreDocente();
   
 });
+//funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session
+async function CargarNombreDocente(){
+    //se declara el label en una varianle
+    label = document.getElementById('nombre_empleado');
+    //se llama a la API para obtener los datos
+    const SESSION = await dataFetch(USER_API, 'getSession');
+    //se verifica el id_cargo
+    if(SESSION.id_cargo == 2){
+        //se llena el label con el nombre del docente
+        label.innerHTML = "Docente: "+SESSION.nombre;
+    }else{
+        //se deja el label vacio
+        label.innerHTML = " ";
+    }
+};
 
 SEARCH_FORM.addEventListener('submit', async (event) => {
     //metodo para evitar que se recargue la pagina
