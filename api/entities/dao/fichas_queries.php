@@ -6,23 +6,47 @@ require_once('../../helpers/database.php');
 class FichasQueries
 {
     //Método para leer los registros de la tabla ordenandolos por sus apellidos por medio de una query general a la tabla
+    public function readAllFichas()
+    {
+        $sql ='SELECT id_ficha, nombre_estudiante, apellido_estudiante, grado, descripcion_ficha, fecha_ficha, nombre_empleado
+        FROM fichas  INNER JOIN estudiantes USING(id_estudiante) INNER JOIN empleados USING(id_empleado) INNER JOIN grados USING(id_grado)
+        ORDER BY fecha_ficha';
+        return Database::getRows($sql);
+    }
     public function readAll()
     {
-        $sql ='SELECT id_ficha, id_estudiante, descripcion_ficha, fecha_ficha, id_empleado
-                FROM fichas
-                INNER JOIN estudiantes USING(id_estudiante)
-                order by id_estudiante ASC';
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, usuario_estudiante, clave, estado
+                FROM estudiantes
+                INNER JOIN grados USING(id_grado)
+                order by id_grado ASC';
         return Database::getRows($sql);
     }
 
-    /*funcion para leer datos*/
-    public function readOne()
+    public function readOneestudiante()
     {
-        $sql = 'SELECT id_ficha, id_estudiante, descripcion_ficha, fecha_ficha, id_empleado
+        $sql = 'SELECT id_estudiante FROM estudiantes
+    WHERE id_estudiante = ?';
+        $params = array($this->id_estudiante);
+        return Database::getRow($sql, $params);
+    }
+
+    public function readOneFichaXestudiante()
+    {
+        $sql = 'SELECT id_ficha, descripcion_ficha, fecha_ficha, nombre_empleado
         FROM fichas 
         INNER JOIN estudiantes USING (id_estudiante)
         INNER JOIN empleados USING (id_empleado)
-        Where id_ficha = ?';
+        WHERE id_estudiante = ?';
+        $params = array($this->id_estudiante);
+        return Database::getRows($sql, $params);
+    }
+    /*funcion para leer datos*/
+    public function readOne()
+    {
+        $sql = 'SELECT id_ficha,id_estudiante,descripcion_ficha, fecha_ficha, nombre_empleado
+        FROM fichas 
+        INNER JOIN empleados USING (id_empleado)
+        WHERE id_ficha = ?';
         $params = array($this->id_ficha);
         return Database::getRow($sql, $params);
     }
@@ -37,7 +61,7 @@ class FichasQueries
     // Para cargar combobox
     public function readEmpleado()
     {
-        $sql = 'SELECT id_empleado, nombre FROM empleados';
+        $sql = 'SELECT id_empleado, nombre_empleado FROM empleados';
         return Database::getRows($sql);
     }
 
@@ -51,8 +75,8 @@ class FichasQueries
 
     public function updateRow()
     {
-        $sql = 'UPDATE fichas SET id_estudiante = ?, descripcion_ficha = ?, fecha_ficha = ?, id_empleado = ? WHERE id_ficha = ? ';
-        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->fecha_ficha, $this->id_empleado);
+        $sql = 'UPDATE fichas SET id_estudiante = ?, descripcion_ficha = ?, fecha_ficha = ?, id_empleado = ? WHERE id_ficha = ?';
+        $params = array($this->id_estudiante, $this->descripcion_ficha,$this->fecha_ficha, $this->id_empleado,$this->id_ficha);
         return Database::executeRow($sql, $params);
     }
 

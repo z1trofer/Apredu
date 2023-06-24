@@ -180,6 +180,7 @@ function openCreate() {
     document.getElementById('eliminar_estudiante').hidden = true;
 }
 
+
 /*
 *   Función asíncrona para eliminar un registro.
 *   Parámetros: id (identificador del registro seleccionado).
@@ -206,6 +207,54 @@ async function openDelete(id) {
         }
     }
 }
+
+//función Cargar Grados
+async function CargarGrados() {
+    //se instancia un formulario
+    const FORM = new FormData();
+    //se instancia el año como parametro en el formulario
+    FORM.append('id_grado', id_grado);
+    //se llama a la API para obtener los trimestres del año respectivo
+    const JSON = await dataFetch(ACTIVIDADES_API, 'readGrados', FORM);
+    //se comprueba la respuesta de la api
+    if (JSON.status) {
+        //se declara el combobox de trimestres en la variable dropdown
+        dropdown = document.getElementById('listGrados');
+        //se limpia el dropdown para asegurarse que no haya ningun contenido
+        dropdown.innerHTML = '';
+        //se llena el dropdown mediante la respuesta de la api
+        JSON.dataset.forEach(async row => {
+            //el dropdown se llena con el trimestre que poseea el valor de true
+            //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
+            id_grado = row.id_grado;
+            //trimestre = row.trimestre;
+            //se asigna el nombre del trimestre en el boton
+            document.getElementById('dropGrado').innerHTML = row.grado;
+            //se llena el dropdown con el trimestre especifico
+            dropdown.innerHTML += `
+                <li><a class="dropdown-item" onclick="OpcionGrado('${row.id_grado}','${row.grado}')">${row.grado}</a></li>
+                `
+        });
+    } else {
+        //se envia un mensaje con el error respectivo
+        sweetAlert(2, "Ocurrio un error al cargar los grados, por favor comuniquese con un administrador", false);
+    }
+};
+
+//funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
+//parametros: id_trimestre y el nombre del trimestre
+function OpcionGrado(id_gradoFun, gradoFun) {
+    //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
+    id_grado = id_gradoFun;
+    //se designa el texto del boton como el trimestre seleccionado
+    document.getElementById('dropGrado').innerHTML = gradoFun;
+};
+/*
+document.getElementById('buscar').addEventListener('onclick', async (event) => {
+    debugger
+
+});*/
+
 
 //Buscador
 (function (document) {

@@ -117,12 +117,14 @@
                 <div class="modal-body">
                     <div class="row align-items-center">
                         <div class="col-sm-6">
+                            <form id="info_act" method="post" action="">
                             <input class="visually-hidden-focusable" type="number" id="id" name="id">
                             
-                            <h5>Nombre</h5>
-                            <h3 id="nombre_empleado">Ramón Ricardo Ramirez Martinez</h3>
+                            <h4 id="">Buscar por:</h4>
+                        </form>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" style="margin-left: -200px;">
+                            <h6>Grado</h6>
                             <select class="form-select" required aria-label="select example" id="grado"
                             name="grado">
                             <option value="">Seleccione una opcion</option>
@@ -130,6 +132,7 @@
                         </select>
                     </div>
                     <div class="col-3 Respon_BTN">
+                        <h6>Materia</h6>
                         <select class="form-select" required aria-label="select example" id="asignatura"
                         name="asignatura">
                         <option value="">Seleccione una opcion</option>
@@ -138,6 +141,7 @@
                     
                 </div>
             </div>
+            <br>
             <!--tabla-->
             
             <div id="table_act" class="row">
@@ -189,8 +193,7 @@
             
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success">Guardar Cambios</button>
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -229,7 +232,7 @@
             </div>
             <div class="row" id="colDivEM">
                 <!--filtros empleados-->
-                <div class="col-sm-2 Respon_BTN">
+                <!-- <div class="col-sm-2 Respon_BTN">
                     <h3>filtrar por:</h3>
                 </div>
                 <div class="col-sm-2 Respon_BTN">
@@ -254,7 +257,7 @@
                             <li><a class="dropdown-item" href="#">Ascendente</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-4 Respon_BTN">
                     <div class="row">
                         <div class="col">
@@ -282,7 +285,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Cargo</th>
                         <th scope="col">Correo</th>
-                        <th scope="col"></th>
+                        <th scope="col">Ver actividades</th>
                         <th scope="col">Acciones</th>
 
                     </tr>

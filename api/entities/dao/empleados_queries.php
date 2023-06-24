@@ -68,7 +68,7 @@ class EmpleadosQueries
     }
 
     function ObtenerActividades() {
-        $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, fecha_entrega, asignacion.grado, asignacion.asignatura
+        $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, fecha_entrega, asignacion.grado, asignacion.asignatura
         from actividades
         INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura, grados.grado, empleados.id_empleado FROM detalle_asignaturas_empleados
 				   INNER JOIN grados USING(id_grado)
@@ -81,7 +81,7 @@ class EmpleadosQueries
     }
 
     function readSinFiltros() {
-        $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, fecha_entrega, asignacion.grado, asignacion.asignatura
+        $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, fecha_entrega, asignacion.grado, asignacion.asignatura
         from actividades
         INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura, grados.grado, empleados.id_empleado FROM detalle_asignaturas_empleados
 				   INNER JOIN grados USING(id_grado)

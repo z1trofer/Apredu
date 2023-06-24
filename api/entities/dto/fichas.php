@@ -13,6 +13,10 @@ class Fichas extends FichasQueries
     protected $fecha_ficha = null;
     protected $id_empleado = null;
 
+    //Parte estudiante
+    public $nombre_estudiante = null;
+    public $apellido_estudiante = null;
+
     /*
     *   Métodos para validar y asignar valores de los atributos. 13 campos
     */
@@ -26,9 +30,29 @@ class Fichas extends FichasQueries
         }
     }
 
-    public function setid_estudiante($value)
+    public function setNombresEstudiante($value)
     {
-        if (Validator::validateNaturalNumber($value, 1, 50)) {
+        if (Validator::validateAlphanumeric($value, 1, 60)) {
+            $this->nombre_estudiante = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setApellidosEstudiante($value)
+    {
+        if (Validator::validateAlphanumeric($value, 1, 60)) {
+            $this->apellido_estudiante = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setIdestudiante($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
             $this->id_estudiante = $value;
             return true;
         } else {
@@ -93,6 +117,16 @@ class Fichas extends FichasQueries
     public function getid_empleado()
     {
         return $this->id_empleado;
+    }
+
+    public function getNombreEstudiante()
+    {
+        return $this->nombre_estudiante;
+    }
+
+    public function getApellidoEstudiante()
+    {
+        return $this->apellido_estudiante;
     }
     
 }

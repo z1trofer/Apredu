@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     CargarTrimestres();
     CargarGrados();
     CargarAsignaturas();
+  
 });
 
 SEARCH_FORM.addEventListener('submit', async (event) => {
@@ -126,7 +127,6 @@ async function fillTable(form = null) {
     // Petición para obtener los registros disponibles.
     // const JSON = await dataFetch(ACTIVIDADES_API, action, form);
     const JSON = await dataFetch(ACTIVIDADES_API, action,form);
-    debugger
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.

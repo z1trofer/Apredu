@@ -11,14 +11,14 @@ const SAVE_FORM_DETALLE = document.getElementById('save-form-detalle');
 const TBODY_ROWS = document.getElementById('table-alum');
 const RECORDS = document.getElementById('records');
 const SEARCH_FORM = document.getElementById('search-form');
-const FORM_INFOACTI = document.getElementById('info-form');
+const FORM_INFOACTI = document.getElementById('info_act');
 // Constante para cargar la tabla de la ficha de actividades
 const TBODY_ROWS_ACT = document.getElementById('table_act');
 // 
 const CMB_ASIGNATURA = document.getElementById('asignatura');
 const CMB_GRADO = document.getElementById('grado');
 
-// Variable
+// Variables para guardar el valor de los id de cada combobox
 var valor_asignatura;
 var valor_grado;
 var valor_empleado;
@@ -55,6 +55,7 @@ CMB_GRADO.addEventListener('change', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
+    
     // Constante tipo objeto para obtener la fecha y hora actual.
     const TODAY = new Date();
     // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
@@ -67,22 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let date = `${year}-${month}-${day}`;
     // Se asigna la fecha como valor máximo en el campo del formulario.
     document.getElementById('fecha_nacimiento').max = date;
+   
 });
-
-// SAVE_FORM_DETALLE.addEventListener('submit', async(event) =>{
-//     event.preventDefault();
-//     (document.getElementById('id').value) ? action = 'update' : action = 'create';
-//     const FORM = new FormData(SAVE_FORM_DETALLE);
-//     const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
-//     if (JSON.status) {
-//         // Se carga nuevamente la tabla para visualizar los cambios.
-//         fillTable2();      
-//         // Se muestra un mensaje de éxito.
-//         sweetAlert(1, JSON.message, true);
-//     } else {
-//         sweetAlert(2, JSON.exception, false);
-//     }
-// });
 
 
 SEARCH_FORM.addEventListener('submit', (event) => {
@@ -108,6 +95,27 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
+
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, JSON.message, true);
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+});
+
+FORM_INFOACTI.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se verifica la acción a realizar.
+    (document.getElementById('id').value) ? action = 'readPorDetalle' : action = 'readSinFiltros';
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(FORM_INFOACTI);
+    // Petición para guardar los datos del formulario.
+    const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        fillTable2();
 
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
@@ -190,8 +198,9 @@ function openDetalleActividad(id_empleado) {
     fillSelect2(EMPLEADOS_API, 'readGrados_empleado', 'grado', id_empleado);
     fillTable2(id_empleado);
     valor_empleado = id_empleado;
-    document.getElementById('nombre_empleado').value = JSON.dataset.nombre_empleado;
+    document.getElementById('nombre_empleado').innerHTML = `Nombre: ${JSON.nombre_empleado}`
     CapturandoDatos();
+
 
 }
 
