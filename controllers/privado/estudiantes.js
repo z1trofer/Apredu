@@ -140,7 +140,6 @@ async function openUpdate(id) {
     const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        document.getElementById('eliminar_estudiante').onclick = openDelete(JSON.dataset.id_estudiante);
         // Se restauran los elementos del formulario.
         SAVE_FORM_E.reset();
         //se oculta la clave
@@ -166,6 +165,7 @@ async function openUpdate(id) {
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
         document.getElementById('cancelar').hidden = true;
         document.getElementById('eliminar_estudiante').hidden = false;
+        document.getElementById('eliminar_estudiante').value = openDelete(JSON.dataset.id_estudiante);
 
     } else {
         sweetAlert(2, JSON.exception, false);

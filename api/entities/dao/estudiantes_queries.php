@@ -55,6 +55,18 @@ class EstudiantesQueries
             return Database::getRows($sql);
     }
 
+    public function readConducta()
+    {
+        $sql = 'SELECT id_ficha, id_estudiante, descripcion_ficha, fecha_ficha, nombre_empleado
+        FROM fichas 
+        INNER JOIN estudiantes USING (id_estudiante)
+        INNER JOIN empleados USING (id_empleado)
+        Where id_ficha = ?';
+        $params = array($this->id_ficha);
+        return Database::getRow($sql, $params);
+    }
+
+
     //Metodo para actualizar un dato de la tabla por medio del id
     public function UpdateEstudiante()
     {
