@@ -170,7 +170,7 @@ async function openDetalle(id_ficha) {
       document.getElementById('id_estudiante').value = JSON.dataset.id_estudiante;
       document.getElementById('descripcion').value = JSON.dataset.descripcion_ficha;
       document.getElementById('fecha').value = JSON.dataset.fecha_ficha;
-      document.getElementById('nombre_empleado').value = JSON.dataset.nombre_empleado_ficha;
+      fillSelect(FICHA_API, 'readEmpleado', 'nombre_empleado', JSON.dataset.nombre_empleado);
   } else {
       sweetAlert(2, JSON.exception, false);
   }

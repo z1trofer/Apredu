@@ -43,7 +43,7 @@ class FichasQueries
     /*funcion para leer datos*/
     public function readOne()
     {
-        $sql = 'SELECT id_ficha,descripcion_ficha, fecha_ficha, nombre_empleado
+        $sql = 'SELECT id_ficha,id_estudiante,descripcion_ficha, fecha_ficha, nombre_empleado
         FROM fichas 
         INNER JOIN empleados USING (id_empleado)
         WHERE id_ficha = ?';
@@ -75,8 +75,8 @@ class FichasQueries
 
     public function updateRow()
     {
-        $sql = 'UPDATE fichas SET descripcion_ficha = ? WHERE id_ficha = 3';
-        $params = array( $this->descripcion_ficha,$this->id_ficha);
+        $sql = 'UPDATE fichas SET id_estudiante = ?, descripcion_ficha = ?, fecha_ficha = ?, id_empleado = ? WHERE id_ficha = ?';
+        $params = array($this->id_estudiante, $this->descripcion_ficha,$this->fecha_ficha, $this->id_empleado,$this->id_ficha);
         return Database::executeRow($sql, $params);
     }
 
