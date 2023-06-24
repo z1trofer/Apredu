@@ -188,7 +188,7 @@ async function fillTable(form = null) {
 function openCreate() {
     // Se restauran los elementos del formulario.
     titulo_modal.textContent = 'Asignar un nuevo empleado';
-    fillSelect(EMPLEADOS_API, 'readCargos', 'cargo');
+    fillSelect(EMPLEADOS_API, 'readCargos', 'cargo', 'Seleccione un cargo' );
 }
 
 function openDetalleActividad(id_empleado) {
@@ -223,7 +223,7 @@ async function openUpdate(id_empleado) {
         document.getElementById('nombres').value = JSON.dataset.nombre_empleado;
         document.getElementById('apellidos').value = JSON.dataset.apellido_empleado;
         document.getElementById('dui').value = JSON.dataset.dui;
-        fillSelect(EMPLEADOS_API, 'readCargos', 'cargo', JSON.dataset.cargo);
+        fillSelect(EMPLEADOS_API, 'readCargos', 'cargo','Seleccione un cargo' ,JSON.dataset.id_cargo);
         document.getElementById('correo').value = JSON.dataset.correo_empleado;
         document.getElementById('direccion').value = JSON.dataset.direccion;
         document.getElementById('fecha_nacimiento').value = JSON.dataset.fecha_nacimiento;
