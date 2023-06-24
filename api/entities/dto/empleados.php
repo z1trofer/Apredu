@@ -58,7 +58,7 @@ class Empleados extends EmpleadosQueries
 
     public function setdui($value)
     {
-        if (Validator::validateString($value, 1, 10)) {
+        if (Validator::validateDUI($value, 1, 10)) {
             $this->dui = $value;
             return true;
         } else {

@@ -7,6 +7,14 @@ class ActividadesQueries
 {
     public function readAll()
     {
+       if ( $_SESSION['tipo'] == 'admin') {
+        $sql ='SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad
+        FROM actividades 
+        INNER JOIN tipo_actividades USING (id_tipo_actividad)
+        ORDER BY id_actividad';
+        return Database::getRows($sql);
+
+       }else{
         $sql = 'SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, tipo_actividades.tipo_actividad, fecha_entrega, asignacion.grado, asignacion.asignatura
         from actividades
         INNER JOIN tipo_actividades USING (id_tipo_actividad)
@@ -17,7 +25,10 @@ class ActividadesQueries
         where id_empleado = ?
         order by id_actividad asc';
         $params = array($_SESSION['id_empleado']);
+        
         return Database::getRows($sql, $params);
+       }
+        
     }
 
     /*funcion para leer datos*/
@@ -70,13 +81,22 @@ class ActividadesQueries
     // Para cargar combobox
     public function readDetalle_asignatura_grado()
     {
-        $sql = "Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
-        FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
-        INNER JOIN asignaturas USING(id_asignatura)
-        INNER JOIN grados USING (id_grado)
-        WHERE id_empleado = ?";
-        $params = array($_SESSION['id_empleado']);
-        return Database::getRows($sql, $params);
+        if ( $_SESSION['tipo'] == 'admin') {
+            $sql ="Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
+            FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
+            INNER JOIN asignaturas USING(id_asignatura)
+            INNER JOIN grados USING (id_grado)";
+            return Database::getRows($sql);
+    
+           }else{
+            $sql = "Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
+            FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
+            INNER JOIN asignaturas USING(id_asignatura)
+            INNER JOIN grados USING (id_grado)
+            WHERE id_empleado = ?";
+            $params = array($_SESSION['id_empleado']);
+            return Database::getRows($sql, $params);
+           } 
     }
 
     // Para la búsqueda parametrizada
