@@ -5,6 +5,10 @@ const MODAL_TITLE = document.getElementById('modal-title');
 // Constantes para establecer el contenido de la tabla.
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
+const TBODY_ROWS2 = document.getElementById('tbody-rows2');
+const RECORDS2 = document.getElementById('records2');
+const TBODY_ROWS3 = document.getElementById('tbody-rows3');
+const RECORDS3 = document.getElementById('records3');
 
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
@@ -24,13 +28,45 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
-        
+        openFichas();
+        openDetalle();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
     }
 });
+
+async function openFichas(id_ficha) {
+  // Se define una constante tipo objeto con los datos del registro seleccionado.
+  const FORM = new FormData();
+  FORM.append('id_ficha', id_ficha);
+  TBODY_ROWS2.innerHTML = '';
+  RECORDS2.textContent = '';
+  // Petición para obtener los datos del registro solicitado.
+  const JSON = await dataFetch(FICHA_API, 'readAllFichas', FORM);
+  // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+  if (JSON.status) {
+    // Se recorre el conjunto de registros fila por fila.
+    JSON.dataset.forEach(row => {
+        // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+        TBODY_ROWS2.innerHTML += `  
+            <tr>
+                <td>${row.nombre_estudiante}</td>
+                <td>${row.apellido_estudiante}</td>
+                <td>${row.grado}</td>
+                <td>${row.descripcion_ficha}</td>
+                <td>${row.fecha_ficha}</td>
+                <td>${row.nombre_empleado}</td>
+            </tr>
+        `;
+    });
+    RECORDS.textContent = JSON.message;
+} else {
+    sweetAlert(4, JSON.exception, true);
+}
+}
+
 
 async function fillTable(form = null) {
     // Se inicializa el contenido de la tabla.
@@ -53,7 +89,11 @@ async function fillTable(form = null) {
                     <td>${row.grado}</td>
                     <td><button onclick="openCreate(${row.id_estudiante})" type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                     Agregar ficha 
-                  </button></td>
+                    </button>
+                    <button onclick="openDetallePorFicha(${row.id_estudiante})" type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#VerInfo">
+                    Ver fichas
+                    </button>
+                    <td>
                 </tr>
             `;
         });
@@ -78,6 +118,62 @@ async function openCreate(id) {
     } else {
         sweetAlert(2, JSON.exception, false);
     }
+}
+
+async function openDetallePorFicha(id_estudiante) {
+
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('id_estudiante', id_estudiante);
+    TBODY_ROWS3.innerHTML = '';
+    RECORDS3.textContent = '';
+    // Petición para obtener los datos del registro solicitado.
+    const JSON = await dataFetch(FICHA_API, 'readOneFichaXestudiante', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+      // Se recorre el conjunto de registros fila por fila.
+      JSON.dataset.forEach(row => {
+          // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+          TBODY_ROWS3.innerHTML += `  
+              <tr>
+                  <td>${row.descripcion_ficha}</td>
+                  <td>${row.fecha_ficha}</td>
+                  <td>${row.nombre_empleado}</td>
+                  <td>
+                  <button onclick="openDetalle(${row.id_ficha})" type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button type="button" class="btn btn-outline-danger" data-mdb-ripple-color="dark" 
+                  onclick="openEliminarPorFicha(${row.id_ficha})" >
+                  <i class="fa-sharp fa-solid fa-trash"></i>
+                  </button>
+                  </td>
+              </tr>
+          `;
+      });
+      RECORDS3.textContent = JSON.message;
+  } else {
+      sweetAlert(4, JSON.exception, true);
+  }
+}
+
+async function openDetalle(id_ficha) {
+  // Se define una constante tipo objeto con los datos del registro seleccionado.
+  const FORM = new FormData();
+  FORM.append('id_ficha', id_ficha);
+  // Petición para obtener los datos del registro solicitado.
+  const JSON = await dataFetch(FICHA_API, 'readOne', FORM);
+  // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+  if (JSON.status) {
+      // Se inicializan los campos del formulario.
+      document.getElementById('id_ficha').value = JSON.dataset.id_ficha;
+      document.getElementById('id_estudiante').value = JSON.dataset.id_estudiante;
+      document.getElementById('descripcion').value = JSON.dataset.descripcion_ficha;
+      document.getElementById('fecha').value = JSON.dataset.fecha_ficha;
+      document.getElementById('nombre_empleado').value = JSON.dataset.nombre_empleado_ficha;
+  } else {
+      sweetAlert(2, JSON.exception, false);
+  }
 }
 
 //Buscador
