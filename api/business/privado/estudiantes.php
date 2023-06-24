@@ -11,6 +11,8 @@ if (isset($_GET['action'])) {
     $responsable = new Responsables;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
+    //arreglo para filtro parametrizado
+    $filtro = array('grado' => 0);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
@@ -26,6 +28,32 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos registrados';
                     }
                     break;
+                    //filtro de grado para el estudiante
+                    case 'FiltrosEstudiantes':
+                        $_POST = Validator::validateForm($_POST);
+                        $filtro['grado'] = $_POST['grado'];
+                        if ($result['dataset'] = $estudiante->FiltrarEstudiante($filtro)) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                        } elseif (Database::getException()) {
+                            $result['exception'] = Database::getException();
+                        } else {
+                            $result['exception'] = 'No hay datos registrados';
+                        }
+                        break;
+                    case 'search':
+                        $_POST = Validator::validateForm($_POST);
+                        if ($_POST['search'] == '') {
+                            $result['exception'] = 'Ingrese un valor para buscar';
+                        } elseif ($result['dataset'] = $Cliente_p->searchRows($_POST['search'])) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
+                        } elseif (Database::getException()) {
+                            $result['exception'] = Database::getException();
+                        } else {
+                            $result['exception'] = 'No hay coincidencias';
+                        }
+                        break;
                  //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
                 if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
@@ -41,7 +69,7 @@ if (isset($_GET['action'])) {
                 case 'readGrado':
                     if ($result['dataset'] = $estudiante->readGrado()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                        $result['message'] = 'Existen registros';
                     } elseif (Database::getException()) {
                         $result['exception'] = Database::getException();
                     } else {
@@ -128,6 +156,20 @@ if (isset($_GET['action'])) {
                         $result['exception'] = Database::getException();
                     }    
                 break;
+
+                case 'createFicha':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
+                        $result['exception'] = 'estudiante incorrecto';
+                    } elseif (!$data = $estudiante->readOne()) {
+                        $result['exception'] = 'Estudiante inexistente';
+                    }elseif (!$data = $estudiante->readOne()) {
+                        $result['exception'] = 'Estudiante inexistente';
+                    }elseif (!$data = $estudiante->readOne()) {
+                        $result['exception'] = 'Estudiante inexistente';
+                    }elseif (!$data = $estudiante->readOne()) {
+                        $result['exception'] = 'Estudiante inexistente';
+                    }
                 //Acción para eliminar un dato en la tabla de clientes
             case 'deleteEstudiante':
                 if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
