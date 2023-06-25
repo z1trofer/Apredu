@@ -205,15 +205,17 @@ async function fillTable(form = null) {
 }
 
 function createActividades() {
-    // FORMULARIO.reset();
+    FORMULARIO.reset();
     titulo_modal.textContent = 'Asignar una nueva actividad';
     fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', 'Seleccione un tipo de actividad');
     fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', 'Seleccione una asignación');
     fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', 'Seleccione un trimestre');
+    document.getElementById('detalle').disabled = false;
+    document.getElementById('trimestre').disabled = false;
 }
 
 async function updateActividades(id_actividad) {
-    // FORMULARIO.reset();
+    FORMULARIO.reset();
     const FORM = new FormData();
     FORM.append('id_actividad', id_actividad);
     const JSON = await dataFetch(ACTIVIDADES_API, 'readOne', FORM);
@@ -228,6 +230,8 @@ async function updateActividades(id_actividad) {
         fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle','Seleccione una asignación' ,JSON.dataset.id_detalle_asignatura_empleado);
         fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre','Seleccione un trimestre' ,JSON.dataset.id_trimestre);
         fillSelect(ACTIVIDADES_API, 'readAll', 'nombre', JSON.dataset.id_actividad);
+        document.getElementById('detalle').disabled = true;
+        document.getElementById('trimestre').disabled = true;
     }
 }
 
@@ -272,14 +276,17 @@ async function CargarTrimestres() {
         JSON.dataset.forEach(async row => {
             //el dropdown se llena con el trimestre que poseea el valor de true
             //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
-            id_trimestre = row.id_trimestre;
+            if (row.estado == true || SESSION.id_cargo != 2) {
+                id_trimestre = row.id_trimestre;
             //trimestre = row.trimestre;
             //se asigna el nombre del trimestre en el boton
             document.getElementById('dropTrimestre').innerHTML = row.trimestre;
             //se llena el dropdown con el trimestre especifico
             dropdown.innerHTML += `
                 <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
-                `
+              
+              `
+            }
         });
     } else {
         //se envia un mensaje con el error respectivo

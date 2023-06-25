@@ -7,15 +7,14 @@ class ActividadesQueries
 {
     public function readAll()
     {
-       if ( $_SESSION['tipo'] == 'admin') {
-        $sql ='SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad
+        if ($_SESSION['tipo'] == 'admin') {
+            $sql = 'SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad
         FROM actividades 
         INNER JOIN tipo_actividades USING (id_tipo_actividad)
         ORDER BY id_actividad';
-        return Database::getRows($sql);
-
-       }else{
-        $sql = 'SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, tipo_actividades.tipo_actividad, fecha_entrega, asignacion.grado, asignacion.asignatura
+            return Database::getRows($sql);
+        } else {
+            $sql = 'SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, tipo_actividades.tipo_actividad, fecha_entrega, asignacion.grado, asignacion.asignatura
         from actividades
         INNER JOIN tipo_actividades USING (id_tipo_actividad)
         INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura, grados.grado, empleados.id_empleado FROM detalle_asignaturas_empleados
@@ -24,11 +23,10 @@ class ActividadesQueries
                    INNER JOIN empleados USING (id_empleado)) as asignacion USING(id_detalle_asignatura_empleado)
         where id_empleado = ?
         order by id_actividad asc';
-        $params = array($_SESSION['id_empleado']);
-        
-        return Database::getRows($sql, $params);
-       }
-        
+            $params = array($_SESSION['id_empleado']);
+
+            return Database::getRows($sql, $params);
+        }
     }
 
     /*funcion para leer datos*/
@@ -59,15 +57,21 @@ class ActividadesQueries
     // Para cargar combobox
     public function readGrados()
     {
-        $sql = "SELECT id_grado, grado
-            FROM grados";
+        $sql = "SELECT DISTINCT id_grado, grado
+            FROM grados LEFT JOIN detalle_asignaturas_empleados USING (id_grado)";
+        if ($_SESSION['id_cargo'] == 2) {
+            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'];
+        }
         return Database::getRows($sql);
     }
 
     public function readAsignaturas()
     {
-        $sql = "SELECT id_asignatura, asignatura
-            FROM asignaturas";
+        $sql = "SELECT DISTINCT id_asignatura, asignatura
+            FROM asignaturas LEFT JOIN detalle_asignaturas_empleados USING (id_asignatura)";
+        if ($_SESSION['id_cargo'] == 2) {
+            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'];
+        }
         return Database::getRows($sql);
     }
 
@@ -81,14 +85,13 @@ class ActividadesQueries
     // Para cargar combobox
     public function readDetalle_asignatura_grado()
     {
-        if ( $_SESSION['tipo'] == 'admin') {
-            $sql ="Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
+        if ($_SESSION['tipo'] == 'admin') {
+            $sql = "Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
             FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
             INNER JOIN asignaturas USING(id_asignatura)
             INNER JOIN grados USING (id_grado)";
             return Database::getRows($sql);
-    
-           }else{
+        } else {
             $sql = "Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
             FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
             INNER JOIN asignaturas USING(id_asignatura)
@@ -96,7 +99,7 @@ class ActividadesQueries
             WHERE id_empleado = ?";
             $params = array($_SESSION['id_empleado']);
             return Database::getRows($sql, $params);
-           } 
+        }
     }
 
     // Para la búsqueda parametrizada
@@ -106,10 +109,10 @@ class ActividadesQueries
         FROM actividades 
         INNER JOIN tipo_actividades USING (id_tipo_actividad)
         INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
-        WHERE id_trimestre = ".$filtros['trimestre']." and detalle_asignaturas_empleados.id_grado = ".$filtros['grado']." and id_asignatura = ".$filtros['asignatura'].
-        " GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
+        WHERE id_trimestre = " . $filtros['trimestre'] . " and detalle_asignaturas_empleados.id_grado = " . $filtros['grado'] . " and id_asignatura = " . $filtros['asignatura'] .
+            " GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
         ORDER BY actividades.nombre_actividad ASC";
-         return Database::getRows($sql);
+        return Database::getRows($sql);
     }
 
     public function createRow()
@@ -123,7 +126,7 @@ class ActividadesQueries
     public function updateRow()
     {
         $sql = 'UPDATE actividades SET nombre_actividad = ?, ponderacion = ?, id_tipo_actividad = ?, descripcion = ?, fecha_entrega = ?, id_detalle_asignatura_empleado = ?, id_trimestre = ? WHERE id_actividad= ? ';
-        $params = array($this->nombre_actividad, $this->ponderacion, $this->id_tipo_actividad, $this->descripcion, $this->fecha_entrega, $this->id_detalle_asignatura_empleado, $this->id_trimestre, $this->id_actividad );
+        $params = array($this->nombre_actividad, $this->ponderacion, $this->id_tipo_actividad, $this->descripcion, $this->fecha_entrega, $this->id_detalle_asignatura_empleado, $this->id_trimestre, $this->id_actividad);
         return Database::executeRow($sql, $params);
     }
 
