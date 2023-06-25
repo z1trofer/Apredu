@@ -15,6 +15,8 @@ const FORM_INFOACTI = document.getElementById('info_act');
 // Constante para cargar la tabla de la ficha de actividades
 const TBODY_ROWS_ACT = document.getElementById('table_act');
 // 
+//const cargar tabla de asignaturas_grados
+const TBODY_ASIGNATURAS_GRADOS = document.getElementById('body_asignatura');
 const CMB_ASIGNATURA = document.getElementById('asignatura');
 const CMB_GRADO = document.getElementById('grado');
 
@@ -34,7 +36,18 @@ function CargandoDatos(empleado, grado, asignatura){
     fillTable2(empleado, grado, asignatura);
 }
 
+document.getElementById('buscarAct').addEventListener('click', () => {
+        // CAPTURANDO EL ID DE ASIGNATURA CADA VEZ QUE SE CAMBIA
+        valor_asignatura = CMB_ASIGNATURA.options[CMB_ASIGNATURA.selectedIndex].value;
+        // fillTable2(null, null, valor_asignatura);
+        CapturandoDatos();
+});
 
+//funcion mostrar administradores
+document.getElementById('chekboxAdmin').addEventListener('change', () => {
+    fillTable();
+});
+/*
 CMB_ASIGNATURA.addEventListener('change', () => {
     // CAPTURANDO EL ID DE ASIGNATURA CADA VEZ QUE SE CAMBIA
     valor_asignatura = CMB_ASIGNATURA.options[CMB_ASIGNATURA.selectedIndex].value;
@@ -42,7 +55,7 @@ CMB_ASIGNATURA.addEventListener('change', () => {
     CapturandoDatos();
 
 });
-
+*/
 CMB_GRADO.addEventListener('change', () => {
     // CAPTURANDO EL ID DE GRADO CADA VEZ QUE SE CAMBIA
     valor_grado = CMB_GRADO.options[CMB_GRADO.selectedIndex].value;
@@ -75,10 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
 SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-    // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SEARCH_FORM);
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    fillTable(FORM);
+    fillTable(SEARCH_FORM);
 });
 
 // Método manejador de eventos para cuando se envía el formulario de guardar.
@@ -130,17 +141,44 @@ FORM_INFOACTI.addEventListener('submit', async (event) => {
 *   Retorno: ninguno.
 */
 async function fillTable(form = null) {
+    debugger
     // Se inicializa el contenido de la tabla.
     TBODY_ROWS.innerHTML = '';
-
     // Se verifica la acción a realizar.
-    (form) ? action = 'search' : action = 'readAll';
+    (form) ? action = 'search'  : action = 'readAll';
+    if(form){
+        FORM = new FormData(form);
+    }else{
+        FORM = new FormData();
+    }
+    //se verifica el valor del checkbox del admin
+    FORM.append('check', document.getElementById('chekboxAdmin').checked);
     // Petición para obtener los registros disponibles.
-    const JSON = await dataFetch(EMPLEADOS_API, action, form);
+    const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
+    debugger
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
+            btnActividades = null;
+            btnAsignaciones = null;
+            if(row.cargo == 'profesor'){
+                btnActividades = `
+                <td>
+                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                    data-mdb-target="#ModalDocentesAct" onclick="openDetalleActividad(${row.id_empleado})">
+                    <img src="../../recursos/iconos/notas.png" alt="">
+                </button>
+                </td>    `;
+                btnAsignaciones = `
+                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                    data-mdb-target="#DetallesModal" onclick="CargarAsignaturasGrados(${row.id_empleado})">
+                    <img src="../../recursos/iconos/notas.png" alt="">
+                </button>`
+            }else{
+                btnActividades = '<td></td>';
+                btnAsignaciones = '';
+            }
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
                 
@@ -149,15 +187,8 @@ async function fillTable(form = null) {
                 <td>${row.nombre_empleado}</td>
                 <td>${row.cargo}</td>
                 <td>${row.correo_empleado}</td>
-
-
-                    <td>
-                        <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                            data-mdb-target="#ModalDocentesAct" onclick="openDetalleActividad(${row.id_empleado})">
-                            <img src="../../recursos/iconos/notas.png" alt="">
-                        </button>
-                    </td>
-                    <td>
+                `+btnActividades+`
+                    <td>`+btnAsignaciones+`
                         <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
                             data-mdb-target="#ModalDocentesInfo" onclick="openUpdate(${row.id_empleado})">
                             <img src="../../recursos/iconos/informacion.png" alt="">
@@ -179,6 +210,29 @@ async function fillTable(form = null) {
     }
 }
 
+//funcion cargar asignaturas y grados del docente
+async function CargarAsignaturasGrados(id){
+    fillSelect2(EMPLEADOS_API, 'readGrados', 'DetallesGrado',id);
+    fillSelect2(EMPLEADOS_API, 'readAsignaturas', 'DetallesAsignatura',id);
+    TBODY_ASIGNATURAS_GRADOS.innerHTML = "";
+    //declaracion objeto de formulario
+    const FORM = new FormData();
+    //declaracion parametro en formulario
+    FORM.append('id', id);
+    //llamado a la api con parametro id del empleado
+    const JSON = await dataFetch(EMPLEADOS_API, 'CargarDetalles', FORM);
+    if(JSON.status){
+        JSON.dataset.forEach(row => {
+            TBODY_ASIGNATURAS_GRADOS.innerHTML += `
+            <tr>
+                <td>${row.grado}</td>
+                <td>${row.asignatura}</td>
+            </tr>
+            `;
+        });
+    };
+
+}
 
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
@@ -192,6 +246,7 @@ function openCreate() {
 }
 
 function openDetalleActividad(id_empleado) {
+    TBODY_ROWS_ACT.innerHTML = '';
     console.log(id_empleado);
     titulo_modal2.textContent = 'Información de actividades';
     fillSelect2(EMPLEADOS_API, 'readAsignaturas_empleado', 'asignatura', id_empleado);
