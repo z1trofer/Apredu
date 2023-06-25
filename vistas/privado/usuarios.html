@@ -12,6 +12,105 @@
 
 <body id="private">
 
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <!-- Container wrapper -->
+            <div class="container">
+                <!-- Navbar brand -->
+                <a class="img_navbar" href="principal.html">
+                    <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
+                </a>
+
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+                    <!-- Left links -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Mantenimientos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="grados.html">Grados</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Docentes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item doce" href="empleados.html">Personal académico</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="actividades.html">Actividades</a>
+                                </li>
+                                
+                                <li>
+                                    <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                estudiantes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item doce" href="estudiantes.html">Alumnos</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="responsables.html">Responsables</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="fichas.html">Fichas de conducta</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="notas.html">Notas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <!-- Left links -->
+                </div>
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                        id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
+                            alt="Black and White Portrait of a Man" loading="lazy" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                        <li>
+                            <a class="dropdown-item" id="userActive" class="nav-link active">${JSON.usuario}</a>
+                                <a class="dropdown-item">cargo: ${JSON.tipo}</a>
+                                <a class="dropdown-item" onclick="logOut()">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Collapsible wrapper -->
+            </div>
+            <!-- Container wrapper -->
+        </nav>`
+    </header>
     <!---------------------- Modals ------------------------>
     <!--modal para información del usuario-->
     <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -29,7 +128,8 @@
                             <div class="row">
                                 <div class="col">
                                     <h5>Estado</h5>
-                                    <p>Activo <img id="green_circle" src="../recursos/iconos/Eo_circle_green_blank.svg.png" alt=""></p>
+                                    <p>Activo <img id="green_circle"
+                                            src="../recursos/iconos/Eo_circle_green_blank.svg.png" alt=""></p>
                                 </div>
                                 <div class="col">
                                     <h5>Cargo</h5>
@@ -40,10 +140,10 @@
                         <div class="col">
                             <h5>Clave</h5>
                             <p>*********</p>
-                            <button class="btn btn-primary" type="button" id="dropform"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            Restaurar Contraseña
-                        </button>
+                            <button class="btn btn-primary" type="button" id="dropform" data-mdb-toggle="dropdown"
+                                aria-expanded="false">
+                                Restaurar Contraseña
+                            </button>
 
 
                         </div>
@@ -111,7 +211,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-2 Respon_BTN" >
+                <div class="col-sm-2 Respon_BTN">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
                             data-mdb-toggle="dropdown" aria-expanded="false">
@@ -338,7 +438,7 @@
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2023 Copyright:
                 <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
-              </div>
+            </div>
             <!-- Copyright -->
         </footer>
     </footer>
