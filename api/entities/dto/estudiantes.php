@@ -17,6 +17,7 @@ class Estudiantes extends EstudiantesQueries{
     public $estado = null; //por defecto null en la base
     public $id_nota = null;
     public $descripcion_ficha = null;
+    public $id_empleado = null;
     
     //Setter del estudiante
     public function setIdEstudiante($value)
@@ -119,7 +120,7 @@ class Estudiantes extends EstudiantesQueries{
         }
     }
 
-    public function setdescripcion_ficha($value)
+    public function setDescripcionFicha($value)
     {
         if (Validator::validateString($value, 1, 150)) {
             $this->descripcion_ficha = $value;
@@ -129,6 +130,15 @@ class Estudiantes extends EstudiantesQueries{
         }
     }
 
+    public function setIdEmpleado($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /*
     *   Métodos para obtener valores de los atributos del estudiante.
@@ -188,4 +198,8 @@ class Estudiantes extends EstudiantesQueries{
         return $this->descripcion_ficha;
     }
 
+    public function getEmpleado()
+    {
+        return $this->id_empleado;
+    }
 }

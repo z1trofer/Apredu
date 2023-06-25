@@ -6,7 +6,7 @@ const SAVE_FORM_E = document.getElementById('save-formE');
 const SAVE_FORM_R = document.getElementById('save-formR');
 // Constantes para establecer el contenido de la tabla.
 const SAVE_FORM_C = document.getElementById('save_formC');
-
+const SEARCH_FORM = document.getElementById('search');
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 
@@ -142,9 +142,10 @@ async function fillTable(form = null) {
                     <td>${row.apellido_estudiante}</td>
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
-                    <td><button onclick="openFicha(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#save_formC"><img src="../../recursos/iconos/conducta.png" alt=""></button></td>
+                    <td><button onclick="openFicha(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#save_form_conducta"><img src="../../recursos/iconos/conducta.png" alt=""></button></td>
                     <td><button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#myModal2"><img src="../../recursos/iconos/notas.png" alt=""></button></td>
                     <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><img src="../../recursos/iconos/informacion.png" alt=""></button></td>
+                    <td><button onclick="openDelete(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg"><img src="../../recursos/iconos/eliminar2.png" alt=""></button></td>
                 </tr>
             `;
         });
@@ -185,10 +186,7 @@ async function openUpdate(id) {
         }
         fillList(ESTUDIANTE_API, 'readGrado', 'lectura', JSON.dataset.id_grado);
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
-        document.getElementById('cancelar').hidden = true;
-        document.getElementById('eliminar_estudiante').hidden = false;
-        document.getElementById('eliminar_estudiante').value = openDelete(JSON.dataset.id_estudiante);
-
+        document.getElementById('cancelar').hidden = false;
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -202,8 +200,6 @@ function openCreate() {
     document.getElementById('eliminar_estudiante').hidden = true;
 
 }
-
-
 
 
 /*
@@ -281,28 +277,74 @@ document.getElementById('buscar').addEventListener('onclick', async (event) => {
 });*/
 
 
+// Método manejador de eventos para cuando se envía el formulario de guardar.
+SAVE_FORM_C.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se verifica la acción a realizar.
+    (document.getElementById('id_estudiante_ficha').value) ? action = 'createFicha' : action = 'createFicha';
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(SAVE_FORM_C);
+    // Petición para guardar los datos del formulario.
+    const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+
+        sweetAlert(1, JSON.message, true);
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+
+});
+
 async function openFicha(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
     FORM.append('id_estudiante', id);
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
-    const JSON2 = await dataFetch(USER_API, 'getSession');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        // Se restauran los elementos del formulario.
-        SAVE_FORM_C.reset();
         // Se inicializan los campos del formulario.
         document.getElementById('id_estudiante_ficha').value = JSON.dataset.id_estudiante;
         document.getElementById('nombre_ficha').value = JSON.dataset.nombre_estudiante;
         document.getElementById('apellido_ficha').value = JSON.dataset.apellido_estudiante;
-        document.getElementById('docente_ficha').value = JSON2.dataset.nombre_empleado;
+        document.getElementById('grado_ficha').value = JSON.dataset.grado;   
+        //se llama a la API para obtener los datos
+        label = document.getElementById('nombre_empleado');
+        //se llama a la API para obtener los datos
+        const SESSION = await dataFetch(USER_API, 'getSession');
+        //se verifica el id_cargo
+        if(SESSION){
+            //se llena el label con el nombre del docente
+            label.innerHTML = "Docente: "+SESSION.nombre;
+            document.getElementById('id_empleado').value = SESSION.id_empleado;
+        }else{
+            //se deja el label vacio
+            label.innerHTML = "ekis de";
+        }
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
     } else {
         sweetAlert(2, JSON.exception, false);
     }
 }
 
+
+//funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session
+async function CargarNombreDocente(){
+    //se declara el label en una varianle
+    label = document.getElementById('nombre_empleado');
+    //se llama a la API para obtener los datos
+    const SESSION = await dataFetch(USER_API, 'getSession');
+    //se verifica el id_cargo
+    if(SESSION.id_cargo == 2){
+        //se llena el label con el nombre del docente
+        label.innerHTML = "Docente: "+SESSION.nombre;
+    }else{
+        //se deja el label vacio
+        label.innerHTML = " ";
+    }
+};
 //--------------filtro
 
 //función Cargar Grados
@@ -343,5 +385,47 @@ async function BusquedaParametrizada() {
     const FORM = new FormData();
     FORM.append('grado', id_grado);
     fillTable(FORM);
+
 }
+
+
+(function (document) {
+    'buscador';
+
+    var LightTableFilter = (function (Arr) {
+
+        var _input;
+
+        function _onInputEvent(e) {
+            _input = e.target;
+            var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+            Arr.forEach.call(tables, function (table) {
+                Arr.forEach.call(table.tBodies, function (tbody) {
+                    Arr.forEach.call(tbody.rows, _filter);
+                });
+            });
+        }
+
+        function _filter(row) {
+            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        }
+
+        return {
+            init: function () {
+                var inputs = document.getElementsByClassName('light-table-filter');
+                Arr.forEach.call(inputs, function (input) {
+                    input.oninput = _onInputEvent;
+                });
+            }
+        };
+    })(Array.prototype);
+
+    document.addEventListener('readystatechange', function () {
+        if (document.readyState === 'complete') {
+            LightTableFilter.init();
+        }
+    });
+
+})(document);
 

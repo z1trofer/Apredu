@@ -33,8 +33,10 @@
                 <div class="col-12 col-sm-12">
                     <div class="input-group">
                         <div class="form-outline">
-                            <input class="form-control me-2 light-table-filter" data-table="table" type="text">
-                            <label class="form-label" for="form1">Search</label>
+                            <form id="search" role="search" action="">
+                                <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+                                <label class="form-label" for="form1">Search</label>
+                            </form>
                         </div>
                         <button onclick="BusquedaParametrizada()" type="button" class="btn btn-primary">
                             <i class="fas fa-search"></i>
@@ -87,6 +89,7 @@
                             <th scope="col">Conducta</th>
                             <th scope="col">Notas</th>
                             <th scope="col">Información</th>
+                            <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-rows">
@@ -99,11 +102,11 @@
                 data-mdb-target="#myModal">
                 <img src="../../recursos/iconos/conducta.png" alt="">
             </button>
-            <div class="modal fade" id="save_formC" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="save_form_conducta" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="">
+                        <form id="save_formC" action="">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante
                                 </h5>
@@ -114,12 +117,15 @@
                                 <div class="row">
                                     <input type="hidden" name="id_estudiante_ficha" id="id_estudiante_ficha">
                                     <div class="col">
-                                        <h5>Nombre</h5>
+                                        <h5>Estudiante</h5>
+                                        <input class="try2" type="text" name="nombre_ficha" id="nombre_ficha" readonly>
+                                        <input class="try2" type="text" name="apellido_ficha" id="apellido_ficha" readonly>
                                         <p id="nombre_ficha"></p>
                                         <p id="apellido_ficha"></p>
                                     </div>
                                     <div class="col">
                                         <h5>Grado</h5>
+                                        <input class="try2" type="text" name="grado_ficha" id="grado_ficha" readonly>
                                         <p id="grado_ficha"></p>
                                     </div>
                                 </div>
@@ -131,7 +137,9 @@
                                 <!--modal de las fichas / conducta estudiante -->
                                 <div class="row">
                                     <div class="col text-center">
-                                        <h5>Docente</h5>
+                                        <h5 id="nombre_empleado">Docente</h5>
+                                        <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2" readonly>
+                                        <input class="try2" type="hidden" name="id_empleado" id="id_empleado" readonly>
                                     </div>
                                     <div class="col text-center">
                                         <h5>Descripción</h5>
@@ -143,18 +151,17 @@
                                             <h5 id="docente_ficha"></h5>
                                         </div>
                                         <div class="col text-center">
-                                            <textarea name="ficha_descripcion" id="ficha_descripcion" cols="30" rows="4"></textarea>
+                                            <textarea name="ficha_descripcion" id="ficha_descripcion" cols="30"
+                                                rows="4"></textarea>
                                         </div>
                                     </div>
                                     <br>
                                     <div>
-                                        <button type="submitg" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-success">Guardar Cambios</button>
+                                        <button type="submitg" class="btn btn-danger"
+                                            data-mdb-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-
                             </div>
                         </form>
                     </div>
@@ -386,7 +393,6 @@
                                 <button id="cancelar" type="button" class="btn btn-danger"
                                     data-mdb-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                <button id="eliminar_estudiante" type="button" class="btn btn-danger">Eliminar</button>
                             </form>
                         </div>
                         <div class="modal-footer">

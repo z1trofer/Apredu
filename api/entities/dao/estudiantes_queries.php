@@ -92,7 +92,7 @@ class EstudiantesQueries
             $sql = "SELECT estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, grados.grado
             FROM estudiantes 
             INNER JOIN grados USING(id_grado)
-            WHERE id_grado = ".$filtros['grado']."
+            WHERE id_grado = ".$filtros['grado']." 
             GROUP BY  estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, grados.grado
             ORDER BY grados.grado ASC";
             return Database::getRows($sql);
@@ -103,8 +103,9 @@ class EstudiantesQueries
     {
         $sql = 'INSERT INTO fichas (id_estudiante, descripcion_ficha, id_empleado)
         VALUES (?, ?, ?)';
-        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->$_GET);
+        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
+    
 }

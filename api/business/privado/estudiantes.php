@@ -66,6 +66,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'estudiante inexistente';
                 }
                 break;
+                case 'readOneFicha':
+                    if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
+                        $result['exception'] = 'estudiante incorrecto';
+                    } elseif ($result['dataset'] = $estudiante->readOneFicha()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()){
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'estudiante inexistente';
+                    }
+                    break;
                 case 'readGrado':
                     if ($result['dataset'] = $estudiante->readGrado()) {
                         $result['status'] = 1;
@@ -159,17 +170,19 @@ if (isset($_GET['action'])) {
 
                 case 'createFicha':
                     $_POST = Validator::validateForm($_POST);
-                    if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
+                    if (!$estudiante->setIdEstudiante($_POST['id_estudiante_ficha'])) {
                         $result['exception'] = 'estudiante incorrecto';
-                    } elseif (!$data = $estudiante->readOne()) {
-                        $result['exception'] = 'Estudiante inexistente';
-                    }elseif (!$data = $estudiante->readOne()) {
-                        $result['exception'] = 'Estudiante inexistente';
-                    }elseif (!$data = $estudiante->readOne()) {
-                        $result['exception'] = 'Estudiante inexistente';
-                    }elseif (!$data = $estudiante->readOne()) {
-                        $result['exception'] = 'Estudiante inexistente';
+                    } elseif (!$data = $estudiante->setDescripcionFicha($_POST['ficha_descripcion'])) {
+                        $result['exception'] = 'Descripción incorrecta';
+                    }elseif (!$data = $estudiante->setIdEmpleado($_POST['id_empleado'])) {
+                        $result['exception'] = 'empleado incorrecta';
+                    }elseif ($estudiante->createFicha()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Ficha de conducta creada correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
                     }
+                    break;    
                 //Acción para eliminar un dato en la tabla de clientes
             case 'deleteEstudiante':
                 if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
