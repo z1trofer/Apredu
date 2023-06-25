@@ -14,7 +14,8 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'readAll':
-                if ($result['dataset'] = $Empleados_p->readAll()) {
+                $_POST = Validator::validateForm($_POST);
+                if ($result['dataset'] = $Empleados_p->readAll($_POST['check'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
@@ -26,7 +27,7 @@ if (isset($_GET['action'])) {
             case 'readPorDetalle':
                 if (!$Empleados_p->setid_empleado($_POST['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
-                }elseif (!$Empleados_p->setid_grado($_POST['id_grado'])) {
+                } elseif (!$Empleados_p->setid_grado($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif (!$Empleados_p->setid_asignatura($_POST['id_asignatura'])) {
                     $result['exception'] = 'Asignatura incorrecta';
@@ -70,6 +71,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Empleado inexistente';
                 }
                 break;
+            case 'readAsignaturas':
+                if ($result['dataset'] = $Empleados_p->readAsignaturas()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'Empleado inexistente';
+                }
+                break;
             case 'readGrados_empleado':
                 if (!$Empleados_p->setid_empleado($_POST['data'])) {
                     $result['exception'] = 'Empleado incorrecto';
@@ -81,11 +91,21 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Empleado inexistente';
                 }
                 break;
+            case 'readGrados':
+                if ($result['dataset'] = $Empleados_p->readGrados()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'Empleado inexistente';
+                }
+
+                break;
             case 'search':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['search'] == '') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $Empleados_p->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $Empleados_p->searchRows($_POST['search'], $_POST['check'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {
@@ -175,6 +195,18 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Empleado eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
+                }
+                break;
+
+            case 'CargarDetalles':
+                $_POST = Validator::validateForm($_POST);
+                if ($result['dataset'] = $Empleados_p->CargarDetalles($_POST['id'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
                 }
                 break;
             default:

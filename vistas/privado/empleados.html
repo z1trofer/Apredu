@@ -106,6 +106,64 @@
         </div>
     </div>
     </div>
+
+    <!--modal para asignar asignaturas y grados-->
+    <!-- Modal -->
+    <div class="modal fade" id="DetallesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Grado</h6>
+                            <select class="form-select" required aria-label="select example" id="DetallesGrado" name="grado">
+                                <option value="">Seleccione una opcion</option>
+    
+                            </select>
+                        </div>
+                        <div class="col">
+                            <h6>Asignatura</h6>
+                            <select class="form-select" required aria-label="select example" id="DetallesAsignatura" name="asignatura">
+                                <option value="">Seleccione una opcion</option>
+    
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col" style="margin-top: 10px;">
+                            <button type="button" class="btn btn-info">Agregar</button>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col"><h6>Grado</h6></th>
+                                <th scope="col"><h6>Asignatura</h6></th>
+                              </tr>
+                            </thead>
+                            <tbody id="body_asignatura">
+                              <tr>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                        
+                            </tbody>
+                          </table>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--modal para actividades-->
     <div class="modal fade" id="ModalDocentesAct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -118,35 +176,36 @@
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <form id="info_act" method="post" action="">
-                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
-                            
-                            <h4 id="">Buscar por:</h4>
-                        </form>
+                                <input class="visually-hidden-focusable" type="number" id="id" name="id">
+
+                                <h4 id="">Buscar por:</h4>
+                            </form>
                         </div>
                         <div class="col-sm-3" style="margin-left: -200px;">
                             <h6>Grado</h6>
-                            <select class="form-select" required aria-label="select example" id="grado"
-                            name="grado">
-                            <option value="">Seleccione una opcion</option>
-                            
-                        </select>
+                            <select class="form-select" required aria-label="select example" id="grado" name="grado">
+                                <option value="">Seleccione una opcion</option>
+
+                            </select>
+                        </div>
+                        <div class="col-3 Respon_BTN">
+                            <h6>Materia</h6>
+                            <select class="form-select" required aria-label="select example" id="asignatura"
+                                name="asignatura">
+                                <option value="">Seleccione una opcion</option>
+                            </select>
+                        </div>
+                        <div class="col-3 Respon_BTN">
+                            <h6></h6>
+                            <button type="button" id="buscarAct" class="btn btn-primary">Buscar</button>
+                        </div>
                     </div>
-                    <div class="col-3 Respon_BTN">
-                        <h6>Materia</h6>
-                        <select class="form-select" required aria-label="select example" id="asignatura"
-                        name="asignatura">
-                        <option value="">Seleccione una opcion</option>
-                        
-                    </select>
-                    
-                </div>
-            </div>
-            <br>
-            <!--tabla-->
-            
-            <div id="table_act" class="row">
-                <div class="row">
-                    
+                    <br>
+                    <!--tabla-->
+
+                    <div id="table_act" class="row">
+                        <div class="row">
+
                             <div class="col-sm-2">
                                 <th>Actividad</th>
                                 <p>actividad cotidiana 1</p>
@@ -190,7 +249,7 @@
 
                         <hr class="hr" />
                     </div>
-            
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">OK</button>
@@ -261,9 +320,8 @@
                 <div class="col-sm-4 Respon_BTN">
                     <div class="row">
                         <div class="col">
-                            <h6>Mostrar Docentes <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" checked
-                                        id="flexSwitchCheckDefault" />
+                            <h6>Mostrar Administradores <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="chekboxAdmin" />
                                 </div>
                             </h6>
 

@@ -5,12 +5,16 @@ require_once('../../helpers/database.php');
 */
 class EmpleadosQueries
 {
-    public function readAll()
+    public function readAll($check)
     {
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
         FROM empleados 
-        INNER JOIN cargos_empleados USING (id_cargo)
-        ORDER BY id_empleado';
+        INNER JOIN cargos_empleados USING (id_cargo)';
+        if ($check == "false") {
+            $sql = $sql . ' where id_cargo = 2 ORDER BY id_empleado';
+        } else {
+            $sql = $sql . ' where id_cargo != 2 ORDER BY id_empleado';
+        };
         return Database::getRows($sql);
     }
 
@@ -56,18 +60,23 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
-    public function searchRows($value)
+    public function searchRows($value, $check)
     {
         $sql = 'SELECT empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.direccion, empleados.clave, empleados.correo_empleado
         FROM empleados
         INNER JOIN cargos_empleados USING (id_cargo)
-        WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ?
-        ORDER BY nombre_empleado';
+        WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ?';
+        if ($check == false) {
+            $sql = $sql . ' and id_cargo = 2 ORDER BY id_empleado';
+        } else {
+            $sql = $sql . ' and id_cargo != 2 ORDER BY id_empleado';
+        };
         $params = array("%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
 
-    function ObtenerActividades() {
+    function ObtenerActividades()
+    {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, fecha_entrega, asignacion.grado, asignacion.asignatura
         from actividades
         INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura, grados.grado, empleados.id_empleado FROM detalle_asignaturas_empleados
@@ -80,7 +89,8 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
-    function readSinFiltros() {
+    function readSinFiltros()
+    {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, fecha_entrega, asignacion.grado, asignacion.asignatura
         from actividades
         INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura, grados.grado, empleados.id_empleado FROM detalle_asignaturas_empleados
@@ -105,6 +115,15 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    public function readAsignaturas()
+    {
+        $sql = 'SELECT a.id_asignatura, b.asignatura FROM detalle_asignaturas_empleados a
+        INNER JOIN asignaturas b USING(id_asignatura)
+        INNER JOIN empleados c USING(id_empleado)
+		GROUP BY id_asignatura, asignatura';
+        return Database::getRows($sql);
+    }
+
     public function readGrados_empleado()
     {
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
@@ -115,4 +134,25 @@ class EmpleadosQueries
         $params = array($this->id_empleado);
         return Database::getRows($sql, $params);
     }
+
+    public function readGrados()
+    {
+        $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
+        INNER JOIN grados b USING(id_grado)
+        INNER JOIN empleados c USING(id_empleado)
+         GROUP BY id_grado, grado';
+        return Database::getRows($sql);
+    }
+
+    //funcion cargar los detalles de los empleado. parametro: id del empleado
+    public function CargarDetalles($id)
+    {
+        $sql = "SELECT id_empleado, grados.grado, asignaturas.asignatura FROM detalle_asignaturas_empleados
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN asignaturas USING (id_asignatura)
+        WHERE id_empleado = ?";
+        $params = array($id);
+        return Database::getRows($sql, $params);
+    }
+
 }
