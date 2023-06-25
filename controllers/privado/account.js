@@ -20,65 +20,101 @@ document.addEventListener('DOMContentLoaded', async () => {
             NAVBAR.innerHTML = `        
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <!-- Container wrapper -->
-                <div class="container">
-                    <!-- Navbar brand -->
-                    <a class="img_navbar" href="principal.html">
-                        <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
+            <!-- Container wrapper -->
+            <div class="container">
+                <!-- Navbar brand -->
+                <a class="img_navbar" href="principal.html">
+                    <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
+                </a>
+
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+                    <!-- Left links -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Mantenimientos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="grados.html">Grados</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Docentes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item doce" href="empleados.html">Personal académico</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="actividades.html">Actividades</a>
+                                </li>
+                                
+                                <li>
+                                    <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                estudiantes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item doce" href="estudiantes.html">Alumnos</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="responsables.html">Responsables</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="fichas.html">Fichas de conducta</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="notas.html">Notas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <!-- Left links -->
+                </div>
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                        id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
+                            alt="Black and White Portrait of a Man" loading="lazy" />
                     </a>
-    
-                    <!-- Toggle button -->
-                    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                        data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                        <!-- Left links -->
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
-                            </li>
-                            <li class="nav-item doc">
-                                <a class="nav-link active doce" href="empleados.html">Empleados</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="actividades.html">Actividades</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active " href="notas_ingresar.html">Notas</a>
-                            </li>
-                            <li class="nav-item doc">
-                                <a class="nav-link active doce" href="estudiantes.html">Alumnos</a>
-                            </li>
-                            <li class="nav-item doc">
-                                <a class="nav-link active doce" href="usuarios.html">Usuarios</a>
-                            </li>
-                            <li class="nav-item">
-                            
-                            </li>
-                        </ul>
-                        <!-- Left links -->
-                    </div>
-                    <div class="dropdown">
-                        <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
-                            id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                            <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                                alt="Black and White Portrait of a Man" loading="lazy" />
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                            <li>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                        <li>
                             <a class="dropdown-item" id="userActive" class="nav-link active">${JSON.usuario}</a>
                                 <a class="dropdown-item">cargo: ${JSON.tipo}</a>
                                 <a class="dropdown-item" onclick="logOut()">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
-                <!-- Collapsible wrapper -->
-                </div>
-                <!-- Container wrapper -->
-            </nav>`;
+            </div>
+            <!-- Collapsible wrapper -->
+            </div>
+            <!-- Container wrapper -->
+        </nav>`;
 
             //si el nivel de usuario es docente se ocultan los menus respectivos
             if(JSON.id_cargo == 2){
