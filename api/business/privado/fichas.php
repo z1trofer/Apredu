@@ -51,10 +51,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif (!$fichas->setdescripcion_ficha($_POST['descripcion'])) {
                     $result['exception'] = 'descripción incorrecta';
-                } elseif (!$fichas->setfecha_ficha($_POST['fecha'])) {
-                    $result['exception'] = 'fecha incorrecta';
-                } elseif (!$fichas->setid_empleado($_POST['nombre_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
+                }elseif (!$data = $fichas->setid_empleado($_POST['id_empleado'])) {
+                    $result['exception'] = 'empleado incorrecta';
                 } elseif ($fichas->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Ficha de conducta creada correctamente';

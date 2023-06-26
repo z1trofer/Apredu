@@ -95,23 +95,16 @@
                     </div>
                     <div class="modal-body">
                         <form id="save-form" action="">
-                            <input class="-hidden" type="number" id="id_ficha" name="id_ficha">
-                            <input class="-hidden" type="number" id="id_estudiante" name="id_estudiante">
-
+                            <input class="visually-hidden" type="number" id="id_ficha" name="id_ficha">
+                            <input class="visually-" type="number" id="id_estudiante" name="id_estudiante">
+                            <div>
+                                <p id="nombre_empleado">Docente</p>
+                                <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2" readonly>
+                                <input class="try2" type="hidden" name="id_empleado" id="id_empleado" readonly>
+                            </div>
                             <div class="input-field col s12 m6">
                                 <label for="nombres">Descripcion</label>
                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="7"></textarea>
-                            </div>
-                            <div class="input-field col s12 m6 actu">
-                                <label for="nombres">Fecha</label>
-                                <input class="form-control" type="date" id="fecha" name="fecha" class="validate try"
-                                    required>
-                            </div>
-                            <div class="input-field col s12 m6 actu">
-                                <p>Seleccione un empleado</p>
-                                <select class="form-select" aria-label="Seleccione empleado" id="nombre_empleado"
-                                    name="nombre_empleado">
-                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
