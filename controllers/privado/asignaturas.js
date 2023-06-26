@@ -61,11 +61,12 @@ async function fillTable(form = null) {
                 <td>${row.id_asignatura}</td>
                     <td>${row.asignatura}</td>
                     <td>
-                    <button onclick="openUpdate(${row.id_asignatura})"  type="button" class="btn btn btn-floating btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <img src="../../recursos/iconos/informacion.png" alt="">
+                    <button onclick="openUpdate(${row.id_asignatura})"  type="button" class="btn btn-info btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="fa-solid fa-pencil"></i>
                     </button></td>
                     <td>
-                    <button onclick="openDelete(${row.id_asignatura})" type="button" class="btn btn btn-floating btn-lg"><img src="../../recursos/iconos/eliminar2.png" alt=""></button>
+                    <button onclick="openDelete(${row.id_asignatura})" type="button" class="btn btn-danger btn-rounded">
+                    <i class="fa-sharp fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
             `;

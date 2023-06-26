@@ -85,11 +85,11 @@ async function fillTable(form = null) {
                     <td>${row.apellido_estudiante}</td>
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
-                    <td><button onclick="openCreate(${row.id_estudiante})" type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                    Agregar ficha 
+                    <td><button onclick="openCreate(${row.id_estudiante})" type="button" class="btn btn btn-success btn-rounded" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                    <i class="fa-sharp fa-solid fa-plus"></i>
                     </button>
-                    <button onclick="openDetallePorFicha(${row.id_estudiante})" type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#VerInfo">
-                    Ver fichas
+                    <button onclick="openDetallePorFicha(${row.id_estudiante})" type="button" class="btn btn-info btn-rounded" data-mdb-toggle="modal" data-mdb-target="#VerInfo">
+                    <i class="fa-solid fa-eye"></i>
                     </button>
                     <td>
                 </tr>
