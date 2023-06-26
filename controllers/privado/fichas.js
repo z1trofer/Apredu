@@ -28,8 +28,6 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
-        openFichas();
-        openDetalle();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {
@@ -115,6 +113,22 @@ async function openCreate(id) {
     if (JSON.status) {
         // Se inicializan los campos del formulario.
         document.getElementById('id_estudiante').value = JSON.dataset.id_estudiante;
+        document.getElementById('nombre_ficha').value = JSON.dataset.nombre_estudiante;
+        document.getElementById('apellido_ficha').value = JSON.dataset.apellido_estudiante;
+        document.getElementById('grado_ficha').value = JSON.dataset.grado;
+        //se llama a la API para obtener los datos
+        label = document.getElementById('nombre_empleado');
+        //se llama a la API para obtener los datos
+        const SESSION = await dataFetch(USER_API, 'getSession');
+        //se verifica el id_cargo
+        if(SESSION){
+            //se llena el label con el nombre del docente
+            label.innerHTML = SESSION.nombre;
+            document.getElementById('id_empleado').value = SESSION.id_empleado;
+        }else{
+            //se deja el label vacio
+            label.innerHTML = "ekis de";
+        }
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -175,6 +189,8 @@ async function openDetalle(id_ficha) {
         sweetAlert(2, JSON.exception, false);
     }
 }
+
+
 
 //Buscador
 (function (document) {

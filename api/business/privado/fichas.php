@@ -47,21 +47,19 @@ if (isset($_GET['action'])) {
                 break;
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
-                    $result['exception'] = 'Estudiante incorrecto';
-                } elseif (!$fichas->setdescripcion_ficha($_POST['descripcion'])) {
-                    $result['exception'] = 'descripción incorrecta';
-                } elseif (!$fichas->setfecha_ficha($_POST['fecha'])) {
-                    $result['exception'] = 'fecha incorrecta';
-                } elseif (!$fichas->setid_empleado($_POST['nombre_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
-                } elseif ($fichas->createRow()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Ficha de conducta creada correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
+                    if (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
+                        $result['exception'] = 'estudiante incorrecto';
+                    } elseif (!$data = $fichas->setdescripcion_ficha($_POST['descripcion'])) {
+                        $result['exception'] = 'Descripción incorrecta';
+                    }elseif (!$data = $fichas->setid_empleado($_POST['id_empleado'])) {
+                        $result['exception'] = 'empleado incorrecta';
+                    }elseif ($fichas->createRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Ficha de conducta creada correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
             case 'readAllFichas':
                 if ($result['dataset'] = $fichas->readAllFichas()) {
                     $result['status'] = 1;
