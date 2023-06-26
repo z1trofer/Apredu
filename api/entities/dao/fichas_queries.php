@@ -24,8 +24,10 @@ class FichasQueries
 
     public function readOneestudiante()
     {
-        $sql = 'SELECT id_estudiante FROM estudiantes
-    WHERE id_estudiante = ?';
+        $sql = 'SELECT id_estudiante, nombre_estudiante, apellido_estudiante, grado 
+        FROM estudiantes
+        INNER JOIN grados USING(id_grado)
+        WHERE id_estudiante = ?';
         $params = array($this->id_estudiante);
         return Database::getRow($sql, $params);
     }

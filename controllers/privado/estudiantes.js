@@ -86,6 +86,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'CreateEstudiante';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_E);
+    
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -143,9 +144,8 @@ async function fillTable(form = null) {
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
                     <td><button onclick="openFicha(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#save_form_conducta"><img src="../../recursos/iconos/conducta.png" alt=""></button></td>
-                    <td><button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#myModal2"><img src="../../recursos/iconos/notas.png" alt=""></button></td>
-                    <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><img src="../../recursos/iconos/informacion.png" alt=""></button></td>
-                    <td><button onclick="openDelete(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg"><img src="../../recursos/iconos/eliminar2.png" alt=""></button></td>
+                    <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><i class="fa-solid fa-pencil"></i></button></td>
+                    <td><button onclick="openDelete(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg"><i class="fa-sharp fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
         });

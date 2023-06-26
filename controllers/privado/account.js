@@ -44,12 +44,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Mantenimientos
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <ul class="dropdown-menu doce" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
                                     <a class="dropdown-item doce" href="grados.html">Grados</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item doce" href="asignaturas.html">Asignaturas</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item doce" href="trimestres.html">Trimestres escolares</a>
                                 </li>
                             </ul>
                         </li>

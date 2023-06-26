@@ -67,8 +67,8 @@ async function fillTable(form = null) {
                 <td>${row.id_grado}</td>
                     <td>${row.grado}</td>
                     <td>
-                    <button onclick="openUpdate(${row.id_grado})"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Actualizar
+                    <button onclick="openUpdate(${row.id_grado})"  type="button" class="btn btn-info btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="fa-solid fa-pencil"></i>
                     </button>
                     <button onclick="openDetalle(${row.id_grado})"  type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalDetalle">
                     Ver Asignaturas
@@ -90,8 +90,8 @@ async function fillTable(form = null) {
 *   Retorno: ninguno.
 */
 function openCreate() {
-  // Se restauran los elementos del formulario.
-  SAVE_FORM.reset();
+    // Se restauran los elementos del formulario.
+    SAVE_FORM.reset();
 }
 
 /*

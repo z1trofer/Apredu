@@ -1,6 +1,5 @@
 // Constante para completar la ruta de la API.
-const ASIGNATURAS_API = 'business/privado/asignaturas.php';
-// Constante para establecer el formulario de buscar.
+const TRIMESTRES_API = 'business/privado/trimestres.php';
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.
@@ -16,27 +15,33 @@ document.addEventListener('DOMContentLoaded', () => {
     fillTable();
 });
 
+
 // Método manejador de eventos para cuando se envía el formulario de guardar.
 SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (document.getElementById('id_asignatura').value) ? action = 'update' : action = 'create';
+    (document.getElementById('id_anio').value) ? action = 'update' : action = 'create';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
-    const JSON = await dataFetch(ASIGNATURAS_API, action, FORM);
+    const JSON = await dataFetch(TRIMESTRES_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
-
+        
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
     }
 });
+
+function openCreate() {
+    // Se restauran los elementos del formulario.
+    SAVE_FORM.reset();
+}
 
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
@@ -50,26 +55,42 @@ async function fillTable(form = null) {
     // Se verifica la acción a realizar.
     (form) ? action = 'search' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const JSON = await dataFetch(ASIGNATURAS_API, action, form);
+    const JSON = await dataFetch(TRIMESTRES_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
+            txtestado = null;
+            checkbox = null;
+            if(row.estado == 1){
+                txtestado = 'activo'
+                checkbox = `<div class="form-check form-switch">
+                <input  class="form-check-input" type="checkbox" role="switch" id="estados"
+                name="estados" checked/>
+                </div>`
+            }else{
+                txtestado = 'inactivo'
+                checkbox = `<div class="form-check form-switch">
+                <input  class="form-check-input" type="checkbox" role="switch" id="estados"
+                name="estados"/>
+                </div>`
+            }
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
                 <tr>
-                <td>${row.id_asignatura}</td>
-                    <td>${row.asignatura}</td>
+                    <td>${row.anio}</td>
+                    <td>${row.trimestre}</td>
+                    <td>${txtestado}</td>
                     <td>
-                    <button onclick="openUpdate(${row.id_asignatura})"  type="button" class="btn btn-info btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-pencil"></i>
-                    </button></td>
-                    <td>
-                    <button onclick="openDelete(${row.id_asignatura})" type="button" class="btn btn-danger btn-rounded">
-                    <i class="fa-sharp fa-solid fa-trash"></i></button>
+                    `+checkbox+`
+                    </td>
+                    <td><button onclick="openDelete(${row.id_trimestre})" type="button" class="btn btn-danger btn-rounded">
+                    <img src="../../recursos/iconos/eliminar2.png" alt=""></button>
+                    </td>
                     </td>
                 </tr>
             `;
+            
         });
         RECORDS.textContent = JSON.message;
     } else {
@@ -77,37 +98,26 @@ async function fillTable(form = null) {
     }
 }
 
-/*
-*   Función para preparar el formulario al momento de insertar un registro.
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
-function openCreate() {
-    // Se restauran los elementos del formulario.
-    SAVE_FORM.reset();
-}
 
-/*
-*   Función asíncrona para preparar el formulario al momento de actualizar un registro.
-*   Parámetros: id (identificador del registro seleccionado).
-*   Retorno: ninguno.
-*/
+
+
 async function openUpdate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('id_asignatura', id);
+    FORM.append('id_estudiante', id);
     // Petición para obtener los datos del registro solicitado.
-    const JSON = await dataFetch(ASIGNATURAS_API, 'readOne', FORM);
+    const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
+        // Se restauran los elementos del formulario.
         SAVE_FORM.reset();
         // Se inicializan los campos del formulario.
-        document.getElementById('id_asignatura').value = JSON.dataset.id_asignatura;
-        document.getElementById('asignatura').value = JSON.dataset.asignatura;
+        document.getElementById('id_estudiante').value = JSON.dataset.id_estudiante;
     } else {
         sweetAlert(2, JSON.exception, false);
     }
 }
+
 
 /*
 *   Función asíncrona para eliminar un registro.
@@ -116,14 +126,14 @@ async function openUpdate(id) {
 */
 async function openDelete(id) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar la subcategoría de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el año lectivo de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('id_subcategoria', id);
+        FORM.append('id_anio', id);
         // Petición para eliminar el registro seleccionado.
-        const JSON = await dataFetch(SUBCATEGORIA_API, 'delete', FORM);
+        const JSON = await dataFetch(TRIMESTRES_API, 'delete', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             // Se carga nuevamente la tabla para visualizar los cambios.
@@ -135,49 +145,3 @@ async function openDelete(id) {
         }
     }
 }
-
-//Buscador
-(function (document) {
-    'buscador';
-
-    var LightTableFilter = (function (Arr) {
-
-        var _input;
-
-        function _onInputEvent(e) {
-            _input = e.target;
-            var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-            Arr.forEach.call(tables, function (table) {
-                Arr.forEach.call(table.tBodies, function (tbody) {
-                    Arr.forEach.call(tbody.rows, _filter);
-                });
-            });
-        }
-
-        function _filter(row) {
-            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-        }
-
-        return {
-            init: function () {
-                var inputs = document.getElementsByClassName('light-table-filter');
-                Arr.forEach.call(inputs, function (input) {
-                    input.oninput = _onInputEvent;
-                });
-            }
-        };
-    })(Array.prototype);
-
-    document.addEventListener('readystatechange', function () {
-        if (document.readyState === 'complete') {
-            LightTableFilter.init();
-        }
-    });
-
-})(document);
-
-
-
-
-
