@@ -62,6 +62,19 @@ class Validator
         }
     }
 
+        /*
+    *   Método para validar un número del año.
+    */
+    public static function validateAnio($value)
+    {
+        // Se verifica que el valor sea un número entero mayor o igual a uno.
+        if (filter_var($value, FILTER_VALIDATE_INT, array('min_range' => 2010))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Método para validar un archivo de imagen.
     *   Parámetros: $file (archivo de un formulario), $maxWidth (ancho máximo para la imagen) y $maxHeigth (alto máximo para la imagen).
