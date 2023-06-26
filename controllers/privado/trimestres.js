@@ -66,11 +66,13 @@ async function fillTable(form = null) {
                     <td>${row.anio}</td>
                     <td>${row.trimestre}</td>
                     <td>${row.estado}</td>
-                    <td><button onclick="openDelete(${row.id_trimestre})" type="button" class="btn btn btn-floating btn-lg"><img src="../../recursos/iconos/eliminar2.png" alt=""></button></td>
+                    <td><input class="form-check-input" type="checkbox" role="switch" id="estados"
+                    name="estados"/></td>
                     <td><button onclick="openDelete(${row.id_trimestre})" type="button" class="btn btn btn-floating btn-lg"><img src="../../recursos/iconos/eliminar2.png" alt=""></button></td>
                     </td>
                 </tr>
-            `;      
+            `;
+            
         });
         RECORDS.textContent = JSON.message;
     } else {

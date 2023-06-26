@@ -10,19 +10,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <title>Fichas de conducta</title>
 </head>
-<header id="navbar">
+<main id="private">
+    <header id="navbar">
 
-</header>
-
-<main>
+    </header>
+    
     <div class="container">
         <h5>Vista de fichas general</h5>
         <!-- Button trigger modal -->
-        <button onclick="openFichas()" type="button" class="btn btn-danger" data-mdb-toggle="modal"
-            data-mdb-target="#FichasGenerales">
-            <i class="fa-solid fa-eye"></i>
-        </button>
-
+        <div>
+            <button onclick="openFichas()" type="button" class="btn btn-danger" data-mdb-toggle="modal"
+                data-mdb-target="#FichasGenerales">
+                <i class="fa-solid fa-eye"></i>
+            </button>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="FichasGenerales" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -65,8 +66,12 @@
     </div>
     <div class="container">
         <div class="container col-6">
-            <label>Buscar Estudiante:</label>
-            <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+            <div class="form-outline">
+                <form id="search" role="search" action="">
+                    <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+                    <label class="form-label" for="form1">Buscar asignatura</label>
+                </form>
+            </div>
         </div>
         <table class="table table-responsive-sm">
             <thead>
@@ -115,7 +120,8 @@
                                 <div class="col-6">
                                     <h5>Docente</h5>
                                     <p id="nombre_empleado"></p>
-                                    <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2" readonly>
+                                    <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2"
+                                        readonly>
                                     <input class="try2" type="hidden" name="id_empleado" id="id_empleado" readonly>
                                 </div>
                             </div>

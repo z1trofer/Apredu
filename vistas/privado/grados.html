@@ -11,7 +11,7 @@
     <title>Grados</title>
 </head>
 
-<body>
+<body id="private">
     <header id="navbar">
 
     </header>
@@ -25,14 +25,12 @@
                 Agregar grado
             </button>
         </div>
-
-
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Grados</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -54,8 +52,12 @@
         </div>
 
         <div class="container col-6">
-            <label>Buscar Grado:</label>
-            <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+            <div class="form-outline">
+                <form id="search" role="search" action="">
+                    <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+                    <label class="form-label" for="form1">Buscar grado</label>
+                </form>
+            </div>
         </div>
 
         <div class="">
@@ -66,6 +68,8 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Grado</th>
+                            <th scope="col">Actualizar</th>
+                            <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-rows">
