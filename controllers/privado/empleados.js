@@ -14,7 +14,8 @@ const SEARCH_FORM = document.getElementById('search-form');
 const FORM_INFOACTI = document.getElementById('info_act');
 // Constante para cargar la tabla de la ficha de actividades
 const TBODY_ROWS_ACT = document.getElementById('table_act');
-// 
+// constant formulario detalles
+const FORM_ASIGNATURAS_GRADOS = document.getElementById('detalles_form');
 //const cargar tabla de asignaturas_grados
 const TBODY_ASIGNATURAS_GRADOS = document.getElementById('body_asignatura');
 const CMB_ASIGNATURA = document.getElementById('asignatura');
@@ -210,10 +211,23 @@ async function fillTable(form = null) {
     }
 }
 
+document.getElementById('DetallesGrado').addEventListener('change', () => {
+    asignatura = document.getElementById('DetallesAsignatura');
+    grado = document.getElementById('DetallesGrado');
+    debugger
+    // CAPTURANDO EL ID DE GRADO CADA VEZ QUE SE CAMBIA
+    asignatura.className = "form-select";
+    fillSelect2(EMPLEADOS_API, 'readAsignaturasGrado', 'DetallesAsignatura', grado.value);
+    // fillTable2(null, valor_grado, null);
+});
+
 //funcion cargar asignaturas y grados del docente
 async function CargarAsignaturasGrados(id){
+    debugger
+    valor_empleado = id;
+    document.getElementById('DetallesAsignatura').className = "form-select invisible";
     fillSelect2(EMPLEADOS_API, 'readGrados', 'DetallesGrado',id);
-    fillSelect2(EMPLEADOS_API, 'readAsignaturas', 'DetallesAsignatura',id);
+    //fillSelect2(EMPLEADOS_API, 'readAsignaturas', 'DetallesAsignatura',id);
     TBODY_ASIGNATURAS_GRADOS.innerHTML = "";
     //declaracion objeto de formulario
     const FORM = new FormData();
@@ -227,12 +241,37 @@ async function CargarAsignaturasGrados(id){
             <tr>
                 <td>${row.grado}</td>
                 <td>${row.asignatura}</td>
+                <td><button type="button" class="btn btn-warning" onclick="">Quitar</button></td>
             </tr>
             `;
         });
     };
 
 }
+
+FORM_ASIGNATURAS_GRADOS.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if(document.getElementById('DetallesAsignatura').value == "" &&
+    document.getElementById('DetallesGrado').value == ""){
+        sweetAlert(4, "por favor llene todos los campos requeridos", true);
+    }else{
+        const FORM = new FormData(FORM_ASIGNATURAS_GRADOS);
+        FORM.append('id', valor_empleado);
+        const JSON = await dataFetch(EMPLEADOS_API, 'ActualizarDetalle', FORM);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (JSON.status) {
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            CargarAsignaturasGrados(valor_empleado);
+            // Se muestra un mensaje de éxito.
+            sweetAlert(1, JSON.message, true);
+        } else {
+            sweetAlert(2, JSON.exception, false);
+        }
+    }
+
+
+
+});
 
 /*
 *   Función para preparar el formulario al momento de insertar un registro.

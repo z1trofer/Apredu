@@ -40,16 +40,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            <a class="nav-link active dropdown-toggle doce" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Mantenimientos
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" href="grados.html">Grados</a>
+                                    <a class="dropdown-item doce" href="grados.html">Grados</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+                                    <a class="dropdown-item doce" href="asignaturas.html">Asignaturas</a>
                                 </li>
                             </ul>
                         </li>
@@ -63,12 +63,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     <a class="dropdown-item doce" href="empleados.html">Personal académico</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="actividades.html">Actividades</a>
+                                    <a class="dropdown-item " href="actividades.html">Actividades</a>
                                 </li>
                                 
-                                <li>
-                                    <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -81,13 +78,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     <a class="dropdown-item doce" href="estudiantes.html">Alumnos</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="responsables.html">Responsables</a>
+                                    <a class="dropdown-item doce" href="responsables.html">Responsables</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="fichas.html">Fichas de conducta</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="notas.html">Notas</a>
+                                    <a class="dropdown-item" href="notas_ingresar.html">Notas</a>
                                 </li>
                             </ul>
                         </li>

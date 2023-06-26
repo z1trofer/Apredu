@@ -56,4 +56,37 @@ class GradosQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    //Obtener asignaturas de de un grado
+    public function readDetalle()
+    {
+        $sql = 'SELECT id_detalle_asignatura_empleado, asignaturas.asignatura from detalle_asignaturas_empleados 
+        INNER JOIN asignaturas USING (id_asignatura)
+        where id_grado = ? ORDER BY asignatura ASC';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    public function InsertarDetalle($asignatura)
+    {
+        $sql = 'INSERT INTO detalle_asignaturas_empleados (id_asignatura, id_grado)
+                VALUES(?, ?)';
+        $params = array( $asignatura, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function deleteDetalle()
+    {
+        $sql = 'DELETE FROM detalle_asignaturas_empleados
+                WHERE id_detalle_asignatura_empleado = ?';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readAsignaturas()
+    {
+        $sql = "SELECT id_asignatura, asignatura
+            FROM asignaturas"; 
+        return Database::getRows($sql);
+    }
 }

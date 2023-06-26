@@ -27,12 +27,12 @@
         </div>
 
 
-        <!-- Modal -->
+        <!-- Modal grado-->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Grado</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -52,6 +52,44 @@
                 </div>
             </div>
         </div>
+        <!--Modal Detalle-->
+        <div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Asignaturas por grado</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="detalle_form">
+                            <select class="form-select" required aria-label="select example"
+                            id="detalle" name="detalle">
+                            <option value="">Seleccione una opcion</option>
+                        </select>
+                            <button type="submit" class="btn btn-info" style="margin-top: 10px;">Añadir Asignatura</button>
+                            <table class="table text-center">
+                                <thead>
+                                  <tr>
+                                    <th scope="col"><h4>Asignaturas</h4></th>
+                                    <th scope="col">Acción</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="detalle-rows">
+                                  <tr>
+                                    <td>Matematicas</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
 
         <div class="container col-6">
             <label>Buscar Grado:</label>
@@ -69,7 +107,7 @@
                         </tr>
                     </thead>
                     <tbody id="tbody-rows">
-    
+
                     </tbody>
                 </table>
             </div>

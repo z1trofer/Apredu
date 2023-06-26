@@ -17,7 +17,7 @@ if (isset($_GET['action'])) {
                 //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
                 if ($result['dataset'] = $grados->readAll()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
@@ -29,7 +29,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$grados->setGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                }elseif ($grados->createRow()) {
+                } elseif ($grados->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Grado creado correctamente';
                 } else {
@@ -58,11 +58,11 @@ if (isset($_GET['action'])) {
                 } elseif (!$grados->setGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif ($grados->updateRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Grado modificado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
+                    $result['status'] = 1;
+                    $result['message'] = 'Grado modificado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
                 break;
                 // Acción para eliminar un dato de la tabla categorías
             case 'delete':
@@ -71,10 +71,57 @@ if (isset($_GET['action'])) {
                 } elseif (!$data = $grados->readOne()) {
                     $result['exception'] = 'Grado inexistente';
                 } elseif ($grados->deleteRow()) {
-                    $result['status'] = 1;                   
+                    $result['status'] = 1;
                     $result['message'] = 'Grado eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
+                }
+                break;
+
+                //------------------detalles grado-----------------
+            case 'readDetalle':
+                $_POST = Validator::validateForm($_POST);
+                if (!$grados->setId($_POST['id'])) {
+                    $result['exception'] = 'id malo';
+                } elseif ($result['dataset'] = $grados->readDetalle()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            case 'createDetalle':
+                $_POST = Validator::validateForm($_POST);
+                if (!$grados->setId($_POST['id'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                } elseif ($grados->InsertarDetalle($_POST['detalle'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cambios Guardados exitosamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+            case 'deleteDetalle':
+                if (!$grados->setId($_POST['id_detalle'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                } elseif ($grados->deleteDetalle()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cambio eliminado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+
+            case 'readAsignaturas':
+                if ($result['dataset'] = $grados->readAsignaturas()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
                 }
                 break;
             default:

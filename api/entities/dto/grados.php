@@ -43,6 +43,6 @@ class Grados extends GradosQueries
 
     public function getGrado()
     {
-        return $this->nombre;
+        return $this->grado;
     }
 }

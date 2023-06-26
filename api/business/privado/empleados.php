@@ -61,6 +61,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readAsignaturas_empleado':
+
                 if (!$Empleados_p->setid_empleado($_POST['data'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif ($result['dataset'] = $Empleados_p->readAsignaturas_empleado()) {
@@ -73,6 +74,16 @@ if (isset($_GET['action'])) {
                 break;
             case 'readAsignaturas':
                 if ($result['dataset'] = $Empleados_p->readAsignaturas()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'Empleado inexistente';
+                }
+                break;
+            case 'readAsignaturasGrado':
+                $_POST = Validator::validateForm($_POST);
+                if ($result['dataset'] = $Empleados_p->readAsignaturasGrado($_POST['data'])) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -207,6 +218,21 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            case 'ActualizarDetalle':
+                $_POST = Validator::validateForm($_POST);
+                if (!$Empleados_p->setid_empleado($_POST['grado'])) {
+                    $result['exception'] = 'grado Incorrecto';
+                } elseif (!$Empleados_p->setid_empleado($_POST['asignatura'])) {
+                    $result['exception'] = 'asignatura Incorrecta';
+                } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
+                    $result['exception'] = 'id Incorrecta';
+                } elseif ($Empleados_p->ActualizarDetalle($_POST['asignatura'], $_POST['grado'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Se ha creado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();;
                 }
                 break;
             default:

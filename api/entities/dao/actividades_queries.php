@@ -125,8 +125,8 @@ class ActividadesQueries
 
     public function updateRow()
     {
-        $sql = 'UPDATE actividades SET nombre_actividad = ?, ponderacion = ?, id_tipo_actividad = ?, descripcion = ?, fecha_entrega = ?, id_detalle_asignatura_empleado = ?, id_trimestre = ? WHERE id_actividad= ? ';
-        $params = array($this->nombre_actividad, $this->ponderacion, $this->id_tipo_actividad, $this->descripcion, $this->fecha_entrega, $this->id_detalle_asignatura_empleado, $this->id_trimestre, $this->id_actividad);
+        $sql = 'UPDATE actividades SET nombre_actividad = ?, ponderacion = ?, id_tipo_actividad = ?, descripcion = ?, fecha_entrega = ? WHERE id_actividad= ? ';
+        $params = array($this->nombre_actividad, $this->ponderacion, $this->id_tipo_actividad, $this->descripcion, $this->fecha_entrega, $this->id_actividad);
         return Database::executeRow($sql, $params);
     }
 

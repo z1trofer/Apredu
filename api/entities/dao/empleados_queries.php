@@ -124,6 +124,15 @@ class EmpleadosQueries
         return Database::getRows($sql);
     }
 
+    public function readAsignaturasGrado($id)
+    {
+        $sql = 'SELECT id_asignatura, asignaturas.asignatura FROM detalle_asignaturas_empleados
+        INNER JOIN asignaturas USING (id_asignatura)
+            where id_grado = ?';
+        $params = array($id);
+        return Database::getRows($sql, $params);
+    }
+
     public function readGrados_empleado()
     {
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
@@ -153,6 +162,15 @@ class EmpleadosQueries
         WHERE id_empleado = ?";
         $params = array($id);
         return Database::getRows($sql, $params);
+    }
+
+    //funcion actualizar detalle
+    public function ActualizarDetalle($asignatura, $grado)
+    {
+        $sql = 'UPDATE detalle_asignaturas_empleados SET id_empleado = ? 
+        where id_asignatura = ? and id_grado = ?';
+        $params = array($this->id_empleado, $asignatura, $grado);
+        return Database::executeRow($sql, $params);
     }
 
 }
