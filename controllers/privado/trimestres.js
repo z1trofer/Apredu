@@ -60,14 +60,30 @@ async function fillTable(form = null) {
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
+            txtestado = null;
+            checkbox = null;
+            if(row.estado == 1){
+                txtestado = 'activo'
+                checkbox = `<div class="form-check form-switch">
+                <input  class="form-check-input" type="checkbox" role="switch" id="estados"
+                name="estados" checked/>
+                </div>`
+            }else{
+                txtestado = 'inactivo'
+                checkbox = `<div class="form-check form-switch">
+                <input  class="form-check-input" type="checkbox" role="switch" id="estados"
+                name="estados"/>
+                </div>`
+            }
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
                 <tr>
                     <td>${row.anio}</td>
                     <td>${row.trimestre}</td>
-                    <td>${row.estado}</td>
-                    <td><input class="form-check-input" type="checkbox" role="switch" id="estados"
-                    name="estados"/></td>
+                    <td>${txtestado}</td>
+                    <td>
+                    `+checkbox+`
+                    </td>
                     <td><button onclick="openDelete(${row.id_trimestre})" type="button" class="btn btn btn-floating btn-lg"><img src="../../recursos/iconos/eliminar2.png" alt=""></button></td>
                     </td>
                 </tr>
@@ -79,6 +95,8 @@ async function fillTable(form = null) {
         sweetAlert(4, JSON.exception, true);
     }
 }
+
+
 
 
 async function openUpdate(id) {
