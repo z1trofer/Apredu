@@ -92,3 +92,4 @@ class Trimestres extends TrimestresQueries{
         return $this->estado;
     }
 }
+?>

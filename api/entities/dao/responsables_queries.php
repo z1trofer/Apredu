@@ -33,7 +33,5 @@ class ResponsablesQueries
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
-
-
-    
 }
+?>

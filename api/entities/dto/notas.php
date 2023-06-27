@@ -127,3 +127,4 @@ class Notas extends NotasQueries
         return $this->nota;
     }
 }
+?>

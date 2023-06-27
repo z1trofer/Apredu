@@ -165,3 +165,4 @@ class ResponsablesVista extends ResponsablesVistaQueries{
         return $this->id_alumno;
     }
 }
+?>

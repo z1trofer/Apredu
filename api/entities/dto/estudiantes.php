@@ -203,3 +203,4 @@ class Estudiantes extends EstudiantesQueries{
         return $this->id_empleado;
     }
 }
+?>

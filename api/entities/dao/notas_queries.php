@@ -82,6 +82,5 @@ class NotasQueries
         $params = array($this->nota, $this->id_nota);
         return Database::executeRow($sql, $params);
     }
-
-
 }
+?>

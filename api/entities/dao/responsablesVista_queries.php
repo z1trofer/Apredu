@@ -87,3 +87,4 @@ class ResponsablesVistaQueries
         return Database::executeRow($sql, $params);
     }
 }
+?>

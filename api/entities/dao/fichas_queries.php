@@ -92,5 +92,5 @@ class FichasQueries
         $params = array($this->id_ficha);
         return Database::executeRow($sql, $params);
     }
-
 }
+?>

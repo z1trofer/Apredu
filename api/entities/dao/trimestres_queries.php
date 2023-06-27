@@ -55,3 +55,4 @@ class TrimestresQueries{
     return Database::executeRow($sql, $params); 
     }
 }
+?>

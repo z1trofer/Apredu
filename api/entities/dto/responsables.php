@@ -147,3 +147,4 @@ class Responsables extends ResponsablesQueries{
         return $this->telefono;
     }
 }
+?>

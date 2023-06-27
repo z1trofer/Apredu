@@ -90,3 +90,4 @@ class GradosQueries
         return Database::getRows($sql);
     }
 }
+?>

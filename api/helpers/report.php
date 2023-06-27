@@ -84,3 +84,4 @@ class Report extends FPDF
         $this->cell(0, 10, $this->encodeString('Página ') . $this->pageNo() . '/{nb}', 0, 0, 'C');
     }
 }
+?>

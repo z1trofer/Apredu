@@ -52,3 +52,4 @@ class AsignaturasQueries
         return Database::executeRow($sql, $params);
     }
 }
+?>

@@ -130,3 +130,4 @@ class Fichas extends FichasQueries
     }
     
 }
+?>

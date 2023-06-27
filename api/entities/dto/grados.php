@@ -46,3 +46,4 @@ class Grados extends GradosQueries
         return $this->grado;
     }
 }
+?>

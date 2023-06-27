@@ -127,3 +127,4 @@ class Usuarios extends UsuariosQueries
         return $this->id_cargo;
     }
 }
+?>
