@@ -51,15 +51,12 @@ if (isset($_GET['action'])) {
                 // Acción para actualizar un dato en la tabla grados
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grados->setId($_POST['id'])) {
-                    $result['exception'] = 'Grado incorrecta';
-                } elseif (!$data = $grados->readOne()) {
-                    $result['exception'] = 'Grado inexistente';
-                } elseif (!$grados->setGrado($_POST['grado'])) {
-                    $result['exception'] = 'Grado incorrecto';
-                } elseif ($grados->updateRow()) {
+                if (!$trimestres->setIdTrimestre($_POST['id'])) {
+                    $result['exception'] = 'trimestre incorrecta';
+                } elseif ($trimestres->updateRow()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Grado modificado correctamente';
+                        $result['message'] = 'Trimestre Actualizado correctamente';
+                        $trimestres->updateTabla();
                     } else {
                         $result['exception'] = Database::getException();
                     }

@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fillTable();
 });
 
-
 // Método manejador de eventos para cuando se envía el formulario de guardar.
 SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -43,6 +42,18 @@ function openCreate() {
     SAVE_FORM.reset();
 }
 
+async function CambiarEstado(trimestre){
+    const FORM = new FormData();
+    FORM.append('id', trimestre);
+    const JSON = await dataFetch(TRIMESTRES_API, 'update', FORM);
+    if(JSON.status){
+        sweetAlert(1, JSON.message, true);
+        fillTable();
+    }else{
+        sweetAlert(2, JSON.exception, false);
+    }
+}
+
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
@@ -66,13 +77,13 @@ async function fillTable(form = null) {
                 txtestado = 'activo'
                 checkbox = `<div class="form-check form-switch">
                 <input  class="form-check-input" type="checkbox" role="switch" id="estados"
-                name="estados" checked/>
+                name="estados" checked onchange="CambiarEstado(${row.id_trimestre})"/>
                 </div>`
             }else{
                 txtestado = 'inactivo'
                 checkbox = `<div class="form-check form-switch">
                 <input  class="form-check-input" type="checkbox" role="switch" id="estados"
-                name="estados"/>
+                name="estados" onchange="CambiarEstado(${row.id_trimestre})"/>
                 </div>`
             }
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
