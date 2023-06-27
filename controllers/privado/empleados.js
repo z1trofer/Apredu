@@ -279,7 +279,9 @@ FORM_ASIGNATURAS_GRADOS.addEventListener('submit', async (event) => {
 *   Retorno: ninguno.
 */
 function openCreate() {
+    SAVE_FORM.reset();
     // Se restauran los elementos del formulario.
+    document.getElementById('estado').hidden = true;
     titulo_modal.textContent = 'Asignar un nuevo empleado';
     fillSelect(EMPLEADOS_API, 'readCargos', 'cargo', 'Seleccione un cargo' );
 }
@@ -304,6 +306,8 @@ function openDetalleActividad(id_empleado) {
 *   Retorno: ninguno.
 */
 async function openUpdate(id_empleado) {
+    SAVE_FORM.reset();
+    document.getElementById('estado').hidden = false;
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
     FORM.append('id_empleado', id_empleado);
@@ -323,6 +327,7 @@ async function openUpdate(id_empleado) {
         document.getElementById('fecha_nacimiento').value = JSON.dataset.fecha_nacimiento;
         document.getElementById('usuario').value = JSON.dataset.usuario_empleado;
         document.getElementById('clave').value = JSON.dataset.clave;
+        document.getElementById('estado').selectedIndex = JSON.dataset.estado;
 
 
     } else {

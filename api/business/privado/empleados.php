@@ -189,6 +189,10 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 } elseif (!$Empleados_p->setfecha_nacimiento($_POST['fecha_nacimiento'])) {
                     $result['exception'] = 'Fecha incorrecta';
+                } elseif (!$Empleados_p->setestado($_POST['estado'])) {
+                    $result['exception'] = 'estado incorrecto';
+                } elseif ($Empleados_p->getid_empleado() == $_SESSION['id_empleado']) {
+                    $result['exception'] = 'No puedes modificar tu propio usuario';
                 } elseif ($Empleados_p->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha actualizado correctamente';

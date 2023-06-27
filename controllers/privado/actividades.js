@@ -115,6 +115,7 @@ SEARCH_FORM.addEventListener('submit', async (event) => {
 });
 
 FORMULARIO.addEventListener('submit', async (event) => {
+
     event.preventDefault();
     (document.getElementById('id').value) ? action = 'update' : action = 'create';
     const FORM = new FormData(FORMULARIO);
@@ -122,6 +123,7 @@ FORMULARIO.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
+        FORMULARIO.reset();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {

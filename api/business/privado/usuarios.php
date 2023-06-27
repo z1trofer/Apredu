@@ -197,7 +197,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $data = $usuario->LogIn($_POST['clave']);
                     if ($data == false) {
-                        $result['exception'] = Database::getException();
+                        $result['exception'] = 'Clave incorrecta';
                     } else if ($data == 'zzz') {
                         $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
                     } elseif ($data != false) {

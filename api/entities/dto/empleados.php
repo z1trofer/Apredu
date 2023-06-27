@@ -120,8 +120,8 @@ class Empleados extends EmpleadosQueries
 
     public function setclave($value)
     {
-        if (Validator::validatePassword($value, 1, 100)) {
-            $this->clave = $value;
+        if (Validator::validatePassword($value)) {
+            $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
             return false;

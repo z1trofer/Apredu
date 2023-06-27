@@ -197,7 +197,6 @@ function openCreate() {
     SAVE_FORM_E.reset();
     SAVE_FORM_R.reset();
     fillList(ESTUDIANTE_API, 'readGrado', 'lectura')
-    document.getElementById('eliminar_estudiante').hidden = true;
 
 }
 

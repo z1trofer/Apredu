@@ -80,7 +80,7 @@ class Notas extends NotasQueries
 
     public function setnota($value)
     {
-        if (Validator::validateMoney($value)) {
+        if (Validator::validateMoney($value) && $value > 0 && $value < 10.01) {
             $this->nota = $value;
             return true;
         } else {

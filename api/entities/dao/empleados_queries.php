@@ -21,7 +21,7 @@ class EmpleadosQueries
     /*funcion para leer datos*/
     public function readOne()
     {
-        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.direccion, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado, cargos_empleados.id_cargo
+        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.direccion, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado, cargos_empleados.id_cargo, empleados.estado
         FROM empleados 
         INNER JOIN cargos_empleados USING (id_cargo)
         Where id_empleado = ?';
@@ -47,8 +47,8 @@ class EmpleadosQueries
 
     public function updateRow()
     {
-        $sql = 'UPDATE empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, fecha_nacimiento = ?, id_cargo = ?, usuario_empleado = ?, direccion = ?, clave = ?, correo_empleado = ? WHERE id_empleado= ? ';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario_empleado, $this->direccion, $this->clave, $this->correo_empleado, $this->id_empleado);
+        $sql = 'UPDATE empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, fecha_nacimiento = ?, id_cargo = ?, usuario_empleado = ?, direccion = ?, clave = ?, correo_empleado = ?, estado = ? WHERE id_empleado= ? ';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario_empleado, $this->direccion, $this->clave, $this->correo_empleado, $this->estado, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
@@ -62,10 +62,10 @@ class EmpleadosQueries
 
     public function searchRows($value, $check)
     {
-        $sql = 'SELECT empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.direccion, empleados.clave, empleados.correo_empleado
+        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
         FROM empleados
         INNER JOIN cargos_empleados USING (id_cargo)
-        WHERE nombre_empleado LIKE ? OR apellido_empleado LIKE ?';
+        WHERE apellido_empleado LIKE ? OR nombre_empleado LIKE ?';
         if ($check == false) {
             $sql = $sql . ' and id_cargo = 2 ORDER BY id_empleado';
         } else {
