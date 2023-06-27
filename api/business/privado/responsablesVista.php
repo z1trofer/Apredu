@@ -16,7 +16,7 @@ if (isset($_GET['action'])) {
             case 'readAll':
                 if ($result['dataset'] = $responsable->readAll()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
@@ -24,29 +24,48 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //Acción para crear un nuevo Responsable 
-                case 'create':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$responsable->setNombresResponsable($_POST['nombres'])) {
-                        $result['exception'] = 'Nombres incorrectos';
-                    } else if (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
-                        $result['exception'] = 'Apellidos incorrectos';
-                    }else if (!$responsable->setDui($_POST['dui'])) {
-                        $result['exception'] = 'Dui incorrectos';
-                    }else if (!$responsable->setCorreo($_POST['correo'])) {
-                        $result['exception'] = 'Correo incorrectos';
-                    }else if (!$responsable->setLugarTrabajo($_POST['lugar'])) {
-                        $result['exception'] = 'Lugar incorrectos';
-                    } else if (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
-                        $result['exception'] = 'Telefono incorrectos';
-                    } else if (!$responsable->setParentesco($_POST['parentesco'])) {
-                        $result['exception'] = 'Parentesco incorrectos';
-                    } elseif ($responsable->createRow()) {
-                        $result['status'] = 1;
+            case 'create':
+                $_POST = Validator::validateForm($_POST);
+                if (!$responsable->setNombresResponsable($_POST['nombres'])) {
+                    $result['exception'] = 'Nombres incorrectos';
+                } elseif (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
+                    $result['exception'] = 'Apellidos incorrectos';
+                } elseif (!$responsable->setDui($_POST['dui'])) {
+                    $result['exception'] = 'Dui incorrectos';
+                } elseif (!$responsable->setCorreo($_POST['correo'])) {
+                    $result['exception'] = 'Correo incorrectos';
+                } elseif (!$responsable->setLugarTrabajo($_POST['lugar'])) {
+                    $result['exception'] = 'Lugar incorrectos';
+                } elseif (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
+                    $result['exception'] = 'Telefono incorrectos';
+                } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
+                    $result['exception'] = 'Parentesco incorrectos';
+                } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
+                    $result['exception'] = 'estudiante malo';
+                } elseif ($responsable->createRow()) {
+                    /*if (!$responsable->setIdResponsable($responsable->ObtenerResponsableIDdui())) {
+                            $result['status'] = 1; 
+                            $result['message'] = 'Responsable creado correctamente';
+                    }else{
+                        $result['exception'] = "ocurrio un error al guardar los datos del respons";
+                    }
+                    */
+                    $result['message'] = 'Responsable creado';
+                    if ($responsable->setIdResponsable($responsable->ObtenerResponsableIDdui())) {
+                        if ($responsable->AgregarResponsableDetalle()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Responsable creado correctamente';
+                        } else {
+                            $result['exception'] = "ocurrió un error al agregar el responsable";
+                        }
                         $result['message'] = 'Responsable creado correctamente';
                     } else {
-                        $result['exception'] = Database::getException();
+                        $result['exception'] = "ocurrió un error al obtener el id responsable";
                     }
-                    break;
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
                 //leer un dato seleccionado para luego actualizarlo o solo leer la información 
             case 'readOne':
                 if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
@@ -60,34 +79,64 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //Acción para actualizar un dato de la tabla usuarios
-                case 'update':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
-                        $result['exception'] = 'Responsable incorrecto';
-                    } elseif (!$responsable->readOne()) {
-                        $result['exception'] = 'Responsable inexistente';
-                    }else if (!$responsable->setNombresResponsable($_POST['nombres'])) {
-                        $result['exception'] = 'Nombres incorrectos';
-                    } else if (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
-                        $result['exception'] = 'Apellidos incorrectos';
-                    }else if (!$responsable->setDui($_POST['dui'])) {
-                        $result['exception'] = 'Dui incorrectos';
-                    } else if (!$responsable->setCorreo($_POST['correo'])) {
-                        $result['exception'] = 'Correo incorrectos';
-                    }else if (!$responsable->setLugarTrabajo($_POST['lugar'])) {
-                        $result['exception'] = 'Lugar incorrectos';
-                    } else if (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
-                        $result['exception'] = 'Telefono incorrectos';
-                    }else if (!$responsable->setParentesco($_POST['parentesco'])) {
-                        $result['exception'] = 'Parentesco incorrectos';
-                    }elseif ($responsable->updateRow()) {
+            case 'update':
+                $_POST = Validator::validateForm($_POST);
+                if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
+                    $result['exception'] = 'Responsable incorrecto';
+                } elseif (!$responsable->readOne()) {
+                    $result['exception'] = 'Responsable inexistente';
+                } elseif (!$responsable->setNombresResponsable($_POST['nombres'])) {
+                    $result['exception'] = 'Nombres incorrectos';
+                } elseif (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
+                    $result['exception'] = 'Apellidos incorrectos';
+                } elseif (!$responsable->setDui($_POST['dui'])) {
+                    $result['exception'] = 'Dui incorrectos';
+                } elseif (!$responsable->setCorreo($_POST['correo'])) {
+                    $result['exception'] = 'Correo incorrectos';
+                } elseif (!$responsable->setLugarTrabajo($_POST['lugar'])) {
+                    $result['exception'] = 'Lugar incorrectos';
+                } elseif (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
+                    $result['exception'] = 'Telefono incorrectos';
+                } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
+                    $result['exception'] = 'Parentesco incorrectos';
+                } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
+                    $result['exception'] = 'estudiante malo';
+                } elseif ($responsable->updateRow()) {
+                    $result['message'] = 'Responsable creado';
+                    if ($responsable->ActualizarResponsableDetalle()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Asignatura modificada correctamente';
+                        $result['message'] = 'Responsable actualizado correctamente';
                     } else {
-                        $result['exception'] = Database::getException();
+                        $result['exception'] = "ocurrió un error al actualizar el responsable";
                     }
-                    break;
-                    //Acción para eliminar un dato de la tabla usuarios
+                    $result['message'] = 'Responsable actualizado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+                /*case 'readOne':
+                if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
+                    $result['exception'] = 'responsable incorrecto';
+                } elseif ($result['dataset'] = $responsable->readOne()) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'responsable inexistente';
+                }
+                break;*/
+            case 'SearchEstudiante':
+                $_POST = Validator::validateForm($_POST);
+                if ($result['dataset'] = $responsable->SearchEstudiantes($_POST['data'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+                //Acción para eliminar un dato de la tabla usuarios
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

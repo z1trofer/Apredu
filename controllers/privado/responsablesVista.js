@@ -30,13 +30,29 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
-
+        document.getElementById('closeM').click();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
     }
 });
+
+
+//buscador estudiantes
+//Buscar estudiantes dentro de modal funcion
+document.getElementById('search').addEventListener('change', async () => {
+    data = document.getElementById('search').value;
+    const FORM = new FormData();
+    FORM.append('param', document.getElementById('search').value);
+    fillSelect2(RESPONSABLES_API, 'SearchEstudiante', 'estudiante', data, null)
+   /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
+    if(JSON.status){
+        fillSelect
+    }*/
+});
+
+
 
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
@@ -89,6 +105,8 @@ async function fillTable(form = null) {
 function openCreate() {
     // Se restauran los elementos del formulario.
     SAVE_FORM.reset();
+    document.getElementById('estudiante_label').hidden = true;
+    document.getElementById('estudiante_aniadir').hidden = true;
 }
 
 /*
@@ -114,6 +132,9 @@ async function openUpdate(id) {
         document.getElementById('lugar').value = JSON.dataset.lugar_de_trabajo;
         document.getElementById('telefono').value = JSON.dataset.telefono_trabajo;
         document.getElementById('parentesco').value = JSON.dataset.parentesco;
+        document.getElementById('estudiante_label').hidden = false;
+        document.getElementById('estudiante_aniadir').hidden = false;
+        document.getElementById('estudiante_label').innerHTML = `Estudiante: ${JSON.dataset.estudiante}`;
     } else {
         sweetAlert(2, JSON.exception, false);
     }

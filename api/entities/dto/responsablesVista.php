@@ -17,6 +17,9 @@ class ResponsablesVista extends ResponsablesVistaQueries{
         //Atributos telefono-responsable
         public $telefono = null;
 
+        //Atributos detalles_Alumnos
+        public $id_alumno = null;
+
             //Setter del responsable
     public function setIdResponsable($value)
     {
@@ -98,6 +101,16 @@ class ResponsablesVista extends ResponsablesVistaQueries{
         }
     }
 
+    public function setIdAlumno($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_alumno = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Métodos para obtener valores de los atributos del responsable.
     */
@@ -145,5 +158,10 @@ class ResponsablesVista extends ResponsablesVistaQueries{
     public function getTelefono()
     {
         return $this->telefono;
+    }
+
+    public function getIdAlumno()
+    {
+        return $this->id_alumno;
     }
 }

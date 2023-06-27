@@ -90,7 +90,7 @@ async function fillSelect(filename, action, select,Tittle, selected = null) {
     // Petición para obtener los datos.
     const JSON = await dataFetch(filename, action);
     let content = '';
-     
+     debugger
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje.
     if (JSON.status) {
         content += `<option selected>${Tittle}</option>`;

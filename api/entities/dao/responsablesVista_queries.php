@@ -27,14 +27,15 @@ class ResponsablesVistaQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function readOne()
     {
-        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco  
-        FROM responsables
-        WHERE id_responsable = ?';
+        $sql = "SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco, CONCAT(estudiantes.nombre_estudiante, ' ', estudiantes.apellido_estudiante) as estudiante
+        FROM responsables INNER JOIN responsables_estudiantes USING (id_responsable)
+        INNER JOIN estudiantes USING (id_estudiante)
+        WHERE id_responsable = ?";
         $params = array($this->id_responsable);
         return Database::getRow($sql, $params);
     }
 
-        //Método para realizar actualización de datos en la tabla por medio de una query parametrizada
+    //Método para realizar actualización de datos en la tabla por medio de una query parametrizada
     public function updateRow()
     {
         $sql = 'UPDATE responsables
@@ -44,13 +45,45 @@ class ResponsablesVistaQueries
         return Database::executeRow($sql, $params);
     }
 
-  //Metodo para eliminar un dato de la tabla por medio de un id específico
+    //Metodo para eliminar un dato de la tabla por medio de un id específico
 
     public function deleteRow()
     {
         $sql = 'DELETE FROM responsable
                 WHERE id_responsable = ?';
         $params = array($this->id_responsable);
+        return Database::executeRow($sql, $params);
+    }
+
+
+    public function SearchEstudiantes($param)
+    {
+        $sql = "SELECT id_estudiante, CONCAT(nombre_estudiante, ' ', apellido_estudiante) FROM estudiantes
+            WHERE nombre_estudiante like ? OR apellido_estudiante like ?";
+        $params = array("%$param%", "%$param%");
+        return Database::getRows($sql, $params);
+    }
+
+    public function ObtenerResponsableIDdui()
+    {
+        $sql = "SELECT id_responsable FROM responsables where dui = ?";
+        $params = array($this->dui);
+        $data =  Database::getRow($sql, $params);
+        return $data['id_responsable'];
+    }
+
+    public function AgregarResponsableDetalle()
+    {
+        $sql = 'INSERT INTO responsables_estudiantes(id_responsable, id_estudiante)
+        VALUES (?, ?)';
+        $params = array($this->id_responsable, $this->id_alumno);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function ActualizarResponsableDetalle()
+    {
+        $sql = 'UPDATE responsables_estudiantes set id_estudiante = ? where id_responsable = ?';
+        $params = array($this->id_alumno, $this->id_responsable);
         return Database::executeRow($sql, $params);
     }
 }

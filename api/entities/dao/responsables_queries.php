@@ -34,5 +34,6 @@ class ResponsablesQueries
         return Database::getRow($sql, $params);
     }
 
+
     
 }
