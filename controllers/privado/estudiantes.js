@@ -270,7 +270,7 @@ function OpcionGrado(id_gradoFun, gradoFun) {
 };
 /*
 document.getElementById('buscar').addEventListener('onclick', async (event) => {
-    debugger
+     
 
 });*/
 

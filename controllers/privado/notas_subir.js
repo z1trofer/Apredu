@@ -79,10 +79,10 @@ async function CargarNotas(id_actividadFun, actividadFun) {
     document.getElementById('btnactividad').innerHTML = actividadFun;
     //se llama a la API para obtener las notas de la actividad en base a los parametros del formulario
     const JSON = await dataFetch(NOTAS_API, 'ObtenerActividad', FORM);
-    debugger
+     
     //se verifica la respuesta
     if(JSON.status){
-        debugger
+         
         //se Cargan los detalles de la actividad (ponderación y descripción)
         document.getElementById('actvdetalles').hidden = false;
         document.getElementById('txtponderacion').innerHTML = JSON.dataset[0].ponderacion+"%";

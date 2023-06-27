@@ -1,7 +1,7 @@
 // Constantes para completar las rutas de la API.
 const ACTIVIDADES_API = 'business/privado/actividades.php';
 const NOTAS_API = 'business/privado/notas.php';
-const titulo_modal = document.getElementById('modal-title');
+const  TITULO_MODAL = document.getElementById('modal-title');
 const TBODY_ROWS = document.getElementById('TablaEm');
 const FORMULARIO = document.getElementById('save-form');
 const SEARCH_FORM = document.getElementById('search');
@@ -208,7 +208,7 @@ async function fillTable(form = null) {
 
 function createActividades() {
     FORMULARIO.reset();
-    titulo_modal.textContent = 'Asignar una nueva actividad';
+     TITULO_MODAL.textContent = 'Asignar una nueva actividad';
     fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', 'Seleccione un tipo de actividad');
     fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', 'Seleccione una asignación');
     fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', 'Seleccione un trimestre');
@@ -222,7 +222,7 @@ async function updateActividades(id_actividad) {
     FORM.append('id_actividad', id_actividad);
     const JSON = await dataFetch(ACTIVIDADES_API, 'readOne', FORM);
     if (JSON.status) {
-        titulo_modal.textContent = 'Modificar actividad asignada';
+         TITULO_MODAL.textContent = 'Modificar actividad asignada';
         document.getElementById('id').value = JSON.dataset.id_actividad;
         document.getElementById('nombre').value = JSON.dataset.nombre_actividad;
         document.getElementById('ponderacion').value = JSON.dataset.ponderacion;
@@ -349,7 +349,7 @@ function OpcionGrado(id_gradoFun, gradoFun) {
 };
 /*
 document.getElementById('buscar').addEventListener('onclick', async (event) => {
-    debugger
+     
 
 });*/
 

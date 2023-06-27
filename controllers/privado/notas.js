@@ -75,12 +75,12 @@ async function CargarAsignaturas(){
     }else{
         accion = 'ObtenerMaterias';
     }
-    debugger
+     
     //llamada a la API obtener las materias del docente logeado
     const JSON = await dataFetch(NOTAS_API, accion);
     //Se compara la respuesta de la api
     if (JSON.status) {
-        debugger
+         
         //Se Carga el nombre del docente logeado en el label
         if(accion == 'ObtenerMateriasDocente'){
             document.getElementById('docenteNombre').innerHTML = JSON.dataset[1].nombre;
@@ -157,7 +157,7 @@ function getIdTrimestre(asginatura, id_grado, grado, docente, materia){
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
 function OpcionTrimestre(id_trimestreFun, trimestreFun) {
-    debugger
+     
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_trimestre = id_trimestreFun;
     trimestre = trimestreFun;

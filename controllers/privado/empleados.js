@@ -4,8 +4,8 @@ const EMPLEADOS_API = 'business/privado/empleados.php';
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.
-const titulo_modal = document.getElementById('modal-title');
-const titulo_modal2 = document.getElementById('modal-title2');
+const  TITULO_MODAL = document.getElementById('modal-title');
+const  TITULO_MODAL2 = document.getElementById('modal-title2');
 const SAVE_FORM_DETALLE = document.getElementById('save-form-detalle');
 // Constantes para establecer el contenido de la tabla.
 const TBODY_ROWS = document.getElementById('table-alum');
@@ -142,7 +142,7 @@ FORM_INFOACTI.addEventListener('submit', async (event) => {
 *   Retorno: ninguno.
 */
 async function fillTable(form = null) {
-    debugger
+     
     // Se inicializa el contenido de la tabla.
     TBODY_ROWS.innerHTML = '';
     // Se verifica la acción a realizar.
@@ -156,7 +156,7 @@ async function fillTable(form = null) {
     FORM.append('check', document.getElementById('chekboxAdmin').checked);
     // Petición para obtener los registros disponibles.
     const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
-    debugger
+     
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -214,7 +214,7 @@ async function fillTable(form = null) {
 document.getElementById('DetallesGrado').addEventListener('change', () => {
     asignatura = document.getElementById('DetallesAsignatura');
     grado = document.getElementById('DetallesGrado');
-    debugger
+     
     // CAPTURANDO EL ID DE GRADO CADA VEZ QUE SE CAMBIA
     asignatura.className = "form-select";
     fillSelect2(EMPLEADOS_API, 'readAsignaturasGrado', 'DetallesAsignatura', grado.value);
@@ -223,7 +223,7 @@ document.getElementById('DetallesGrado').addEventListener('change', () => {
 
 //funcion cargar asignaturas y grados del docente
 async function CargarAsignaturasGrados(id){
-    debugger
+     
     valor_empleado = id;
     document.getElementById('DetallesAsignatura').className = "form-select invisible";
     fillSelect2(EMPLEADOS_API, 'readGrados', 'DetallesGrado',id);
@@ -282,14 +282,14 @@ function openCreate() {
     SAVE_FORM.reset();
     // Se restauran los elementos del formulario.
     document.getElementById('estado').hidden = true;
-    titulo_modal.textContent = 'Asignar un nuevo empleado';
+     TITULO_MODAL.textContent = 'Asignar un nuevo empleado';
     fillSelect(EMPLEADOS_API, 'readCargos', 'cargo', 'Seleccione un cargo' );
 }
 
 function openDetalleActividad(id_empleado) {
     TBODY_ROWS_ACT.innerHTML = '';
     console.log(id_empleado);
-    titulo_modal2.textContent = 'Información de actividades';
+     TITULO_MODAL2.textContent = 'Información de actividades';
     fillSelect2(EMPLEADOS_API, 'readAsignaturas_empleado', 'asignatura', id_empleado);
     fillSelect2(EMPLEADOS_API, 'readGrados_empleado', 'grado', id_empleado);
     fillTable2(id_empleado);
@@ -315,7 +315,7 @@ async function openUpdate(id_empleado) {
     const JSON = await dataFetch(EMPLEADOS_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        titulo_modal.textContent = 'Modificar el empleado';
+         TITULO_MODAL.textContent = 'Modificar el empleado';
         // Se inicializan los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_empleado;
         document.getElementById('nombres').value = JSON.dataset.nombre_empleado;
