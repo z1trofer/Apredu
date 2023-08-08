@@ -60,8 +60,10 @@ if (isset($_GET['action'])) {
                 } elseif ($grados->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Grado modificado correctamente';
-                } else {
+                } else if(Database::getException()){
                     $result['exception'] = Database::getException();
+                }else{
+                    $result['exception'] = 'asdasdasdasdasd';
                 }
                 break;
                 // Acción para eliminar un dato de la tabla categorías

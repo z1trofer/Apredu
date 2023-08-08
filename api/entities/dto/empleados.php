@@ -48,7 +48,7 @@ class Empleados extends EmpleadosQueries
 
     public function setapellido_empleado($value)
     {
-        if (Validator::validateString($value, 1, 150)) {
+        if (Validator::validateString($value, 1, 50)) {
             $this->apellido_empleado = $value;
             return true;
         } else {

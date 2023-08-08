@@ -24,24 +24,23 @@
                 <form id="save-form" method="post" action="">
                     <div class="modal-body">
                         <div class="row">
-                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
 
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="nombres" name="nombres" class="form-control" />
+                                    <input type="text" id="nombres" name="nombres" class="form-control" maxlength="50"/>
                                     <label class="form-label" for="typeText">Nombres</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="apellidos" name="apellidos" class="form-control" />
+                                    <input type="text" id="apellidos" name="apellidos" class="form-control" maxlength="50"/>
                                     <label class="form-label" for="typeText">Apellidos</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-outline">
                                     <input type="text" id="dui" name="dui" class="form-control" />
-                                    <label class="form-label">DUI</label>
+                                    <label class="form-label">DUI (con guión)</label>
                                 </div>
                             </div>
                             <br>
@@ -49,7 +48,7 @@
                             <br>
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="usuario" name="usuario" class="form-control" />
+                                    <input type="text" id="usuario" name="usuario" class="form-control" maxlength="50"/>
                                     <label class="form-label" for="typeText">Nombre de usuario</label>
                                 </div>
                             </div>
@@ -74,6 +73,11 @@
                                             aria-describedby="textExample2" />
                                         <label class="form-label" for="formTextExample2">Contraseña</label>
                                     </div>
+                                    <div class="form-outline col-auto">
+                                        <input type="password" id="claveConfirm" name="claveConfirm" class="form-control"
+                                            aria-describedby="textExample2" />
+                                        <label class="form-label" for="formTextExample2">Confirmar Contraseña</label>
+                                    </div>
 
                                 </div>
                             </div>
@@ -88,7 +92,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-8">
+                            <br>
+                            <div class="col-sm-8 marginTop">
                                 <div class="form-outline">
                                     <textarea class="form-control" id="direccion" name="direccion" rows="5"></textarea>
                                     <label class="form-label" for="textAreaExample">Dirección</label>

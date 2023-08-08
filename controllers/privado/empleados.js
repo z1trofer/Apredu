@@ -103,11 +103,12 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
+    debugger
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
-
+        SAVE_FORM.reset();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {
@@ -128,7 +129,6 @@ FORM_INFOACTI.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable2();
-
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {
@@ -142,7 +142,6 @@ FORM_INFOACTI.addEventListener('submit', async (event) => {
 *   Retorno: ninguno.
 */
 async function fillTable(form = null) {
-     
     // Se inicializa el contenido de la tabla.
     TBODY_ROWS.innerHTML = '';
     // Se verifica la acción a realizar.
@@ -214,7 +213,6 @@ async function fillTable(form = null) {
 document.getElementById('DetallesGrado').addEventListener('change', () => {
     asignatura = document.getElementById('DetallesAsignatura');
     grado = document.getElementById('DetallesGrado');
-     
     // CAPTURANDO EL ID DE GRADO CADA VEZ QUE SE CAMBIA
     asignatura.className = "form-select";
     fillSelect2(EMPLEADOS_API, 'readAsignaturasGrado', 'DetallesAsignatura', grado.value);
@@ -294,7 +292,7 @@ function openDetalleActividad(id_empleado) {
     fillSelect2(EMPLEADOS_API, 'readGrados_empleado', 'grado', id_empleado);
     fillTable2(id_empleado);
     valor_empleado = id_empleado;
-    document.getElementById('nombre_empleado').innerHTML = `Nombre: ${JSON.nombre_empleado}`
+    //document.getElementById('nombre_empleado').innerHTML = `Nombre: ${JSON.nombre_empleado}`
     CapturandoDatos();
 
 

@@ -3,6 +3,10 @@
     color: rgb(0, 0, 0);
 }
 
+.marginTop{
+    padding-top: 20px;
+}
+
 #private-container{
     display: grid;
     place-items: center;

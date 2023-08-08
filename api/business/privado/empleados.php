@@ -135,8 +135,10 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'DUI mal ingresada';
                 } elseif (!$Empleados_p->setusuario_empleado($_POST['usuario'])) {
                     $result['exception'] = 'Usuario mal ingresado';
+                } elseif ($_POST['clave'] != $_POST['claveConfirm']) {
+                    $result['exception'] = 'Las contraseñas no coinciden';
                 } elseif (!$Empleados_p->setclave($_POST['clave'])) {
-                    $result['exception'] = 'Clave mal ingresado';
+                    $result['exception'] = 'Clave mal ingresada';
                 } elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo mal ingresado';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
