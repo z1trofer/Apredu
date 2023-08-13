@@ -1,3 +1,5 @@
+const GRADOS_API = 'business/privado/grados.php';
+const ASIGNATURA_API = 'business/privado/asignaturas.php';
 //llamar formulario log in
 let tipoUsuario = null;
 
@@ -12,13 +14,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
     if (JSON.tipo) {
         // Se direcciona a la página web de bienvenida.
-        document.getElementById('userM').innerHTML = `Sesión iniciada como: ${JSON.usuario}, ${JSON.tipo}`
+        document.getElementById('userM').innerHTML = `Sesión iniciada como: ${JSON.usuario}`
     } else {
         // Se muestra el formulario para registrar el primer usuario.
         //sweetAlert(2, 'aaaaaa', false);
     }
+    graficoBarrasSubCategorias()
+    graficoPieMaterias()
 });
-
 
 //funcion para controlar las opciones disponibles segun el nivel de usuario
 function validarPermisos(){
@@ -38,5 +41,54 @@ function validarPermisos(){
             break;
         default:
             break;
+    }
+}
+
+/*
+*   Función asíncrona para mostrar en un gráfico de barras la cantidad de productos por categoría.
+*   Parámetros: ninguno.
+*   Retorno: ninguno.
+*/
+async function graficoBarrasSubCategorias() {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await dataFetch(GRADOS_API, 'cantidadEstudiantesXgrado');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let grados = [];
+        let cantidad_estudiantes = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            grados.push(row.grado);
+            cantidad_estudiantes.push(row.cantidad_estudiantes);
+        });
+        // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
+        barGraph('chart1', grados, cantidad_estudiantes, 'Estudiantes', 'Top 3 grados con más estudiantes');
+    } else {
+        document.getElementById('chart1').remove();
+        console.log(DATA.exception);
+    }
+}
+
+async function graficoPieMaterias() {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await dataFetch(ASIGNATURA_API, 'MateriasDocentes');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let nombre_empleado = [];
+        let cantidad_materias_asignadas = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            nombre_empleado.push(row.nombre_empleado);
+            cantidad_materias_asignadas.push(row.cantidad_materias_asignadas);
+        });
+        // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
+        pieGraph('chart2', nombre_empleado, cantidad_materias_asignadas, 'Top 5 docentes con mas materias', 'Top 5 docentes con mas materias');
+    } else {
+        document.getElementById('chart2').remove();
+        console.log(DATA.exception);
     }
 }

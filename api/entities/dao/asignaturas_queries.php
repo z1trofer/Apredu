@@ -51,5 +51,16 @@ class AsignaturasQueries
         $params = array($this->id_asignatura);
         return Database::executeRow($sql, $params);
     }
+
+    public function MateriasDocentes()
+    {
+        $sql = 'SELECT nombre_empleado, COUNT(*) AS cantidad_materias_asignadas
+        FROM detalle_asignaturas_empleados INNER JOIN empleados USING(id_empleado)
+        GROUP BY nombre_empleado
+        ORDER BY cantidad_materias_asignadas DESC
+        LIMIT 5;
+        ';
+        return Database::getRows($sql);
+    }
 }
 ?>
