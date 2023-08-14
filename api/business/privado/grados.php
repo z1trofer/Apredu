@@ -24,6 +24,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                case 'cantidadEstudiantesXgrado':
+                    if ($result['dataset'] = $grados->cantidadEstudiantesXgrado()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                    break;
                 // Acción para crear un dato en la tabla de grados
             case 'create':
                 $_POST = Validator::validateForm($_POST);

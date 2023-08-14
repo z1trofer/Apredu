@@ -89,5 +89,16 @@ class GradosQueries
             FROM asignaturas"; 
         return Database::getRows($sql);
     }
+
+            //Generar el grafico de grados con mas estudiantes
+            public function cantidadEstudiantesXgrado()
+            {
+                $sql = 'SELECT grado, COUNT(*) AS cantidad_estudiantes
+                FROM estudiantes INNER JOIN grados USING(id_grado)
+                GROUP BY grado
+                ORDER BY cantidad_estudiantes DESC
+                LIMIT 3;
+                ';
+                return Database::getRows($sql);
+            }
 }
-?>

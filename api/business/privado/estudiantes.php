@@ -66,17 +66,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'estudiante inexistente';
                 }
                 break;
-                case 'readOneFicha':
-                    if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
-                        $result['exception'] = 'estudiante incorrecto';
-                    } elseif ($result['dataset'] = $estudiante->readOneFicha()) {
-                        $result['status'] = 1;
-                    } elseif (Database::getException()){
-                        $result['exception'] = Database::getException();
-                    } else {
-                        $result['exception'] = 'estudiante inexistente';
-                    }
-                    break;
                 case 'readGrado':
                     if ($result['dataset'] = $estudiante->readGrado()) {
                         $result['status'] = 1;

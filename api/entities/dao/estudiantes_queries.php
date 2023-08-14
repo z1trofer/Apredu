@@ -106,5 +106,7 @@ class EstudiantesQueries
         $params = array($this->id_estudiante, $this->descripcion_ficha, $this->id_empleado);
         return Database::executeRow($sql, $params);
     } 
+
+
 }
 ?>
