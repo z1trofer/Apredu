@@ -22,10 +22,14 @@
 
         <div class="container">
             <div class="row align-items-center" id="colDivEM">
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <!--añadir empleados boton-->
                     <button type="button" class="btn" id="btnEmpleados" data-mdb-toggle="modal"
-                        data-mdb-target="#ModalActividad" onclick="createActividades()">Añadir Actividad</button>
+                        data-mdb-target="#ModalActividad" onclick="createActividades()">Añadir Actividad
+                    </button>
+                </div>
+                <div class="col-sm-6">
+                    <h3 id="titulo_anio"></h3>
                 </div>
                 <!-- comienzo del modal -->
                 <div class="modal fade" id="ModalActividad" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -123,7 +127,8 @@
                                         </div>
                                         <div class="col">
                                             <h5>Descripción</h5>
-                                            <textarea name="descripcion" id="descripcion" cols="40" rows="4" style="border: solid; border-width: 2px; border-radius: 2px;"></textarea>
+                                            <textarea name="descripcion" id="descripcion" cols="40" rows="4"
+                                                style="border: solid; border-width: 2px; border-radius: 2px;"></textarea>
                                         </div>
 
                                     </div>
@@ -182,7 +187,8 @@
                         </div>
                     </div>
                     <div class="col text-center">
-                        <button id="buscar" type="button" class="btn btn-primary" onclick="BusquedaParametrizada()">Buscar</button>
+                        <button id="buscar" type="button" class="btn btn-primary"
+                            onclick="BusquedaParametrizada()">Buscar</button>
                     </div>
 
                 </div>
@@ -193,21 +199,22 @@
             <!--rows-->
             <div class="row">
                 <div class="col-sm text-center">
-                    <h3>Titulo</h3>
-                    <p>Actividad Cotidiana 1</p>
+                    <!--<p>Titulo</p>-->
+                    <h3>Actividad Cotidiana 1</h3>
 
-                    <h3>Tipo de actividad</h3>
-                    <button class="btn btn-primary" type="button" id="btnEm_grado" data-mdb-toggle="dropdown"
-                        aria-expanded="false">
+                    <!--<p>Tipo de actividad</p>-->
+                    <button class="btn btn-primary" type="button" id="btnEm_grado" aria-expanded="false">
                         Actividad Cotidiana
                     </button>
                 </div>
+                <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
                 <div class="col-sm text-center">
-                    <h3>Descripción</h3>
+                    <h5>Descripción</h5>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio eius ad voluptatibus
                         quisquam neque illo ullam, enim nobis in, sed accusantium dolorum nesciunt cumque saepe
                         obcaecati dignissimos sapiente. Ullam, provident.</p>
                 </div>
+                <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
                 <div class="col-sm text-center">
                     <h3>Ponderación</h3>
                     <p>15%</p>
@@ -215,12 +222,30 @@
                     <h3>Fecha Limite</h3>
                     <p>27/03/2023</p>
                 </div>
+                <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
                 <div class="col-sm-1 text-center">
-                    <img src="../recursos/iconos/icons8-editar-30.png" alt="">
+                    <br>
+                    <br>
+
+                    <button style="border-style: none; background: transparent; "><img
+                            src="../../recursos/iconos/informacion-removebg-preview.png" data-mdb-toggle="modal"
+                            data-mdb-target="#ModalActividad" alt=""></button>
+
+                </div>
+                <div class="col-sm-1 text-center">
+                    <br>
+                    <br>
+                    <button style="border-style: none; background: transparent; "><img
+                            src="../../recursos/iconos/eliminar2.png" alt=""></button>
+
                 </div>
             </div>
 
             <hr class="hr" />
+
+
+
+
 
             <div class="row">
                 <div class="col-sm text-center">

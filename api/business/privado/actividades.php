@@ -51,6 +51,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readGrados':
+                $_POST = Validator::validateForm($_POST);
                 if ($result['dataset'] = $Actividades_p->readGrados()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';

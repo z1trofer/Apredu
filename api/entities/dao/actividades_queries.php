@@ -7,24 +7,29 @@ class ActividadesQueries
 {
     public function readAll()
     {
-        if ($_SESSION['tipo'] == 'admin') {
-            $sql = 'SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad
+        if ($_SESSION['tipo'] == 'administrador') {
+            $sql = 'SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, grados.grado, asignaturas.asignatura
         FROM actividades 
         INNER JOIN tipo_actividades USING (id_tipo_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN asignaturas USING (id_asignatura)
         ORDER BY id_actividad';
             return Database::getRows($sql);
         } else {
-            $sql = 'SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, tipo_actividades.tipo_actividad, fecha_entrega, asignacion.grado, asignacion.asignatura
-        from actividades
-        INNER JOIN tipo_actividades USING (id_tipo_actividad)
-        INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura, grados.grado, empleados.id_empleado FROM detalle_asignaturas_empleados
-				   INNER JOIN grados USING(id_grado)
-				   INNER JOIN asignaturas USING(id_asignatura)
-                   INNER JOIN empleados USING (id_empleado)) as asignacion USING(id_detalle_asignatura_empleado)
-        where id_empleado = ?
-        order by id_actividad asc';
+            $sql = 'SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, grados.grado, asignaturas.asignatura
+            from actividades
+            INNER JOIN tipo_actividades USING (id_tipo_actividad)
+            INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+            INNER JOIN grados USING(id_grado)
+            INNER JOIN asignaturas USING(id_asignatura)
+            INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura, grados.grado, empleados.id_empleado FROM detalle_asignaturas_empleados
+            INNER JOIN grados USING(id_grado)
+            INNER JOIN asignaturas USING(id_asignatura)
+            INNER JOIN empleados USING (id_empleado)) as asignacion USING(id_detalle_asignatura_empleado)
+            where asignacion.id_empleado = ?
+            order by id_actividad asc';
             $params = array($_SESSION['id_empleado']);
-
             return Database::getRows($sql, $params);
         }
     }
@@ -34,15 +39,15 @@ class ActividadesQueries
     {
         $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, detalle_asignaturas_empleados.id_detalle_asignatura_empleado,
 		consulta.asignacion, detalle_asignaturas_empleados.id_detalle_asignatura_empleado, trimestres.trimestre, trimestres.id_trimestre, tipo_actividades.id_tipo_actividad
-           FROM actividades 
-           INNER JOIN tipo_actividades USING (id_tipo_actividad)
-		              INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
-					  INNER JOIN trimestres USING (id_trimestre)
-					  INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion
+        FROM actividades 
+        INNER JOIN tipo_actividades USING (id_tipo_actividad)
+		INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
+		INNER JOIN trimestres USING (id_trimestre)
+		INNER JOIN (Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion
         FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
         INNER JOIN asignaturas USING(id_asignatura)
         INNER JOIN grados USING (id_grado)) as consulta using (id_detalle_asignatura_empleado)
-                   WHERE id_actividad = ?";
+        WHERE id_actividad = ?";
         $params = array($this->id_actividad);
         return Database::getRow($sql, $params);
     }
@@ -77,8 +82,8 @@ class ActividadesQueries
 
     public function readTrimestres()
     {
-        $sql = "SELECT id_trimestre, trimestre, anios.anio
-            FROM trimestres LEFT JOIN anios using(id_anio) where anio ='2023'";
+        $sql = "SELECT id_trimestre, trimestre, anios.anio, estado
+        FROM trimestres LEFT JOIN anios using(id_anio) where anio = (select anios.anio from trimestres LEFT JOIN anios USING (id_anio) where trimestres.estado = true)";
         return Database::getRows($sql);
     }
 
@@ -105,10 +110,12 @@ class ActividadesQueries
     // Para la búsqueda parametrizada
     public function FiltrarActividades($filtros)
     {
-        $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad
-        FROM actividades 
+        $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, grados.grado, asignaturas.asignatura
+        FROM actividades
         INNER JOIN tipo_actividades USING (id_tipo_actividad)
         INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN asignaturas USING (id_asignatura)
         WHERE id_trimestre = " . $filtros['trimestre'] . " and detalle_asignaturas_empleados.id_grado = " . $filtros['grado'] . " and id_asignatura = " . $filtros['asignatura'] .
             " GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
         ORDER BY actividades.nombre_actividad ASC";

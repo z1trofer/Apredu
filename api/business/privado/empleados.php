@@ -61,7 +61,6 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readAsignaturas_empleado':
-
                 if (!$Empleados_p->setid_empleado($_POST['data'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif ($result['dataset'] = $Empleados_p->readAsignaturas_empleado()) {
@@ -110,7 +109,6 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Empleado inexistente';
                 }
-
                 break;
             case 'search':
                 $_POST = Validator::validateForm($_POST);
@@ -179,9 +177,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'DUI mal ingresada';
                 } elseif (!$Empleados_p->setusuario_empleado($_POST['usuario'])) {
                     $result['exception'] = 'Usuario mal ingresado';
-                } elseif (!$Empleados_p->setclave($_POST['clave'])) {
+                } /*elseif (!$Empleados_p->setclave($_POST['clave'])) {
                     $result['exception'] = 'Clave mal ingresado';
-                } elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
+                } */elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo mal ingresado';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
                     $result['exception'] = 'Direccion mal ingresado';
@@ -214,7 +212,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
             case 'CargarDetalles':
                 $_POST = Validator::validateForm($_POST);
                 if ($result['dataset'] = $Empleados_p->CargarDetalles($_POST['id'])) {

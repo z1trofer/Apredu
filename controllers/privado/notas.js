@@ -117,23 +117,24 @@ async function CargarAsignaturas(){
               </div>
         </div>
             `;
+            debugger
                 //se obtiene el id del boton de la asignatura
                 color = document.getElementById('dropasig' + row.id_asignatura);
                 //se compara el id de la asignatura para asignar un color al boton
                 switch (row.id_asignatura) {
-                    case "1":
+                    case 1:
                         color.className = "btn btn-warning btn-lg dropdown-toggle";
                         break;
-                    case "2":
+                    case 2:
                         color.className = "btn btn-success btn-lg dropdown-toggle";
                         break;
-                    case "4":
+                    case 4:
                         color.className = "btn btn-secondary btn-lg dropdown-toggle";
                         break;
-                    case "5":
+                    case 5:
                         color.className = "btn btn-dark btn-lg dropdown-toggle";
                         break;
-                    case "6":
+                    case 6:
                         color.className = "btn btn-danger btn-lg dropdown-toggle";
                         break;
                     default:

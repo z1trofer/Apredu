@@ -47,8 +47,8 @@ class EmpleadosQueries
 
     public function updateRow()
     {
-        $sql = 'UPDATE empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, fecha_nacimiento = ?, id_cargo = ?, usuario_empleado = ?, direccion = ?, clave = ?, correo_empleado = ?, estado = ? WHERE id_empleado= ? ';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario_empleado, $this->direccion, $this->clave, $this->correo_empleado, $this->estado, $this->id_empleado);
+        $sql = 'UPDATE empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, fecha_nacimiento = ?, id_cargo = ?, usuario_empleado = ?, direccion = ?, correo_empleado = ?, estado = ? WHERE id_empleado= ? ';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario_empleado, $this->direccion, $this->correo_empleado, $this->estado, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 

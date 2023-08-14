@@ -1,7 +1,7 @@
 // Constantes para completar las rutas de la API.
 const ACTIVIDADES_API = 'business/privado/actividades.php';
 const NOTAS_API = 'business/privado/notas.php';
-const  TITULO_MODAL = document.getElementById('modal-title');
+const TITULO_MODAL = document.getElementById('modal-title');
 const TBODY_ROWS = document.getElementById('TablaEm');
 const FORMULARIO = document.getElementById('save-form');
 const SEARCH_FORM = document.getElementById('search');
@@ -18,33 +18,32 @@ let id_asignatura = null;
 
 
 // javascript se manda a llamar el id y en php el name
-
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
-    fillTable();
     CargarTrimestres();
+    fillTable();
     CargarGrados();
     CargarAsignaturas();
     CargarNombreDocente();
-  
 });
+
 //funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session
-async function CargarNombreDocente(){
+async function CargarNombreDocente() {
     //se declara el label en una varianle
     label = document.getElementById('nombre_empleado');
     //se llama a la API para obtener los datos
     const SESSION = await dataFetch(USER_API, 'getSession');
     //se verifica el id_cargo
-    if(SESSION.id_cargo == 2){
+    if (SESSION.id_cargo == 2) {
         //se llena el label con el nombre del docente
-        label.innerHTML = "Docente: "+SESSION.nombre;
-    }else{
+        label.innerHTML = "Docente: " + SESSION.nombre;
+    } else {
         //se deja el label vacio
         label.innerHTML = " ";
     }
 };
-
+/*
 SEARCH_FORM.addEventListener('submit', async (event) => {
     //metodo para evitar que se recargue la pagina
     event.preventDefault();
@@ -74,6 +73,7 @@ SEARCH_FORM.addEventListener('submit', async (event) => {
                         <td>${row.tipo_actividad}</td>
         
                     </button>
+                    
                 </div>
                 <div class="col-sm text-center">
                     <h3>Descripción</h3>
@@ -88,7 +88,6 @@ SEARCH_FORM.addEventListener('submit', async (event) => {
                 <div class="col-sm-1 text-center">
                     <br>
                     <br>
-        
                     <button style="border-style: none; background: transparent; "><img
                             src="../../recursos/iconos/informacion-removebg-preview.png" data-mdb-toggle="modal"
                             data-mdb-target="#ModalActividad" onclick="updateActividades(${row.id_actividad})" alt=""></button>
@@ -113,7 +112,7 @@ SEARCH_FORM.addEventListener('submit', async (event) => {
         }
     }
 });
-
+*/
 FORMULARIO.addEventListener('submit', async (event) => {
 
     event.preventDefault();
@@ -144,7 +143,7 @@ async function fillTable(form = null) {
     (form) ? action = 'FiltrosActividades' : action = 'readAll';
     // Petición para obtener los registros disponibles.
     // const JSON = await dataFetch(ACTIVIDADES_API, action, form);
-    const JSON = await dataFetch(ACTIVIDADES_API, action,form);
+    const JSON = await dataFetch(ACTIVIDADES_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -154,44 +153,54 @@ async function fillTable(form = null) {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
 <tr>
-    <div class="row">
-        <div class="col-sm text-center">
-            <h3>Titulo</h3>
-            <td>${row.nombre_actividad}</td>
-            <h3>Tipo de actividad</h3>
-            <button class="btn btn-primary" type="button" id="btnEm_grado" data-mdb-toggle="dropdown"
-                aria-expanded="false">
-                <td>${row.tipo_actividad}</td>
 
-            </button>
-        </div>
-        <div class="col-sm text-center">
-            <h3>Descripción</h3>
-            <td>${row.descripcion}</td>
-        </div>
-        <div class="col-sm text-center">
-            <h3>Ponderación</h3>
-            <td>${row.ponderacion} %</td>
-            <h3>Fecha Limite</h3>
-            <td>${row.fecha_entrega}</td>
-        </div>
-        <div class="col-sm-1 text-center">
-            <br>
-            <br>
+<div class="row">
+<div class="col-sm text-center">
+    <!--<p>Titulo</p>-->
+    <h3>${row.nombre_actividad}</h3>
 
-            <button style="border-style: none; background: transparent; "><img
-                    src="../../recursos/iconos/informacion-removebg-preview.png" data-mdb-toggle="modal"
-                    data-mdb-target="#ModalActividad" onclick="updateActividades(${row.id_actividad})" alt=""></button>
+    <!--<p>Tipo de actividad</p>-->
+    <button class="btn btn-primary" type="button" id="btnEm_grado" aria-expanded="false">
+    ${row.tipo_actividad}
+    </button>
+    <br>
+    <td>${row.grado}</td>
+    <br>
+    <td>${row.asignatura}</td>
+</div>
+<div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
+<div class="col-sm text-center">
+    <h5>Descripción</h5>
+    <p>${row.descripcion}</p>
+</div>
+<div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
+<div class="col-sm text-center">
+    <h5>Ponderación</h5>
+    <p>${row.ponderacion}%</p>
 
-        </div>
-        <div class="col-sm-1 text-center">
-            <br>
-            <br>
-            <button style="border-style: none; background: transparent; "><img src="../../recursos/iconos/eliminar2.png"
-                    alt="" onclick="DeleteActividades(${row.id_actividad})"></button>
+    <h5>Fecha Limite</h5>
+    <p>${row.fecha_entrega}</p>
+</div>
+<div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
+<div class="col-sm-1 text-center">
+<br>
+<br>
 
-        </div>
-    </div>
+<button style="border-style: none; background: transparent; "><img
+    src="../../recursos/iconos/informacion-removebg-preview.png" data-mdb-toggle="modal"
+    data-mdb-target="#ModalActividad" onclick="updateActividades(${row.id_actividad})" alt=""></button>
+</div>
+<div class="col-sm-1 text-center">
+<br>
+<br>
+
+<button style="border-style: none; background: transparent; "><img src="../../recursos/iconos/eliminar2.png"
+        alt="" onclick="DeleteActividades(${row.id_actividad})"></button>
+
+</div>
+</div>
+
+
 
     <hr class="hr" />
 
@@ -208,7 +217,7 @@ async function fillTable(form = null) {
 
 function createActividades() {
     FORMULARIO.reset();
-     TITULO_MODAL.textContent = 'Asignar una nueva actividad';
+    TITULO_MODAL.textContent = 'Asignar una nueva actividad';
     fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', 'Seleccione un tipo de actividad');
     fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', 'Seleccione una asignación');
     fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', 'Seleccione un trimestre');
@@ -222,15 +231,15 @@ async function updateActividades(id_actividad) {
     FORM.append('id_actividad', id_actividad);
     const JSON = await dataFetch(ACTIVIDADES_API, 'readOne', FORM);
     if (JSON.status) {
-         TITULO_MODAL.textContent = 'Modificar actividad asignada';
+        TITULO_MODAL.textContent = 'Modificar actividad asignada';
         document.getElementById('id').value = JSON.dataset.id_actividad;
         document.getElementById('nombre').value = JSON.dataset.nombre_actividad;
         document.getElementById('ponderacion').value = JSON.dataset.ponderacion;
         document.getElementById('fecha_entrega').value = JSON.dataset.fecha_entrega;
         document.getElementById('descripcion').value = JSON.dataset.descripcion;
-        fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad','Seleccione un tipo de actividad' ,JSON.dataset.id_tipo_actividad);
-        fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle','Seleccione una asignación' ,JSON.dataset.id_detalle_asignatura_empleado);
-        fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre','Seleccione un trimestre' ,JSON.dataset.id_trimestre);
+        fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', 'Seleccione un tipo de actividad', JSON.dataset.id_tipo_actividad);
+        fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', 'Seleccione una asignación', JSON.dataset.id_detalle_asignatura_empleado);
+        fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', 'Seleccione un trimestre', JSON.dataset.id_trimestre);
         fillSelect(ACTIVIDADES_API, 'readAll', 'nombre', JSON.dataset.id_actividad);
         document.getElementById('detalle').disabled = true;
         document.getElementById('trimestre').disabled = true;
@@ -264,31 +273,35 @@ async function DeleteActividades(id_actividad) {
 async function CargarTrimestres() {
     //se instancia un formulario
     const FORM = new FormData();
+    const SESSION = await dataFetch(USER_API, 'getSession');
     //se instancia el año como parametro en el formulario
     FORM.append('anio', ANIO);
     //se llama a la API para obtener los trimestres del año respectivo
-    const JSON = await dataFetch(NOTAS_API, 'ObtenerTrimestres', FORM);
+    const JSON = await dataFetch(ACTIVIDADES_API, 'readTrimestre', FORM);
     //se comprueba la respuesta de la api
     if (JSON.status) {
+        debugger
+        document.getElementById('titulo_anio').innerHTML = `Año lectivo: ${JSON.dataset[0].anio}, ${JSON.dataset[0].trimestre} `;
         //se declara el combobox de trimestres en la variable dropdown
         dropdown = document.getElementById('listTrimestre');
         //se limpia el dropdown para asegurarse que no haya ningun contenido
         dropdown.innerHTML = '';
         //se llena el dropdown mediante la respuesta de la api
         JSON.dataset.forEach(async row => {
+            debugger
             //el dropdown se llena con el trimestre que poseea el valor de true
             //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
-            if (row.estado == true || SESSION.id_cargo != 2) {
+            debugger
+            //if (row.estado == true || SESSION.id_cargo != 2) {
                 id_trimestre = row.id_trimestre;
-            //trimestre = row.trimestre;
-            //se asigna el nombre del trimestre en el boton
-            document.getElementById('dropTrimestre').innerHTML = row.trimestre;
-            //se llena el dropdown con el trimestre especifico
-            dropdown.innerHTML += `
+                //trimestre = row.trimestre;
+                //se asigna el nombre del trimestre en el boton
+                document.getElementById('dropTrimestre').innerHTML = row.trimestre;
+                //se llena el dropdown con el trimestre especifico
+                dropdown.innerHTML += `
                 <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
-              
               `
-            }
+            //}
         });
     } else {
         //se envia un mensaje con el error respectivo
