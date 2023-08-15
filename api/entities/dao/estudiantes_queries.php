@@ -107,6 +107,9 @@ class EstudiantesQueries
         return Database::executeRow($sql, $params);
     } 
 
+    public function reporteEstudiantes(){
 
+        
+    }
 }
 ?>
