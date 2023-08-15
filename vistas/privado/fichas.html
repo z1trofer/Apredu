@@ -14,16 +14,37 @@
     <header id="navbar">
 
     </header>
-    
+
     <div class="container">
-        <h5>Vista de fichas general</h5>
-        <!-- Button trigger modal -->
-        <div>
-            <button onclick="openFichas()" type="button" class="btn btn-danger" data-mdb-toggle="modal"
-                data-mdb-target="#FichasGenerales">
-                <i class="fa-solid fa-eye"></i>
-            </button>
+        <div class="row">
+            <div class="col">
+                <h4>Vista de fichas general</h4>
+            </div>
+            <div class="col">
+                <button onclick="openFichas()" type="button" class="btn btn-danger" data-mdb-toggle="modal"
+                    data-mdb-target="#FichasGenerales">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="btn btn-primary btn-outline btn-floating
+                data-mdb-ripple-color=" dark type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <i class="fas fa-chart-pie"></i>
+                </button>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                    aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Reportes y graficos</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        
+                    </div>
+                </div>
+            </div>
         </div>
+
         <!-- Modal -->
         <div class="modal fade" id="FichasGenerales" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -48,12 +69,8 @@
                                         <th scope="col">Grado</th>
                                         <th scope="col">Descripción</th>
                                         <th scope="col">Fecha</th>
-<<<<<<< HEAD
                                         <th scope="col">Profesor que la asigno</th>
-                                        
-=======
-                                        <th scope="col">Profesor que la asignó</th>
->>>>>>> 0e529a3e83c5cff1bbe4b7b14768944a7b7ef3f8
+
                                     </tr>
                                 </thead>
                                 <tbody id="tbody-rows2">
