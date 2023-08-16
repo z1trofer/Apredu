@@ -52,18 +52,6 @@
                 <!--filtros estudiantes-->
                 <div class="col-5">
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            Grados
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Nombre Ascendente</a></li>
-                            <li><a class="dropdown-item" href="#">Apellido Ascendente</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropGrados"
                             data-mdb-toggle="dropdown" aria-expanded="false">
                             1° grado
@@ -72,431 +60,428 @@
                         </ul>
                     </div>
                 </div>
+                <div class="col-5">
+                    <button type="button" class="btn btn-warning">reporte alumnos</button>
+                </div>
             </div>
-            <br>
-            <div class="container">
-                <table class="table table-responsive-sm">
-                    <thead>
-                        <tr id="records"></tr>
-                        <tr>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Grado</th>
-                            <th scope="col">Información</th>
-                            <th scope="col">Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-rows">
+        </div>
+        <br>
+        <div class="container">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr id="records"></tr>
+                    <tr>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Grado</th>
+                        <th scope="col">Información</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-rows">
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
+        </div>
+        <!--Modals-->
+
+        <div class="modal fade" id="save_form_conducta" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="save_formC" action="">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante
+                            </h5>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <input type="hidden" name="id_estudiante_ficha" id="id_estudiante_ficha">
+                                <div class="col">
+                                    <h5>Estudiante</h5>
+                                    <input class="try2" type="text" name="nombre_ficha" id="nombre_ficha" readonly>
+                                    <input class="try2" type="text" name="apellido_ficha" id="apellido_ficha" readonly>
+                                    <p id="nombre_ficha"></p>
+                                    <p id="apellido_ficha"></p>
+                                </div>
+                                <div class="col">
+                                    <h5>Grado</h5>
+                                    <input class="try2" type="text" name="grado_ficha" id="grado_ficha" readonly>
+                                    <p id="grado_ficha"></p>
+                                </div>
+                            </div>
+                            <h5 class="text-center">Fichas de conducta</h5>
+                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                                data-mdb-target="#ModalEstConducta">
+                                <img src="../../recursos/iconos/icons8-más-30.png" alt="">
+                            </button>
+                            <!--modal de las fichas / conducta estudiante -->
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5 id="nombre_empleado">Docente</h5>
+                                    <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2"
+                                        readonly>
+                                    <input class="try2" type="hidden" name="id_empleado" id="id_empleado" readonly>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Descripción</h5>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row FIcha">
+                                    <div class="col text-center">
+                                        <h5 id="docente_ficha"></h5>
+                                    </div>
+                                    <div class="col text-center">
+                                        <textarea name="ficha_descripcion" id="ficha_descripcion" cols="30"
+                                            rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <div>
+                                    <button type="submitg" class="btn btn-danger"
+                                        data-mdb-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <!--Modals-->
-            
-            <div class="modal fade" id="save_form_conducta" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form id="save_formC" action="">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante
-                                </h5>
-                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                    aria-label="Close"></button>
+        </div>
+
+        <!-- Modal notas estudiante -->
+        <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Notas Estudiantes</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Nombre: Juan Pablo Dominguez Perez</p>
+                        <p>Grado: segundo grado</p>
+                        <button type="button" data-mdb-target="#ModalEstudianteAct" data-mdb-toggle="modal"
+                            data-mdb-dismiss="modal" class="btn btn-outline-warning">ver actividades</button>
+                        <a href="notas.html"> <button type="button" class="btn btn-outline-success"
+                                data-mdb-ripple-color="dark">Ver
+                                resumen de notas</button></a>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal Perfiles del estudiante-->
+        <div class="modal fade" id="ModalEstudianteAct" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Información del docente</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <h5>Nombre</h5>
+                                <p>Ramón Ricardo Ramirez Martinez</p>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <input type="hidden" name="id_estudiante_ficha" id="id_estudiante_ficha">
-                                    <div class="col">
-                                        <h5>Estudiante</h5>
-                                        <input class="try2" type="text" name="nombre_ficha" id="nombre_ficha" readonly>
-                                        <input class="try2" type="text" name="apellido_ficha" id="apellido_ficha" readonly>
-                                        <p id="nombre_ficha"></p>
-                                        <p id="apellido_ficha"></p>
-                                    </div>
-                                    <div class="col">
-                                        <h5>Grado</h5>
-                                        <input class="try2" type="text" name="grado_ficha" id="grado_ficha" readonly>
-                                        <p id="grado_ficha"></p>
-                                    </div>
-                                </div>
-                                <h5 class="text-center">Fichas de conducta</h5>
-                                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                    data-mdb-target="#ModalEstConducta">
-                                    <img src="../../recursos/iconos/icons8-más-30.png" alt="">
+                            <div class="col-sm-3">
+                                <h5>grado</h5>
+                                <p>2° grado</p>
+                            </div>
+                            <div class="col-3 Respon_BTN">
+                                <h5>Año</h5>
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    2023
                                 </button>
-                                <!--modal de las fichas / conducta estudiante -->
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">2022</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    Matemáticas
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Ciencias</a></li>
+                                </ul>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    Primer trimestre
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Segundo trimestre</a></li>
+                                    <li><a class="dropdown-item" href="#">Tercer Trimestre</a></li>
+                                </ul>
+                            </div>
+                            <div class="col">
+                                <h5>Promedio: <p id="apro">8.5</p>
+                                </h5>
+                            </div>
+                        </div>
+                        <!--tabla-->
+                        <div class="container">
+                            <div id="table_act" class="row">
                                 <div class="row">
-                                    <div class="col text-center">
-                                        <h5 id="nombre_empleado">Docente</h5>
-                                        <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2" readonly>
-                                        <input class="try2" type="hidden" name="id_empleado" id="id_empleado" readonly>
+                                    <div class="col" id="actiEst">
+                                        <h5>Actividad cotidiana 1</h5>
+                                        <p>Actividad Cotidiana</p>
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                            Nam
+                                            veniam cum, ducimus, commodi similique iure rem
+                                            repudiandae
+                                            qui explicabo dolor accusantium corporis praesentium
+                                            impedit
+                                            quis deserunt eius? Fugit, beatae quas?</p>
+                                        <h5>Profesora Jimena Carrillo</h5>
+                                        <p>Ponderación del 25%</p>
+                                        <p>Calificación de:
+                                        <h5 id="apro">8.5</h5>
+                                        </p>
                                     </div>
-                                    <div class="col text-center">
-                                        <h5>Descripción</h5>
+                                    <div class="col" id="actiEst">
+                                        <h5>Actividad cotidiana 2</h5>
+                                        <p>Actividad Cotidiana</p>
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                            Nam
+                                            veniam cum, ducimus, commodi similique iure rem
+                                            repudiandae
+                                            qui explicabo dolor accusantium corporis praesentium
+                                            impedit
+                                            quis deserunt eius? Fugit, beatae quas?</p>
+                                        <h5>Profesora Jimena Carrillo</h5>
+                                        <p>Ponderación del 25%</p>
+                                        <p>Calificación de:
+                                        <h5 id="apro">9</h5>
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="container">
-                                    <div class="row FIcha">
-                                        <div class="col text-center">
-                                            <h5 id="docente_ficha"></h5>
-                                        </div>
-                                        <div class="col text-center">
-                                            <textarea name="ficha_descripcion" id="ficha_descripcion" cols="30"
-                                                rows="4"></textarea>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div>
-                                        <button type="submitg" class="btn btn-danger"
-                                            data-mdb-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                    <div class="col" id="actiEst">
+                                        <h5>Examen de trimestre</h5>
+                                        <p>Examen</p>
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                            Nam
+                                            veniam cum, ducimus, commodi similique iure rem
+                                            repudiandae
+                                            qui explicabo dolor accusantium corporis praesentium
+                                            impedit
+                                            quis deserunt eius? Fugit, beatae quas?</p>
+                                        <h5>Profesora Jimena Carrillo</h5>
+                                        <p>Ponderación del 50%</p>
+                                        <p>Calificación de:
+                                        <h5 id="apro">9</h5>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal información del estudiante -->
+        <div class="modal fade" id="ModalEstInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Información del
+                            estudiante</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="save-formE">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input type="hidden" name="id_estudiante" id="id_estudiante">
+                                    <h5>Nombre</h5>
+                                    <input type="text" id="nombre_estudiante" name="nombre_estudiante"
+                                        class="validate try" required>
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Apellido</h5>
+                                    <input type="text" id="apellido_estudiante" name="apellido_estudiante"
+                                        class="validate try" required>
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Grado</h5>
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="grado"
+                                        name="grado" data-mdb-toggle="dropdown" aria-expanded="false">
+                                        Grados
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura"
+                                        name="lectura">
+                                    </ul>
+                                    <input type="hidden" id="grados_estudiante" name="grados_estudiante">
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Fecha de nacimiento</h5>
+                                    <input type="date" id="nacimiento" name="nacimiento" class="validate try" required>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>Dirección</h5>
+                                    <textarea name="direccion_estudiante" id="direccion_estudiante" class="Validate try"
+                                        rows="3"></textarea>
+                                </div>
+                                <div class="col-sm">
+                                    <h5>NIE</h5>
+                                    <input type="text" name="nie" id="nie" class="Validate try" required>
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Usuario</h5>
+                                    <input type="text" id="usuario_estudiante" name="usuario_estudiante"
+                                        class="validate try" required>
+                                </div>
+                                <div class="col-sm">
+                                    <h5 id="nombre_clave">Clave</h5>
+                                    <input type="password" id="clave" name="clave" class="validate try">
+                                </div>
+                                <div class="col-sm">
+                                    <h5>Estado del estudiante</h5>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="estados"
+                                            name="estados" />
+                                        <label class="form-check-label" for="flexSwitchCheckDefault"> Inactivo/
+                                            Activo</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button id="cancelar" type="button" class="btn btn-danger"
+                                data-mdb-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
                         </form>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Modal notas estudiante -->
-            <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Notas Estudiantes</h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Nombre: Juan Pablo Dominguez Perez</p>
-                            <p>Grado: segundo grado</p>
-                            <button type="button" data-mdb-target="#ModalEstudianteAct" data-mdb-toggle="modal"
-                                data-mdb-dismiss="modal" class="btn btn-outline-warning">ver actividades</button>
-                            <a href="notas.html"> <button type="button" class="btn btn-outline-success"
-                                    data-mdb-ripple-color="dark">Ver
-                                    resumen de notas</button></a>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
-            <!--Modal Perfiles del estudiante-->
-            <div class="modal fade" id="ModalEstudianteAct" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Información del docente</h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+        </div>
+        <!--modal responsable estudiante -->
+        <div class="modal fade" id="ModalEstResInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Información de
+                            responsables</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="save-formR">
+                            <div class="row">
+                                <h5>Alumno: Juan Pablo Perez Dominguez</h5>
+                                <hr>
+                                <input class="visually-hidden" type="text" id="id_responsable" name="id_responsable">
+                            </div>
                             <div class="row align-items-center">
-                                <div class="col-sm-6">
-                                    <h5>Nombre</h5>
-                                    <p>Ramón Ricardo Ramirez Martinez</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <h5>grado</h5>
-                                    <p>2° grado</p>
-                                </div>
-                                <div class="col-3 Respon_BTN">
-                                    <h5>Año</h5>
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        2023
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">2022</a></li>
-                                    </ul>
+                                <div class="col-3">
+                                    <button type="submit" class="btn btn-primary" id="create">Añadir</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        Matemáticas
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Ciencias</a></li>
-                                    </ul>
+                                    <h5>Nombres</h5>
+                                    <input type="text" id="nombre_responsable" name="nombre_responsable"
+                                        class="Validate try" required>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropform"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        Primer trimestre
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Segundo trimestre</a></li>
-                                        <li><a class="dropdown-item" href="#">Tercer Trimestre</a></li>
-                                    </ul>
+                                    <h5>Apellidos</h5>
+                                    <input type="text" id="apellido_responsable" name="apellido_responsable"
+                                        class="Validate try" required>
                                 </div>
                                 <div class="col">
-                                    <h5>Promedio: <p id="apro">8.5</p>
+                                    <h5>Correo</h5>
+                                    <input type="text" id="correo_responsable" name="correo_responsable"
+                                        class="Validate try" required>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <h5>DUI</h5>
+                                    <input type="text" id="dui" name="dui" class="Validate try" required>
+                                </div>
+                                <div class="col telefono">
+                                    <h5>Telefonos <img src="../../recursos/iconos/icons8-más-30.png" alt="">
                                     </h5>
+                                    <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
+                                    </p>
+                                    <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <h5>Parentesco</h5>
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="parentesco"
+                                        name="parentesco" data-mdb-toggle="dropdown" aria-expanded="false">
+                                        Madre
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" onclick="opcionParentesco('Padre')">Padre</a>
+                                        </li>
+                                        <li><a class="dropdown-item" onclick="opcionParentesco('Madre')">Madre</a>
+                                        </li>
+                                        <li><a class="dropdown-item" onclick="opcionParentesco('Abuelo/a')">Abuelo/a</a>
+                                        </li>
+                                        <li><a class="dropdown-item" onclick="opcionParentesco('Tío/a')">Tío/a</a>
+                                        </li>
+                                        <li><a class="dropdown-item" onclick="opcionParentesco('Tutor legal')">Tutor
+                                                legal</a>
+                                        </li>
+                                    </ul>
+                                    <input class="visually-hidden" type="text" id="parentesco_responsable"
+                                        name="parentesco_responsable">
                                 </div>
                             </div>
-                            <!--tabla-->
-                            <div class="container">
-                                <div id="table_act" class="row">
-                                    <div class="row">
-                                        <div class="col" id="actiEst">
-                                            <h5>Actividad cotidiana 1</h5>
-                                            <p>Actividad Cotidiana</p>
-                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                                Nam
-                                                veniam cum, ducimus, commodi similique iure rem
-                                                repudiandae
-                                                qui explicabo dolor accusantium corporis praesentium
-                                                impedit
-                                                quis deserunt eius? Fugit, beatae quas?</p>
-                                            <h5>Profesora Jimena Carrillo</h5>
-                                            <p>Ponderación del 25%</p>
-                                            <p>Calificación de:
-                                            <h5 id="apro">8.5</h5>
-                                            </p>
-                                        </div>
-                                        <div class="col" id="actiEst">
-                                            <h5>Actividad cotidiana 2</h5>
-                                            <p>Actividad Cotidiana</p>
-                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                                Nam
-                                                veniam cum, ducimus, commodi similique iure rem
-                                                repudiandae
-                                                qui explicabo dolor accusantium corporis praesentium
-                                                impedit
-                                                quis deserunt eius? Fugit, beatae quas?</p>
-                                            <h5>Profesora Jimena Carrillo</h5>
-                                            <p>Ponderación del 25%</p>
-                                            <p>Calificación de:
-                                            <h5 id="apro">9</h5>
-                                            </p>
-                                        </div>
-                                        <div class="col" id="actiEst">
-                                            <h5>Examen de trimestre</h5>
-                                            <p>Examen</p>
-                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                                Nam
-                                                veniam cum, ducimus, commodi similique iure rem
-                                                repudiandae
-                                                qui explicabo dolor accusantium corporis praesentium
-                                                impedit
-                                                quis deserunt eius? Fugit, beatae quas?</p>
-                                            <h5>Profesora Jimena Carrillo</h5>
-                                            <p>Ponderación del 50%</p>
-                                            <p>Calificación de:
-                                            <h5 id="apro">9</h5>
-                                            </p>
-                                        </div>
+                            <br>
+                            <br>
+                            <div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h5>Lugar de trabajo</h5>
+                                        <input type="text" id="trabajo" name="trabajo" class="Validate try" required>
+                                    </div>
+                                    <div class="col">
+                                        <h5>Tel.Tabajo</h5>
+                                        <input type="text" id="telefono_trabajo" name="telefono_trabajo"
+                                            class="Validate try" required>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-success">Guardar Cambios</button>
-                        </div>
+                            <br>
+                            <button type="button" data-mdb-target="#ModalEstInfo" data-mdb-toggle="modal"
+                                data-mdb-dismiss="modal" class="btn btn-danger">Cancelar
+                            </button>
+                            <button type="button" data-mdb-target="#ModalEstInfo" data-mdb-toggle="modal"
+                                data-mdb-dismiss="modal" class="btn btn-success">Guardar Cambios
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
-            <!-- Modal información del estudiante -->
-            <div class="modal fade" id="ModalEstInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Información del
-                                estudiante</h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="save-formE">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <input type="hidden" name="id_estudiante" id="id_estudiante">
-                                        <h5>Nombre</h5>
-                                        <input type="text" id="nombre_estudiante" name="nombre_estudiante"
-                                            class="validate try" required>
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>Apellido</h5>
-                                        <input type="text" id="apellido_estudiante" name="apellido_estudiante"
-                                            class="validate try" required>
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>Grado</h5>
-                                        <button class="btn btn-primary dropdown-toggle" type="button" id="grado"
-                                            name="grado" data-mdb-toggle="dropdown" aria-expanded="false">
-                                            Grados
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura"
-                                            name="lectura">
-                                        </ul>
-                                        <input type="hidden" id="grados_estudiante" name="grados_estudiante">
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>Fecha de nacimiento</h5>
-                                        <input type="date" id="nacimiento" name="nacimiento" class="validate try"
-                                            required>
-                                    </div>
-                                </div>
-                                <br>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <h5>Dirección</h5>
-                                        <textarea name="direccion_estudiante" id="direccion_estudiante"
-                                            class="Validate try" rows="3"></textarea>
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>NIE</h5>
-                                        <input type="text" name="nie" id="nie" class="Validate try" required>
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>Usuario</h5>
-                                        <input type="text" id="usuario_estudiante" name="usuario_estudiante"
-                                            class="validate try" required>
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5 id="nombre_clave">Clave</h5>
-                                        <input type="password" id="clave" name="clave" class="validate try">
-                                    </div>
-                                    <div class="col-sm">
-                                        <h5>Estado del estudiante</h5>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="estados"
-                                                name="estados" />
-                                            <label class="form-check-label" for="flexSwitchCheckDefault"> Inactivo/
-                                                Activo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <button id="cancelar" type="button" class="btn btn-danger"
-                                    data-mdb-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--modal responsable estudiante -->
-            <div class="modal fade" id="ModalEstResInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Información de
-                                responsables</h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="save-formR">
-                                <div class="row">
-                                    <h5>Alumno: Juan Pablo Perez Dominguez</h5>
-                                    <hr>
-                                    <input class="visually-hidden" type="text" id="id_responsable"
-                                        name="id_responsable">
-                                </div>
-                                <div class="row align-items-center">
-                                    <div class="col-3">
-                                        <button type="submit" class="btn btn-primary" id="create">Añadir</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <h5>Nombres</h5>
-                                        <input type="text" id="nombre_responsable" name="nombre_responsable"
-                                            class="Validate try" required>
-                                    </div>
-                                    <div class="col">
-                                        <h5>Apellidos</h5>
-                                        <input type="text" id="apellido_responsable" name="apellido_responsable"
-                                            class="Validate try" required>
-                                    </div>
-                                    <div class="col">
-                                        <h5>Correo</h5>
-                                        <input type="text" id="correo_responsable" name="correo_responsable"
-                                            class="Validate try" required>
-                                    </div>
-                                </div>
-                                <br>
-                                <br>
-                                <div class="row">
-                                    <div class="col">
-                                        <h5>DUI</h5>
-                                        <input type="text" id="dui" name="dui" class="Validate try" required>
-                                    </div>
-                                    <div class="col telefono">
-                                        <h5>Telefonos <img src="../../recursos/iconos/icons8-más-30.png" alt="">
-                                        </h5>
-                                        <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
-                                        </p>
-                                        <p>1233-5657 <img src="../../recursos/iconos/icons8-menos-24.png">
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <h5>Parentesco</h5>
-                                        <button class="btn btn-primary dropdown-toggle" type="button" id="parentesco"
-                                            name="parentesco" data-mdb-toggle="dropdown" aria-expanded="false">
-                                            Madre
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li><a class="dropdown-item" onclick="opcionParentesco('Padre')">Padre</a>
-                                            </li>
-                                            <li><a class="dropdown-item" onclick="opcionParentesco('Madre')">Madre</a>
-                                            </li>
-                                            <li><a class="dropdown-item"
-                                                    onclick="opcionParentesco('Abuelo/a')">Abuelo/a</a></li>
-                                            <li><a class="dropdown-item" onclick="opcionParentesco('Tío/a')">Tío/a</a>
-                                            </li>
-                                            <li><a class="dropdown-item" onclick="opcionParentesco('Tutor legal')">Tutor
-                                                    legal</a>
-                                            </li>
-                                        </ul>
-                                        <input class="visually-hidden" type="text" id="parentesco_responsable"
-                                            name="parentesco_responsable">
-                                    </div>
-                                </div>
-                                <br>
-                                <br>
-                                <div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <h5>Lugar de trabajo</h5>
-                                            <input type="text" id="trabajo" name="trabajo" class="Validate try"
-                                                required>
-                                        </div>
-                                        <div class="col">
-                                            <h5>Tel.Tabajo</h5>
-                                            <input type="text" id="telefono_trabajo" name="telefono_trabajo"
-                                                class="Validate try" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <button type="button" data-mdb-target="#ModalEstInfo" data-mdb-toggle="modal"
-                                    data-mdb-dismiss="modal" class="btn btn-danger">Cancelar
-                                </button>
-                                <button type="button" data-mdb-target="#ModalEstInfo" data-mdb-toggle="modal"
-                                    data-mdb-dismiss="modal" class="btn btn-success">Guardar Cambios
-                                </button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
     </main>
     <footer>
         <footer class="bg-dark text-center text-white">

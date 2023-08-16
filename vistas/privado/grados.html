@@ -18,12 +18,54 @@
     <main>
 
         <div class="container">
-            <h1>Agregar grados</h1>
-            <!-- Button trigger modal -->
-            <button onclick="openCreate()" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                Agregar grado
-            </button>
+            <div class="row">
+                <div class="col ">
+                    <h4>Agregar grados</h4>
+                </div>
+                <div class="col ">
+                    <div>
+                        <!-- Button trigger modal -->
+                        <button onclick="openCreate()" type="button" class="btn btn-primary btn-outline btn-floating"
+                            data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fas fa-circle-plus"></i>
+                        </button>
+
+                        <!--Offcanva para mostrar graficos y reportes-->
+                        <button class="btn btn-primary btn-outline btn-floating
+                        data-mdb-ripple-color=" dark type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                            <i class="fas fa-chart-pie"></i>
+                        </button>
+
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                            aria-labelledby="offcanvasExampleLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div>
+                                    Some text as placeholder. In real life you can have the elements you have chosen.
+                                    Like, text, images, lists, etc.
+                                </div>
+                                <div class="dropdown mt-3">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                        Dropdown button
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Offcanva para mostrar graficos y reportes-->
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -62,24 +104,27 @@
                     </div>
                     <div class="modal-body">
                         <form id="detalle_form">
-                            <select class="form-select" required aria-label="select example"
-                            id="detalle" name="detalle">
-                            <option value="">Seleccione una opcion</option>
-                        </select>
-                            <button type="submit" class="btn btn-info" style="margin-top: 10px;">Añadir Asignatura</button>
+                            <select class="form-select" required aria-label="select example" id="detalle"
+                                name="detalle">
+                                <option value="">Seleccione una opcion</option>
+                            </select>
+                            <button type="submit" class="btn btn-info" style="margin-top: 10px;">Añadir
+                                Asignatura</button>
                             <table class="table text-center">
                                 <thead>
-                                  <tr>
-                                    <th scope="col"><h4>Asignaturas</h4></th>
-                                    <th scope="col">Acción</th>
-                                  </tr>
+                                    <tr>
+                                        <th scope="col">
+                                            <h4>Asignaturas</h4>
+                                        </th>
+                                        <th scope="col">Acción</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="detalle-rows">
-                                  <tr>
-                                    <td>Matematicas</td>
-                                  </tr>
+                                    <tr>
+                                        <td>Matematicas</td>
+                                    </tr>
                                 </tbody>
-                              </table>
+                            </table>
 
                     </div>
                     <div class="modal-footer">
@@ -91,7 +136,7 @@
         </div>
         </div>
 
-        <div class="container col-6">
+        <div class="container ">
             <div class="form-outline">
                 <form id="search" role="search" action="">
                     <input class="form-control me-2 light-table-filter" data-table="table" type="text">

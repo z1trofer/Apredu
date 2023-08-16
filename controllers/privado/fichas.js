@@ -232,3 +232,4 @@ async function openDetalle(id_ficha) {
     });
 
 })(document);
+
