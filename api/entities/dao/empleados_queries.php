@@ -138,8 +138,8 @@ class EmpleadosQueries
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
         INNER JOIN grados b USING(id_grado)
         INNER JOIN empleados c USING(id_empleado)
-         where c.id_empleado = ?
-         GROUP BY id_grado, grado';
+        where c.id_empleado = ?
+        GROUP BY id_grado, grado';
         $params = array($this->id_empleado);
         return Database::getRows($sql, $params);
     }
@@ -147,16 +147,16 @@ class EmpleadosQueries
     public function readGrados()
     {
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
-        INNER JOIN grados b USING(id_grado)
-        INNER JOIN empleados c USING(id_empleado)
-         GROUP BY id_grado, grado';
+        LEFT JOIN grados b USING(id_grado)
+        LEFT JOIN empleados c USING(id_empleado)
+        GROUP BY id_grado, grado';
         return Database::getRows($sql);
     }
 
     //funcion cargar los detalles de los empleado. parametro: id del empleado
     public function CargarDetalles($id)
     {
-        $sql = "SELECT id_empleado, grados.grado, asignaturas.asignatura FROM detalle_asignaturas_empleados
+        $sql = "SELECT id_detalle_asignatura_empleado, id_empleado, grados.grado, asignaturas.asignatura FROM detalle_asignaturas_empleados
         INNER JOIN grados USING (id_grado)
         INNER JOIN asignaturas USING (id_asignatura)
         WHERE id_empleado = ?";
@@ -173,5 +173,13 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
-}
-?>
+    //eliminar detalle
+    public function deleteDetalle()
+    {
+        $sql = 'UPDATE detalle_asignaturas_empleados SET id_empleado = null 
+        where id_detalle_asignatura_empleado = ?';
+        //se usa el id empleado para validar el id
+        $params = array($this->id_empleado);
+        return Database::executeRow($sql, $params);
+    }
+}?>
