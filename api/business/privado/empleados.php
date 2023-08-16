@@ -179,19 +179,19 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario mal ingresado';
                 } /*elseif (!$Empleados_p->setclave($_POST['clave'])) {
                     $result['exception'] = 'Clave mal ingresado';
-                } */elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
+                } */ elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo mal ingresado';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
                     $result['exception'] = 'Direccion mal ingresado';
-                } elseif (!isset($_POST['cargo'])) {
+                } /*elseif (!isset($_POST['cargo'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
-                } elseif (!$Empleados_p->setid_cargo($_POST['cargo'])) {
+                }*/ elseif (!$Empleados_p->setid_cargo($_POST['cargo'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 } elseif (!$Empleados_p->setfecha_nacimiento($_POST['fecha_nacimiento'])) {
                     $result['exception'] = 'Fecha incorrecta';
                 } elseif (!$Empleados_p->setestado($_POST['estado'])) {
                     $result['exception'] = 'estado incorrecto';
-                } elseif ($Empleados_p->getid_empleado() == $_SESSION['id_empleado']) {
+                } elseif ($_POST['id'] == $_SESSION['id_empleado']) {
                     $result['exception'] = 'No puedes modificar tu propio usuario';
                 } elseif ($Empleados_p->updateRow()) {
                     $result['status'] = 1;
@@ -238,6 +238,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();;
                 }
                 break;
+                //case eliminar el detalle de un empleado respecto a los grados y asignaturas
+            case 'deleteAsignation':
+                if (!$Empleados_p->setid_empleado($_POST['id'])) {
+                    $result['exception'] = 'El id no es correcto';
+                }  elseif ($Empleados_p->deleteDetalle()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Asignación eliminada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
@@ -251,4 +262,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>

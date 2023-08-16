@@ -125,6 +125,7 @@ FORMULARIO.addEventListener('submit', async (event) => {
         FORMULARIO.reset();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
+        document.getElementById('closeAct').click();
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -149,7 +150,6 @@ async function fillTable(form = null) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         JSON.dataset.forEach(row => {
             // Se establece un icono para el estado del producto.
-
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
 <tr>

@@ -1,6 +1,5 @@
 // Constante para completar la ruta de la API.
 const EMPLEADOS_API = 'business/privado/empleados.php';
-// Constante para establecer el formulario de buscar.
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.
@@ -239,13 +238,12 @@ async function CargarAsignaturasGrados(id){
             <tr>
                 <td>${row.grado}</td>
                 <td>${row.asignatura}</td>
-                <td><button type="button" class="btn btn-warning" onclick="">Quitar</button></td>
+                <td><button type="button" class="btn btn-warning" onclick="quitarAsignatura(${row.id_detalle_asignatura_empleado})">Quitar</button></td>
             </tr>
             `;
         });
     };
-
-}
+};
 
 FORM_ASIGNATURAS_GRADOS.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -262,15 +260,29 @@ FORM_ASIGNATURAS_GRADOS.addEventListener('submit', async (event) => {
             CargarAsignaturasGrados(valor_empleado);
             // Se muestra un mensaje de éxito.
             sweetAlert(1, JSON.message, true);
+            CargarAsignaturasGrados();
         } else {
             sweetAlert(2, JSON.exception, false);
         }
+    };
+});
+
+//función para quitar la asignación de un empleado hacia la asignatura de un grado
+async function quitarAsignatura(id){
+    //formulario
+    const FORM = new FormData();
+    //attaching id to FORM
+    FORM.append('id', id);
+    const JSON = await dataFetch(EMPLEADOS_API, 'deleteAsignation', FORM);
+    if (JSON.status) {
+        sweetAlert(1, JSON.message, true);
+        CargarAsignaturasGrados(valor_empleado);
+    }else{
+        sweetAlert(2, JSON.exception, false);
     }
 
 
-
-});
-
+}
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
 *   Parámetros: ninguno.
@@ -313,7 +325,7 @@ async function openUpdate(id_empleado) {
     const JSON = await dataFetch(EMPLEADOS_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-         TITULO_MODAL.textContent = 'Modificar el empleado';
+        TITULO_MODAL.textContent = 'Modificar el empleado';
         // Se inicializan los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_empleado;
         document.getElementById('nombres').value = JSON.dataset.nombre_empleado;
@@ -324,10 +336,8 @@ async function openUpdate(id_empleado) {
         document.getElementById('direccion').value = JSON.dataset.direccion;
         document.getElementById('fecha_nacimiento').value = JSON.dataset.fecha_nacimiento;
         document.getElementById('usuario').value = JSON.dataset.usuario_empleado;
-        document.getElementById('clave').value = JSON.dataset.clave;
+        //document.getElementById('clave').value = JSON.dataset.clave;
         document.getElementById('estado').selectedIndex = JSON.dataset.estado;
-
-
     } else {
         sweetAlert(2, JSON.exception, false);
     }
