@@ -13,10 +13,10 @@ if (isset($_GET['id_estudiante'])) {
     $fichas = new Fichas;
     $estudiante = new Estudiantes;
     // Se establece el valor de la categoría, de lo contrario se muestra un mensaje.
-    if ($Estudiantes->setId($_GET['setIdEstudiante']) ) {
+    if (($fichas->setIdestudiante($_GET['id_estudiante']))) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
-           // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Ficha de conducta: ' . $rowFichas['']);
+            // Se inicia el reporte con el encabezado del documento.
+            $pdf->startReport('Ficha de conducta');
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($rowFichas = $fichas->FichasXestudiante()) {
                 // Se establece un color de relleno para los encabezados.
@@ -28,7 +28,6 @@ if (isset($_GET['id_estudiante'])) {
                 $pdf->cell(30, 10, 'Apellido', 1, 0, 'C', 1);
                 $pdf->cell(30, 10, $pdf->encodeString('Descripción'), 1, 0, 'C', 1);
                 $pdf->cell(30, 10, 'Fecha', 1, 0, 'C', 1);
-
                 // Se establece la fuente para los datos de los productos.
                 $pdf->setFont('Helvetica', '', 11);
                 // Se recorren los registros fila por fila.
@@ -37,17 +36,18 @@ if (isset($_GET['id_estudiante'])) {
                     $pdf->cell(30, 10,  $pdf->encodeString($rowFichas['nombre_estudiante']), 1, 0);
                     $pdf->cell(30, 10,  $pdf->encodeString($rowFichas['apellido_estudiante']), 1, 0);
                     $pdf->cell(30, 10,  $pdf->encodeString($rowFichas['descripcion_ficha']), 1, 0);
-                    $pdf->cell(30, 10,  $pdf->encodeString($rowFichas['fecha']), 1, 0);
+                    $pdf->cell(30, 10,  $pdf->encodeString($rowFichas['fecha_ficha']), 1, 0);
 
                 }
             } else {
-                $pdf->cell(0, 10, $pdf->encodeString('No hay fichas de conducta'), 1, 1);
+                $pdf->cell(0, 10, $pdf->encodeString('No hay productos para la categoría'), 1, 1);
             }
             // Se llama implícitamente al método footer() y se envía el documento al navegador web.
-            $pdf->output('I', 'Ficha por estudiante.pdf');
+            $pdf->output('I', 'subcategoria.pdf');
     } else {
-        print('Estudiante incorrecto');
+        print('Subcategoría incorrecta');
     }
 } else {
-    print('Debe seleccionar un Estudiante');
+    print('Debe seleccionar una Subcategoría');
 }
+
