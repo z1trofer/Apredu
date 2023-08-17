@@ -118,8 +118,9 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 FORM_INFOACTI.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
+    debugger
     // Se verifica la acción a realizar.
-    (document.getElementById('id').value) ? action = 'readPorDetalle' : action = 'readSinFiltros';
+    (document.getElementById('idInfo').value) ? action = 'readPorDetalle' : action = 'readSinFiltros';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(FORM_INFOACTI);
     // Petición para guardar los datos del formulario.
