@@ -108,7 +108,7 @@ class FichasQueries
         FROM fichas INNER JOIN estudiantes USING(id_estudiante)
         WHERE id_estudiante = ?';
         $params = array($this->id_estudiante);
-        return Database::executeRow($sql, $params);
+        return Database::getRows($sql, $params);
     }
 }
 ?>
