@@ -16,9 +16,9 @@ if ($dataCargo = $cargo->readCargos()) {
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Times', 'B', 11);
     // Se imprimen las celdas con los encabezados.
-    $pdf->cell(126, 10, 'Nombres', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Apellidos', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Correo electrónico', 1, 1, 'C', 1);
+    $pdf->cell(62, 10, 'Nombres', 1, 0, 'C', 1);
+    $pdf->cell(62, 10, 'Apellidos', 1, 0, 'C', 1);
+    $pdf->cell(62, 10, 'Correo electrónico', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre del empleado
     $pdf->setFillColor(225);
