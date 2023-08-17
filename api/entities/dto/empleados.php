@@ -28,12 +28,14 @@ class Empleados extends EmpleadosQueries
     */
     public function setid_empleado($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
+        $this->id_empleado = $value;
+        return true;
+        /*if (Validator::validateNaturalNumber($value)) {
             $this->id_empleado = $value;
             return true;
         } else {
             return false;
-        }
+        }*/
     }
 
     public function setnombre_empleado($value)
@@ -44,6 +46,12 @@ class Empleados extends EmpleadosQueries
         } else {
             return false;
         }
+        /*if ($value) {
+            $this->nombre_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }*/
     }
 
     public function setapellido_empleado($value)
@@ -54,6 +62,12 @@ class Empleados extends EmpleadosQueries
         } else {
             return false;
         }
+        /*if ($value) {
+            $this->nombre_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }*/
     }
 
     public function setdui($value)
@@ -78,6 +92,12 @@ class Empleados extends EmpleadosQueries
 
     public function setdireccion($value)
     {
+        /*if ($value) {
+            $this->nombre_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }*/
         if (Validator::validateString($value, 1, 150)) {
             $this->direccion = $value;
             return true;
@@ -110,6 +130,12 @@ class Empleados extends EmpleadosQueries
 
     public function setusuario_empleado($value)
     {
+        /*if ($value) {
+            $this->nombre_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }*/
         if (Validator::validateString($value, 1, 50)) {
             $this->usuario_empleado = $value;
             return true;

@@ -167,8 +167,8 @@ if (isset($_GET['action'])) {
                 break;
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$Empleados_p->setid_empleado($_POST['id'])) {
-                    $result['exception'] = 'id incorrecto';
+                if(!$Empleados_p->setid_empleado($_POST['id'])){
+                    $result['exception'] = 'id malo';
                 } elseif (!$Empleados_p->setnombre_empleado($_POST['nombres'])) {
                     $result['exception'] = 'Nombre del empleado mal ingresado';
                 } elseif (!$Empleados_p->setapellido_empleado($_POST['apellidos'])) {
@@ -177,22 +177,20 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'DUI mal ingresada';
                 } elseif (!$Empleados_p->setusuario_empleado($_POST['usuario'])) {
                     $result['exception'] = 'Usuario mal ingresado';
-                } /*elseif (!$Empleados_p->setclave($_POST['clave'])) {
-                    $result['exception'] = 'Clave mal ingresado';
-                } */ elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
+                } /*elseif ($_POST['clave'] != $_POST['claveConfirm']) {
+                    $result['exception'] = 'Las contraseñas no coinciden';
+                } elseif (!$Empleados_p->setclave($_POST['clave'])) {
+                    $result['exception'] = 'Clave mal ingresada';
+                } */elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo mal ingresado';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
                     $result['exception'] = 'Direccion mal ingresado';
-                } /*elseif (!isset($_POST['cargo'])) {
+                } elseif (!isset($_POST['cargo'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
-                }*/ elseif (!$Empleados_p->setid_cargo($_POST['cargo'])) {
+                } elseif (!$Empleados_p->setid_cargo($_POST['cargo'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 } elseif (!$Empleados_p->setfecha_nacimiento($_POST['fecha_nacimiento'])) {
                     $result['exception'] = 'Fecha incorrecta';
-                } elseif (!$Empleados_p->setestado($_POST['estado'])) {
-                    $result['exception'] = 'estado incorrecto';
-                } elseif ($_POST['id'] == $_SESSION['id_empleado']) {
-                    $result['exception'] = 'No puedes modificar tu propio usuario';
                 } elseif ($Empleados_p->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha actualizado correctamente';
