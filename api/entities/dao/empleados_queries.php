@@ -182,4 +182,12 @@ class EmpleadosQueries
         $params = array($this->id_empleado);
         return Database::executeRow($sql, $params);
     }
+
+    public function readPorCargos()
+    {
+        $sql = 'SELECT nombre_empleado, apellido_empleado, correo_empleado, cargo 
+        FROM empleados INNER JOIN cargos_empleados USING(id_cargo) 
+        ORDER BY nombre_empleado';
+        return Database::getRows($sql);
+    }
 }?>
