@@ -85,6 +85,13 @@ async function fillTable(form = null) {
                     <td>${row.apellido_estudiante}</td>
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
+                    <td>
+                    <button onclick="openReportConducta(${row.id_estudiante})" class="btn btn-warning btn-outline btn-floating
+                    data-mdb-ripple-color=" dark type="button">
+                        <i class="fas fa-id-badge"></i>
+                    </button>
+    
+                    </td>
                     <td><button onclick="openCreate(${row.id_estudiante})" type="button" class="btn btn btn-success btn-rounded" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                     <i class="fa-sharp fa-solid fa-plus"></i>
                     </button>

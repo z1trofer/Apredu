@@ -95,11 +95,20 @@ class FichasQueries
 
     public function readFichasPorSemana()
     {
-        $sql ='SELECT nombre_estudiante,apellido_estudiante, fecha_ficha
+        $sql ='SELECT nombre_estudiante,apellido_estudiante,descripcion_ficha, fecha_ficha
         FROM fichas INNER JOIN estudiantes USING(id_estudiante)
         WHERE YEARWEEK(fecha_ficha, 1) = YEARWEEK(CURDATE(), 1);
         ';
         return Database::getRows($sql);
+    }
+
+    public function FichasXestudiante()
+    {
+        $sql = 'SELECT nombre_estudiante,apellido_estudiante,descripcion_ficha, fecha_ficha
+        FROM fichas INNER JOIN estudiantes USING(id_estudiante)
+        WHERE id_estudiante = ?';
+        $params = array($this->id_estudiante);
+        return Database::executeRow($sql, $params);
     }
 }
 ?>

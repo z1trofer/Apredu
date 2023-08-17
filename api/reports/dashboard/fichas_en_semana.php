@@ -16,9 +16,10 @@ if ($dataFichas = $fichas->readFichasPorSemana()) {
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Times', 'B', 11);
     // Se imprimen las celdas con los encabezados.
-    $pdf->cell(45, 10, 'Nombres', 1, 0, 'C', 1);
-    $pdf->cell(45, 10, 'Apellidos', 1, 0, 'C', 1);
-    $pdf->cell(45, 10, 'Fecha', 1, 1, 'C', 1);
+    $pdf->cell(35, 10, 'Nombres', 1, 0, 'C', 1);
+    $pdf->cell(35, 10, 'Apellidos', 1, 0, 'C', 1);
+    $pdf->cell(91, 10, $pdf->encodeString('Descripción'), 1, 0, 'C', 1);
+    $pdf->cell(25, 10, 'Fecha', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre del empleado
     $pdf->setFillColor(225);
@@ -30,9 +31,10 @@ if ($dataFichas = $fichas->readFichasPorSemana()) {
     // Se recorren los registros fila por fila.
     foreach ($dataFichas as $rowFichas) {
         // Se imprimen las celdas con los datos de los productos.
-        $pdf->cell(45, 10, $pdf->encodeString($rowFichas['nombre_estudiante']), 1, 0);
-        $pdf->cell(45, 10, $pdf->encodeString($rowFichas['apellido_estudiante']),1, 0);
-        $pdf->cell(45, 10, $pdf->encodeString($rowFichas['fecha_ficha']), 1, 1);
+        $pdf->cell(35, 10, $pdf->encodeString($rowFichas['nombre_estudiante']), 1, 0);
+        $pdf->cell(35, 10, $pdf->encodeString($rowFichas['apellido_estudiante']),1, 0);
+        $pdf->cell(91, 10, $pdf->encodeString($rowFichas['descripcion_ficha']),1, 0);
+        $pdf->cell(25, 10, $pdf->encodeString($rowFichas['fecha_ficha']), 1, 1);
     }
 } else {
     $pdf->cell(0, 10, $pdf->encodeString('No hay fichas para mostrar'), 1, 1);
