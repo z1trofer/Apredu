@@ -107,9 +107,15 @@ class EstudiantesQueries
         return Database::executeRow($sql, $params);
     } 
 
+    //consulta para el reporte de estudiantes por grados
     public function reporteEstudiantes(){
-
-        
+            $sql = "SELECT g.grado, e.nombre_estudiante, e.apellido_estudiante, e.nie, e.direccion, g.grado
+            FROM grados g
+            JOIN estudiantes e USING(id_grado)
+            WHERE id_grado = ?
+            ORDER BY g.grado, e.apellido_estudiante, e.nombre_estudiante";
+        $params = array($this->id_grado);
+        return Database::getRows($sql, $params);
     }
 }
 ?>
