@@ -6,15 +6,15 @@ require_once('../../entities/dto/empleados.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Personal académico de Colegio Aprendo Contigo');
+$pdf->startReport('Personal académico');
 // Se instancia el módelo Categoría para obtener los datos.
 $empleados = new Empleados;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataEmpleados = $empleados->readPorCargos()) {
     // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(175);
+    $pdf->setFillColor(154, 201, 229);
     // Se establece la fuente para los encabezados.
-    $pdf->setFont('Times', 'B', 11);
+    $pdf->setFont('Helvetica', 'B', 11);
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(62, 10, 'Nombres', 1, 0, 'C', 1);
     $pdf->cell(62, 10, 'Apellidos', 1, 0, 'C', 1);
@@ -23,7 +23,7 @@ if ($dataEmpleados = $empleados->readPorCargos()) {
     // Se establece un color de relleno para mostrar el nombre del empleado
     $pdf->setFillColor(225);
     // Se establece la fuente para los datos de los productos.
-    $pdf->setFont('Times', '', 11);
+    $pdf->setFont('times', '', 11);
 
     // Se recorren los registros fila por fila.
 

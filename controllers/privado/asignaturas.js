@@ -68,7 +68,7 @@ async function fillTable(form = null) {
                     <button onclick="openDelete(${row.id_asignatura})" type="button" class="btn btn-danger btn-rounded">
                     <i class="fa-sharp fa-solid fa-trash"></i></button>
                     </td>
-                </tr>
+                    </tr>
             `;
         });
         RECORDS.textContent = JSON.message;
@@ -134,6 +134,22 @@ async function openDelete(id) {
             sweetAlert(2, JSON.exception, false);
         }
     }
+}
+
+function openReport() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/dashboard/asignatura_empleado.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+}
+
+function openReport(id) {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/dashboard/asignatura_empleado.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('id_asignatura', id);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 }
 
 //Buscador

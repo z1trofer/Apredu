@@ -62,5 +62,18 @@ class AsignaturasQueries
         ';
         return Database::getRows($sql);
     }
+
+    public function AsignaturaEmpleadoGrado()
+    {
+        $sql = 'SELECT nombre_empleado, apellido_empleado, grado, asignatura
+        FROM detalle_asignaturas_empleados 
+        INNER JOIN empleados USING(id_empleado)
+        INNER JOIN asignaturas USING(id_asignatura)
+        INNER JOIN grados USING(id_grado)
+        GROUP BY nombre_empleado
+        ORDER BY grado DESC;';
+        return Database::getRows($sql);
+
+    }
 }
 ?>
