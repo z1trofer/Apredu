@@ -14,7 +14,7 @@ if (isset($_GET['id_grado'])) {
     $grados = new Grados;
     $empleados = new Empleados;
     // Se establece el valor de la categoría, de lo contrario se muestra un mensaje.
-    if ($grados->setId($_GET['id_grado'] && $empleados->setid_grado($_GET['id_grado']))) {
+    if ($grados->setId($_GET['id_grado']) && $empleados->setid_grado($_GET['id_grado'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
         if ($rowGrado = $grados->readOne()) {
             // Se inicia el reporte con el encabezado del documento.
