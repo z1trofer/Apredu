@@ -86,7 +86,7 @@ async function graficoPieMaterias() {
             cantidad_materias_asignadas.push(row.cantidad_materias_asignadas);
         });
         // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
-        pieGraph('chart2', nombre_empleado, cantidad_materias_asignadas, 'Top 5 docentes con mas materias', 'Top 5 docentes con mas materias');
+        pieGraph('chart2', nombre_empleado, cantidad_materias_asignadas, 'Notas', 'Top 5 docentes con mas materias');
     } else {
         document.getElementById('chart2').remove();
         console.log(DATA.exception);

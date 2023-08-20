@@ -95,6 +95,15 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
     
+    public function notaGlobal()
+    {
+        $sql = "SELECT nombre_estudiante, AVG(nota) as promedio 
+        FROM notas
+        INNER JOIN estudiantes USING (id_estudiante)
+        GROUP BY nombre_estudiante
+        ORDER BY promedio DESC LIMIT 5";
+        return Database::getRows($sql);
+    }
     
 }
 ?>

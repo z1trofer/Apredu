@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     await CargarTrimestres();
     //Función para cargar las asignaturas 
     await CargarAsignaturas();
+
+    graficoPieNotas()
 });
 
 //función Cargar Trimestres
@@ -172,4 +174,26 @@ function openReport() {
     const PATH = new URL(`${SERVER_URL}reports/dashboard/notas_subir.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
+}
+
+async function graficoPieNotas() {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await dataFetch(NOTAS_API, 'notaGlobal');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let nombre_estudiante = [];
+        let promedio = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            nombre_estudiante.push(row.nombre_estudiante);
+            promedio.push(row.promedio);
+        });
+        // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
+        pieGraph('chartNotas', nombre_estudiante, promedio, 'Estudiantes con mayor promedio global', 'Top 3 estudiantes por mayores notas globales');
+    } else {
+        document.getElementById('chartNotas').remove();
+        console.log(DATA.exception);
+    }
 }

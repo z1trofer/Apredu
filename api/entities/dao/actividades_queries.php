@@ -144,5 +144,6 @@ class ActividadesQueries
         $params = array($this->id_actividad);
         return Database::executeRow($sql, $params);
     }
+
 }
 ?>
