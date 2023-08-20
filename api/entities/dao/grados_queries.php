@@ -119,4 +119,20 @@ class GradosQueries
         $params = array($this->id);
         return Database::getRows($sql, $params);
     }
+
+    public function graficoPromedio()
+    {
+        $sql = 'SELECT a.asignatura, ROUND(AVG(n.nota),2) as promedio
+        FROM notas n
+        JOIN actividades act USING(id_actividad)
+        JOIN detalle_asignaturas_empleados dae USING(id_detalle_asignatura_empleado)
+        JOIN asignaturas a USING(id_asignatura)
+        JOIN grados g USING(id_grado)
+        WHERE g.id_grado = ?
+        GROUP BY a.id_asignatura
+        ORDER BY promedio DESC
+        LIMIT 3';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
 }

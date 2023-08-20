@@ -233,6 +233,41 @@ function pieGraph(canvas, legends, values, title) {
     });
 }
 
+/*
+*   Función para generar un gráfico de pastel.
+*   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título del gráfico).
+*   Retorno: ninguno.
+*/
+function polarGraph(canvas, legends, values, title) {
+    let colors = [];
+    values.forEach(() => {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    });
+    const context = document.getElementById(canvas).getContext('2d');
+    const chart = new Chart(context, {
+        type: 'polar',
+        data: {
+            labels: legends,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true, // Controla la escalabilidad del gráfico
+            maintainAspectRatio: false, // No mantiene proporciones
+            width: 300, // Ancho deseado
+            height: 100, // Altura deseada
+            plugins: {
+                title: {
+                    display: true,
+                    text: title
+                }
+            }
+        }
+    });
+}
+
 
 /*
 *   Función asíncrona para cerrar la sesión del usuario.

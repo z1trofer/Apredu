@@ -11,6 +11,9 @@ const RECORDS = document.getElementById('records');
 const FORM_DETALLES = document.getElementById('detalle_form');
 //constante para la tabla de detalles
 const DETALLES_ROWS = document.getElementById('detalle-rows');
+const SAVE_MODAL1 = document.getElementById('save-modalgr1');
+const SAVE_FORM1 = document.getElementById('save-formgr1');
+const MODAL_TITLE1 = document.getElementById('modal-title1');
 // Constante tipo objeto para establecer las opciones del componente Modal.
 
 // Método manejador de eventos para cuando el documento ha cargado.
@@ -75,6 +78,10 @@ async function fillTable(form = null) {
                     </button>
                     <button onclick="openDelete(${row.id_grado})" type="button" class="btn btn-danger">Eliminar</button>
                     <button onclick="openReport(${row.id_grado})" type="button" class="btn btn-warning">Actividades</button>
+                    <button onclick="graficoPromedio(${row.id_grado})" type="button" class="btn btn-primary btn-outline btn-floating"
+                            data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#save-modalgr1">
+                            <i class="fas fa-chart-pie"></i>
+                        </button>
                     </td>
                 </tr>
             `;
@@ -228,6 +235,26 @@ function openReport(id) {
     window.open(PATH.href);
 }
 
+async function graficoPromedio(id) {
+    const FORM = new FormData();
+    FORM.append('id_grado', id);
+
+    const JSON2 = await dataFetch(GRADOS_API, 'graficoPromedios', FORM);
+    const JSON = await dataFetch(GRADOS_API, 'readOne', FORM);
+    if (JSON.status) {
+        let grado = [];
+        let promedio = [];
+        
+        JSON2.dataset.forEach(row => {
+            grado.push(row.grado);
+            promedio.push(row.promedio);
+        });
+        barGraph('chart', grado, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
+        sweetAlert(1, JSON.message, true);
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+}
 
 //Buscador
 (function (document) {
