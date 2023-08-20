@@ -117,5 +117,17 @@ class EstudiantesQueries
         $params = array($this->id_grado);
         return Database::getRows($sql, $params);
     }
+
+    public function checkPassword($password)
+    {
+        $sql = 'SELECT clave FROM estudiantes WHERE id_estudiante = ?';
+        $params = array($this->id_estudiante);
+        $data = Database::getRow($sql, $params);
+        if (password_verify($password, $data['clave'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

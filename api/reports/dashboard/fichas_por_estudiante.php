@@ -41,7 +41,7 @@ if (isset($_GET['id_estudiante'])) {
                     $pdf->cell(25, 10,  $rowFichas['fecha_ficha'], 1, 1);
                 }
             } else {
-                $pdf->cell(0, 10, $pdf->encodeString('No hay productos para la categoría'), 1, 1);
+                $pdf->cell(0, 10, $pdf->encodeString('No hay fichas para el estudiante'), 1, 1);
             }
             // Se llama implícitamente al método footer() y se envía el documento al navegador web.
             $pdf->output('I', 'Fichas.pdf');
