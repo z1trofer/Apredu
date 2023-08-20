@@ -1,13 +1,13 @@
 <?php
 require_once('../../helpers/database.php');
 /*
-*	Clase para manejar el acceso a datos de la entidad Grado.
-*/
+ *	Clase para manejar el acceso a datos de la entidad Grado.
+ */
 class GradosQueries
 {
     /*
-    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
-    */
+     *   Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
+     */
 
 
     //Método par insertar datos a la tabla de grados
@@ -48,7 +48,7 @@ class GradosQueries
         return Database::executeRow($sql, $params);
     }
 
-  //Metodo para eliminar un dato de la tabla por medio del id
+    //Metodo para eliminar un dato de la tabla por medio del id
     public function deleteRow()
     {
         $sql = 'DELETE FROM grados
@@ -71,7 +71,7 @@ class GradosQueries
     {
         $sql = 'INSERT INTO detalle_asignaturas_empleados (id_asignatura, id_grado)
                 VALUES(?, ?)';
-        $params = array( $asignatura, $this->id);
+        $params = array($asignatura, $this->id);
         return Database::executeRow($sql, $params);
     }
 
@@ -86,19 +86,37 @@ class GradosQueries
     public function readAsignaturas()
     {
         $sql = "SELECT id_asignatura, asignatura
-            FROM asignaturas"; 
+            FROM asignaturas";
         return Database::getRows($sql);
     }
 
-            //Generar el grafico de grados con mas estudiantes
-            public function cantidadEstudiantesXgrado()
-            {
-                $sql = 'SELECT grado, COUNT(*) AS cantidad_estudiantes
+    //Generar el grafico de grados con mas estudiantes
+    public function cantidadEstudiantesXgrado()
+    {
+        $sql = 'SELECT grado, COUNT(*) AS cantidad_estudiantes
                 FROM estudiantes INNER JOIN grados USING(id_grado)
                 GROUP BY grado
                 ORDER BY cantidad_estudiantes DESC
                 LIMIT 3;
                 ';
-                return Database::getRows($sql);
-            }
+        return Database::getRows($sql);
+    }
+
+    //consulta para el reporte de actividades por grado
+    public function gradoActividades()
+    {
+        $sql = 'SELECT a.nombre_actividad, a.ponderacion, a.descripcion, a.fecha_entrega, ta.tipo_actividad, t.trimestre, asi.asignatura
+        FROM actividades a
+        JOIN detalle_asignaturas_empleados dae USING(id_detalle_asignatura_empleado)
+        JOIN asignaturas asi USING(id_asignatura)
+        JOIN trimestres t USING(id_trimestre)
+        JOIN tipo_actividades ta USING(id_tipo_actividad)
+        JOIN grados g USING(id_grado)
+        JOIN anios an USING(id_anio)
+        WHERE g.id_grado = ?
+        AND an.anio = (SELECT MAX(anio) FROM anios)
+        ORDER BY t.id_trimestre, a.fecha_entrega, asi.asignatura';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
 }

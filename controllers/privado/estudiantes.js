@@ -387,12 +387,19 @@ async function BusquedaParametrizada() {
 
 }
 
+
 //REPORTE NOTAS
 function reportNotas(id) {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}reports/dashboard/notas.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     PATH.searchParams.append('id', id);
+}
+
+function openReport() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/dashboard/estudiantes_grado.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
 

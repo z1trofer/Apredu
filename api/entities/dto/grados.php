@@ -9,7 +9,6 @@ class Grados extends GradosQueries
     // Declaración de atributos (propiedades).
     protected $id = null;
     protected $grado = null;
-    
     /*
     *   Métodos para validar y asignar valores de los atributos.
     */
