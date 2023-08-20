@@ -82,5 +82,19 @@ class NotasQueries
         $params = array($this->nota, $this->id_nota);
         return Database::executeRow($sql, $params);
     }
+
+    function NotasDeEstudiantesPorActividades() {
+        $sql = "SELECT nota, asi.nombre_actividad, asi.asignatura, nombre_estudiante
+        FROM notas 
+        INNER JOIN (Select actividades.id_actividad, actividades.nombre_actividad, detalle_asignaturas_empleados.id_detalle_asignatura_empleado, detalle_asignaturas_empleados.id_grado, detalle_asignaturas_empleados.id_asignatura , asignaturas.asignatura FROM actividades
+                    INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+                    INNER JOIN asignaturas USING(id_asignatura)) as asi USING(id_actividad)
+        INNER JOIN estudiantes USING(id_estudiante)
+        WHERE asi.id_grado = ?";
+        $params = array($this->id_grado);
+        return Database::getRows($sql, $params);
+    }
+    
+    
 }
 ?>
