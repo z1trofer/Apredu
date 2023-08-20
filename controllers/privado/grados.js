@@ -78,7 +78,7 @@ async function fillTable(form = null) {
                     </button>
                     <button onclick="openDelete(${row.id_grado})" type="button" class="btn btn-danger">Eliminar</button>
                     <button onclick="openReport(${row.id_grado})" type="button" class="btn btn-warning">Actividades</button>
-                    <button onclick="graficoPromedio(${row.id_grado})" type="button" class="btn btn-primary btn-outline btn-floating"
+                    <button onclick="graficoPromedio2(${row.id_grado})" type="button" class="btn btn-primary btn-outline btn-floating"
                             data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#save-modalgr1">
                             <i class="fas fa-chart-pie"></i>
                         </button>
@@ -253,6 +253,30 @@ async function graficoPromedio(id) {
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
+    }
+}
+
+async function graficoPromedio2(id) {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('id_grado', id);
+    // Petición para obtener los datos del registro solicitado.
+    const JSON = await dataFetch(GRADOS_API, 'readOne', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+        const JSON2 = await dataFetch(GRADOS_API, 'graficoPromedios', FORM);
+        if (JSON.status) {
+            let grado = [];
+            let promedio = [];
+            
+            JSON2.dataset.forEach(row => {
+                grado.push(row.grado);
+                promedio.push(row.promedio);
+            });
+            barGraph('chart', grado, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
+            sweetAlert(1, JSON.message, true);
+        } else {
+            sweetAlert(2, JSON.exception, false);    }
     }
 }
 
