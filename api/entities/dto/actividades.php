@@ -15,6 +15,7 @@ class Actividades extends ActividadesQueries
     protected $id_tipo_actividad = null;
     protected $id_trimestre = null;
     protected $id_detalle_asignatura_empleado = null;
+    protected $id_asignatura = null;
 
 
     /*
@@ -95,6 +96,16 @@ class Actividades extends ActividadesQueries
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_detalle_asignatura_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setid_asignatura($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_asignatura = $value;
             return true;
         } else {
             return false;

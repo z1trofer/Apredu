@@ -165,3 +165,11 @@ function OpcionTrimestre(id_trimestreFun, trimestreFun) {
     //se designa el texto del boton como el trimestre seleccionado
     document.getElementById('TrimestreSelect').innerHTML = trimestre;
 };
+
+// funcion para reporte de productos por categoria
+function openReport() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/dashboard/notas_subir.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+}

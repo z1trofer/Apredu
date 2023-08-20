@@ -112,6 +112,9 @@ async function CargarNotas(id_actividadFun, actividadFun) {
                 <th scope="col">${row.apellido_estudiante}</th>
                 <th scope="col">${row.nombre_estudiante}</th>
                 <th scope="col"><input id="input${row.id_nota}" class="${color} notaIn" value="${nota}" onclick="value=''" onblur="NotaUpdatePreparar(${row.id_nota})"></th>
+                <th scope="col"><button onclick="openReport(${row.id_estudiante})"><i class='bx bxs-report'></i></button>
+                </th>
+
             </tr>
             `
         }); 
@@ -159,9 +162,12 @@ async function UpdateNotas(){
             //se notifica del error
             sweetAlert(2, "Algunos cambios no se guardaron ya que el campo no cumplica con el formato adecuado, por favor revise que el formato sea numeros del 1 al 10 con 2 decimales", false);
         }
+        
         //se llama a la función Cargar notas para cargar nuevamente la tabla
         CargarNotas(id_actividad, actividad);
     }
     
 }
+
+
 
