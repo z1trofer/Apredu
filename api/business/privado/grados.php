@@ -145,22 +145,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
-
-                case 'update':
+                case 'graficoPromedio2':
                     $_POST = Validator::validateForm($_POST);
-                    if (!$grados->setId($_POST['id'])) {
+                    if (!$grados->setId($_POST['id_grado'])) {
                         $result['exception'] = 'Grado incorrecta';
                     } elseif (!$data = $grados->readOne()) {
                         $result['exception'] = 'Grado inexistente';
-                    } elseif (!$grados->setGrado($_POST['grado'])) {
-                        $result['exception'] = 'Grado incorrecto';
-                    } elseif ($grados->updateRow()) {
+                    }elseif ($result['dataset'] = $grados->graficoPromedio()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Grado modificado correctamente';
-                    } else if (Database::getException()) {
-                        $result['exception'] = Database::getException();
+                        $result['message'] = 'Encontrado correctamente';
+    
                     } else {
-                        $result['exception'] = 'asdasdasdasdasd';
+                        $result['exception'] = 'No hay datos disponibles';
                     }
                     break;
             default:

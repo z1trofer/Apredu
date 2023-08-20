@@ -256,20 +256,19 @@ async function graficoPromedio(id) {
     }
 }
 
-async function graficoPromedio2(id) {
+async function graficoPromedio2(id_grado) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('id_grado', id);
+    FORM.append('id_grado', id_grado);
     // Petición para obtener los datos del registro solicitado.
-    const JSON = await dataFetch(GRADOS_API, 'readOne', FORM);
+    const JSON = await dataFetch(GRADOS_API, 'graficoPromedio2', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (JSON.status) {
-        const JSON2 = await dataFetch(GRADOS_API, 'graficoPromedios', FORM);
+
         if (JSON.status) {
             let grado = [];
             let promedio = [];
             
-            JSON2.dataset.forEach(row => {
+            JSON.dataset.forEach(row => {
                 grado.push(row.grado);
                 promedio.push(row.promedio);
             });
@@ -278,7 +277,7 @@ async function graficoPromedio2(id) {
         } else {
             sweetAlert(2, JSON.exception, false);    }
     }
-}
+
 
 //Buscador
 (function (document) {
