@@ -36,6 +36,29 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
+    //Obtener los trimestres del año lectivo (sin parametro)
+    function ObtenerTrimestresActual() {
+        $sql = "SELECT id_trimestre, trimestre, anios.anio from trimestres 
+        INNER JOIN anios USING (id_anio)
+        where id_anio = (select id_anio from trimestres where estado = true)";
+        return Database::getRows($sql);
+    }
+    //obtiene el anio del trimestre activo
+    function ObtenerAnio() {
+        $sql = "SELECT DISTINCT anios.anio from trimestres 
+        INNER JOIN anios USING (id_anio)
+        where id_anio = (select id_anio from trimestres where estado = true)";
+        return Database::getRow($sql);
+    }
+
+
+    //Obtener asignaturas de un grado especifico
+    function ObtenerAsignaturas($grado) {
+        $sql = "SELECT id_asignatura, asignatura from asignaturas INNER JOIN detalle_asignaturas_empleados USING (id_asignatura)
+        where id_grado = ".$grado;
+        return Database::getRows($sql);
+    }
+
     //obtener actividades segun docente, asignatura y trimestre
     function ObtenerActividades() {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad
@@ -82,5 +105,19 @@ class NotasQueries
         $params = array($this->nota, $this->id_nota);
         return Database::executeRow($sql, $params);
     }
+
+    //Obtener el promedio total de un trimestre de una materia y alumno especifico
+    function obtenerNotaTrimestre() {
+        $sql = "SELECT ROUND(SUM(valor),2) as puntaje from (select nota*(actividades.ponderacion/100) as valor from notas
+        INNER JOIN actividades USING (id_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
+        INNER JOIN asignaturas USING (id_asignatura)
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN trimestres USING (id_trimestre)
+        where id_estudiante = ?
+        and trimestres.id_trimestre = ? and asignaturas.id_asignatura = ?) as consulta
+        ";
+        $params = array($this->id_estudiante, $this->id_trimestre, $this->id_asignatura);
+        return Database::getRow($sql, $params);
+    }
 }
-?>

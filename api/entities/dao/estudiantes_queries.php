@@ -26,7 +26,7 @@ class EstudiantesQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function ReadOne()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, grado, usuario_estudiante, clave, estado
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, grado, usuario_estudiante, estado
             FROM estudiantes
             INNER JOIN grados USING(id_grado)
             WHERE id_estudiante = ?';
