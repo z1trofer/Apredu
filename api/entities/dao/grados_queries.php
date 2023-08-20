@@ -122,7 +122,7 @@ class GradosQueries
 
     public function graficoPromedio()
     {
-        $sql = 'SELECT a.asignatura, ROUND(AVG(n.nota),2) as promedio
+        $sql = 'SELECT a.asignatura, ROUND(AVG(n.nota),2) AS promedio
         FROM notas n
         JOIN actividades act USING(id_actividad)
         JOIN detalle_asignaturas_empleados dae USING(id_detalle_asignatura_empleado)

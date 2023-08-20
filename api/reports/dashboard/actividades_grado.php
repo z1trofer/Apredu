@@ -27,9 +27,8 @@ if (isset($_GET['id_grado'])) {
                 $pdf->setFont('Arial', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
                 $pdf->cell(40, 10, 'Actividad', 1, 0, 'C', 1);
-                $pdf->cell(50, 10, $pdf->encodeString('Descripción'), 1, 0, 'C', 1);
-                $pdf->cell(20, 10, $pdf->encodeString('Ponderación %'), 1, 1, 'C', 1);
-                $pdf->cell(40, 10, 'Tipo de actividad', 1, 1, 'C', 1);
+                $pdf->cell(70, 10, $pdf->encodeString('Descripción'), 1, 0, 'C', 1);
+                $pdf->cell(40, 10, 'Tipo de actividad', 1, 0, 'C', 1);
                 $pdf->cell(36, 10, 'Asignatura', 1, 1, 'C', 1);
                 // Se establece la fuente para los datos de los productos.
                 $pdf->setFont('Helvetica', '', 11);
@@ -37,10 +36,9 @@ if (isset($_GET['id_grado'])) {
                 foreach ($dataGrados as $rowGrado) {
                     // Se imprimen las celdas con los datos de los productos.
                     $pdf->cell(40, 10, $pdf->encodeString($rowGrado['nombre_actividad']), 'B', 0);
-                    $pdf->cell(50, 10, $pdf->encodeString($rowGrado['descripcion']), 'B', 0);
-                    $pdf->cell(20, 10, 'ponderacion', 'B', 0);
+                    $pdf->cell(70, 10, $pdf->encodeString($rowGrado['descripcion']), 'B', 0);
                     $pdf->cell(40, 10, $pdf->encodeString($rowGrado['tipo_actividad']), 'B', 0);
-                    $pdf->cell(36, 10, $pdf->encodeString($rowGrado['asignatura']), 'B', 1);
+                    $pdf->MultiCell(36, 10, $pdf->encodeString($rowGrado['asignatura']), 'B', 1);
                 }
             } else {
                 $pdf->cell(0, 10, $pdf->encodeString('No hay actividades en este grado'), 1, 1);
