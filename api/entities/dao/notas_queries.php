@@ -162,7 +162,7 @@ class NotasQueries
         if($parametros['trimestre'] != "Todos"){
             $sql = $sql."where id_trimestre = ".$parametros['trimestre'];
         };
-       $sql = $sql." GROUP BY id_estudiante
+        $sql = $sql." GROUP BY id_estudiante
         ORDER BY promedio DESC
         LIMIT 5";
         //$params = array($this->id_grado);
