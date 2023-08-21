@@ -394,6 +394,7 @@ function reportNotas(id) {
     const PATH = new URL(`${SERVER_URL}reports/dashboard/notas.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     PATH.searchParams.append('id', id);
+    window.open(PATH.href);
 }
 
 function openReport() {
