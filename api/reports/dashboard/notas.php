@@ -13,7 +13,7 @@ $pdf->startReport('BOLETA DE NOTAS');
 $estudiantes = new Estudiantes;
 $notas = new Notas;
 if($anio = $notas->ObtenerAnio()){
-    $pdf->cell(0, 10,  $pdf->encodeString("AÑO ").$anio['anio'], 0, 1, "C");
+    $pdf->cell(0, 12,  $pdf->encodeString("AÑO ").$anio['anio'], 0, 1, "C");
 }else{
     $pdf->cell(0, 10, 'error', 1, 1);
 }
@@ -42,7 +42,7 @@ if ($estudiantes->setIdEstudiante($_GET['id']) && $notas->setId_estudiante($_GET
             $pdf->setFillColor(115, 120, 117);
             $pdf->cell(50, 10, 'Asignaturas', "B", 0, 'C');
             $pdf->cell(50, 10, 'Primer Trimestre', "L, B, R", 0, 'C');
-            $pdf->cell(50, 10, 'Segundo Trimiestre', 'B, R', 0, 'C');
+            $pdf->cell(50, 10, 'Segundo Trimestre', 'B, R', 0, 'C');
             $pdf->cell(50, 10, 'Tercer Trimestre', 'B, R', 0, 'C');
             $pdf->cell(50, 10, 'Nota Final', 'B', 1, 'C');
             $pdf->setFont('Arial', '', 10);

@@ -13,9 +13,9 @@ $empleados = new Empleados;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataCargo = $empleados->readCargos()) {
     // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(175);
+    $pdf->setFillColor(154, 201, 229);
     // Se establece la fuente para los encabezados.
-    $pdf->setFont('Times', 'B', 11);
+    $pdf->setFont('Helvetica', 'B', 11);
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(50, 10, 'Nombres', 1, 0, 'C', 1);
     $pdf->cell(50, 10, 'Apellidos', 1, 0, 'C', 1);
@@ -24,7 +24,7 @@ if ($dataCargo = $empleados->readCargos()) {
 
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
-    $pdf->setFillColor(225);
+    $pdf->setFillColor(254, 227, 129);
     // Se establece la fuente para los datos de los productos.
     $pdf->setFont('Times', '', 11);
 
