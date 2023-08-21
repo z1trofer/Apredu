@@ -1,5 +1,6 @@
 const GRADOS_API = 'business/privado/grados.php';
 const ASIGNATURA_API = 'business/privado/asignaturas.php';
+const CONDUCTA_API = 'business/privado/fichas.php';
 //llamar formulario log in
 let tipoUsuario = null;
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     graficoBarrasSubCategorias()
     graficoPieMaterias()
+    graficoReportesConductas()
 });
 
 //funcion para controlar las opciones disponibles segun el nivel de usuario
@@ -89,6 +91,28 @@ async function graficoPieMaterias() {
         pieGraph('chart2', nombre_empleado, cantidad_materias_asignadas, 'Top 5 docentes con mas materias', 'Top 5 docentes con mas materias');
     } else {
         document.getElementById('chart2').remove();
+        console.log(DATA.exception);
+    }
+}
+
+async function graficoReportesConductas() {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await dataFetch(CONDUCTA_API, 'MasFichasConducta');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let nombre_estudiante = [];
+        let cantidad_fichas = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            nombre_estudiante.push(row.nombre_estudiante);
+            cantidad_fichas.push(row.conteo);
+        });
+        // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
+        pieGraph('chart3', nombre_estudiante, cantidad_fichas, 'Top 5 de los estudiantes con más reportes de conducta', 'Top 5 de los estudiantes con más reportes de conducta');
+    } else {
+        document.getElementById('chart3').remove();
         console.log(DATA.exception);
     }
 }

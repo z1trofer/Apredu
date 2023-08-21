@@ -110,5 +110,14 @@ class FichasQueries
         $params = array($this->id_estudiante);
         return Database::getRows($sql, $params);
     }
+
+    public function EstudianteMasReportes()
+    {
+        $sql = "SELECT COUNT(id_ficha) as conteo, MAX(nombre_estudiante)  FROM fichas
+        INNER JOIN estudiantes USING(id_estudiante)
+        LIMIT 5";
+         return Database::getRows($sql);
+
+    }
 }
 ?>
