@@ -42,6 +42,22 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Error al obtener los trimestres';
                 }
                 break;
+            case 'ObtenerTrimestresNoParam':
+                $_POST = Validator::validateForm($_POST);
+                if ($result['dataset'] = $notas->ObtenerTrimestresActual()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Error al obtener los trimestres';
+                }
+                break;
+            case 'ObtenerGrados':
+                $_POST = Validator::validateForm($_POST);
+                if ($result['dataset'] = $notas->ObtenerGrados()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Error al obtener los grados';
+                }
+                break;
             case 'ObtenerActividades':
                 $_POST = Validator::validateForm($_POST);
                 if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
@@ -106,6 +122,19 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+            case 'topNotas':
+                $_POST = Validator::validateForm($_POST);
+                $parametros = array('trimestre' => null, 'grado' => null);
+                $parametros['trimestre'] = $_POST['trimestre'];
+                $parametros['grado'] = $_POST['grado'];
+                if ($result['dataset'] = $notas->TopNotas($parametros)) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
@@ -119,4 +148,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>

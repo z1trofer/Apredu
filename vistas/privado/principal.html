@@ -29,36 +29,70 @@
                 <br><br><br>
                 <div class="container text-center">
                     <div class="row row-cols-2">
-                      <div class="card col-sm-12 col-md-6">
-                        <div>
-                            <canvas id="chart1"></canvas>
+                        <div class="card col-sm-12 col-md-6">
+                            <div>
+                                <canvas id="chart1"></canvas>
+                            </div>
                         </div>
-                      </div>
-                      <div class="card col-sm-12 col-md-6" >
-                        <div >
-                            <canvas id="chart2" ></canvas>
+                        <div class="card col-sm-12 col-md-6">
+                            <div>
+                                <canvas id="chart2"></canvas>
+                            </div>
                         </div>
-                      </div>
                     </div>
+                    <!--graficos parametrizados-->
                     <div class="row">
-                      <div class=" card col">
-                        <div >
-                            <canvas id="chart2" ></canvas>
+                        <div class=" card col-sm-12 col-md-6">
+                            <div>
+                                <div class="row">
+
+
+                                </div>
+                                <div class="row" id="chartspace3">
+                                    <canvas id='chart3'></canvas>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--card grafico parametrizado, top notas de estudiantes-->
+                        <div class="card col-sm-12 col-md-6">
+                            <div class="row">
+                                <hr>
+                                <div class="col">
+                                    <label class="form-label" for="formTextExample2">Trimestre</label>
+                                    <select class="form-select" required aria-label="select example"
+                                        id="trimestre_top" name="trimestre_top">
+                                        <option value="">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="formTextExample2">Grado</label>
+                                    <select class="form-select" required aria-label="select example" id="grado_top"
+                                        name="grado_top">
+                                        <option value="">Todos</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="chartspace4">
+                            <canvas id="chart4"></canvas>
+                            </div>
+                            <!--espacio div para el grafico Alumnos aprobados-->
+                            <div id="chartspace6">
+                                <canvas id="chart6"></canvas>
+                                </div>
+                            <div>
+
+                            </div>
                         </div>
 
-                      </div>
-                      <div class="card col">
-                        <div >
-                            <canvas id="chart2" ></canvas>
+                        <div class="card col">
+                            <div>
+                                <canvas id="chart2"></canvas>
+                            </div>
                         </div>
-                      </div>
-                      <div class="card col">
-                        <div >
-                            <canvas id="chart2" ></canvas>
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                </div>
                 <script src="../../recursos/js/chart.umd.min.js"></script>
 
     </main>
@@ -89,7 +123,7 @@
                 </section>
             </div>
             <!-- Copyright -->
-            <div class="text-center  p-3" style="background-color: rgba(0, 0, 0, 0.2);" >
+            <div class="text-center  p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2023 Copyright:
                 <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
             </div>

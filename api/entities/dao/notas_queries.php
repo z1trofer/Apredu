@@ -51,6 +51,10 @@ class NotasQueries
         return Database::getRow($sql);
     }
 
+    function ObtenerGrados(){
+        $sql = "SELECT id_grado, grado from grados";
+        return Database::getRows($sql);
+    }
 
     //Obtener asignaturas de un grado especifico
     function ObtenerAsignaturas($grado) {
@@ -132,6 +136,37 @@ class NotasQueries
         WHERE asi.id_grado = ?";
         $params = array($this->id_grado);
         return Database::getRows($sql, $params);
+    }
+
+    function TopNotas($parametros) {
+        $sql = "SELECT id_estudiante, CONCAT(nombre_estudiante,' ', apellido_estudiante) as nombre, ROUND(AVG(promedio),2) as promedio from
+        (select trimestres.id_trimestre, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, trimestres.trimestre, consulta.asignatura, SUM(valor) as promedio from
+        (select trimestres.id_trimestre, trimestres.trimestre, actividades.id_actividad, actividades.nombre_actividad, asignaturas.id_asignatura, asignaturas.asignatura, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, actividades.ponderacion, notas.nota, ROUND(notas.nota*actividades.ponderacion/100, 2) as valor  from notas
+        INNER JOIN actividades USING (id_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
+        INNER JOIN asignaturas USING (id_asignatura)
+        INNER JOIN trimestres USING (id_trimestre)
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN anios USING (id_anio)
+        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = 
+        (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true) ";
+        if($parametros['grado'] != "Todos"){
+            $sql = $sql." and grados.id_grado = ".$parametros['grado'];
+        };
+        $sql = $sql." ) as consulta 
+        INNER JOIN trimestres USING (id_trimestre)
+        INNER JOIN estudiantes USING (id_estudiante)
+        where trimestres.id_trimestre = consulta.id_trimestre and estudiantes.id_estudiante = consulta.id_estudiante
+        GROUP BY trimestres.id_trimestre, consulta.asignatura, estudiantes.id_estudiante
+        ORDER BY estudiantes.nombre_estudiante) as wea ";
+        if($parametros['trimestre'] != "Todos"){
+            $sql = $sql."where id_trimestre = ".$parametros['trimestre'];
+        };
+        $sql = $sql." GROUP BY id_estudiante
+        ORDER BY promedio DESC
+        LIMIT 5";
+        //$params = array($this->id_grado);
+        return Database::getRows($sql);
     }
     
 
