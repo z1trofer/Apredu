@@ -26,9 +26,9 @@ if (isset($_GET['id_grado'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataGrados = $grados->gradoActividades()) {
                 // Se establece un color de relleno para los encabezados.
-                $pdf->setFillColor(215, 198, 153);
+                $pdf->setFillColor(154, 201, 229);
                 // Se establece la fuente para los encabezados.
-                $pdf->setFont('Arial', 'B', 11);
+                $pdf->setFont('Helvetica', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
                 $pdf->cell(50, 10, 'Actividad', 1, 0, 'C', 1);
                 $pdf->cell(40, 10, 'Tipo de actividad', 1, 0, 'C', 1);

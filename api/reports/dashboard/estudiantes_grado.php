@@ -16,24 +16,24 @@ $pdf->startReport('Información de cada estudiante por grado');
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataGrados = $grado->readAll()) {
     // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(215, 198, 153);
+    $pdf->setFillColor(154, 201, 229);
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Arial', 'B', 11);
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(40, 10, 'Apellido', 1, 0, 'C', 1);
     $pdf->cell(40, 10, 'Nombre', 1, 0, 'C', 1);
-    $pdf->cell(20, 10, 'nie', 1, 0, 'C', 1);
+    $pdf->cell(20, 10, 'NIE', 1, 0, 'C', 1);
     $pdf->cell(86, 10, $pdf->encodeString('Dirección'), 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
-    $pdf->setFillColor(225);
+    $pdf->setFillColor(254, 227, 129);
     // Se establece la fuente para los datos de los productos.
-    $pdf->setFont('Helvetica', '', 11);
+    $pdf->setFont('Times', '', 11);
 
     // Se recorren los registros fila por fila.
     foreach ($dataGrados as $rowGrado) {
         // Se imprime una celda con el nombre de la categoría.
-        $pdf->setFillColor(238, 220, 170);
+        $pdf->setFillColor(254, 227, 129);
         $pdf->cell(186, 10, $pdf->encodeString('Grado: ' . $rowGrado['grado']), 1, 1, 'C', 1);
         // Se instancia el módelo Producto para procesar los datos.
         $estudiante = new Estudiantes;
