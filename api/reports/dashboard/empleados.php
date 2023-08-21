@@ -13,7 +13,7 @@ $empleados = new Empleados;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataCargo = $empleados->readCargos()) {
     // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(175);
+    $pdf->setFillColor(154, 201, 229);
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Times', 'B', 11);
     // Se imprimen las celdas con los encabezados.
