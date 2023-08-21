@@ -102,15 +102,15 @@ async function graficoReportesConductas() {
     if (DATA.status) {
         // Se declaran los arreglos para guardar los datos a graficar.
         let nombre_estudiante = [];
-        let cantidad_fichas = [];
+        let cantidad_ficha = [];
         // Se recorre el conjunto de registros fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se agregan los datos a los arreglos.
             nombre_estudiante.push(row.nombre_estudiante);
-            cantidad_fichas.push(row.conteo);
+            cantidad_ficha.push(row.cantidad_ficha);
         });
         // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
-        pieGraph('chart3', nombre_estudiante, cantidad_fichas, 'Top 5 de los estudiantes con más reportes de conducta', 'Top 5 de los estudiantes con más reportes de conducta');
+        barGraphLineal('chart3', nombre_estudiante, cantidad_ficha, 'Top 3 de los estudiantes con más reportes de conducta', 'Top 3 de los estudiantes con más reportes de conducta');
     } else {
         document.getElementById('chart3').remove();
         console.log(DATA.exception);
