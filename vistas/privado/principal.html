@@ -40,10 +40,31 @@
                         </div>
                       </div>
                     </div>
+                    <!--graficos parametrizados-->
                     <div class="row">
-                      <div class=" card col">
-                        <div >
-                            <canvas id="chart2" ></canvas>
+                      <div class=" card col-sm-12 col-md-6">
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label" for="formTextExample2">Trimestre</label>
+                                    <select class="form-select" required aria-label="select example" id="trimestre_top"
+                                    name="trimestre_top">
+                                    <option value="">Todos</option>
+                                </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="formTextExample2">Grado</label>
+                                    <select class="form-select" required aria-label="select example" id="grado_top"
+                                    name="grado_top">
+                                    <option value="">Todos</option>
+                                </select>
+                                </div>
+                                
+                            </div>
+                            <div class="row" id="chartspace3">
+                                <canvas id='chart3'></canvas>
+                            </div>
+
                         </div>
 
                       </div>
@@ -52,11 +73,7 @@
                             <canvas id="chart2" ></canvas>
                         </div>
                       </div>
-                      <div class="card col">
-                        <div >
-                            <canvas id="chart2" ></canvas>
-                        </div>
-                      </div>
+
                     </div>
                   </div>
                 <script src="../../recursos/js/chart.umd.min.js"></script>
