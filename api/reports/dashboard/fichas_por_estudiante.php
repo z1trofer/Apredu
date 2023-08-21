@@ -22,7 +22,7 @@ if (isset($_GET['id_estudiante'])) {
             
             if ($dataFichas = $fichas->FichasXestudiante()) {
                 // Se establece un color de relleno para los encabezados.
-                $pdf->setFillColor(215, 198, 153);
+                $pdf->setFillColor(154, 201, 229);
                 // Se establece la fuente para los encabezados.
                 $pdf->setFont('Arial', 'B', 11);
                 // Se imprimen las celdas con los encabezados.

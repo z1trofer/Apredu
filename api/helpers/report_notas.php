@@ -60,10 +60,12 @@ class Report extends FPDF
         $this->image('../../../recursos/headerL.png', 0, 0, 280);
         $this->image('../../../recursos/logo1.png', 15, 10, 20);
         // Se ubica el título.
-        $this->setFont('Arial', '', 10);
+        $this->setFont('Arial', 'B', 12);
         $this->cell(0, 5, $this->encodeString('COLEGIO APRENDO CONTIGO'), 0, 1, 'C');
-        $this->setFont('Arial', 'B', 18);
+        $this->setFont('Arial', '', 12);
         $this->cell(0, 10, $this->encodeString($this->title), 0, 1, 'C');
+        $this->ln(3);
+
         // Se ubica la fecha y hora del servidor.
         //$this->cell(0, 20, '' ,1);
 
@@ -86,7 +88,7 @@ class Report extends FPDF
         // Se establece la fuente para el número de página.
         $this->setFont('Arial', 'I', 8);
         // Se imprime una celda con el número de página.
-        $this->cell(0, 10, $this->encodeString('Página ') . $this->pageNo() . '/{nb}', 0, 0, 'C');
+        $this->cell(0, 10, $this->encodeString('') . $this->pageNo() . '/{nb}', 0, 0, 'C');
     }
 }
 ?>
