@@ -235,27 +235,6 @@ function openReport(id) {
     window.open(PATH.href);
 }
 
-async function graficoPromedio(id) {
-    const FORM = new FormData();
-    FORM.append('id_grado', id);
-
-    const JSON2 = await dataFetch(GRADOS_API, 'graficoPromedios', FORM);
-    const JSON = await dataFetch(GRADOS_API, 'readOne', FORM);
-    if (JSON.status) {
-        let grado = [];
-        let promedio = [];
-        
-        JSON2.dataset.forEach(row => {
-            grado.push(row.grado);
-            promedio.push(row.promedio);
-        });
-        barGraph('chart', grado, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
-        sweetAlert(1, JSON.message, true);
-    } else {
-        sweetAlert(2, JSON.exception, false);
-    }
-}
-
 async function graficoPromedio2(id_grado) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
@@ -265,16 +244,17 @@ async function graficoPromedio2(id_grado) {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
 
         if (JSON.status) {
-            let grado = [];
+            let asignatura = [];
             let promedio = [];
             
             JSON.dataset.forEach(row => {
-                grado.push(row.grado);
+                asignatura.push(row.asignatura);
                 promedio.push(row.promedio);
             });
-            barGraph('chart', grado, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
+            barGraph('chart4', asignatura, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
             sweetAlert(1, JSON.message, true);
-        } else {
+        } else {   
+                document.getElementById('chart4').remove();
             sweetAlert(2, JSON.exception, false);    }
     }
 
