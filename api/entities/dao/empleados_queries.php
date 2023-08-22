@@ -192,4 +192,19 @@ class EmpleadosQueries
         $params = array($this->id_cargo);
         return Database::getRows($sql, $params);
     }
+
+    public function AsignaturaEmpleadoGrado()
+    {
+        $sql = 'SELECT nombre_empleado, apellido_empleado, grado, asignatura, cargo
+        FROM detalle_asignaturas_empleados 
+        INNER JOIN empleados USING(id_empleado)
+        INNER JOIN asignaturas asi USING(id_asignatura)
+        INNER JOIN grados USING(id_grado)
+        INNER JOIN cargos_empleados USING(id_cargo)
+        WHERE asi.id_asignatura = ?
+        GROUP BY nombre_empleado, cargo
+        ORDER BY grado DESC';
+        $params = array($this->id_asignatura);
+        return Database::getRows($sql, $params);
+    }
 }?>
