@@ -236,25 +236,29 @@ function openReport(id) {
 }
 
 async function graficoPromedio2(id_grado) {
+    document.getElementById('grafico').innerHTML = "<canvas id='chart4'></canvas>";
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
     FORM.append('id_grado', id_grado);
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(GRADOS_API, 'graficoPromedio2', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-
         if (JSON.status) {
+            //se declaran ambos arreglos
             let asignatura = [];
             let promedio = [];
-            
+            //se lee cada fila de la consulta
             JSON.dataset.forEach(row => {
+                //se llenan los arreglos respectivamente
                 asignatura.push(row.asignatura);
                 promedio.push(row.promedio);
             });
+            //se genera el grafico
             barGraph('chart4', asignatura, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
             sweetAlert(1, JSON.message, true);
         } else {   
-                document.getElementById('chart4').remove();
+            //se resetea el canvas del grafico para dar lugar a uno nuevo
+                document.getElementById('grafico').innerHTML = "<canvas id='chart4'></canvas>";
             sweetAlert(2, JSON.exception, false);    }
     }
 
