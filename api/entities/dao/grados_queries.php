@@ -135,4 +135,5 @@ class GradosQueries
         $params = array($this->id);
         return Database::getRows($sql, $params);
     }
+
 }

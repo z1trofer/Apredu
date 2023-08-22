@@ -235,6 +235,12 @@ function openReport(id) {
     window.open(PATH.href);
 }
 
+function openReport2() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/dashboard/grados_asignatura.php`);
+    window.open(PATH.href);
+}
+
 async function graficoPromedio2(id_grado) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();

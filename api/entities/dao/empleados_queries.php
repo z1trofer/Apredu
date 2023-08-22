@@ -207,4 +207,16 @@ class EmpleadosQueries
         $params = array($this->id_asignatura);
         return Database::getRows($sql, $params);
     }
+
+    public function gradoAsignaturas()
+    {
+        $sql = 'SELECT a.id_asignatura, a.asignatura
+        FROM asignaturas a
+        INNER JOIN detalle_asignaturas_empleados dae USING(id_asignatura)
+        INNER JOIN grados g USING(id_grado)
+        WHERE g.id_grado = ?
+        ORDER BY asignatura ASC';
+        $params = array($this->id_grado);
+        return Database::getRows($sql, $params);
+    }
 }?>
