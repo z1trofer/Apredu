@@ -11,13 +11,13 @@ $asignatura = new Asignaturas;
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Detalle');
+$pdf->startReport('Asignaturas y personal académico por grado');
 // Se instancia el módelo Categoría para obtener los datos.
 
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataAsignatura = $asignatura->readAll()) {
     // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(215, 198, 153);
+    $pdf->setFillColor(154, 201, 229);
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Arial', 'B', 11);
     // Se imprimen las celdas con los encabezados.
@@ -27,14 +27,14 @@ if ($dataAsignatura = $asignatura->readAll()) {
     $pdf->cell(36, 10, 'Grado', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
-    $pdf->setFillColor(225);
+    $pdf->setFillColor(254, 227, 129);
     // Se establece la fuente para los datos de los productos.
-    $pdf->setFont('Helvetica', '', 11);
+    $pdf->setFont('Times', '', 11);
 
     // Se recorren los registros fila por fila.
     foreach ($dataAsignatura as $rowAsignatura) {
         // Se imprime una celda con el nombre de la categoría.
-        $pdf->setFillColor(238, 220, 170);
+        $pdf->setFillColor(254, 227, 129);
         $pdf->cell(186, 10, $pdf->encodeString('Asignatura: ' . $rowAsignatura['asignatura']), 1, 1, 'C', 1);
         // Se instancia el módelo Producto para procesar los datos.
         $empleado = new Empleados;

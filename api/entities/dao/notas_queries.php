@@ -115,6 +115,7 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
+    //ActualizarNotas
     function CambiarNotas()
     {
         $sql = "UPDATE notas SET nota = ? where id_nota = ?";
@@ -139,6 +140,7 @@ class NotasQueries
         return Database::getRow($sql, $params);
     }
 
+    //notas de activididades de todos los estudiantes segun grado
     function NotasDeEstudiantesPorActividades()
     {
         $sql = "SELECT nota, asi.nombre_actividad, asi.asignatura, nombre_estudiante
@@ -152,19 +154,19 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
+    //Obtener los mejores 5 promedios
     function TopNotas($parametros)
     {
         $sql = "SELECT id_estudiante, CONCAT(nombre_estudiante,' ', apellido_estudiante) as nombre, ROUND(AVG(promedio),2) as promedio from
-        (select trimestres.id_trimestre, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, trimestres.trimestre, consulta.asignatura, SUM(valor) as promedio from
-        (select trimestres.id_trimestre, trimestres.trimestre, actividades.id_actividad, actividades.nombre_actividad, asignaturas.id_asignatura, asignaturas.asignatura, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, actividades.ponderacion, notas.nota, ROUND(notas.nota*actividades.ponderacion/100, 2) as valor  from notas
+        (select trimestres.id_trimestre, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, SUM(valor) as promedio from
+        (select trimestres.id_trimestre, asignaturas.asignatura, estudiantes.id_estudiante, notas.nota, ROUND(notas.nota*actividades.ponderacion/100, 2) as valor  from notas
         INNER JOIN actividades USING (id_actividad)
         INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
         INNER JOIN asignaturas USING (id_asignatura)
         INNER JOIN trimestres USING (id_trimestre)
-        INNER JOIN grados USING (id_grado)
         INNER JOIN anios USING (id_anio)
-        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = 
-        (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true) ";
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true) ";
         if ($parametros['grado'] != "Todos") {
             $sql = $sql . " and grados.id_grado = " . $parametros['grado'];
         };
@@ -194,20 +196,19 @@ class NotasQueries
         return Database::getRows($sql);
     }
 
-
+    //consulta para obtener los estudiantes aprobados y reprobados
     function AproYRepro($parametros)
     {
         $sql = "SELECT COUNT(promedio) as cantidad from (SELECT id_estudiante, CONCAT(nombre_estudiante,' ', apellido_estudiante) as nombre, ROUND(AVG(promedio),2) as promedio from
-    (select trimestres.id_trimestre, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, trimestres.trimestre, consulta.asignatura, SUM(valor) as promedio from
-    (select trimestres.id_trimestre, trimestres.trimestre, actividades.id_actividad, actividades.nombre_actividad, asignaturas.id_asignatura, asignaturas.asignatura, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, actividades.ponderacion, notas.nota, ROUND(notas.nota*actividades.ponderacion/100, 2) as valor  from notas
-    INNER JOIN actividades USING (id_actividad)
-    INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
-    INNER JOIN asignaturas USING (id_asignatura)
-    INNER JOIN trimestres USING (id_trimestre)
-    INNER JOIN anios USING (id_anio)
-    INNER JOIN grados USING (id_grado)
-    INNER JOIN estudiantes USING (id_estudiante) where anios.anio = (select anio from anios INNER JOIN trimestres USING (id_anio) where 
-    trimestres.estado = true)";
+        (select trimestres.id_trimestre, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, SUM(valor) as promedio from
+        (select trimestres.id_trimestre, asignaturas.asignatura, estudiantes.id_estudiante, notas.nota, ROUND(notas.nota*actividades.ponderacion/100, 2) as valor  from notas
+        INNER JOIN actividades USING (id_actividad)
+        INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
+        INNER JOIN asignaturas USING (id_asignatura)
+        INNER JOIN trimestres USING (id_trimestre)
+        INNER JOIN anios USING (id_anio)
+        INNER JOIN grados USING (id_grado)
+        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true)";
         if ($parametros['grado'] != "Todos") {
             $sql = $sql . " and grados.id_grado = " . $parametros['grado'];
         };

@@ -152,23 +152,30 @@ async function graficoReportesConductas() {
     }
 }
 
-
+//grafico para obtener un listado de los estudiantes aprobados y reporbador
 async function graficoReproYApro() {
-    debugger
+    //se declara un arreglo con valores predefinidos
     let array = ['Aprobados', 'Reprobados'];
+    //arrelgo para guardar las cantidades respectivas
     let cantidad = [];
-    debugger
+    //loop para repetir el codigo 2 veces
     for (let index = 0; index <= 1; index++) {
+        //se llena un formulario con los parametros respectivos
         const FORM = new FormData();
         FORM.append('trimestre', document.getElementById('trimestre_top').value);
         FORM.append('grado', document.getElementById('grado_top').value);
+        //segun la repeticion del codigo se manda una condicion diferente para obtener los 
+        //aprobados y reprobados
         if(index == 0){
             FORM.append('condicion', '>=');
         }else{
             FORM.append('condicion', '<');
         }
+        //se manda a llamar a la consulta
         const DATA = await dataFetch(NOTAS_API, 'estudiantesAprobados', FORM);
+        //se verifica la respuesta
         if (DATA.status) {
+            //se sube la cantidad al arreglo declarado previamente
             cantidad.push(DATA.dataset.cantidad);
         }else {
         //document.getElementById('chart5').remove();
@@ -176,22 +183,27 @@ async function graficoReproYApro() {
         }
         
     };
+    //se genera el grafico
     pieGraph('chart5', array, cantidad, 'Estudiante Aprobados', 'Estudiantes');
 }   
 
 
-//eventos graficos
+//eventos para graficos parametrizados graficos
 document.getElementById('trimestre_top').addEventListener('change', async (event) => {
     debugger
+    //se resetean los canvas de los graficos para dar lugar a unos nuevos
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
     document.getElementById('chartspace5').innerHTML = "<canvas id='chart5'></canvas>";
+    //se recargan los graficos
     graficoBarrasNotas();
     graficoReproYApro();
 });
 
 document.getElementById('grado_top').addEventListener('change', async (event) => {
+    //se resetean los canvas de los graficos para dar lugar a unos nuevos
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
     document.getElementById('chartspace5').innerHTML = "<canvas id='chart5'></canvas>";
+        //se recargan los graficos
     graficoBarrasNotas();
     graficoReproYApro();
 });
