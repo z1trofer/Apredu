@@ -257,7 +257,7 @@ async function graficoPromedio2(id_grado) {
                 asignatura.push(row.asignatura);
                 promedio.push(row.promedio);
             });
-            barGraph('chart4', asignatura, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
+            barGraph('chart4', asignatura, promedio, 'Promedio de notas', 'Top 3 Promedios de notas más altos por asignatura');
             sweetAlert(1, JSON.message, true);
         } else {   
                 document.getElementById('chart4').remove();

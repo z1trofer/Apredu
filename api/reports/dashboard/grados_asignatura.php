@@ -11,7 +11,7 @@ $grado = new Grados;
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Información de cada estudiante por grado');
+$pdf->startReport('Información de las asignaturas existentes en un grado');
 // Se instancia el módelo Categoría para obtener los datos.
 
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
