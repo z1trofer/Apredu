@@ -42,53 +42,42 @@
           </div>
           <!--graficos parametrizados-->
           <div class="row">
-            <div class=" card col-sm-12 col-md-6">
-              <div>
-                <div class="row">
 
-
-
-
+            <div class="card col-sm-12 col-md-6">
+              <div class="row">
+                <hr>
+                <div class="col">
+                  <label class="form-label" for="formTextExample2">Trimestre</label>
+                  <select class="form-select" required aria-label="select example" id="trimestre_top"
+                    name="trimestre_top">
+                    <option value="">Todos</option>
+                  </select>
                 </div>
-
-                        </div>
-                        <div class="card col-sm-12 col-md-6">
-                            <div class="row">
-                                <hr>
-                                <div class="col">
-                                    <label class="form-label" for="formTextExample2">Trimestre</label>
-                                    <select class="form-select" required aria-label="select example"
-                                        id="trimestre_top" name="trimestre_top">
-                                        <option value="">Todos</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="formTextExample2">Grado</label>
-                                    <select class="form-select" required aria-label="select example" id="grado_top"
-                                        name="grado_top">
-                                        <option value="">Todos</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div id="chartspace4">
-                            <canvas id="chart4"></canvas>
-                            </div>
-                        </div>
-
-              <div class="card col">
-                <div>
-                  <canvas id="chart2"></canvas>
+                <div class="col">
+                  <label class="form-label" for="formTextExample2">Grado</label>
+                  <select class="form-select" required aria-label="select example" id="grado_top" name="grado_top">
+                    <option value="">Todos</option>
+                  </select>
                 </div>
               </div>
+              <div id="chartspace4">
+                <canvas id="chart4"></canvas>
+              </div>
             </div>
-            <br>
-            <br>
-            <div class="card col" id="chartspace3">
+            <div class="card col-sm-12 col-md-6" id="chartspace3">
               <canvas id='chart3'></canvas>
             </div>
+            <div class="card col">
+              <div>
+                <canvas id="chart2"></canvas>
+              </div>
+            </div>
           </div>
+          <br>
+          <br>
         </div>
-        <script src="../../recursos/js/chart.umd.min.js"></script>
+      </div>
+      <script src="../../recursos/js/chart.umd.min.js"></script>
 
   </main>
   <footer>
