@@ -24,7 +24,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'No hay datos registrados';
                 }
-                break; 
+                break;
             case 'ObtenerMaterias':
                 if ($result['dataset'] = $notas->ObtenerMaterias()) {
                     $result['status'] = 1;
@@ -86,13 +86,13 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
-                case 'notaGlobal':
-                    if ($result['dataset'] = $notas->notaGlobal()) {
-                        $result['status'] = 1;
-                    } else {
-                        $result['exception'] = 'No hay datos disponibles';
-                    }
-                    break;  
+            case 'notaGlobal':
+                if ($result['dataset'] = $notas->notaGlobal()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
             case 'ObtenerActividad':
                 $_POST = Validator::validateForm($_POST);
                 if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
@@ -135,6 +135,20 @@ if (isset($_GET['action'])) {
                 $parametros['trimestre'] = $_POST['trimestre'];
                 $parametros['grado'] = $_POST['grado'];
                 if ($result['dataset'] = $notas->TopNotas($parametros)) {
+                    $result['status'] = 1;
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            case 'estudiantesAprobados':
+                $_POST = Validator::validateForm($_POST);
+                $parametros = array('trimestre' => null, 'grado' => null);
+                $parametros['trimestre'] = $_POST['trimestre'];
+                $parametros['grado'] = $_POST['grado'];
+                $parametros['condicion'] = $_POST['condicion'];
+                if ($result['dataset'] = $notas->AproYRepro($parametros)) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
