@@ -23,7 +23,8 @@ if ($dataAsignatura = $asignatura->readAll()) {
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(80, 10, 'Nombre', 1, 0, 'C', 1);
     $pdf->cell(40, 10, 'Apellido', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Grado', 1, 0, 'C', 1);
+    $pdf->cell(30, 10, 'Cargo', 1, 0, 'C', 1);
+    $pdf->cell(36, 10, 'Grado', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
     $pdf->setFillColor(225);
@@ -37,17 +38,18 @@ if ($dataAsignatura = $asignatura->readAll()) {
         $pdf->cell(186, 10, $pdf->encodeString('Asignatura: ' . $rowAsignatura['asignatura']), 1, 1, 'C', 1);
         // Se instancia el módelo Producto para procesar los datos.
         $empleado = new Empleados;
-        $grado = new Grado;
+        $grado = new Grados;
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
-        if ($empleado->setAsignatura($rowAsignatura['id_asignatura'])) {
+        if ($empleado->setid_asignatura($rowAsignatura['id_asignatura'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataAsignatura = $empleado->AsignaturaEmpleadoGrado()) {
                 // Se recorren los registros fila por fila.
                 foreach ($dataAsignatura as $rowDetalle) {
                     // Se imprimen las celdas con los datos de los productos.
-                    $pdf->cell(80, 10, $pdf->encodeString($rowDetalle['nombre']), 1, 0);
-                    $pdf->cell(40, 10, $rowDetalle['apellido'], 1, 0, 'C');
-                    $pdf->cell(30, 10, $pdf->encodeString($rowDetalle['grado']), 1, 0);
+                    $pdf->cell(80, 10, $pdf->encodeString($rowDetalle['nombre_empleado']), 1, 0);
+                    $pdf->cell(40, 10, $pdf->encodeString($rowDetalle['apellido_empleado']), 1, 0, 'C');
+                    $pdf->cell(30, 10, $pdf->encodeString($rowDetalle['cargo']), 1, 0, 'C');
+                    $pdf->cell(36, 10, $pdf->encodeString($rowDetalle['grado']), 1, 1);
                 }
             } else {
                 $pdf->cell(0, 10, $pdf->encodeString('no hay aisgnaturas'), 1, 1);
