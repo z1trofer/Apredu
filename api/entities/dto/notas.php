@@ -8,6 +8,7 @@ class Notas extends NotasQueries
 {
     // Declaración de atributos, notas.
     public $id_empleado = null;
+    public $id_estudiante = null;
     public $id_asignatura = null;
     public $id_trimestre = null;
     public $id_grado = null;
@@ -21,6 +22,16 @@ class Notas extends NotasQueries
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setId_estudiante($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_estudiante = $value;
             return true;
         } else {
             return false;

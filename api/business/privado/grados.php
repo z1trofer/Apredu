@@ -24,14 +24,14 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-                case 'cantidadEstudiantesXgrado':
-                    if ($result['dataset'] = $grados->cantidadEstudiantesXgrado()) {
-                        $result['status'] = 1;
-                    } else {
-                        $result['exception'] = 'No hay datos disponibles';
-                    }
-                    break;
-                // Acción para crear un dato en la tabla de grados
+            case 'cantidadEstudiantesXgrado':
+                if ($result['dataset'] = $grados->cantidadEstudiantesXgrado()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+            // Acción para crear un dato en la tabla de grados
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 if (!$grados->setGrado($_POST['grado'])) {
@@ -43,7 +43,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-                //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
+            //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
                 if (!$grados->setId($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecto';
@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Grado inexistente';
                 }
                 break;
-                // Acción para actualizar un dato en la tabla grados
+            // Acción para actualizar un dato en la tabla grados
             case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$grados->setId($_POST['id'])) {
@@ -67,13 +67,13 @@ if (isset($_GET['action'])) {
                 } elseif ($grados->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Grado modificado correctamente';
-                } else if(Database::getException()){
+                } else if (Database::getException()) {
                     $result['exception'] = Database::getException();
-                }else{
+                } else {
                     $result['exception'] = 'asdasdasdasdasd';
                 }
                 break;
-                // Acción para eliminar un dato de la tabla categorías
+            // Acción para eliminar un dato de la tabla categorías
             case 'delete':
                 if (!$grados->setId($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecto';
@@ -87,7 +87,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-                //------------------detalles grado-----------------
+            //------------------detalles grado-----------------
             case 'readDetalle':
                 $_POST = Validator::validateForm($_POST);
                 if (!$grados->setId($_POST['id'])) {
@@ -133,6 +133,32 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+            case 'graficoPromedio':
+                $_POST = Validator::validateForm($_POST);
+                if (!$grados->setId($_POST['id'])) {
+                    $result['exception'] = 'Grado incorrecto';
+                }elseif ($result['dataset'] = $grados->graficoPromedio()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Encontrado correctamente';
+
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+                case 'graficoPromedio2':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$grados->setId($_POST['id_grado'])) {
+                        $result['exception'] = 'Grado incorrecta';
+                    } elseif (!$data = $grados->readOne()) {
+                        $result['exception'] = 'Grado inexistente';
+                    }elseif ($result['dataset'] = $grados->graficoPromedio()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Encontrado correctamente';
+    
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                    break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

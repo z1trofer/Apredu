@@ -144,6 +144,7 @@ async function fillTable(form = null) {
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
                     <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><i class="fa-solid fa-pencil"></i></button></td>
+                    <td><button  onclick="reportNotas(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg"><i class="fa-solid fa-pencil"></i></button></td>
                     <td><button onclick="openDelete(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg"><i class="fa-sharp fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
@@ -384,6 +385,16 @@ async function BusquedaParametrizada() {
     FORM.append('grado', id_grado);
     fillTable(FORM);
 
+}
+
+
+//REPORTE NOTAS
+function reportNotas(id) {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/dashboard/notas.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    PATH.searchParams.append('id', id);
+    window.open(PATH.href);
 }
 
 function openReport() {

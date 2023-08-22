@@ -11,6 +11,9 @@ const RECORDS = document.getElementById('records');
 const FORM_DETALLES = document.getElementById('detalle_form');
 //constante para la tabla de detalles
 const DETALLES_ROWS = document.getElementById('detalle-rows');
+const SAVE_MODAL1 = document.getElementById('save-modalgr1');
+const SAVE_FORM1 = document.getElementById('save-formgr1');
+const MODAL_TITLE1 = document.getElementById('modal-title1');
 // Constante tipo objeto para establecer las opciones del componente Modal.
 
 // Método manejador de eventos para cuando el documento ha cargado.
@@ -75,6 +78,10 @@ async function fillTable(form = null) {
                     </button>
                     <button onclick="openDelete(${row.id_grado})" type="button" class="btn btn-danger">Eliminar</button>
                     <button onclick="openReport(${row.id_grado})" type="button" class="btn btn-warning">Actividades</button>
+                    <button onclick="graficoPromedio2(${row.id_grado})" type="button" class="btn btn-primary btn-outline btn-floating"
+                            data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#save-modalgr1">
+                            <i class="fas fa-chart-pie"></i>
+                        </button>
                     </td>
                 </tr>
             `;
@@ -227,6 +234,29 @@ function openReport(id) {
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
+
+async function graficoPromedio2(id_grado) {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('id_grado', id_grado);
+    // Petición para obtener los datos del registro solicitado.
+    const JSON = await dataFetch(GRADOS_API, 'graficoPromedio2', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+
+        if (JSON.status) {
+            let asignatura = [];
+            let promedio = [];
+            
+            JSON.dataset.forEach(row => {
+                asignatura.push(row.asignatura);
+                promedio.push(row.promedio);
+            });
+            barGraph('chart4', asignatura, promedio, 'Promedio de notas', 'Promedios de notas más altos de la asignatura');
+            sweetAlert(1, JSON.message, true);
+        } else {   
+                document.getElementById('chart4').remove();
+            sweetAlert(2, JSON.exception, false);    }
+    }
 
 
 //Buscador
