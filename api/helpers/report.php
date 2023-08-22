@@ -82,7 +82,7 @@ class Report extends FPDF
     */
     public function footer()
     {
-        $this->image('../../../recursos/footer.png', 0, 245, 220);
+        $this->image('../../../recursos/footer1.png', 0, 245, 220);
         // Se establece la posición para el número de página (a 15 milímetros del final).
         $this->setY(-15);
         // Se establece la fuente para el número de página.

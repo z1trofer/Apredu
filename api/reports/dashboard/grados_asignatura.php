@@ -3,28 +3,26 @@
 require_once('../../helpers/report.php');
 
 // Se incluyen las clases para la transferencia y acceso a datos.
-require_once('../../entities/dto/asignaturas.php');
-require_once('../../entities/dto/empleados.php');
 require_once('../../entities/dto/grados.php');
+require_once('../../entities/dto/empleados.php');
+require_once('../../entities/dto/asignaturas.php');
 
-$asignatura = new Asignaturas;
+$grado = new Grados;
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Asignaturas y personal académico por grado');
+$pdf->startReport('Información de cada estudiante por grado');
 // Se instancia el módelo Categoría para obtener los datos.
 
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-if ($dataAsignatura = $asignatura->readAll()) {
+if ($dataGrados = $grado->readAll()) {
     // Se establece un color de relleno para los encabezados.
     $pdf->setFillColor(154, 201, 229);
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Arial', 'B', 11);
     // Se imprimen las celdas con los encabezados.
-    $pdf->cell(80, 10, 'Nombre', 1, 0, 'C', 1);
-    $pdf->cell(40, 10, 'Apellido', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Cargo', 1, 0, 'C', 1);
-    $pdf->cell(36, 10, 'Grado', 1, 1, 'C', 1);
+    $pdf->cell(186, 10, 'Asignatura', 1, 1, 'C', 1);
+
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
     $pdf->setFillColor(254, 227, 129);
@@ -32,34 +30,31 @@ if ($dataAsignatura = $asignatura->readAll()) {
     $pdf->setFont('Times', '', 11);
 
     // Se recorren los registros fila por fila.
-    foreach ($dataAsignatura as $rowAsignatura) {
+    foreach ($dataGrados as $rowGrado) {
         // Se imprime una celda con el nombre de la categoría.
         $pdf->setFillColor(254, 227, 129);
-        $pdf->cell(186, 10, $pdf->encodeString('Asignatura: ' . $rowAsignatura['asignatura']), 1, 1, 'C', 1);
+        $pdf->cell(186, 10, $pdf->encodeString('Grado: ' . $rowGrado['grado']), 1, 1, 'C', 1);
         // Se instancia el módelo Producto para procesar los datos.
         $empleado = new Empleados;
-        $grado = new Grados;
+        $estudiante = new Asignaturas;
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
-        if ($empleado->setid_asignatura($rowAsignatura['id_asignatura'])) {
+        if ($empleado->setid_grado($rowGrado['id_grado'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-            if ($dataAsignatura = $empleado->AsignaturaEmpleadoGrado()) {
+            if ($dataAsignatura = $empleado->gradoAsignaturas()) {
                 // Se recorren los registros fila por fila.
-                foreach ($dataAsignatura as $rowDetalle) {
+                foreach ($dataAsignatura as $rowAsignatura) {
                     // Se imprimen las celdas con los datos de los productos.
-                    $pdf->cell(80, 10, $pdf->encodeString($rowDetalle['nombre_empleado']), 1, 0);
-                    $pdf->cell(40, 10, $pdf->encodeString($rowDetalle['apellido_empleado']), 1, 0, 'C');
-                    $pdf->cell(30, 10, $pdf->encodeString($rowDetalle['cargo']), 1, 0, 'C');
-                    $pdf->cell(36, 10, $pdf->encodeString($rowDetalle['grado']), 1, 1);
+                    $pdf->cell(186, 10, $pdf->encodeString($rowAsignatura['asignatura']), 1, 1, 'C');
                 }
             } else {
-                $pdf->cell(0, 10, $pdf->encodeString('no hay aisgnaturas'), 1, 1);
+                $pdf->cell(0, 10, $pdf->encodeString('No existen asignaturas registrados en el grado'), 1, 1);
             }
         } else {
-            $pdf->cell(0, 10, $pdf->encodeString('Asignatura incorrecta o inexistente'), 1, 1);
+            $pdf->cell(0, 10, $pdf->encodeString('Grado incorrecto o inexistente'), 1, 1);
         }
     }
 } else {
-    $pdf->cell(0, 10, $pdf->encodeString('No hay asignaturas para mostrar'), 1, 1);
+    $pdf->cell(0, 10, $pdf->encodeString('No hay categorías para mostrar'), 1, 1);
 }
 // Se llama implícitamente al método footer() y se envía el documento al navegador web.
-$pdf->output('I', 'productos.pdf');
+$pdf->output('I', 'estudiantes.pdf');
