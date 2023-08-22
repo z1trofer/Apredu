@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     graficoPieMaterias();
     graficoBarrasNotas();
     graficoReportesConductas();
+    graficoReproYApro();
 });
 
 //funcion para controlar las opciones disponibles segun el nivel de usuario
@@ -91,7 +92,7 @@ async function graficoPieMaterias() {
             cantidad_materias_asignadas.push(row.cantidad_materias_asignadas);
         });
         // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
-        pieGraph('chart2', nombre_empleado, cantidad_materias_asignadas, 'Notas', 'Top 5 docentes con mas materias');
+        pieGraph('chart2', nombre_empleado, cantidad_materias_asignadas, 'Top 5 docentes con mas materias', 'Top 5 docentes con mas materias');
     } else {
         document.getElementById('chart2').remove();
         console.log(DATA.exception);
@@ -128,6 +129,7 @@ async function graficoBarrasNotas() {
         console.log(DATA.exception);
     }
 }
+
 async function graficoReportesConductas() {
     // Petición para obtener los datos del gráfico.
     const DATA = await dataFetch(CONDUCTA_API, 'MasFichasConducta');
@@ -150,14 +152,46 @@ async function graficoReportesConductas() {
     }
 }
 
+
+async function graficoReproYApro() {
+    debugger
+    let array = ['Aprobados', 'Reprobados'];
+    let cantidad = [];
+    debugger
+    for (let index = 0; index <= 1; index++) {
+        const FORM = new FormData();
+        FORM.append('trimestre', document.getElementById('trimestre_top').value);
+        FORM.append('grado', document.getElementById('grado_top').value);
+        if(index == 0){
+            FORM.append('condicion', '>=');
+        }else{
+            FORM.append('condicion', '<');
+        }
+        const DATA = await dataFetch(NOTAS_API, 'estudiantesAprobados', FORM);
+        if (DATA.status) {
+            cantidad.push(DATA.dataset.cantidad);
+        }else {
+        //document.getElementById('chart5').remove();
+        console.log(DATA.exception);
+        }
+        
+    };
+    pieGraph('chart5', array, cantidad, 'Estudiante Aprobados', 'Estudiantes');
+}   
+
+
 //eventos graficos
 document.getElementById('trimestre_top').addEventListener('change', async (event) => {
     debugger
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
+    document.getElementById('chartspace5').innerHTML = "<canvas id='chart5'></canvas>";
     graficoBarrasNotas();
+    graficoReproYApro();
 });
 
 document.getElementById('grado_top').addEventListener('change', async (event) => {
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
+    document.getElementById('chartspace5').innerHTML = "<canvas id='chart5'></canvas>";
     graficoBarrasNotas();
+    graficoReproYApro();
 });
