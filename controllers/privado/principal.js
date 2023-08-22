@@ -97,6 +97,7 @@ async function graficoPieMaterias() {
         console.log(DATA.exception);
     }
 }
+
 async function llenarCMB(){
     await fillSelect(NOTAS_API, 'ObtenerTrimestresNoParam', 'trimestre_top','Todos');
     await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_top','Todos');

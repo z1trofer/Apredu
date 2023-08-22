@@ -169,7 +169,6 @@ class NotasQueries
         return Database::getRows($sql);
     }
     
-<<<<<<< HEAD
     public function notaGlobal()
     {
         $sql = "SELECT nombre_estudiante, AVG(nota) as promedio 
@@ -180,7 +179,4 @@ class NotasQueries
         return Database::getRows($sql);
     }
     
-=======
-
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
 }

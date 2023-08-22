@@ -233,28 +233,19 @@ function pieGraph(canvas, legends, values, title) {
     });
 }
 
-<<<<<<< HEAD
-function pieGraph(canvas, legends, values, title) {
-=======
 /*
 *   Función para generar un gráfico de pastel.
 *   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título del gráfico).
 *   Retorno: ninguno.
 */
 function polarGraph(canvas, legends, values, title) {
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
     let colors = [];
     values.forEach(() => {
         colors.push('#' + (Math.random().toString(16)).substring(2, 8));
     });
     const context = document.getElementById(canvas).getContext('2d');
-<<<<<<< HEAD
-    const chart = new chart(context, {
-        type: 'pie',
-=======
     const chart = new Chart(context, {
         type: 'polar',
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
         data: {
             labels: legends,
             datasets: [{
@@ -276,8 +267,7 @@ function polarGraph(canvas, legends, values, title) {
         }
     });
 }
-<<<<<<< HEAD
-=======
+
 
 
 function barGraphLineal(canvas, legends, values, title) {
@@ -332,7 +322,6 @@ function barGraphLineal(canvas, legends, values, title) {
     
 }
 
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
 
 /*
 *   Función asíncrona para cerrar la sesión del usuario.
