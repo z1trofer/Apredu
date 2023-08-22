@@ -56,28 +56,15 @@ class Report extends FPDF
     */
     public function header()
     {
-<<<<<<< HEAD
-        // Titulo.
-        $this->setFont('Helvetica','B',18);
-        $this->cell(190,10,'Colegio Aprendo Contigo', 0, 1, 'C');
-        // Logo
-        $this->image('../../../recursos/header.png', 0, 0, 220);
-        $this->image('../../../recursos/logo1.png', 10, 10, 25);
-=======
         // Se establece el logo.
         $this->image('../../../recursos/header.png', 0, 0, 220);
         $this->image('../../../recursos/logo1.png', 15, 10, 20);
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
         // Se ubica el título.
         $this->SetFont('Helvetica','B', 15);
         $this->Cell(190, 10,'Colegio Aprendo Contigo', 0, 1, 'C');
     
         $this->cell(20);
-<<<<<<< HEAD
-        $this->setFont('Arial', '', 14);
-=======
         $this->setFont('Arial', '', 12);
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
         $this->cell(150, 10, $this->encodeString($this->title), 0, 1, 'C');
         // Se ubica la fecha y hora del servidor.
         $this->cell(20);
@@ -95,23 +82,13 @@ class Report extends FPDF
     */
     public function footer()
     {
-<<<<<<< HEAD
-        $this->image('../../../recursos/footer1.png', 0, 240, 220);
-
-=======
         $this->image('../../../recursos/footer.png', 0, 245, 220);
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
         // Se establece la posición para el número de página (a 15 milímetros del final).
         $this->setY(-15);
         // Se establece la fuente para el número de página.
         $this->setFont('Arial', 'I', 10);
         // Se imprime una celda con el número de página.
-<<<<<<< HEAD
-        $this->cell(0, 15, $this->encodeString(' ') . $this->pageNo() . '/{nb}', 0, 0, 'C');
-
-=======
         $this->cell(0, 10, $this->encodeString(' ') . $this->pageNo() . '/{nb}', 0, 0, 'C');
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
     }
 }
 ?>

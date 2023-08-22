@@ -15,26 +15,16 @@ $grados = new Grados;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataGrados = $grados->readAll()) {
     // Se establece un color de relleno para los encabezados.
-<<<<<<< HEAD
     $pdf->setFillColor(254, 227, 129);
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Helvetica', 'B', 11);
-=======
-    $pdf->setFillColor(154, 201, 229);
-    // Se establece la fuente para los encabezados.
-    $pdf->setFont('Arial', 'B', 11);
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(100, 10, 'Nombre del estudiante', 1, 0, 'C', 1);
     $pdf->cell(56, 10, 'Actividad', 1, 0, 'C', 1);
     $pdf->cell(30, 10, 'Nota', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
-<<<<<<< HEAD
     $pdf->setFillColor(154, 201, 229);
-=======
-    $pdf->setFillColor(254, 227, 129);
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
     // Se establece la fuente para los datos de los productos.
     $pdf->setFont('Times', '', 11);
 

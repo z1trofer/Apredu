@@ -7,11 +7,7 @@ require_once('../../entities/dto/empleados.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-<<<<<<< HEAD
 $pdf->startReport('Personal académico');
-=======
-$pdf->startReport('Empleados por cargo');
->>>>>>> 4ac3d585c6c07e0aa573ad0fad2998a454e3019c
 // Se instancia el módelo Categoría para obtener los datos.
 $empleados = new Empleados;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
