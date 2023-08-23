@@ -1,6 +1,6 @@
 <?php
 require_once('../../helpers/validator.php');
-require_once('../../entities/dao/responsablesVista_queries.php');
+require_once('../../entities/dao/responsables_vista_queries.php');
 
 class ResponsablesVista extends ResponsablesVistaQueries{
 
