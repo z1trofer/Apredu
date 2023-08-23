@@ -143,9 +143,9 @@ async function fillTable(form = null) {
                     <td>${row.apellido_estudiante}</td>
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
-                    <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><i class="fa-solid fa-pencil"></i></button></td>
-                    <td><button  onclick="reportNotas(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg"><i class="fa-solid fa-pencil"></i></button></td>
-                    <td><button onclick="openDelete(${row.id_estudiante})" type="button" class="btn btn btn-floating btn-lg"><i class="fa-sharp fa-solid fa-trash"></i></button></td>
+                    <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn-info " data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><i class="fa-solid fa-pencil"></i></button></td>
+                    <td><button  onclick="reportNotas(${row.id_estudiante})" type="button" class="btn btn-warning"><i class="far fa-clipboard"></i></button></td>
+                    <td><button onclick="openDelete(${row.id_estudiante})" type="button" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
         });

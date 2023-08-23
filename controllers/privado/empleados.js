@@ -165,15 +165,15 @@ async function fillTable(form = null) {
             if(row.cargo == 'profesor'){
                 btnActividades = `
                 <td>
-                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                <button type="button" class="btn btn-info" data-mdb-toggle="modal"
                     data-mdb-target="#ModalDocentesAct" onclick="openDetalleActividad(${row.id_empleado})">
-                    <img src="../../recursos/iconos/notas.png" alt="">
+                    <i class="fas fa-clipboard"></i>
                 </button>
                 </td>    `;
                 btnAsignaciones = `
-                <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                <button type="button" class="btn btn-success" data-mdb-toggle="modal"
                     data-mdb-target="#DetallesModal" onclick="cargarAsignaturasGrados(${row.id_empleado})">
-                    <img src="../../recursos/iconos/notas.png" alt="">
+                    <i class="fab fa-elementor"></i>
                 </button>`
             }else{
                 btnActividades = '<td></td>';
@@ -189,12 +189,12 @@ async function fillTable(form = null) {
                 <td>${row.correo_empleado}</td>
                 `+btnActividades+`
                     <td>`+btnAsignaciones+`
-                        <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
+                        <button type="button" class="btn btn-info" data-mdb-toggle="modal"
                             data-mdb-target="#ModalDocentesInfo" onclick="openUpdate(${row.id_empleado})">
-                            <img src="../../recursos/iconos/informacion.png" alt="">
+                            <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn btn-floating btn-lg" onclick="openDelete(${row.id_empleado})">
-                        <img src="../../recursos/iconos/eliminar2.png" alt="">
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_empleado})">
+                        <i class="fas fa-trash"></i>
                     </button>
 
                         <!-- Modal -->
