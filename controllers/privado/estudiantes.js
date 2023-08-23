@@ -180,9 +180,9 @@ async function openUpdate(id) {
         document.getElementById('grados_estudiante').value = JSON.dataset.id_grado;
         document.getElementById('grado').innerHTML = JSON.dataset.grado;
         if (JSON.dataset.estado) {
-            document.getElementById('estados').checked = true;
-        } else {
             document.getElementById('estados').checked = false;
+        } else {
+            document.getElementById('estados').checked = true;
         }
         fillList(ESTUDIANTE_API, 'readGrado', 'lectura', JSON.dataset.id_grado);
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.

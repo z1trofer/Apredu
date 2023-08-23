@@ -114,6 +114,7 @@ async function openCreate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
     FORM.append('id_estudiante', id);
+    SAVE_FORM.reset();
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(FICHA_API, 'readOneEstudiante', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.

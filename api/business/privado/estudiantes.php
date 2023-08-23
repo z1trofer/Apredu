@@ -115,7 +115,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Grado incorrecto';
                     } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
                         $result['exception'] = 'Alias incorrecto';
-                    } elseif (!$estudiante->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                    } elseif (!$estudiante->setEstado(isset($_POST['estado']) ? 0 : 1)) {
                         $result['exception'] = 'Estado incorrecto';
                     }  elseif (!$estudiante->setClave($_POST['clave'])) {
                         $result['exception'] = Validator::getPasswordError();
@@ -147,7 +147,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
                     $result['exception'] = 'Alias incorrecto';
-                }elseif (!$estudiante->setEstado(isset($_POST['estados']) ? 1 : 0)) {
+                }elseif (!$estudiante->setEstado(isset($_POST['estados']) ? 0 : 1)) {
                     $result['exception'] = 'Estado incorrecto';   
                 }  elseif ($estudiante->UpdateEstudiante()) {
                         $result['status'] = 1;
