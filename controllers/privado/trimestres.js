@@ -95,8 +95,10 @@ async function fillTable(form = null) {
                     <td>
                     `+checkbox+`
                     </td>
-                    <td><button onclick="openDelete(${row.id_trimestre})" type="button" class="btn btn-danger btn-rounded">
-                    <img src="../../recursos/iconos/eliminar2.png" alt=""></button>
+                    <td>
+
+                    <button onclick="openDelete(${row.id_trimestre})" type="button" class="btn btn-danger ">
+                    <i class="fas fa-trash"></i></button>
                     </td>
                     </td>
                 </tr>

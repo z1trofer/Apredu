@@ -74,10 +74,10 @@ async function fillTable(form = null) {
                     <i class="fa-solid fa-pencil"></i>
                     </button>
                     <button onclick="openDetalle(${row.id_grado})"  type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalDetalle">
-                    Ver Asignaturas
+                    <i class="fa-solid fa-eye"></i>
                     </button>
-                    <button onclick="openDelete(${row.id_grado})" type="button" class="btn btn-danger">Eliminar</button>
-                    <button onclick="openReport(${row.id_grado})" type="button" class="btn btn-warning">Actividades</button>
+                    <button onclick="openDelete(${row.id_grado})" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    <button onclick="openReport(${row.id_grado})" type="button" class="btn btn-warning"><i class="fas fa-book"></i></button>
                     <button onclick="graficoPromedio2(${row.id_grado})" type="button" class="btn btn-primary btn-outline btn-floating"
                             data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#save-modalgr1">
                             <i class="fas fa-chart-pie"></i>
