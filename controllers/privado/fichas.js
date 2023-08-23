@@ -159,15 +159,7 @@ async function openDetallePorFicha(id_estudiante) {
                 <td>${row.descripcion_ficha}</td>
                 <td>${row.fecha_ficha}</td>
                 <td>${row.nombre_empleado}</td>
-                <td>
-                <button onclick="openDetalle(${row.id_ficha})" type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                <button type="button" class="btn btn-outline-danger" data-mdb-ripple-color="dark" 
-                onclick="openEliminarPorFicha(${row.id_ficha})" >
-                <i class="fa-sharp fa-solid fa-trash"></i>
-                </button>
-                </td>
+                
             </tr>
         `;
         });

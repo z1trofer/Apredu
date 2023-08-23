@@ -104,8 +104,8 @@ class FichasQueries
 
     public function FichasXestudiante()
     {
-        $sql = 'SELECT nombre_estudiante,apellido_estudiante,descripcion_ficha, fecha_ficha
-        FROM fichas INNER JOIN estudiantes USING(id_estudiante)
+        $sql = 'SELECT descripcion_ficha,nombre_empleado, fecha_ficha
+        FROM fichas INNER JOIN empleados USING(id_empleado)
         WHERE id_estudiante = ?';
         $params = array($this->id_estudiante);
         return Database::getRows($sql, $params);

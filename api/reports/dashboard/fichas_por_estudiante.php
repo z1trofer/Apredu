@@ -26,19 +26,17 @@ if (isset($_GET['id_estudiante'])) {
                 // Se establece la fuente para los encabezados.
                 $pdf->setFont('Arial', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
-                $pdf->cell(35, 10, 'Nombre', 1, 0, 'C', 1);
-                $pdf->cell(35, 10, 'Apellido', 1, 0, 'C', 1);
                 $pdf->cell(91, 10, $pdf->encodeString('Descripción'), 1, 0, 'C', 1);
-                $pdf->cell(25, 10, 'Fecha', 1, 1, 'C', 1);
+                $pdf->cell(60, 10, 'Profesor que asigno', 1, 0, 'C', 1);
+                $pdf->cell(35, 10, 'Fecha', 1, 1, 'C', 1);
                 // Se establece la fuente para los datos de los productos.
                 $pdf->setFont('Helvetica', '', 11);
                 // Se recorren los registros fila por fila.
                 foreach ($dataFichas as $rowFichas) {
                     // Se imprimen las celdas con los datos de los productos.
-                    $pdf->cell(35, 10,  $pdf->encodeString($rowFichas['nombre_estudiante']), 1, 0);
-                    $pdf->cell(35, 10,  $pdf->encodeString($rowFichas['apellido_estudiante']), 1, 0);
                     $pdf->cell(91, 10,  $pdf->encodeString($rowFichas['descripcion_ficha']), 1, 0);
-                    $pdf->cell(25, 10,  $rowFichas['fecha_ficha'], 1, 1);
+                    $pdf->cell(60, 10,  $pdf->encodeString($rowFichas['nombre_empleado']), 1, 0);
+                    $pdf->cell(35, 10,  $pdf->encodeString($rowFichas['fecha_ficha']), 1, 1);
                 }
             } else {
                 $pdf->cell(0, 10, $pdf->encodeString('No hay fichas para el estudiante'), 1, 1);
