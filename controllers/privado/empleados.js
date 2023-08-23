@@ -172,7 +172,7 @@ async function fillTable(form = null) {
                 </td>    `;
                 btnAsignaciones = `
                 <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                    data-mdb-target="#DetallesModal" onclick="CargarAsignaturasGrados(${row.id_empleado})">
+                    data-mdb-target="#DetallesModal" onclick="cargarAsignaturasGrados(${row.id_empleado})">
                     <img src="../../recursos/iconos/notas.png" alt="">
                 </button>`
             }else{
@@ -220,7 +220,7 @@ document.getElementById('DetallesGrado').addEventListener('change', () => {
 });
 
 //funcion cargar asignaturas y grados del docente
-async function CargarAsignaturasGrados(id){
+async function cargarAsignaturasGrados(id){
      
     valor_empleado = id;
     document.getElementById('DetallesAsignatura').className = "form-select invisible";
@@ -258,10 +258,10 @@ FORM_ASIGNATURAS_GRADOS.addEventListener('submit', async (event) => {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             // Se carga nuevamente la tabla para visualizar los cambios.
-            CargarAsignaturasGrados(valor_empleado);
+            cargarAsignaturasGrados(valor_empleado);
             // Se muestra un mensaje de éxito.
             sweetAlert(1, JSON.message, true);
-            CargarAsignaturasGrados();
+            cargarAsignaturasGrados();
         } else {
             sweetAlert(2, JSON.exception, false);
         }
@@ -277,7 +277,7 @@ async function quitarAsignatura(id){
     const JSON = await dataFetch(EMPLEADOS_API, 'deleteAsignation', FORM);
     if (JSON.status) {
         sweetAlert(1, JSON.message, true);
-        CargarAsignaturasGrados(valor_empleado);
+        cargarAsignaturasGrados(valor_empleado);
     }else{
         sweetAlert(2, JSON.exception, false);
     }

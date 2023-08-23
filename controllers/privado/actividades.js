@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     CargarTrimestres();
     fillTable();
     CargarGrados();
-    CargarAsignaturas();
+    cargarAsignaturas();
     CargarNombreDocente();
 });
 
@@ -299,7 +299,7 @@ async function CargarTrimestres() {
                 document.getElementById('dropTrimestre').innerHTML = row.trimestre;
                 //se llena el dropdown con el trimestre especifico
                 dropdown.innerHTML += `
-                <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
+                <li><a class="dropdown-item" onclick="opcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
               `
             //}
         });
@@ -311,7 +311,7 @@ async function CargarTrimestres() {
 
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
-function OpcionTrimestre(id_trimestreFun, trimestreFun) {
+function opcionTrimestre(id_trimestreFun, trimestreFun) {
 
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_trimestre = id_trimestreFun;
@@ -367,7 +367,7 @@ document.getElementById('buscar').addEventListener('onclick', async (event) => {
 });*/
 
 //función Cargar Grados
-async function CargarAsignaturas() {
+async function cargarAsignaturas() {
     //se instancia un formulario
     const FORM = new FormData();
     //se instancia el año como parametro en el formulario

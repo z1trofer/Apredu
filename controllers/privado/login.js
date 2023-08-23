@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+//declaracion de id_grado
 let idgrado = null
 
 // Método manejador de eventos para cuando se envía el formulario de inicio de sesión.
@@ -29,10 +30,11 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
      
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        console.log(JSON.message);
+        //se redirecciona al la interfaz principal
         location.href = 'principal.html';
         sweetAlert(1, JSON.message, true, 'principal.html');
     } else {
+        //exepcion
         console.log(JSON.execption);
         sweetAlert(2, JSON.exception, false);
     }

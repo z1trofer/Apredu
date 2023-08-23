@@ -170,7 +170,7 @@ async function openDetalle(id) {
             DETALLES_ROWS.innerHTML += `
         <tr>
         <td>${row.asignatura}</td>
-        <td><button type="button" class="btn btn-danger" onclick="EliminarDetalle(${row.id_detalle_asignatura_empleado})">Eliminar</button></td>
+        <td><button type="button" class="btn btn-danger" onclick="eliminarDetalle(${row.id_detalle_asignatura_empleado})">Eliminar</button></td>
     </tr>
         `;
         });
@@ -203,7 +203,7 @@ FORM_DETALLES.addEventListener('submit', async (event) => {
 });
 
 //eliminar detalle
-async function EliminarDetalle(id) {
+async function eliminarDetalle(id) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
     const RESPONSE = await confirmAction('¿Desea eliminar este detalle de forma permanente?');
     // Se verifica la respuesta del mensaje.

@@ -142,7 +142,6 @@ async function openCreate(id) {
 }
 
 async function openDetallePorFicha(id_estudiante) {
-
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
     FORM.append('id_estudiante', id_estudiante);
@@ -197,7 +196,7 @@ async function openDetalle(id_ficha) {
     }
 }
 
-function OpenReportSemanal() {
+function openReportSemanal() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}reports/dashboard/fichas_en_semana.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.

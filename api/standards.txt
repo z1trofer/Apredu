@@ -1,0 +1,4 @@
+ESTANDARES DE PHP UTILIZADOS
+	-Se pondra en mayuscula la primera letra de cada palabra en el nombre de las clases
+	-Nombre  de funciones se escibira el cammelCase
+	-Todas las variables deben ser escritas en minuscula

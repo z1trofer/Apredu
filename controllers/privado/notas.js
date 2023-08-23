@@ -1,7 +1,4 @@
 //-----------------NOTAS-----------------------
-/*
-    - falta modo usuario administrador(director)
-*/
 
 //Declaración API notas
 const NOTAS_API = 'business/privado/notas.php';
@@ -19,15 +16,15 @@ let trimestre = null;
 //evento Content load para cuando se cargue la pagina
 document.addEventListener('DOMContentLoaded', async () => {
     //función para cargar los Trimestres
-    await CargarTrimestres();
+    await cargarTrimestres();
     //Función para cargar las asignaturas 
-    await CargarAsignaturas();
+    await cargarAsignaturas();
 
     graficoPieNotas()
 });
 
 //función Cargar Trimestres
-async function CargarTrimestres() {
+async function cargarTrimestres() {
     //se instancia un formulario
     const FORM = new FormData();
     //se instancia el año como parametro en el formulario
@@ -53,7 +50,7 @@ async function CargarTrimestres() {
                 document.getElementById('TrimestreSelect').innerHTML = row.trimestre;
                 //se llena el dropdown con el trimestre especifico
                 dropdown.innerHTML += `
-                <li><a class="dropdown-item" onclick="OpcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
+                <li><a class="dropdown-item" onclick="opcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
                 `
             }
         });
@@ -63,7 +60,7 @@ async function CargarTrimestres() {
     }
 }
 
-async function CargarAsignaturas(){
+async function cargarAsignaturas(){
     const SESSION = await dataFetch(USER_API, 'getSession');
     //se declara la variable materia
     let materia = null;
@@ -159,7 +156,7 @@ function getIdTrimestre(asginatura, id_grado, grado, docente, materia){
 
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
-function OpcionTrimestre(id_trimestreFun, trimestreFun) {
+function opcionTrimestre(id_trimestreFun, trimestreFun) {
      
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_trimestre = id_trimestreFun;

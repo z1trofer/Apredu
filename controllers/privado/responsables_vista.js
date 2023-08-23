@@ -1,6 +1,6 @@
 
 // Constante para completar la ruta de la API.
-const RESPONSABLES_API = 'business/privado/responsablesVista.php';
+const RESPONSABLES_API = 'business/privado/responsables_vista.php';
 // Constante para establecer el formulario de buscar.
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');

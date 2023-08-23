@@ -14,14 +14,14 @@ let actividad = null;
 
 //evento Content load para cuando se cargue la pagina
 document.addEventListener('DOMContentLoaded', async () => {
-    // Petición para cargar la funcion CargarNotasDetalles
-    CargarNotasDetalles();
+    //se carg
+    cargarNotasDetalles();
     //peticion para cargar la funcion CargarActividaddes
-    CargarActividades();
+    cargarActividades();
 });
 
 //funcion para cargar los datos de las notas
-async function CargarNotasDetalles(){
+async function cargarNotasDetalles(){
     //Se verificia que haya un session activada mediante la API
     const JSON = await dataFetch(USER_API, 'getSession');
     //se verifica la respuesta de la API
@@ -35,7 +35,7 @@ async function CargarNotasDetalles(){
 };
 
 //funcion para cargar las actividades correspondiente a la asignatura, trimestre y grado asignado
-async function CargarActividades(){
+async function cargarActividades(){
     //instanciando un formulario
     const FORM = new FormData();
     //cargando los parametros de asignatura, trimestre y grado al formulario
@@ -55,7 +55,7 @@ async function CargarActividades(){
                 dropdown = document.getElementById('activiadadlist');
                 //se carga el combobox con las actividades
                 dropdown.innerHTML += `
-                <li><a class="dropdown-item" onclick="CargarNotas('${row.id_actividad}', '${row.nombre_actividad}')">${row.nombre_actividad}</a></li>
+                <li><a class="dropdown-item" onclick="cargarNotas('${row.id_actividad}', '${row.nombre_actividad}')">${row.nombre_actividad}</a></li>
                 `
         }); 
     }else{
@@ -66,7 +66,7 @@ async function CargarActividades(){
 };
 
 //funcion para Cargar notas segun el trimestre seleccionado
-async function CargarNotas(id_actividadFun, actividadFun) {
+async function cargarNotas(id_actividadFun, actividadFun) {
     //se declara la variable id_actividad con el paramentro de la funcion
     id_actividad = id_actividadFun;
     //se vacia la tabla de actividades
@@ -162,9 +162,8 @@ async function UpdateNotas(){
             //se notifica del error
             sweetAlert(2, "Algunos cambios no se guardaron ya que el campo no cumplica con el formato adecuado, por favor revise que el formato sea numeros del 1 al 10 con 2 decimales", false);
         }
-        
         //se llama a la función Cargar notas para cargar nuevamente la tabla
-        CargarNotas(id_actividad, actividad);
+        cargarNotas(id_actividad, actividad);
     }
     
 }

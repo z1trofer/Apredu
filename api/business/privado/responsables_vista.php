@@ -1,5 +1,5 @@
 <?php
-require_once('../../entities/dto/responsablesVista.php');
+require_once('../../entities/dto/responsables_vista.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -133,7 +133,7 @@ if (isset($_GET['action'])) {
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    $result['except+ion'] = 'No hay datos registrados';
                 }
                 break;
                 //Acción para eliminar un dato de la tabla usuarios
