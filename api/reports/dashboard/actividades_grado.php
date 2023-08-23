@@ -10,7 +10,6 @@ $pdf = new Report;
 
 // Se verifica si existe un valor para la categoría, de lo contrario se muestra un mensaje.
 if (isset($_GET['id_grado'])) {
-    
     // Se incluyen las clases para la transferencia y acceso a datos.
     require_once('../../entities/dto/grados.php');
     require_once('../../entities/dto/empleados.php');

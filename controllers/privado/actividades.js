@@ -17,7 +17,6 @@ let id_grado = null;
 let id_asignatura = null;
 
 
-// javascript se manda a llamar el id y en php el name
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
@@ -43,81 +42,16 @@ async function CargarNombreDocente() {
         label.innerHTML = " ";
     }
 };
-/*
-SEARCH_FORM.addEventListener('submit', async (event) => {
-    //metodo para evitar que se recargue la pagina
-    event.preventDefault();
-    //se valida si hay parametros de busqueda
-    if (document.getElementById('dropTrimestre').selectedIndex == 0
-        && document.getElementById('dropGrado').selectedIndex == 0
-        && document.getElementById('dropAsignatura').selectedIndex == 0) {
-        //si la respuesta es false se cargan los mangas sin ningun tipo de filtro
-        fillTable();
-    } else {
-        //se declara el catalogo de mangas
-        TBODY_ROWS.innerHTML = '';
-        // Constante tipo objeto con los datos del formulario.
-        const FORM = new FormData(SEARCH_FORM);
-        // Petición para guardar los datos del formulario.
-        const JSON = await dataFetch(ACTIVIDADES_API, 'FiltrosActividades', FORM);
-        if (JSON.status) {
-            TBODY_ROWS.innerHTML += `
-        <tr>
-            <div class="row">
-                <div class="col-sm text-center">
-                    <h3>Titulo</h3>
-                    <td>${row.nombre_actividad}</td>
-                    <h3>Tipo de actividad</h3>
-                    <button class="btn btn-primary" type="button" id="btnEm_grado" data-mdb-toggle="dropdown"
-                        aria-expanded="false">
-                        <td>${row.tipo_actividad}</td>
-        
-                    </button>
-                    
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Descripción</h3>
-                    <td>${row.descripcion}</td>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Ponderación</h3>
-                    <td>${row.ponderacion} %</td>
-                    <h3>Fecha Limite</h3>
-                    <td>${row.fecha_entrega}</td>
-                </div>
-                <div class="col-sm-1 text-center">
-                    <br>
-                    <br>
-                    <button style="border-style: none; background: transparent; "><img
-                            src="../../recursos/iconos/informacion-removebg-preview.png" data-mdb-toggle="modal"
-                            data-mdb-target="#ModalActividad" onclick="updateActividades(${row.id_actividad})" alt=""></button>
-        
-                </div>
-                <div class="col-sm-1 text-center">
-                    <br>
-                    <br>
-                    <button style="border-style: none; background: transparent; "><img src="../../recursos/iconos/eliminar2.png"
-                            alt="" onclick="DeleteActividades(${row.id_actividad})"></button>
-        
-                </div>
-            </div>
-        
-            <hr class="hr" />
-        
-        </tr>
-        `;
-        } else {
-            //en caso de error se manda la alerta correspondiente
-            sweetAlert(2, JSON.exception, false);
-        }
-    }
-});
-*/
-FORMULARIO.addEventListener('submit', async (event) => {
 
+//función del evento submit del formulario para agregar/guardar los datos de una actividad
+FORMULARIO.addEventListener('submit', async (event) => {
+    //se evita la ejecución del evento default
     event.preventDefault();
+    //se verifica si hay un id para determinar la accion
     (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    //se declara una constante con el formulario
     const FORM = new FormData(FORMULARIO);
+    //se llama al servidor con la acción correspondiente
     const JSON = await dataFetch(ACTIVIDADES_API, action, FORM);
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
@@ -139,11 +73,9 @@ FORMULARIO.addEventListener('submit', async (event) => {
 async function fillTable(form = null) {
     // Se inicializa el contenido de la tabla.
     TBODY_ROWS.innerHTML = '';
-    // RECORDS.textContent ='';
     // Se verifica la acción a realizar.
     (form) ? action = 'FiltrosActividades' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    // const JSON = await dataFetch(ACTIVIDADES_API, action, form);
     const JSON = await dataFetch(ACTIVIDADES_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {

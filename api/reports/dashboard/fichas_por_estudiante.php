@@ -52,5 +52,5 @@ if (isset($_GET['id_estudiante'])) {
         print('Ficha incorrecta');
     }
 } else {
-    print('Debe seleccionar un Alumno');
+    print('Debe seleccionar un Alumno, por favor vuelva a generar el reporte');
 }
