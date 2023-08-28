@@ -167,7 +167,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if(!$Empleados_p->setid_empleado($_POST['id'])){
+                if (!$Empleados_p->setid_empleado($_POST['id'])) {
                     $result['exception'] = 'id malo';
                 } elseif (!$Empleados_p->setnombre_empleado($_POST['nombres'])) {
                     $result['exception'] = 'Nombre del empleado mal ingresado';
@@ -181,7 +181,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Las contraseñas no coinciden';
                 } elseif (!$Empleados_p->setclave($_POST['clave'])) {
                     $result['exception'] = 'Clave mal ingresada';
-                } */elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
+                } */ elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo mal ingresado';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
                     $result['exception'] = 'Direccion mal ingresado';
@@ -221,7 +221,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //opcion actualizar el id del docente en detalle asignatura, empleados
             case 'ActualizarDetalle':
+                //(se reutiliza el setid_empleado para validar los numeros naturales)
                 $_POST = Validator::validateForm($_POST);
                 if (!$Empleados_p->setid_empleado($_POST['grado'])) {
                     $result['exception'] = 'grado Incorrecto';
@@ -236,11 +238,38 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();;
                 }
                 break;
+                //opción para consultar si el detalle que se desea actualizar esta ya asignado a otro docente
+            case 'VerificarDetalle':
+                //se valida que haya un formulario
+                $_POST = Validator::validateForm($_POST);
+                //se empieza a validar los parametros
+                if (!$Empleados_p->setid_empleado($_POST['grado'])) {
+                    $result['exception'] = 'grado Incorrecto';
+                } elseif (!$Empleados_p->setid_empleado($_POST['asignatura'])) {
+                    $result['exception'] = 'asignatura Incorrecta';
+                } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
+                    $result['exception'] = 'id Incorrecta';
+                //se ejecuta la consulta
+                } elseif ($data = $Empleados_p->verificarDetalle($_POST['asignatura'], $_POST['grado'])) {
+                    //se verifica el resultado de la consulta
+                    if($data['id_empleado'] == null){
+                        $result['status'] = 1;
+                    } elseif ($data['id_empleado'] == $_POST['id']){
+                        $result['status'] = 1;
+                        $result['message'] = "Esta asignatura y grado ya estan asignados a este docente";
+                    } else{
+                        $result['status'] = 1;
+                        $result['message'] = "Esta asignatura y grado ya estan asignados a un docente, si asignas este docente, el otro docente será desasignado. ¿Deseas Continuar?";
+                    }
+                } else {
+                    $result['exception'] = Database::getException();;
+                }
+                break;
                 //case eliminar el detalle de un empleado respecto a los grados y asignaturas
             case 'deleteAsignation':
                 if (!$Empleados_p->setid_empleado($_POST['id'])) {
                     $result['exception'] = 'El id no es correcto';
-                }  elseif ($Empleados_p->deleteDetalle()) {
+                } elseif ($Empleados_p->deleteDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Asignación eliminada correctamente';
                 } else {

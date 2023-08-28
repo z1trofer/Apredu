@@ -102,7 +102,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
-    debugger
+     
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
@@ -118,7 +118,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 FORM_INFOACTI.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-    debugger
+     
     // Se verifica la acción a realizar.
     (document.getElementById('idInfo').value) ? action = 'readPorDetalle' : action = 'readSinFiltros';
     // Constante tipo objeto con los datos del formulario.
@@ -246,14 +246,24 @@ async function cargarAsignaturasGrados(id){
     };
 };
 
+//evento submit para asignar un empleado a un detalle asignatura y grado
 FORM_ASIGNATURAS_GRADOS.addEventListener('submit', async (event) => {
+    //evitar recargar la pagina
     event.preventDefault();
-    if(document.getElementById('DetallesAsignatura').value == "" &&
-    document.getElementById('DetallesGrado').value == ""){
+    //se verifica que los campos esten llenos
+    if(document.getElementById('DetallesAsignatura').value == "" && document.getElementById('DetallesGrado').value == ""){
+        //se notifica al usuario del error respectivo
         sweetAlert(4, "por favor llene todos los campos requeridos", true);
     }else{
+        //se crea una constate con el formulario respectivo
         const FORM = new FormData(FORM_ASIGNATURAS_GRADOS);
+        //se manda el id empleado como parametro
         FORM.append('id', valor_empleado);
+        //se manda a llamar la consulta en el servidor
+        const VER = await dataFetch(EMPLEADOS_API, 'VerificarDetalle', FORM);
+        if(VER.status){
+            
+        }
         const JSON = await dataFetch(EMPLEADOS_API, 'ActualizarDetalle', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {

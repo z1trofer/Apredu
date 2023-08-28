@@ -105,7 +105,7 @@ async function llenarCMB(){
 }
 
 async function graficoBarrasNotas() {
-    debugger
+     
     const FORM = new FormData();
     FORM.append('trimestre', document.getElementById('trimestre_top').value);
     FORM.append('grado', document.getElementById('grado_top').value);
@@ -190,7 +190,7 @@ async function graficoReproYApro() {
 
 //eventos para graficos parametrizados graficos
 document.getElementById('trimestre_top').addEventListener('change', async (event) => {
-    debugger
+     
     //se resetean los canvas de los graficos para dar lugar a unos nuevos
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
     document.getElementById('chartspace5').innerHTML = "<canvas id='chart5'></canvas>";

@@ -116,7 +116,7 @@ async function cargarAsignaturas(){
               </div>
         </div>
             `;
-            debugger
+             
                 //se obtiene el id del boton de la asignatura
                 color = document.getElementById('dropasig' + row.id_asignatura);
                 //se compara el id de la asignatura para asignar un color al boton

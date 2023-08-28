@@ -212,7 +212,7 @@ async function CargarTrimestres() {
     const JSON = await dataFetch(ACTIVIDADES_API, 'readTrimestre', FORM);
     //se comprueba la respuesta de la api
     if (JSON.status) {
-        debugger
+         
         document.getElementById('titulo_anio').innerHTML = `Año lectivo: ${JSON.dataset[0].anio}, ${JSON.dataset[0].trimestre} `;
         //se declara el combobox de trimestres en la variable dropdown
         dropdown = document.getElementById('listTrimestre');
@@ -220,10 +220,10 @@ async function CargarTrimestres() {
         dropdown.innerHTML = '';
         //se llena el dropdown mediante la respuesta de la api
         JSON.dataset.forEach(async row => {
-            debugger
+             
             //el dropdown se llena con el trimestre que poseea el valor de true
             //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
-            debugger
+             
             //if (row.estado == true || SESSION.id_cargo != 2) {
                 id_trimestre = row.id_trimestre;
                 //trimestre = row.trimestre;

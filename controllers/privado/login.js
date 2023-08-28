@@ -4,7 +4,7 @@ const LOGIN_FORM = document.getElementById('formulario_login');
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Petición para consultar los usuarios registrados.
-    const JSON = await dataFetch(USER_API, 'getUser');
+    const JSON = await dataFetch(USER_API, 'getSession');
     // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
     if (JSON.session) {
         // Se direcciona a la página web de bienvenida.
@@ -20,7 +20,6 @@ let idgrado = null
 
 // Método manejador de eventos para cuando se envía el formulario de inicio de sesión.
 LOGIN_FORM.addEventListener('submit', async (event) => {
-      
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.

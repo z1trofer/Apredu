@@ -173,6 +173,16 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
+    
+    //funcion verificar detalle
+    public function verificarDetalle($asignatura, $grado)
+    {
+        $sql = 'SELECT id_detalle_asignatura_empleado, id_empleado, id_asignatura, id_grado from detalle_asignaturas_empleados
+        where id_asignatura = ? and id_grado = ?';
+        $params = array($asignatura, $grado);
+        return Database::getRow($sql, $params);
+    }
+
     //eliminar detalle
     public function deleteDetalle()
     {

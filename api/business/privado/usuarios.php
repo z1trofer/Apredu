@@ -37,7 +37,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias de usuario indefinido';
                 }
                 break;
-
             case 'logOut':
                 if (session_destroy()) {
                     $result['status'] = 1;
