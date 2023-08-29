@@ -255,10 +255,10 @@ if (isset($_GET['action'])) {
                     if($data['id_empleado'] == null){
                         $result['status'] = 1;
                     } elseif ($data['id_empleado'] == $_POST['id']){
-                        $result['status'] = 1;
+                        $result['status'] = 0;
                         $result['message'] = "Esta asignatura y grado ya estan asignados a este docente";
                     } else{
-                        $result['status'] = 1;
+                        $result['status'] = 2;
                         $result['message'] = "Esta asignatura y grado ya estan asignados a un docente, si asignas este docente, el otro docente será desasignado. ¿Deseas Continuar?";
                     }
                 } else {
