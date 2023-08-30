@@ -8,10 +8,14 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $usuario = new Usuarios;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
+    //arreglo para guardar los permisos de usuario
+    $permisos = array();
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_empleado'])) {
+        //se identifica que hay una session iniciada
         $result['session'] = 1;
+        //se obtiene el arreglo con los permisos del respectivo usuario
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getSession':
@@ -190,15 +194,15 @@ if (isset($_GET['action'])) {
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
-                    $result['exception'] = 'Error con el usuario';
+                    $result['exception'] = 'No hay coincidencia con las credenciales ingresadas';
                 } elseif (!$usuario->setClave($_POST['clave'])) {
-                    $result['exception'] = 'Error con la clave';
+                    $result['exception'] = 'No hay coincidencia con las credenciales ingresadas';
                 } else {
                     $data = $usuario->LogIn($_POST['clave']);
                     if ($data == false) {
                         $result['exception'] = 'Clave incorrecta';
                     } else if ($data == 'zzz') {
-                        $result['exception'] = 'El usuario con el que intenta ingresar esta bloqueado';
+                        $result['exception'] = 'No hay coincidencia con las credenciales ingresadas';
                     } elseif ($data != false) {
                         $_SESSION['id_empleado'] = $usuario->getId();
                         $_SESSION['usuario'] = $usuario->getUser();
@@ -207,7 +211,7 @@ if (isset($_GET['action'])) {
                         $_SESSION['empleado'] = $usuario->getEmpleado();
                         $result['dataset'] = $data;
                         $result['status'] = 1;
-                        $result['message'] = 'Autenticación correcta';
+                        $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
                     } else {
                         $result['exception'] = Database::getException();
                     }
