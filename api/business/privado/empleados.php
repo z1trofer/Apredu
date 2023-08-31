@@ -1,5 +1,6 @@
 <?php
 require_once('../../entities/dto/empleados.php');
+require_once('../../entities/dto/permisos.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -7,15 +8,34 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $Empleados_p = new Empleados;
+    $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
+    $result = array('status' => null, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
+            case 'getVistaAutorizacion':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_empleados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } else {
+                    $result['status'] = 1;
+                }
+                break;
             case 'readAll':
                 $_POST = Validator::validateForm($_POST);
-                if ($result['dataset'] = $Empleados_p->readAll($_POST['check'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_empleados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif ($result['dataset'] = $Empleados_p->readAll($_POST['check'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
@@ -112,7 +132,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                //validar atributo
+                $access = array('view_empleados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //accion
+                } elseif ($_POST['search'] == '') {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 } elseif ($result['dataset'] = $Empleados_p->searchRows($_POST['search'], $_POST['check'])) {
                     $result['status'] = 1;
@@ -249,15 +276,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'asignatura Incorrecta';
                 } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
                     $result['exception'] = 'id Incorrecta';
-                //se ejecuta la consulta
+                    //se ejecuta la consulta
                 } elseif ($data = $Empleados_p->verificarDetalle($_POST['asignatura'], $_POST['grado'])) {
                     //se verifica el resultado de la consulta
-                    if($data['id_empleado'] == null){
+                    if ($data['id_empleado'] == null) {
                         $result['status'] = 1;
-                    } elseif ($data['id_empleado'] == $_POST['id']){
+                    } elseif ($data['id_empleado'] == $_POST['id']) {
                         $result['status'] = 0;
                         $result['message'] = "Esta asignatura y grado ya estan asignados a este docente";
-                    } else{
+                    } else {
                         $result['status'] = 2;
                         $result['message'] = "Esta asignatura y grado ya estan asignados a un docente, si asignas este docente, el otro docente será desasignado. ¿Deseas Continuar?";
                     }
@@ -265,7 +292,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();;
                 }
                 break;
-                //case eliminar el detalle de un empleado respecto a los grados y asignaturas
+                //eliminar el detalle de un empleado respecto a los grados y asignaturas
             case 'deleteAsignation':
                 if (!$Empleados_p->setid_empleado($_POST['id'])) {
                     $result['exception'] = 'El id no es correcto';
@@ -278,6 +305,7 @@ if (isset($_GET['action'])) {
                 break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
+                break;
         }
         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
         header('content-type: application/json; charset=utf-8');

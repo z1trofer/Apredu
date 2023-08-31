@@ -5,6 +5,8 @@ require_once('../../helpers/database.php');
 */
 class EmpleadosQueries
 {
+
+
     public function readAll($check)
     {
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
@@ -173,7 +175,7 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
-    
+
     //funcion verificar detalle
     public function verificarDetalle($asignatura, $grado)
     {
@@ -229,4 +231,4 @@ class EmpleadosQueries
         $params = array($this->id_grado);
         return Database::getRows($sql, $params);
     }
-}?>
+}

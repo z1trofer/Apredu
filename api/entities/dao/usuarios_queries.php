@@ -5,6 +5,19 @@ require_once('../../helpers/database.php');
 */
 class UsuariosQueries
 {
+    public function getPermissions($access)
+    {
+        $sql = 'SELECT ' . implode(",", $access). ' from cargos_empleados INNER JOIN empleados USING(id_cargo) where empleados.id_empleado = ?';
+        $params = array($this->id);
+        $data = Database::getRow($sql, $params);
+        $autorized = true;
+        foreach ($data as $permission) {
+            if ($permission == 0) {
+                $autorized = false;
+            }
+        }
+        return $autorized;
+    }
     public function LogIn($clave)
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
@@ -28,5 +41,6 @@ class UsuariosQueries
             return false;
         }
     }
+
 }
 ?>

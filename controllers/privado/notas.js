@@ -157,7 +157,6 @@ function getIdTrimestre(asginatura, id_grado, grado, docente, materia){
 //funcion para cambiar el trimestre seleccionado en el dropdown de trimestres
 //parametros: id_trimestre y el nombre del trimestre
 function opcionTrimestre(id_trimestreFun, trimestreFun) {
-     
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_trimestre = id_trimestreFun;
     trimestre = trimestreFun;

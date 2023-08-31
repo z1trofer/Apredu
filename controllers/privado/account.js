@@ -113,11 +113,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             <!-- Collapsible wrapper -->
             </div>
             <!-- Container wrapper -->
-             </nav>`;
+            </nav>`;
 
             //si el nivel de usuario es docente se ocultan los menus respectivos
             if(JSON.id_cargo == 2){
-                 
                 menus = document.getElementsByClassName('doce');
                 for (let i = 0; i < menus.length; i++) {
                     menus[i].hidden = true;

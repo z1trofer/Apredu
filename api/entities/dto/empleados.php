@@ -28,14 +28,12 @@ class Empleados extends EmpleadosQueries
     */
     public function setid_empleado($value)
     {
-        $this->id_empleado = $value;
-        return true;
-        /*if (Validator::validateNaturalNumber($value)) {
+        if (Validator::validateNaturalNumber($value)) {
             $this->id_empleado = $value;
             return true;
         } else {
             return false;
-        }*/
+        }
     }
 
     public function setnombre_empleado($value)

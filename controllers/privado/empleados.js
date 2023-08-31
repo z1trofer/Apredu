@@ -32,6 +32,8 @@ function CapturandoDatos() {
     CargandoDatos(valor_empleado, valor_grado, valor_asignatura);
 }
 
+
+
 function CargandoDatos(empleado, grado, asignatura) {
     fillTable2(empleado, grado, asignatura);
 }
@@ -66,24 +68,39 @@ CMB_GRADO.addEventListener('change', () => {
 
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
-    // Llamada a la función para llenar la tabla con los registros disponibles.
-    fillTable();
+    if (validate == true) {
+        // Llamada a la función para llenar la tabla con los registros disponibles.
+        fillTable();
 
-    // Constante tipo objeto para obtener la fecha y hora actual.
-    const TODAY = new Date();
-    // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
-    let day = ('0' + TODAY.getDate()).slice(-2);
-    // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
-    var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
-    // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
-    let year = TODAY.getFullYear() - 18;
-    // Se declara e inicializa una variable para establecer el formato de la fecha.
-    let date = `${year}-${month}-${day}`;
-    // Se asigna la fecha como valor máximo en el campo del formulario.
-    document.getElementById('fecha_nacimiento').max = date;
+        // Constante tipo objeto para obtener la fecha y hora actual.
+        const TODAY = new Date();
+        // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
+        let day = ('0' + TODAY.getDate()).slice(-2);
+        // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
+        var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
+        // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
+        let year = TODAY.getFullYear() - 18;
+        // Se declara e inicializa una variable para establecer el formato de la fecha.
+        let date = `${year}-${month}-${day}`;
+        // Se asigna la fecha como valor máximo en el campo del formulario.
+        document.getElementById('fecha_nacimiento').max = date;
+    }else{
+        location.href = 'principal.html';
+    }
+
 
 });
 
+//validar acceso a la pagina
+async function validate() {
+    const JSON = await dataFetch(EMPLEADOS_API, getVistaAutorizacion);
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
 
 SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -155,7 +172,7 @@ async function fillTable(form = null) {
     FORM.append('check', document.getElementById('chekboxAdmin').checked);
     // Petición para obtener los registros disponibles.
     const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
-
+    debugger
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.

@@ -229,10 +229,6 @@ if (isset($_GET['action'])) {
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
                     $result['session'] = 1;
-                    $result['usuario'] = $_SESSION['usuario'];
-                    $result['tipo'] = $_SESSION['tipo'];
-                    $result['id_cargo'] = $_SESSION['id_cargo'];
-                    $result['id_empleado'] = $_SESSION['id_empleado'];
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
