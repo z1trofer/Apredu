@@ -4,4 +4,5 @@ define('SERVER', 'localhost');
 define('DATABASE', 'apredu');
 define('USERNAME', 'root');
 define('PASSWORD', '');
+
 ?>
