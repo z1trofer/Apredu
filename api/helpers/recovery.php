@@ -24,16 +24,11 @@ try {
     $mail->Password   = 'jtlgtzpzjvtblyan';
     $mail->Port       = 587;
 
-    $mail->setFrom('paulrivas004@gmail.com', 'NOMBRE_FORM');
-    $mail->addAddress('manbo631@gmail.com', 'NOMBRE_ELECTRONICO_PARA');
+    $mail->setFrom('paulrivas004@gmail.com', 'Recuperacion de contraseña');
+    $mail->addAddress( $email , 'NOMBRE_ELECTRONICO_PARA');
     $mail->isHTML(true);
-    $mail->Subject = 'Recuperación de contraseña';
-    $mail->Body    = 'Hola, este es un correo generado para solicitar tu recuperación de contraseña, por favor, visita la página de <a href="http://localhost/Apredu/change_password.php?id_empleado
-    
-    
-    
-    
-    ='.$row['id_empleado'].'">Recuperación de contraseña</a>';
+    $mail->Subject = 'Recuperación de contraseña' ;
+    $mail->Body    = 'Hola, este es un correo generado para solicitar tu recuperación de contraseña, por favor, visita la página de <a href="http://localhost/Apredu/change_password.php?id_empleado='.$row['id_empleado'].'">Recuperación de contraseña</a>';
 
     $mail->send();
     header("Location: ../../vistas/privado/index.html?message=ok");

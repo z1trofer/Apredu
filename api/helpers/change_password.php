@@ -1,7 +1,6 @@
 <?php
-require_once('../helpers/database.php');
 require_once('./config_contra.php');
-$id = $_POST['id_empleado'];
+$id = $_POST['id'];
 $pass = $_POST['new_password'];
 
 // Encriptar la contraseña
