@@ -12,7 +12,10 @@
     
 <main class="form-signin w-100 m-auto">
   <form action="api/helpers/change_password.php" method="POST">
-    <h1>8dev</h1>
+    <h1>Apredu
+      <br>
+      Restablecer contraseña
+    </h1>
     <h2 class="h3 mb-3 fw-normal">Recupera tu contraseña</h2>
     <div class="form-floating my-3">
       <input type="password" class="form-control" id="floatingInput" name="new_password">
