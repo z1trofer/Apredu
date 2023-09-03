@@ -67,8 +67,9 @@ CMB_GRADO.addEventListener('change', () => {
 // Constante tipo objeto para establecer las opciones del componente Modal.
 
 // Método manejador de eventos para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
-    if (validate == true) {
+document.addEventListener('DOMContentLoaded', async () => {
+    debugger
+    if (await validate() == true) {
         // Llamada a la función para llenar la tabla con los registros disponibles.
         fillTable();
 
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let date = `${year}-${month}-${day}`;
         // Se asigna la fecha como valor máximo en el campo del formulario.
         document.getElementById('fecha_nacimiento').max = date;
+
     }else{
         location.href = 'principal.html';
     }
@@ -93,7 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //validar acceso a la pagina
 async function validate() {
-    const JSON = await dataFetch(EMPLEADOS_API, getVistaAutorizacion);
+    debugger
+    const JSON = await dataFetch(EMPLEADOS_API, 'getVistaAutorizacion');
+    debugger
     if (JSON.status) {
         return true;
     } else {
