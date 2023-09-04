@@ -12,7 +12,7 @@ if (isset($_GET['action'])) {
     //arreglo para guardar los permisos de usuario
     $permisos = array();
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_empleado'])) {
+    if (isset($_SESSION['id_empleado']) AND Validator::validateSessionTime()) {
         //se identifica que hay una session iniciada
         $result['session'] = 1;
         //se obtiene el arreglo con los permisos del respectivo usuario
@@ -209,6 +209,7 @@ if (isset($_GET['action'])) {
                         $_SESSION['tipo'] = $usuario->getTipo_empleado();
                         $_SESSION['id_cargo'] = $usuario->getId_cargo();
                         $_SESSION['empleado'] = $usuario->getEmpleado();
+                        $_SESSION['tiempo'] = time();
                         $result['dataset'] = $data;
                         $result['status'] = 1;
                         $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
@@ -237,8 +238,6 @@ if (isset($_GET['action'])) {
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
     }
-
-
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.

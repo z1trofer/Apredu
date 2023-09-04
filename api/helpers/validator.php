@@ -7,6 +7,7 @@ class Validator
     // Propiedades para manejar algunas validaciones.
     private static $passwordError = null;
     private static $fileError = null;
+    private static $sessionError = null;
     private static $fileName = null;
 
     /*
@@ -31,6 +32,14 @@ class Validator
     public static function getFileError()
     {
         return self::$fileError;
+    }
+
+    /*
+    *   Método para obtener el error al validar un archivo.
+    */
+    public static function getSessionError()
+    {
+        return self::$sessionError;
     }
 
     /*
@@ -62,7 +71,7 @@ class Validator
         }
     }
 
-        /*
+    /*
     *   Método para validar un número del año.
     */
     public static function validateAnio($value)
@@ -284,7 +293,7 @@ class Validator
         }
     }
 
-        /*
+    /*
     *   Método para validar un archivo al momento de subirlo al servidor.
     *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
     *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
@@ -347,5 +356,25 @@ class Validator
             return false;
         }
     }
+
+    public static function validateSessionTime()
+    {
+        //Tiempo en segundos para dar vida a la sesión.
+        $inactivo = 30; //Tiempo en segundos.
+
+        //Calculamos tiempo de vida inactivo.
+        $vida_session = time() - $_SESSION['tiempo'];
+
+        //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
+        if ($vida_session > $inactivo) {
+            //Destruimos sesión.
+            session_destroy();
+            //Redirigimos pagina.
+            //self::$sessionError = 'Su sesión ha caducado';
+            return false;
+        } else {  // si no ha caducado la sesion, actualizamos
+            $_SESSION['tiempo'] = time();
+            return true;
+        }
+    }
 }
-?>
