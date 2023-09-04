@@ -12,6 +12,12 @@ class Usuarios extends UsuariosQueries
     public $clave = null;
     public $empleado = null;
     public $estado = null;
+    public $nombre_empleado = null;
+    public $apellido_empleado = null;
+    public $correo_empleado = null;
+
+
+
 
     //atributos xtra
     public $cargo = null;
@@ -61,6 +67,36 @@ class Usuarios extends UsuariosQueries
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->estado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+     public function setNombre_empleado($value)
+    {
+        if (Validator::validateAlphanumeric($value, 1, 150)) {
+            $this->nombre_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setapellido_empleado($value)
+    {
+        if (Validator::validateAlphanumeric($value, 1, 150)) {
+            $this->apellido_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setcorreo_empleado($value)
+    {
+        if (Validator::validateEmail($value, 1, 150)) {
+            $this->correo_empleado = $value;
             return true;
         } else {
             return false;

@@ -42,5 +42,47 @@ class UsuariosQueries
         }
     }
 
+    public function checkPassword($password)
+    {
+        $sql = 'SELECT clave
+                FROM empleados
+                WHERE id_empleado = ?';
+        $params = array($this->id);
+        $data = Database::getRow($sql, $params);
+        // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
+        if (password_verify($password, $data['clave'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function changePassword()
+    {
+        $sql = 'UPDATE empleados
+                SET clave = ?
+                WHERE id_empleado = ?';
+        $params = array($this->clave, $_SESSION['id_empleado']);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readProfile()
+    {
+        $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, correo_empleado, usuario_empleado 
+                 FROM empleados 
+                 WHERE id_empleado = ?';
+        $params = array($_SESSION['id_empleado']);
+        return Database::getRow($sql, $params);
+    }
+
+    public function editProfile()
+    {
+        $sql = 'UPDATE empleados
+        SET nombre_empleado = ?, apellido_empleado = ?, correo_empleado = ?, usuario_empleado = ?
+        WHERE id_empleado = ?';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->correo, $this->empleado, $_SESSION['id_empleado']);
+        return Database::executeRow($sql, $params);
+    }
+
 }
 ?>

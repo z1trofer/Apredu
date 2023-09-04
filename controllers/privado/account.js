@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <li>
                             <a class="dropdown-item" id="userActive" class="nav-link active">${JSON.usuario}</a>
                                 <a class="dropdown-item">cargo: ${JSON.tipo}</a>
+                                <a class="dropdown-item" href="perfil.html"> Editar perfil</a>
                                 <a class="dropdown-item" onclick="logOut()">Cerrar sesión</a>
                         </li>
                     </ul>

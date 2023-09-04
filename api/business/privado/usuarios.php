@@ -61,10 +61,10 @@ if (isset($_GET['action'])) {
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
-                    $result['exception'] = 'Alias incorrecto';
+                    $result['exception'] = 'Usuario incorrecto';
                 } elseif ($usuario->editProfile()) {
                     $result['status'] = 1;
-                    $_SESSION['alias_usuario'] = $usuario->getUser();
+                    $_SESSION['id_empleado'] = $usuario->getUser();
                     $result['message'] = 'Perfil modificado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
