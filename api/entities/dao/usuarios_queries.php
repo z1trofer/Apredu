@@ -97,7 +97,7 @@ class UsuariosQueries
         $sql = 'UPDATE empleados
         SET nombre_empleado = ?, apellido_empleado = ?, correo_empleado = ?, usuario_empleado = ?
         WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->correo, $this->empleado, $_SESSION['id_empleado']);
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->correo_empleado, $this->usuario_empleado, $_SESSION['id_empleado']);
         return Database::executeRow($sql, $params);
     }
 }
