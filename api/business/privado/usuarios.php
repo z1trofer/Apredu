@@ -194,15 +194,27 @@ if (isset($_GET['action'])) {
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
-                    $result['exception'] = 'No hay coincidencia con las credenciales ingresadas';
+                    $result['exception'] = 'Ingrese un usuario';
                 } elseif (!$usuario->setClave($_POST['clave'])) {
-                    $result['exception'] = 'No hay coincidencia con las credenciales ingresadas';
+                    $result['exception'] = 'Ingrese una contraseña';
                 } else {
                     $data = $usuario->LogIn($_POST['clave']);
                     if ($data == false) {
-                        $result['exception'] = 'Clave incorrecta';
+                        $result['exception'] = 'Error en el servidor';
                     } else if ($data == 'zzz') {
-                        $result['exception'] = 'No hay coincidencia con las credenciales ingresadas';
+                        $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
+                    } else if ($data == 'bloquear') {
+                        if($usuario->blockUser()){
+                            $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces por lo que su usuaio ha sido bloquedo, por favor contactate con un administrador';
+                        }else{
+                            $result['exception'] = 'Error en el servidor bloq';
+                        }
+                    }else if ($data == 'fail') {
+                        if($usuario->agregarIntento()){
+                            $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail';
+                        }else{
+                            $result['exception'] = 'Error en el servidor Int';
+                        }
                     } elseif ($data != false) {
                         $_SESSION['id_empleado'] = $usuario->getId();
                         $_SESSION['usuario'] = $usuario->getUser();
