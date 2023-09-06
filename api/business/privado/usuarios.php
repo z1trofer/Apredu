@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setId($_SESSION['id_usuario_administrador'])) {
+                if (!$usuario->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 } elseif (!$usuario->checkPassword($_POST['actual'])) {
                     $result['exception'] = 'Clave actual incorrecta';
