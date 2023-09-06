@@ -38,7 +38,7 @@ class UsuariosQueries
             $this->id_cargo = $data['id_cargo'];
             $this->empleado = $data['nombre'];
             return $data;
-        } elseif($data['intentos'] > 5) {
+        } elseif($data['intentos'] >= 5) {
             return 'bloquear';
         } else {
             return 'fail';
@@ -48,6 +48,13 @@ class UsuariosQueries
     public function agregarIntento()
     {
         $sql = 'UPDATE empleados set intentos = intentos+1 where usuario_empleado = ?';
+        $params = array($this->usuario);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function resetIntentos()
+    {
+        $sql = 'UPDATE empleados set intentos = 0 where usuario_empleado = ?';
         $params = array($this->usuario);
         return Database::executeRow($sql, $params);
     }

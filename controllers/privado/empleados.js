@@ -26,8 +26,8 @@ let valor_grado;
 let valor_empleado;
 
 function CapturandoDatos() {
-    console.log(valor_asignatura);
-    console.log(valor_grado);
+    //console.log(valor_asignatura);
+    //console.log(valor_grado);
     // fillTable2(id_empleado);
     CargandoDatos(valor_empleado, valor_grado, valor_asignatura);
 }
@@ -68,7 +68,7 @@ CMB_GRADO.addEventListener('change', () => {
 
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-    debugger
+
     if (await validate() == true) {
         // Llamada a la función para llenar la tabla con los registros disponibles.
         fillTable();
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Se asigna la fecha como valor máximo en el campo del formulario.
         document.getElementById('fecha_nacimiento').max = date;
 
-    }else{
+    } else {
         location.href = 'principal.html';
     }
 
@@ -95,9 +95,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 //validar acceso a la pagina
 async function validate() {
-    debugger
+
     const JSON = await dataFetch(EMPLEADOS_API, 'getVistaAutorizacion');
-    debugger
+
     if (JSON.status) {
         return true;
     } else {
@@ -128,6 +128,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
+        document.getElementById('closeEmpleados').click();
         SAVE_FORM.reset();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
@@ -176,7 +177,7 @@ async function fillTable(form = null) {
     FORM.append('check', document.getElementById('chekboxAdmin').checked);
     // Petición para obtener los registros disponibles.
     const JSON = await dataFetch(EMPLEADOS_API, action, FORM);
-    debugger
+
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -315,6 +316,7 @@ FORM_ASIGNATURAS_GRADOS.addEventListener('submit', async (event) => {
         }
     }
 });
+
 //función para quitar la asignación de un empleado hacia la asignatura de un grado
 async function quitarAsignatura(id) {
     //formulario
@@ -328,8 +330,6 @@ async function quitarAsignatura(id) {
     } else {
         sweetAlert(2, JSON.exception, false);
     }
-
-
 }
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
@@ -346,7 +346,7 @@ function openCreate() {
 
 function openDetalleActividad(id_empleado) {
     TBODY_ROWS_ACT.innerHTML = '';
-    console.log(id_empleado);
+    //console.log(id_empleado);
     TITULO_MODAL2.textContent = 'Información de actividades';
     fillSelect2(EMPLEADOS_API, 'readAsignaturas_empleado', 'asignatura', id_empleado);
     fillSelect2(EMPLEADOS_API, 'readGrados_empleado', 'grado', id_empleado);
@@ -354,8 +354,6 @@ function openDetalleActividad(id_empleado) {
     valor_empleado = id_empleado;
     //document.getElementById('nombre_empleado').innerHTML = `Nombre: ${JSON.nombre_empleado}`
     CapturandoDatos();
-
-
 }
 
 /*
@@ -386,6 +384,15 @@ async function openUpdate(id_empleado) {
         document.getElementById('usuario').value = JSON.dataset.usuario_empleado;
         //document.getElementById('clave').value = JSON.dataset.clave;
         document.getElementById('estado').selectedIndex = JSON.dataset.estado;
+        document.getElementById('intentos').selectedIndex = JSON.dataset.intentos;
+        debugger
+        if (JSON.dataset.intentos >= 5) {
+            debugger
+            document.getElementById('intentoslab').className = 'form-label';
+
+        } else {
+            document.getElementById('intentoslab').className = 'visually-hidden-focusable';
+        }
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -474,10 +481,10 @@ async function fillTable2(id_empleado, id_grado = null, id_asignatura = null) {
             `;
             })
         } else {
-            console.log("Error al mostrar");
+            //console.log("Error al mostrar");
         }
     } else if (id_grado != null && id_asignatura == null) {
-        console.log('No se admiten un valor nulo');
+        //console.log('No se admiten un valor nulo');
     } else {
         const FORM = new FormData();
         FORM.append('id_empleado', id_empleado);

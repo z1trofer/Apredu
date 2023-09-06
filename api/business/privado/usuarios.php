@@ -205,7 +205,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
                     } else if ($data == 'bloquear') {
                         if($usuario->blockUser()){
-                            $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces por lo que su usuaio ha sido bloquedo, por favor contactate con un administrador';
+                            $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces por lo que su usuario ha sido bloquedo, por favor contactate con un administrador';
                         }else{
                             $result['exception'] = 'Error en el servidor bloq';
                         }
@@ -216,15 +216,19 @@ if (isset($_GET['action'])) {
                             $result['exception'] = 'Error en el servidor Int';
                         }
                     } elseif ($data != false) {
-                        $_SESSION['id_empleado'] = $usuario->getId();
-                        $_SESSION['usuario'] = $usuario->getUser();
-                        $_SESSION['tipo'] = $usuario->getTipo_empleado();
-                        $_SESSION['id_cargo'] = $usuario->getId_cargo();
-                        $_SESSION['empleado'] = $usuario->getEmpleado();
-                        $_SESSION['tiempo'] = time();
-                        $result['dataset'] = $data;
-                        $result['status'] = 1;
-                        $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
+                        if($usuario->resetIntentos()){
+                            $_SESSION['id_empleado'] = $usuario->getId();
+                            $_SESSION['usuario'] = $usuario->getUser();
+                            $_SESSION['tipo'] = $usuario->getTipo_empleado();
+                            $_SESSION['id_cargo'] = $usuario->getId_cargo();
+                            $_SESSION['empleado'] = $usuario->getEmpleado();
+                            $_SESSION['tiempo'] = time();
+                            $result['dataset'] = $data;
+                            $result['status'] = 1;
+                            $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
+                        }else{
+                            $result['exception'] = 'Error en el servidor resInt';
+                        }
                     } else {
                         $result['exception'] = Database::getException();
                     }
