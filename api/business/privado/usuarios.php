@@ -12,7 +12,7 @@ if (isset($_GET['action'])) {
     //arreglo para guardar los permisos de usuario
     $permisos = array();
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_empleado']) AND Validator::validateSessionTime()) {
+    if (isset($_SESSION['id_empleado']) and Validator::validateSessionTime()) {
         //se identifica que hay una session iniciada
         $result['session'] = 1;
         //se obtiene el arreglo con los permisos del respectivo usuario
@@ -60,11 +60,17 @@ if (isset($_GET['action'])) {
                 break;
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setUser($_POST['usuario'])) {
-                    $result['exception'] = 'Usuario incorrecto';
+                if (!$usuario->setNombre_empleado($_POST['nombres'])) {
+                    $result['exception'] = 'Nombre incorrecto';
+                } elseif (!$usuario->setapellido_empleado($_POST['apellidos'])) {
+                    $result['exception'] = 'Apellidos incorrecto';
+                } elseif (!$usuario->setcorreo_empleado($_POST['correo'])) {
+                    $result['exception'] = 'Correo incorrecto';
+                } elseif (!$usuario->setusuario_empleado($_POST['usuario'])) {
+                    $result['exception'] = 'usuario incorrecto';
                 } elseif ($usuario->editProfile()) {
                     $result['status'] = 1;
-                    $_SESSION['id_empleado'] = $usuario->getUser();
+                    $_SESSION['usuario'] = $_POST['usuario'];
                     $result['message'] = 'Perfil modificado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
@@ -209,10 +215,10 @@ if (isset($_GET['action'])) {
                         }else{
                             $result['exception'] = 'Error en el servidor bloq';
                         }
-                    }else if ($data == 'fail') {
-                        if($usuario->agregarIntento()){
+                    } else if ($data == 'fail') {
+                        if ($usuario->agregarIntento()) {
                             $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail';
-                        }else{
+                        } else {
                             $result['exception'] = 'Error en el servidor Int';
                         }
                     } elseif ($data != false) {
@@ -261,4 +267,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>
