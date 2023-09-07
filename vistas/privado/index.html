@@ -6,32 +6,148 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
     <title>Inicio de sesión</title>
 </head>
 
-        <body class="" id="login_private">
-            <form action="" id="formulario_login">
-                <div id="title_login">
-                    <h1 class="title">Inicio de sesión</h1>
+<body class="" id="login_private">
+    <div>
+        <form action="" id="formulario_login">
+            <div id="title_login">
+                <h1 class="title">Inicio de sesión</h1>
+            </div>
+            <div>
+                <label for="" id="label_login">
+                    <input placeholder="Usuario" name="usuario" type="text" id="usuario" autocomplete="off">
+                </label>
+            </div>
+            <div>
+                <label for="" id="label_login">
+                    <input placeholder="Contraseña" type="password" name="clave" id="clave">
+                </label>
+            </div>
+            <div>
+                <button type="submit" class="btn btn btn-rounded" id="login_button">Acceder</button>
+            </div>
+            <a href="../../recovery.php" class="link" id="link_password">¿Olvidaste tu contraseña?</a>
+        </form>
+    </div>
+    <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Información del docente</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div>
-                    <label for="" id="label_login">
-                        <input placeholder="Usuario" name="usuario" type="text" id="usuario" autocomplete="off">
-                    </label>
-                </div>
-                <div>
-                    <label for="" id="label_login">
-                        <input placeholder="Contraseña" type="password" name="clave" id="clave">
-                    </label>
-                </div>
-                <div>
-                    <button  type="submit" class="btn btn btn-rounded" id="login_button">Acceder</button>
-                </div>
-                <a href="../../recovery.php" class="link" id="link_password">¿Olvidaste tu contraseña?</a>
-            </form>
-            <script src="../../recursos/js/sweetalert.min.js"></script>
-            <script src="../../controllers/components.js"></script>
-            <script src="../../controllers/privado/login.js"></script>
-            <script src="../../controllers/privado/account.js"></script>
-        </body>
+                <form id="save-form" method="post" action="">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="nombres" name="nombres" class="form-control"
+                                        maxlength="50" autocomplete="off"/>
+                                    <label class="form-label" for="typeText">Nombres</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="apellidos" name="apellidos" class="form-control"
+                                        maxlength="50" autocomplete="off"/>
+                                    <label class="form-label" for="typeText">Apellidos</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="dui" name="dui" class="form-control" autocomplete="off"/>
+                                    <label class="form-label">DUI (con guión)</label>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="text" id="usuario" name="usuario" class="form-control"
+                                        maxlength="50" autocomplete="off"/>
+                                    <label class="form-label" for="typeText">Nombre de usuario</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input id="fecha_nacimiento" type="date" name="fecha_nacimiento"
+                                        class="form-control" autocomplete="off"/>
+                                    <label class="form-label" for="typeDate">Fecha de nacimiento</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-outline">
+                                    <input type="email" id="correo" name="correo" class="form-control" autocomplete="off"/>
+                                    <label class="form-label" for="typeEmail">Correo electrónico</label>
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col">
+                                <div class="row g-3 align-items-center">
+                                    <div class="form-outline col-auto">
+                                        <input type="password" id="clave" name="clave" class="form-control"
+                                            aria-describedby="textExample2" />
+                                        <label class="form-label" for="formTextExample2">Contraseña</label>
+                                    </div>
+                                    <div class="form-outline col-auto">
+                                        <input type="password" id="claveConfirm" name="claveConfirm"
+                                            class="form-control" aria-describedby="textExample2" />
+                                        <label class="form-label" for="formTextExample2">Confirmar Contraseña</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col-sm-4">
+                                <div class="mb-4">
+                                    <select class="form-select" required aria-label="select example" id="cargo"
+                                        name="cargo">
+                                        <option value="">Seleccione un cargo</option>
+                                    </select>
+                                    <div class="invalid-feedback">Ejemplo de comentarios de selección no válidos
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-sm-8 marginTop">
+                                <div class="form-outline">
+                                    <textarea class="form-control" id="direccion" name="direccion" rows="5"></textarea>
+                                    <label class="form-label" for="textAreaExample">Dirección</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <button type="button" class="btn visually-hidden" id="btnEmpleados" data-mdb-toggle="modal"
+            data-mdb-target="#ModalDocentesInfo" onclick="openCreate()">Añadir empleados</button>
+    </div>
+    <script src="../../recursos/js/sweetalert.min.js"></script>
+    <script src="../../controllers/components.js"></script>
+    <script src="../../controllers/privado/login.js"></script>
+    <script src="../../controllers/privado/account.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+
+</body>
+
 </html>

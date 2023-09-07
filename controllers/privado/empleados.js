@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
         var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
         // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
-        let year = TODAY.getFullYear() - 18;
+        let year = TODAY.getFullYear() - 20;
         // Se declara e inicializa una variable para establecer el formato de la fecha.
         let date = `${year}-${month}-${day}`;
         // Se asigna la fecha como valor máximo en el campo del formulario.

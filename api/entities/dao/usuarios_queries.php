@@ -69,8 +69,8 @@ class UsuariosQueries
     public function readProfile()
     {
         $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, correo_empleado, usuario_empleado 
-                 FROM empleados 
-                 WHERE id_empleado = ?';
+                FROM empleados 
+                WHERE id_empleado = ?';
         $params = array($_SESSION['id_empleado']);
         return Database::getRow($sql, $params);
     }
@@ -84,5 +84,30 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    public function createRow()
+    {
+        $sql = 'INSERT INTO empleados (nombre_empleado, apellido_empleado, dui, fecha_nacimiento, id_cargo, usuario_empleado, direccion, clave, correo_empleado)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario, $this->direccion, $this->clave, $this->correo_empleado);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readCargos()
+    {
+        $sql = 'SELECT id_cargo, cargo 
+        FROM cargos_empleados 
+        ORDER BY cargo ASC 
+        LIMIT 1';
+        return Database::getRows($sql);
+    }
+
+    
+    public function readAll()
+    {
+        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
+        FROM empleados 
+        INNER JOIN cargos_empleados USING (id_cargo)';
+        return Database::getRows($sql);
+    }
 }
 ?>

@@ -18,6 +18,7 @@ if (isset($_GET['action'])) {
         //se obtiene el arreglo con los permisos del respectivo usuario
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
+
             case 'getSession':
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
@@ -31,7 +32,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
                 break;
-                //Obtener el usuario administrador
+            //Obtener el usuario administrador
             case 'getUser':
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
@@ -191,6 +192,14 @@ if (isset($_GET['action'])) {
     } else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET['action']) {
+            case 'readUsers':
+                if ($usuario->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Debe autenticarse para ingresar';
+                } else {
+                    $result['exception'] = 'Debe crear un usuario para comenzar';
+                }
+                break;
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
@@ -231,6 +240,48 @@ if (isset($_GET['action'])) {
                     $result['session'] = 1;
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
+                }
+                break;
+            case 'signup':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setNombre_empleado($_POST['nombres'])) {
+                    $result['exception'] = 'Nombre del empleado mal ingresado';
+                } elseif (!$usuario->setapellido_empleado($_POST['apellidos'])) {
+                    $result['exception'] = 'Apellidos del empleado mal ingresada';
+                } elseif (!$usuario->setdui($_POST['dui'])) {
+                    $result['exception'] = 'DUI mal ingresada';
+                } elseif (!$usuario->setUser($_POST['usuario'])) {
+                    $result['exception'] = 'Usuario mal ingresado';
+                } elseif ($_POST['clave'] != $_POST['claveConfirm']) {
+                    $result['exception'] = 'Las contraseñas no coinciden';
+                } elseif (!$usuario->setclave($_POST['clave'])) {
+                    $result['exception'] = 'Clave mal ingresada';
+                } elseif (!$usuario->setcorreo_empleado($_POST['correo'])) {
+                    $result['exception'] = 'Correo mal ingresado';
+                } elseif (!$usuario->setDireccion($_POST['direccion'])) {
+                    $result['exception'] = 'Direccion mal ingresado';
+                } elseif (!isset($_POST['cargo'])) {
+                    $result['exception'] = 'Seleccione un tipo de actividad';
+                } elseif (!$usuario->setid_cargo($_POST['cargo'])) {
+                    $result['exception'] = 'Cargo incorrecto';
+                } elseif (!$usuario->setfecha_nacimiento($_POST['fecha_nacimiento'])) {
+                    $result['exception'] = 'Fecha incorrecta';
+                } elseif ($usuario->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Se ha creado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                    ;
+                }
+                break;
+            case 'readCargos':
+                if ($result['dataset'] = $usuario->readCargos()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
                 }
                 break;
             default:

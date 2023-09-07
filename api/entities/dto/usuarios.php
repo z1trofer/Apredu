@@ -22,6 +22,9 @@ class Usuarios extends UsuariosQueries
     //atributos xtra
     public $cargo = null;
     public $id_cargo = null;
+    public $fecha_nacimiento = null;
+    public $dui = null;
+    public $direccion = null;
 
     /*
     *   Métodos para validar y asignar valores de los atributos.
@@ -124,6 +127,37 @@ class Usuarios extends UsuariosQueries
         }
     }
 
+    public function setFecha_nacimiento($value)
+    {
+        if (Validator::validateDate($value)) {
+            $this->fecha_nacimiento = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function setDui($value)
+    {
+        if (Validator::validateDUI($value, 1, 10)) {
+            $this->dui = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
+    public function setDireccion($value)
+    {
+        if (Validator::validateString($value, 1, 150)) {
+            $this->direccion = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Métodos para obtener valores de los atributos.
     */
@@ -161,6 +195,27 @@ class Usuarios extends UsuariosQueries
     public function getId_cargo()
     {
         return $this->id_cargo;
+    }
+
+    public function getFecha_nacimiento()
+    {
+        return $this->fecha_nacimiento;
+    }
+
+    public function getCorreo_empleado()
+    {
+        return $this->correo_empleado;
+    }
+
+
+    public function getDui()
+    {
+        return $this->dui;
+    }
+
+    public function getDireccion()
+    {
+        return $this->direccion;
     }
 }
 ?>

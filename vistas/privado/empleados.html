@@ -29,13 +29,15 @@
                             <input class="visually-hidden-focusable" type="number" id="id" name="id">
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="nombres" name="nombres" class="form-control" maxlength="50"/>
+                                    <input type="text" id="nombres" name="nombres" class="form-control"
+                                        maxlength="50" />
                                     <label class="form-label" for="typeText">Nombres</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="apellidos" name="apellidos" class="form-control" maxlength="50"/>
+                                    <input type="text" id="apellidos" name="apellidos" class="form-control"
+                                        maxlength="50" />
                                     <label class="form-label" for="typeText">Apellidos</label>
                                 </div>
                             </div>
@@ -50,7 +52,8 @@
                             <br>
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="usuario" name="usuario" class="form-control" maxlength="50"/>
+                                    <input type="text" id="usuario" name="usuario" class="form-control"
+                                        maxlength="50" />
                                     <label class="form-label" for="typeText">Nombre de usuario</label>
                                 </div>
                             </div>
@@ -76,8 +79,8 @@
                                         <label class="form-label" for="formTextExample2">Contraseña</label>
                                     </div>
                                     <div class="form-outline col-auto">
-                                        <input type="password" id="claveConfirm" name="claveConfirm" class="form-control"
-                                            aria-describedby="textExample2" />
+                                        <input type="password" id="claveConfirm" name="claveConfirm"
+                                            class="form-control" aria-describedby="textExample2" />
                                         <label class="form-label" for="formTextExample2">Confirmar Contraseña</label>
                                     </div>
 
@@ -112,7 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -137,47 +140,55 @@
                 </div>
                 <div class="modal-body">
                     <form id="detalles_form">
-                    <div class="row">
-                        <div class="col">
-                            <h6>Grado</h6>
-                            <select class="form-select" required aria-label="select example" id="DetallesGrado" name="grado">
-                                <option value="">Seleccione una opción</option>
-    
-                            </select>
-                        </div>
-                        <div class="col">
-                            <h6>Asignatura</h6>
-                            <select class="form-select" required aria-label="select example" id="DetallesAsignatura" name="asignatura">
-                                <option value="">Seleccione una opción</option>
-    
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col" style="margin-top: 10px;">
-                            <button type="submit" class="btn btn-info">Agregar</button>
-                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h6>Grado</h6>
+                                <select class="form-select" required aria-label="select example" id="DetallesGrado"
+                                    name="grado">
+                                    <option value="">Seleccione una opción</option>
 
-                    </div>
-                    <div class="row">
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col"><h6>Grado</h6></th>
-                                <th scope="col"><h6>Asignatura</h6></th>
-                                <th scope="col"><h6>Acción</h6></th>
-                              </tr>
-                            </thead>
-                            <tbody id="body_asignatura">
-                              <tr>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                        
-                            </tbody>
-                          </table>
-                    </div>
-                </form>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <h6>Asignatura</h6>
+                                <select class="form-select" required aria-label="select example" id="DetallesAsignatura"
+                                    name="asignatura">
+                                    <option value="">Seleccione una opción</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col" style="margin-top: 10px;">
+                                <button type="submit" class="btn btn-info">Agregar</button>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <h6>Grado</h6>
+                                        </th>
+                                        <th scope="col">
+                                            <h6>Asignatura</h6>
+                                        </th>
+                                        <th scope="col">
+                                            <h6>Acción</h6>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body_asignatura">
+                                    <tr>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Salir</button>
@@ -294,12 +305,13 @@
                     <!--añadir empleados boton-->
                     <button type="button" class="btn" id="btnEmpleados" data-mdb-toggle="modal"
                         data-mdb-target="#ModalDocentesInfo" onclick="openCreate()">Añadir empleados</button>
-                
+
                 </div>
                 <div class="col-7">
-                    <button type="button" class="btn btn-warning" onclick="openReport()">Reporte de Personal académico</button>
-                </div> 
-                
+                    <button type="button" class="btn btn-warning" onclick="openReport()">Reporte de Personal
+                        académico</button>
+                </div>
+
                 <div class="col-10">
                     <!--buscador-->
                     <form method="post" id="search-form" action="">

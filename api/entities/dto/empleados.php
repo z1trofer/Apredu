@@ -90,12 +90,6 @@ class Empleados extends EmpleadosQueries
 
     public function setdireccion($value)
     {
-        /*if ($value) {
-            $this->nombre_empleado = $value;
-            return true;
-        } else {
-            return false;
-        }*/
         if (Validator::validateString($value, 1, 150)) {
             $this->direccion = $value;
             return true;
