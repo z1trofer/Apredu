@@ -53,6 +53,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <li>
                                     <a class="dropdown-item doce" href="trimestres.html">Trimestres escolares</a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item doce" href="permisos.html">Permisos</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

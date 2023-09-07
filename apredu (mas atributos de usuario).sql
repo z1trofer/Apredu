@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-08-2023 a las 02:25:56
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 05-09-2023 a las 23:37:26
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `actividades` (
   `id_detalle_asignatura_empleado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla detalle_asignatura_empleados',
   `id_tipo_actividad` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla tipo_actividades',
   `id_trimestre` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla trimestres'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `actividades`
@@ -103,7 +103,7 @@ DELIMITER ;
 CREATE TABLE `anios` (
   `id_anio` int(11) NOT NULL COMMENT 'Id del año',
   `anio` varchar(4) NOT NULL COMMENT 'Año lectivo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `anios`
@@ -154,7 +154,7 @@ DELIMITER ;
 CREATE TABLE `asignaturas` (
   `id_asignatura` int(11) NOT NULL COMMENT 'Id de la asignatura',
   `asignatura` varchar(20) NOT NULL COMMENT 'asignaturas de aprendizaje'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `asignaturas`
@@ -187,16 +187,25 @@ CREATE TABLE `cargos_empleados` (
   `update_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
   `update_notas` tinyint(1) NOT NULL DEFAULT 0,
   `view_notas` tinyint(1) NOT NULL DEFAULT 0,
-  `view_empleados` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `view_empleados` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_empleados` tinyint(1) NOT NULL DEFAULT 0,
+  `view_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
+  `view_grados` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_grados` tinyint(1) NOT NULL DEFAULT 0,
+  `view_asignaturas` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_asignaturas` tinyint(1) NOT NULL DEFAULT 0,
+  `view_trimestres` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_trimestres` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `cargos_empleados`
 --
 
-INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `create_usuarios`, `update_usuarios`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `view_empleados`) VALUES
-(1, 'Director', 1, 1, 1, 0, 1, 1, 0),
-(2, 'profesor', 0, 0, 0, 0, 1, 1, 0);
+INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `create_usuarios`, `update_usuarios`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`) VALUES
+(1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 'profesor', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -209,7 +218,7 @@ CREATE TABLE `detalle_asignaturas_empleados` (
   `id_empleado` int(11) DEFAULT NULL COMMENT 'Campo foráneo conectado a la tabla empleados',
   `id_asignatura` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla asignaturas',
   `id_grado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla grados'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `detalle_asignaturas_empleados`
@@ -260,36 +269,37 @@ CREATE TABLE `empleados` (
   `id_cargo` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  cargos',
   `usuario_empleado` varchar(50) NOT NULL COMMENT 'Nombre del usuario del empleado',
   `clave` varchar(100) NOT NULL COMMENT 'Clave de acceso del empleado',
+  `intentos` int(11) NOT NULL DEFAULT 0,
   `estado` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `correo_empleado`, `direccion`, `fecha_nacimiento`, `id_cargo`, `usuario_empleado`, `clave`, `estado`) VALUES
-(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', 'gabriel@gmail.com', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$/JpiBIqq6uPFi3vwDs3NR.mhgD3xTw7Iz5.UYexkAlvRqbLuv5eV.', 1),
-(12, 'Sara Marlene', 'Gúzman Torres', '00817345-1', 'sara_guzman@gmail.com', 'San Cristobal, Calle Al Matazano, San Salvador', '1982-10-03', 2, 'saritas', '$2y$10$OoT0ELydDJzBRgHrk9SX8u9JBBoCA2aVT0QXt4BL20JXr5H8ub3y6', 1),
-(13, 'Joel Mauricio', 'Ruano Pérez', '01347890-5', 'joel_ruano35@gmail.com', 'Av. Los Girasoles, San Salvador', '1980-02-10', 2, 'inglis', '$2y$10$/JpiBIqq6uPFi3vwDs3NR.mhgD3xTw7Iz5.UYexkAlvRqbLuv5eV.', 1),
-(14, 'Susana Nohemi', 'Gómez Morán', '00126734-3', 'susana_gomez67@gmail.com', 'Colonia Santa Clara, San Salvador', '1993-09-12', 2, 'susana', '$2y$10$QXOu/plrONzD/cZo1VeMbeozQzPUeLOoUCzTstXgoD77fUw4BtYbC', 1),
-(15, 'Laura Maribel', 'Posada Fuentes', '00246798-0', 'laura_posada24@gmail.com', 'Residencial Versalles, San Salvador', '1999-04-01', 2, '123dfvfdg', '$2y$10$S/Ww7g0IIYSyvYYUS1jvfeVyYzy/a3JWYFx8pWUfgtOE9jotHN4je', 1),
-(16, 'Kenia Alejandra', 'Mujica Melgar', '00561278-0', 'kenia_mujica56@gmail.com', 'Col. El tránsito 3, Santo Tómas, San Salvador', '2000-03-03', 2, 'ghgh', '1234', 0),
-(17, 'Maribel Lucía', 'Guardia López', '00348901-3', 'maribel_guardia34@gmail.com', ' Col. Santa Mónica, Mejicanos, San Salvador', '1976-02-27', 2, 'xzcxzcxz', '1234', 0),
-(18, 'Juan Lauro', 'Portillo Monterosa', '00125690-1', 'juan_portillo12@gmail.com', 'Col. Santo Domingo, Merliot, San Salvador', '1983-11-02', 2, 'gerrwer', '1234', 0),
-(19, 'William Humberto', 'Romero Serrano', '00234512-0', 'william_romero23@gmail.com', 'Calle 25 av. Norte, San Salvador', '2000-09-12', 2, 'sasasd', '1234', 0),
-(20, 'Lisbeth Guadalupe', 'Mendez Monge', '00124590-4', 'lisbeth_mendez12@gmail.com', 'San Antonio Abad, San Salvador', '1990-01-31', 2, 'rf453d', '1234', 0),
-(21, 'María Laura', 'González Iraheta', '00646569-1', 'maria_gon12@gmail.com', 'Av. Aguilares, San Salvador', '1991-12-12', 2, 'webos', '1234', 0),
-(22, 'Mauricio Salomón', 'Mendoza Escobar', '0091256-2', 'mauricio_mendoza91@gmail.com', 'Av. 25 Norte, colonia El Tránsito 3, San Salvador', '1998-02-01', 2, 'dfsfdsd', '1234', 0),
-(23, 'Juan Carlos', 'Lima Zaragoza', '00125367-8', 'juan_lima12@gmail.com', 'Col. La Rábida, Col. Urb. su casa #123', '1997-05-31', 2, 'asdsadq', '1234', 0),
-(24, 'Wilver Geovanni', 'Yanes López', '0631870-5', 'wilver_yanes01@gmail.com', 'San Salvador', '1976-11-09', 1, 'rthrthtr', '1234', 0),
-(25, 'Laura Margarita', 'Hernández Carrillo', '0951424-2', 'laura_hernandez09@gmail.com', 'La Troncal, San Salvador', '1997-05-31', 2, 'dfgfg', '1234', 0),
-(26, 'Ana Ivette', 'Ticas Pérez', '0345681-2', 'ana_ticas03@gmail.com', 'Mejicanos, San Salvador', '1976-06-12', 2, '454554wsw', '1234', 0),
-(27, 'María Luisa', 'Serrano Juárez', '0089642-8', 'maria_serrano08@gmail.com', 'Ciudad Delgado, San Salvador', '1984-07-30', 2, 'maruia', '1234', 0),
-(28, 'Joaquín Vladimir', 'Figueroa Torres', '0091844-2', 'joaquin_figueroa09@gmail.com', 'Col. Altos del cerro, Soyapango, San Salvador', '1987-10-31', 2, 'bhghghgh', '1234', 0),
-(29, 'Keila Rosario', 'Melgar Mejía', '0067893-1', 'keila_melgar67@gmail.com', 'Col. 25 de Abril, San Salvador', '1993-08-14', 2, 'sdfsdfsdxcz', '1234', 0),
-(30, 'Fátima Esmeralda', 'Peralta Méndez', '0652569-8', 'fatima_peralta65@gmail.com', 'San Salvador', '2000-09-04', 2, 'zzzzzxxxx', '1234', 0),
-(31, 'Andrea Beatriz', 'Fernández Olivo', '0912035-7', 'andrea_fernandez91@gmail.com', 'Nejapa, San Salvador', '2001-02-09', 2, 'xzccx', '1234', 0),
-(32, 'Alberto', 'Masferrer', '23234553-1', 'albetrt@gmail.com', 'alla', '1992-01-15', 2, 'Albert', '$2y$10$6RiwbGVqfVYfMzz0Dmpdq.dZEyOid8oIYngYgJgyHbPgURnNCYaOu', 1);
+INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `correo_empleado`, `direccion`, `fecha_nacimiento`, `id_cargo`, `usuario_empleado`, `clave`, `intentos`, `estado`) VALUES
+(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', 'gabriel@gmail.com', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$/JpiBIqq6uPFi3vwDs3NR.mhgD3xTw7Iz5.UYexkAlvRqbLuv5eV.', 0, 1),
+(12, 'Sara Marlene', 'Gúzman Torres', '00817345-1', 'sara_guzman@gmail.com', 'San Cristobal, Calle Al Matazano, San Salvador', '1982-10-03', 2, 'saritas', '$2y$10$OoT0ELydDJzBRgHrk9SX8u9JBBoCA2aVT0QXt4BL20JXr5H8ub3y6', 0, 1),
+(13, 'Joel Mauricio', 'Ruano Pérez', '01347890-5', 'joel_ruano35@gmail.com', 'Av. Los Girasoles, San Salvador', '1980-02-10', 2, 'inglis', '$2y$10$/JpiBIqq6uPFi3vwDs3NR.mhgD3xTw7Iz5.UYexkAlvRqbLuv5eV.', 6, 0),
+(14, 'Susana Nohemi', 'Gómez Morán', '00126734-3', 'susana_gomez67@gmail.com', 'Colonia Santa Clara, San Salvador', '1993-09-12', 2, 'susana', '$2y$10$QXOu/plrONzD/cZo1VeMbeozQzPUeLOoUCzTstXgoD77fUw4BtYbC', 0, 1),
+(15, 'Laura Maribel', 'Posada Fuentes', '00246798-0', 'laura_posada24@gmail.com', 'Residencial Versalles, San Salvador', '1999-04-01', 2, '123dfvfdg', '$2y$10$S/Ww7g0IIYSyvYYUS1jvfeVyYzy/a3JWYFx8pWUfgtOE9jotHN4je', 0, 1),
+(16, 'Kenia Alejandra', 'Mujica Melgar', '00561278-0', 'kenia_mujica56@gmail.com', 'Col. El tránsito 3, Santo Tómas, San Salvador', '2000-03-03', 2, 'ghgh', '1234', 0, 0),
+(17, 'Maribel Lucía', 'Guardia López', '00348901-3', 'maribel_guardia34@gmail.com', ' Col. Santa Mónica, Mejicanos, San Salvador', '1976-02-27', 2, 'xzcxzcxz', '1234', 0, 0),
+(18, 'Juan Lauro', 'Portillo Monterosa', '00125690-1', 'juan_portillo12@gmail.com', 'Col. Santo Domingo, Merliot, San Salvador', '1983-11-02', 2, 'gerrwer', '1234', 0, 0),
+(19, 'William Humberto', 'Romero Serrano', '00234512-0', 'william_romero23@gmail.com', 'Calle 25 av. Norte, San Salvador', '2000-09-12', 2, 'sasasd', '1234', 0, 0),
+(20, 'Lisbeth Guadalupe', 'Mendez Monge', '00124590-4', 'lisbeth_mendez12@gmail.com', 'San Antonio Abad, San Salvador', '1990-01-31', 2, 'rf453d', '1234', 0, 0),
+(21, 'María Laura', 'González Iraheta', '00646569-1', 'maria_gon12@gmail.com', 'Av. Aguilares, San Salvador', '1991-12-12', 2, 'webos', '1234', 0, 0),
+(22, 'Mauricio Salomón', 'Mendoza Escobar', '0091256-2', 'mauricio_mendoza91@gmail.com', 'Av. 25 Norte, colonia El Tránsito 3, San Salvador', '1998-02-01', 2, 'dfsfdsd', '1234', 0, 0),
+(23, 'Juan Carlos', 'Lima Zaragoza', '00125367-8', 'juan_lima12@gmail.com', 'Col. La Rábida, Col. Urb. su casa #123', '1997-05-31', 2, 'asdsadq', '1234', 0, 0),
+(24, 'Wilver Geovanni', 'Yanes López', '0631870-5', 'wilver_yanes01@gmail.com', 'San Salvador', '1976-11-09', 1, 'rthrthtr', '1234', 0, 0),
+(25, 'Laura Margarita', 'Hernández Carrillo', '0951424-2', 'laura_hernandez09@gmail.com', 'La Troncal, San Salvador', '1997-05-31', 2, 'dfgfg', '1234', 0, 0),
+(26, 'Ana Ivette', 'Ticas Pérez', '0345681-2', 'ana_ticas03@gmail.com', 'Mejicanos, San Salvador', '1976-06-12', 2, '454554wsw', '1234', 0, 0),
+(27, 'María Luisa', 'Serrano Juárez', '0089642-8', 'maria_serrano08@gmail.com', 'Ciudad Delgado, San Salvador', '1984-07-30', 2, 'maruia', '1234', 0, 0),
+(28, 'Joaquín Vladimir', 'Figueroa Torres', '0091844-2', 'joaquin_figueroa09@gmail.com', 'Col. Altos del cerro, Soyapango, San Salvador', '1987-10-31', 2, 'bhghghgh', '1234', 0, 0),
+(29, 'Keila Rosario', 'Melgar Mejía', '0067893-1', 'keila_melgar67@gmail.com', 'Col. 25 de Abril, San Salvador', '1993-08-14', 2, 'sdfsdfsdxcz', '1234', 0, 0),
+(30, 'Fátima Esmeralda', 'Peralta Méndez', '0652569-8', 'fatima_peralta65@gmail.com', 'San Salvador', '2000-09-04', 2, 'zzzzzxxxx', '1234', 0, 0),
+(31, 'Andrea Beatriz', 'Fernández Olivo', '0912035-7', 'andrea_fernandez91@gmail.com', 'Nejapa, San Salvador', '2001-02-09', 2, 'xzccx', '1234', 0, 0),
+(32, 'Alberto', 'Masferrer', '23234553-1', 'albetrt@gmail.com', 'alla', '1992-01-15', 2, 'Albert', '$2y$10$6RiwbGVqfVYfMzz0Dmpdq.dZEyOid8oIYngYgJgyHbPgURnNCYaOu', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +318,7 @@ CREATE TABLE `estudiantes` (
   `usuario_estudiante` varchar(50) NOT NULL COMMENT 'Usuario del estudiante',
   `clave` varchar(100) NOT NULL COMMENT 'Clave de acceso del usuario',
   `estado` tinyint(1) NOT NULL COMMENT 'Estado de actividad del usuario'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `estudiantes`
@@ -377,7 +387,7 @@ CREATE TABLE `fichas` (
   `descripcion_ficha` varchar(200) NOT NULL COMMENT 'Descripción de la ficha reporte',
   `fecha_ficha` date NOT NULL COMMENT 'Fecha de creación de la ficha',
   `id_empleado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  empleados'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `fichas`
@@ -397,7 +407,7 @@ INSERT INTO `fichas` (`id_ficha`, `id_estudiante`, `descripcion_ficha`, `fecha_f
 CREATE TABLE `grados` (
   `id_grado` int(11) NOT NULL COMMENT 'Id del grado',
   `grado` varchar(20) NOT NULL COMMENT 'Grado académico'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `grados`
@@ -425,32 +435,32 @@ CREATE TABLE `notas` (
   `id_estudiante` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  estudiante',
   `id_actividad` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  actividad',
   `nota` decimal(9,2) DEFAULT NULL COMMENT 'Nota obtenida del estudiante de la actividad'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `notas`
 --
 
 INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
-(1, 2, 21, 5.60),
-(2, 2, 22, 8.00),
-(3, 2, 23, 9.00),
-(4, 3, 21, 5.00),
-(5, 3, 22, 8.00),
-(6, 3, 23, 4.00),
+(1, 2, 21, '5.60'),
+(2, 2, 22, '8.00'),
+(3, 2, 23, '9.00'),
+(4, 3, 21, '5.00'),
+(5, 3, 22, '8.00'),
+(6, 3, 23, '4.00'),
 (8, 4, 21, NULL),
 (23, 22, 21, NULL),
 (24, 22, 22, NULL),
 (25, 22, 23, NULL),
 (26, 22, 40, NULL),
-(90, 2, 43, 10.00),
-(91, 3, 43, 2.00),
-(92, 4, 43, 4.00),
-(93, 5, 43, 1.00),
+(90, 2, 43, '10.00'),
+(91, 3, 43, '2.00'),
+(92, 4, 43, '4.00'),
+(93, 5, 43, '1.00'),
 (94, 6, 43, NULL),
-(95, 7, 43, 8.00),
-(96, 9, 43, 6.00),
-(97, 10, 43, 3.00),
+(95, 7, 43, '8.00'),
+(96, 9, 43, '6.00'),
+(97, 10, 43, '3.00'),
 (98, 22, 43, NULL),
 (99, 2, 21, NULL),
 (100, 2, 22, NULL),
@@ -465,89 +475,89 @@ INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
 (113, 17, 46, NULL),
 (115, 16, 47, NULL),
 (116, 17, 47, NULL),
-(118, 16, 48, 9.00),
-(119, 17, 48, 4.00),
-(121, 2, 49, 4.00),
-(122, 3, 49, 2.00),
-(123, 4, 49, 7.00),
-(124, 5, 49, 7.00),
-(125, 6, 49, 10.00),
-(126, 7, 49, 1.00),
-(127, 9, 49, 8.00),
-(128, 10, 49, 4.00),
-(129, 22, 49, 8.00),
-(136, 2, 50, 9.00),
-(137, 3, 50, 8.00),
-(138, 4, 50, 10.00),
-(139, 5, 50, 8.00),
-(140, 6, 50, 7.50),
-(141, 7, 50, 7.00),
-(142, 9, 50, 8.00),
-(143, 10, 50, 6.00),
-(144, 22, 50, 8.30),
-(151, 2, 51, 10.00),
-(152, 3, 51, 8.00),
-(153, 4, 51, 9.00),
-(154, 5, 51, 8.00),
-(155, 6, 51, 5.00),
-(156, 7, 51, 6.00),
-(157, 9, 51, 8.00),
-(158, 10, 51, 8.00),
-(159, 22, 51, 7.00),
-(166, 2, 52, 2.00),
-(167, 3, 52, 8.00),
-(168, 4, 52, 3.00),
-(169, 5, 52, 9.00),
-(170, 6, 52, 8.00),
-(171, 7, 52, 4.00),
-(172, 9, 52, 10.00),
-(173, 10, 52, 8.00),
-(174, 22, 52, 9.00),
-(181, 2, 53, 9.00),
-(182, 3, 53, 5.50),
-(183, 4, 53, 5.00),
-(184, 5, 53, 7.00),
-(185, 6, 53, 2.00),
-(186, 7, 53, 3.00),
-(187, 9, 53, 8.00),
-(188, 10, 53, 6.70),
-(189, 22, 53, 9.90),
-(196, 2, 54, 9.00),
-(197, 3, 54, 6.00),
-(198, 4, 54, 6.00),
-(199, 5, 54, 5.00),
-(200, 6, 54, 3.00),
-(201, 7, 54, 10.00),
-(202, 9, 54, 8.00),
-(203, 10, 54, 6.00),
-(204, 22, 54, 4.00),
-(211, 2, 55, 9.00),
-(212, 3, 55, 10.00),
-(213, 4, 55, 8.00),
-(214, 5, 55, 7.00),
-(215, 6, 55, 8.80),
-(216, 7, 55, 9.00),
-(217, 9, 55, 6.00),
-(218, 10, 55, 8.00),
-(219, 22, 55, 7.00),
-(226, 2, 56, 8.00),
-(227, 3, 56, 10.00),
-(228, 4, 56, 7.00),
-(229, 5, 56, 10.00),
-(230, 6, 56, 8.00),
-(231, 7, 56, 5.00),
-(232, 9, 56, 8.00),
-(233, 10, 56, 10.00),
-(234, 22, 56, 6.00),
-(241, 2, 57, 7.00),
-(242, 3, 57, 2.00),
-(243, 4, 57, 9.00),
-(244, 5, 57, 8.00),
-(245, 6, 57, 9.00),
-(246, 7, 57, 8.00),
-(247, 9, 57, 9.00),
-(248, 10, 57, 3.00),
-(249, 22, 57, 10.00);
+(118, 16, 48, '9.00'),
+(119, 17, 48, '4.00'),
+(121, 2, 49, '4.00'),
+(122, 3, 49, '2.00'),
+(123, 4, 49, '7.00'),
+(124, 5, 49, '7.00'),
+(125, 6, 49, '10.00'),
+(126, 7, 49, '1.00'),
+(127, 9, 49, '8.00'),
+(128, 10, 49, '4.00'),
+(129, 22, 49, '8.00'),
+(136, 2, 50, '9.00'),
+(137, 3, 50, '8.00'),
+(138, 4, 50, '10.00'),
+(139, 5, 50, '8.00'),
+(140, 6, 50, '7.50'),
+(141, 7, 50, '7.00'),
+(142, 9, 50, '8.00'),
+(143, 10, 50, '6.00'),
+(144, 22, 50, '8.30'),
+(151, 2, 51, '10.00'),
+(152, 3, 51, '8.00'),
+(153, 4, 51, '9.00'),
+(154, 5, 51, '8.00'),
+(155, 6, 51, '5.00'),
+(156, 7, 51, '6.00'),
+(157, 9, 51, '8.00'),
+(158, 10, 51, '8.00'),
+(159, 22, 51, '7.00'),
+(166, 2, 52, '2.00'),
+(167, 3, 52, '8.00'),
+(168, 4, 52, '3.00'),
+(169, 5, 52, '9.00'),
+(170, 6, 52, '8.00'),
+(171, 7, 52, '4.00'),
+(172, 9, 52, '10.00'),
+(173, 10, 52, '8.00'),
+(174, 22, 52, '9.00'),
+(181, 2, 53, '9.00'),
+(182, 3, 53, '5.50'),
+(183, 4, 53, '5.00'),
+(184, 5, 53, '7.00'),
+(185, 6, 53, '2.00'),
+(186, 7, 53, '3.00'),
+(187, 9, 53, '8.00'),
+(188, 10, 53, '6.70'),
+(189, 22, 53, '9.90'),
+(196, 2, 54, '9.00'),
+(197, 3, 54, '6.00'),
+(198, 4, 54, '6.00'),
+(199, 5, 54, '5.00'),
+(200, 6, 54, '3.00'),
+(201, 7, 54, '10.00'),
+(202, 9, 54, '8.00'),
+(203, 10, 54, '6.00'),
+(204, 22, 54, '4.00'),
+(211, 2, 55, '9.00'),
+(212, 3, 55, '10.00'),
+(213, 4, 55, '8.00'),
+(214, 5, 55, '7.00'),
+(215, 6, 55, '8.80'),
+(216, 7, 55, '9.00'),
+(217, 9, 55, '6.00'),
+(218, 10, 55, '8.00'),
+(219, 22, 55, '7.00'),
+(226, 2, 56, '8.00'),
+(227, 3, 56, '10.00'),
+(228, 4, 56, '7.00'),
+(229, 5, 56, '10.00'),
+(230, 6, 56, '8.00'),
+(231, 7, 56, '5.00'),
+(232, 9, 56, '8.00'),
+(233, 10, 56, '10.00'),
+(234, 22, 56, '6.00'),
+(241, 2, 57, '7.00'),
+(242, 3, 57, '2.00'),
+(243, 4, 57, '9.00'),
+(244, 5, 57, '8.00'),
+(245, 6, 57, '9.00'),
+(246, 7, 57, '8.00'),
+(247, 9, 57, '9.00'),
+(248, 10, 57, '3.00'),
+(249, 22, 57, '10.00');
 
 -- --------------------------------------------------------
 
@@ -566,7 +576,7 @@ CREATE TABLE `responsables` (
   `parentesco` varchar(30) NOT NULL COMMENT 'parentesco del familiar',
   `telefono_1` varchar(9) NOT NULL,
   `telefono_2` varchar(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `responsables`
@@ -585,7 +595,7 @@ CREATE TABLE `responsables_estudiantes` (
   `id_responsable_estudiante` int(11) NOT NULL COMMENT 'Id de responsable estudiante',
   `id_responsable` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  responsable',
   `id_estudiante` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla estudiante'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `responsables_estudiantes`
@@ -604,7 +614,7 @@ CREATE TABLE `telefonos_empleados` (
   `id_telefono_empleado` int(11) NOT NULL COMMENT 'Id del teléfono del empleado',
   `telefono` varchar(9) NOT NULL COMMENT 'Número de teléfono del empleado',
   `id_empleado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  empleado'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -616,7 +626,7 @@ CREATE TABLE `telefonos_responsables` (
   `id_telefono_responsable` int(11) NOT NULL COMMENT 'Id del teléfono del estudiante',
   `telefono` varchar(9) NOT NULL COMMENT 'Número de teléfono del estudiante',
   `id_responsable` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  responsable '
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -627,7 +637,7 @@ CREATE TABLE `telefonos_responsables` (
 CREATE TABLE `tipo_actividades` (
   `id_tipo_actividad` int(11) NOT NULL COMMENT 'Id del tipo de actividad',
   `tipo_actividad` varchar(40) NOT NULL COMMENT 'Tipo de actividad asignable para el estudiante'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tipo_actividades`
@@ -650,7 +660,7 @@ CREATE TABLE `trimestres` (
   `trimestre` varchar(20) NOT NULL COMMENT 'Trimestres del año',
   `id_anio` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  anio',
   `estado` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `trimestres`

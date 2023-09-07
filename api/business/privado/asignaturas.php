@@ -1,5 +1,6 @@
 <?php
 require_once('../../entities/dto/asignaturas.php');
+require_once('../../entities/dto/permisos.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -7,44 +8,85 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $asignaturas = new Asignaturas;
+    $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
-            case 'readAll':
-                if ($result['dataset'] = $asignaturas->readAll()) {
+            case 'getVistaAutorizacion':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_asignaturas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } else {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                }
+                break;
+            case 'readAll':
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_asignaturas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $asignaturas->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-                case 'MateriasDocentes':
-                    if ($result['dataset'] = $asignaturas->MateriasDocentes()) {
-                        $result['status'] = 1;
-                    } else {
-                        $result['exception'] = 'No hay datos disponibles';
-                    }
-                    break;
-                //Acción para crear un nueva subcategoría 
-                case 'create':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$asignaturas->setAsignatura($_POST['asignatura'])) {
-                        $result['exception'] = 'asignatura incorrectos';
-                    }   elseif ($asignaturas->createRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'asignatura creado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
-                //leer un dato seleccionado para luego actualizarlo o solo leer la información 
+            case 'MateriasDocentes':
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_asignaturas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $asignaturas->MateriasDocentes()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+            //Acción para crear un nueva subcategoría 
+            case 'create':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_asignaturas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$asignaturas->setAsignatura($_POST['asignatura'])) {
+                    $result['exception'] = 'asignatura incorrectos';
+                } elseif ($asignaturas->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'asignatura creado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+            //leer un dato seleccionado para luego actualizarlo o solo leer la información 
             case 'readOne':
-                if (!$asignaturas->setId($_POST['id_asignatura'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_asignaturas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$asignaturas->setId($_POST['id_asignatura'])) {
                     $result['exception'] = 'asignaturas incorrecta';
                     print_r($_POST);
                 } elseif ($result['dataset'] = $asignaturas->readOne()) {
@@ -55,23 +97,30 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'asignaturas inexistente';
                 }
                 break;
-                //Acción para actualizar un dato de la tabla usuarios
-                case 'update':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$asignaturas->setId($_POST['id_asignatura'])) {
-                        $result['exception'] = 'Asignatura incorrecta';
-                    } elseif (!$asignaturas->readOne()) {
-                        $result['exception'] = 'Usuario inexistente';
-                    } elseif (!$asignaturas->setAsignatura($_POST['asignatura'])) {
-                        $result['exception'] = 'Asignaturas incorrecta';
-                    } elseif ($asignaturas->updateRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Asignatura modificada correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
-                    //Acción para eliminar un dato de la tabla usuarios
+            //Acción para actualizar un dato de la tabla usuarios
+            case 'update':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_asignaturas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$asignaturas->setId($_POST['id_asignatura'])) {
+                    $result['exception'] = 'Asignatura incorrecta';
+                } elseif (!$asignaturas->readOne()) {
+                    $result['exception'] = 'Usuario inexistente';
+                } elseif (!$asignaturas->setAsignatura($_POST['asignatura'])) {
+                    $result['exception'] = 'Asignaturas incorrecta';
+                } elseif ($asignaturas->updateRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Asignatura modificada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+            //Acción para eliminar un dato de la tabla usuarios
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

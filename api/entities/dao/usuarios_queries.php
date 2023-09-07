@@ -7,7 +7,7 @@ class UsuariosQueries
 {
     public function getPermissions($access)
     {
-        $sql = 'SELECT ' . implode(",", $access). ' from cargos_empleados INNER JOIN empleados USING(id_cargo) where empleados.id_empleado = ?';
+        $sql = 'SELECT ' . implode(",", $access) . ' from cargos_empleados INNER JOIN empleados USING(id_cargo) where empleados.id_empleado = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
         $autorized = true;
@@ -18,11 +18,12 @@ class UsuariosQueries
         }
         return $autorized;
     }
+
     public function LogIn($clave)
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
         cargos_empleados.cargo, CONCAT(empleados.nombre_empleado, ' ', empleados.apellido_empleado) as nombre,
-        empleados.estado from empleados INNER JOIN cargos_empleados USING(id_cargo)
+        empleados.estado, empleados.intentos from empleados INNER JOIN cargos_empleados USING(id_cargo)
         WHERE usuario_empleado = ?";
         $params = array($this->usuario);
         $data = Database::getRow($sql, $params);
@@ -37,9 +38,32 @@ class UsuariosQueries
             $this->id_cargo = $data['id_cargo'];
             $this->empleado = $data['nombre'];
             return $data;
+        } elseif($data['intentos'] >= 5) {
+            return 'bloquear';
         } else {
-            return false;
+            return 'fail';
         }
+    }
+
+    public function agregarIntento()
+    {
+        $sql = 'UPDATE empleados set intentos = intentos+1 where usuario_empleado = ?';
+        $params = array($this->usuario);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function resetIntentos()
+    {
+        $sql = 'UPDATE empleados set intentos = 0 where usuario_empleado = ?';
+        $params = array($this->usuario);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function blockUser()
+    {
+        $sql = 'UPDATE empleados set estado = 0 where usuario_empleado = ?';
+        $params = array($this->usuario);
+        return Database::executeRow($sql, $params);
     }
 
     public function checkPassword($password)
@@ -80,9 +104,10 @@ class UsuariosQueries
         $sql = 'UPDATE empleados
         SET nombre_empleado = ?, apellido_empleado = ?, correo_empleado = ?, usuario_empleado = ?
         WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->correo, $this->empleado, $_SESSION['id_empleado']);
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->correo_empleado, $this->usuario_empleado, $_SESSION['id_empleado']);
         return Database::executeRow($sql, $params);
     }
+
 
     public function createRow()
     {
@@ -109,5 +134,5 @@ class UsuariosQueries
         INNER JOIN cargos_empleados USING (id_cargo)';
         return Database::getRows($sql);
     }
+
 }
-?>

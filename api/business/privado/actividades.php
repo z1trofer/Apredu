@@ -1,5 +1,6 @@
 <?php
 require_once('../../entities/dto/actividades.php');
+require_once('../../entities/dto/permisos.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -7,6 +8,7 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $Actividades_p = new Actividades;
+    $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -15,8 +17,27 @@ if (isset($_GET['action'])) {
     if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
+            case 'getVistaAutorizacion':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } else {
+                    $result['status'] = 1;
+                }
+                break;
             case 'readAll':
-                if ($result['dataset'] = $Actividades_p->readAll()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $Actividades_p->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
@@ -25,23 +46,37 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-                case 'FiltrosActividades':
-                    $_POST = Validator::validateForm($_POST);
-                    $filtro['grado'] = $_POST['grado'];
-                    $filtro['asignatura'] = $_POST['asignatura'];
-                    $filtro['trimestre'] = $_POST['trimestre'];
-                     if ($result['dataset'] = $Actividades_p->FiltrarActividades($filtro)) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                    } elseif (Database::getException()) {
-                        $result['exception'] = Database::getException();
-                    } else {
-                        $result['exception'] = 'No hay datos registrados';
-                    }
-                    break;
+            case 'FiltrosActividades':
+                $_POST = Validator::validateForm($_POST);
+                $filtro['grado'] = $_POST['grado'];
+                $filtro['asignatura'] = $_POST['asignatura'];
+                $filtro['trimestre'] = $_POST['trimestre'];
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $Actividades_p->FiltrarActividades($filtro)) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
 
             case 'readTipoActividades':
-                if ($result['dataset'] = $Actividades_p->readTipoActividades()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $Actividades_p->readTipoActividades()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
@@ -52,7 +87,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'readGrados':
                 $_POST = Validator::validateForm($_POST);
-                if ($result['dataset'] = $Actividades_p->readGrados()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $Actividades_p->readGrados()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
@@ -62,7 +104,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readAsignaturas':
-                if ($result['dataset'] = $Actividades_p->readAsignaturas()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $Actividades_p->readAsignaturas()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
@@ -72,7 +121,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readTrimestre':
-                if ($result['dataset'] = $Actividades_p->readTrimestres()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $Actividades_p->readTrimestres()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
@@ -82,7 +138,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readDetalle':
-                if ($result['dataset'] = $Actividades_p->readDetalle_asignatura_grado()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $Actividades_p->readDetalle_asignatura_grado()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
@@ -93,7 +156,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($_POST['search'] == '') {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 } elseif ($result['dataset'] = $Cliente_p->searchRows($_POST['search'])) {
                     $result['status'] = 1;
@@ -106,7 +176,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$Actividades_p->setnombre_actividad($_POST['nombre'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$Actividades_p->setnombre_actividad($_POST['nombre'])) {
                     $result['exception'] = 'Nombre de la actividad mal ingresado';
                 } elseif (!$Actividades_p->setponderacion($_POST['ponderacion'])) {
                     $result['exception'] = 'Ponderación mal ingresada';
@@ -130,11 +207,19 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha creado correctamente';
                 } else {
-                    $result['exception'] = Database::getException();;
+                    $result['exception'] = Database::getException();
+                    ;
                 }
                 break;
             case 'readOne':
-                if (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
                     $result['exception'] = 'Actividad incorrecto';
                 } elseif ($result['dataset'] = $Actividades_p->readOne()) {
                     $result['status'] = 1;
@@ -146,7 +231,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$Actividades_p->setid_actividad($_POST['id'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$Actividades_p->setid_actividad($_POST['id'])) {
                     $result['exception'] = 'id incorrecto';
                 } elseif (!$data = $Actividades_p->readOne()) {
                     $result['exception'] = 'id inexistente';
@@ -170,7 +262,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'delete':
-                if (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
                     $result['exception'] = 'Actividad incorrecto';
                 } elseif (!$data = $Actividades_p->readOne()) {
                     $result['exception'] = 'Actividad inexistente';

@@ -76,7 +76,7 @@
                                     <div class="form-outline col-auto">
                                         <input type="password" id="clave" name="clave" class="form-control"
                                             aria-describedby="textExample2" />
-                                        <label class="form-label" for="formTextExample2">Contraseña</label>
+                                        <label class="form-label" >Contraseña</label>
                                     </div>
                                     <div class="form-outline col-auto">
                                         <input type="password" id="claveConfirm" name="claveConfirm"
@@ -101,16 +101,19 @@
                             <div class="col-sm-8 marginTop">
                                 <div class="form-outline">
                                     <textarea class="form-control" id="direccion" name="direccion" rows="5"></textarea>
-                                    <label class="form-label" for="textAreaExample">Dirección</label>
+                                    <label class="form-label">Dirección</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="mb-4">
+                                    <label class="form-label">estado</label>
+                                    <input type="text" id="intentos" name="intentos" class="visually-hidden-focusable">
                                     <select class="form-select" required aria-label="select example" id="estado"
                                         name="estado">
-                                        <option value="0">Inactivo</option>
+                                        <option value="0">Bloqueado</option>
                                         <option value="1">Activo</option>
                                     </select>
+                                    <label id="intentoslab" class="visually-hidden-focusable" style="color: red;">Este usuario fue bloqueado automaticamente por alcanzar el limite de intentos al iniciar sesión</label>
                                     <div class="invalid-feedback">Ejemplo de comentarios de selección no válidos
                                     </div>
                                 </div>
@@ -119,7 +122,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
+                        <button id="closeEmpleados" type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">Guardar Cambios</button>
                     </div>
                 </form>

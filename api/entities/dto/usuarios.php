@@ -15,7 +15,7 @@ class Usuarios extends UsuariosQueries
     public $nombre_empleado = null;
     public $apellido_empleado = null;
     public $correo_empleado = null;
-
+    public $usuario_empleado = null;
 
 
 
@@ -65,6 +65,18 @@ class Usuarios extends UsuariosQueries
             $this->empleado = $value;
             return true;
     }
+
+    public function setusuario_empleado($value)
+    {
+        if (Validator::validateAlphanumeric($value, 1, 50)) {
+            $this->usuario_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
     public function setEstado($value)
     {

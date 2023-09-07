@@ -23,7 +23,7 @@ class EmpleadosQueries
     /*funcion para leer datos*/
     public function readOne()
     {
-        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.direccion, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado, cargos_empleados.id_cargo, empleados.estado
+        $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.direccion, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado, cargos_empleados.id_cargo, empleados.estado, empleados.intentos
         FROM empleados 
         INNER JOIN cargos_empleados USING (id_cargo)
         Where id_empleado = ?';
@@ -51,6 +51,13 @@ class EmpleadosQueries
     {
         $sql = 'UPDATE empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, fecha_nacimiento = ?, id_cargo = ?, usuario_empleado = ?, direccion = ?, correo_empleado = ?, estado = ? WHERE id_empleado= ? ';
         $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario_empleado, $this->direccion, $this->correo_empleado, $this->estado, $this->id_empleado);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function resetIntentos()
+    {
+        $sql = 'UPDATE empleados set intentos = 0 where usuario_empleado = ?';
+        $params = array($this->usuario_empleado);
         return Database::executeRow($sql, $params);
     }
 

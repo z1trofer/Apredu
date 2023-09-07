@@ -13,17 +13,33 @@ const RECORDS = document.getElementById('records');
 //variables para busqueda parametrizada
 let id_grado = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Llamada a la función para llenar la tabla con los registros disponibles.
-    fillTable();
-    CargarGrados();
-    const TODAY = new Date();
-    let day = ('0' + TODAY.getDate()).slice(-2);
-    var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
-    let year = TODAY.getFullYear() - 5;
-    let date = `${year}-${month}-${day}`;
-    document.getElementById('nacimiento').max = date;
+document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
+        // Llamada a la función para llenar la tabla con los registros disponibles.
+        fillTable();
+        CargarGrados();
+        const TODAY = new Date();
+        let day = ('0' + TODAY.getDate()).slice(-2);
+        var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
+        let year = TODAY.getFullYear() - 5;
+        let date = `${year}-${month}-${day}`;
+        document.getElementById('nacimiento').max = date;
+    } else {
+        location.href = 'principal.html';
+    }
 });
+
+async function validate() {
+
+    const JSON = await dataFetch(ESTUDIANTE_API, 'getVistaAutorizacion');
+
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
 
 //Funcion de fillSelect pero adaptada para la lista de grados
 async function fillList(filename, action, list, selected = null) {
@@ -86,7 +102,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'CreateEstudiante';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_E);
-    
+
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -308,17 +324,17 @@ async function openFicha(id) {
         document.getElementById('id_estudiante_ficha').value = JSON.dataset.id_estudiante;
         document.getElementById('nombre_ficha').value = JSON.dataset.nombre_estudiante;
         document.getElementById('apellido_ficha').value = JSON.dataset.apellido_estudiante;
-        document.getElementById('grado_ficha').value = JSON.dataset.grado;   
+        document.getElementById('grado_ficha').value = JSON.dataset.grado;
         //se llama a la API para obtener los datos
         label = document.getElementById('nombre_empleado');
         //se llama a la API para obtener los datos
         const SESSION = await dataFetch(USER_API, 'getSession');
         //se verifica el id_cargo
-        if(SESSION){
+        if (SESSION) {
             //se llena el label con el nombre del docente
-            label.innerHTML = "Docente: "+SESSION.nombre;
+            label.innerHTML = "Docente: " + SESSION.nombre;
             document.getElementById('id_empleado').value = SESSION.id_empleado;
-        }else{
+        } else {
             //se deja el label vacio
             label.innerHTML = "ekis de";
         }
@@ -330,16 +346,16 @@ async function openFicha(id) {
 
 
 //funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session
-async function CargarNombreDocente(){
+async function CargarNombreDocente() {
     //se declara el label en una varianle
     label = document.getElementById('nombre_empleado');
     //se llama a la API para obtener los datos
     const SESSION = await dataFetch(USER_API, 'getSession');
     //se verifica el id_cargo
-    if(SESSION.id_cargo == 2){
+    if (SESSION.id_cargo == 2) {
         //se llena el label con el nombre del docente
-        label.innerHTML = "Docente: "+SESSION.nombre;
-    }else{
+        label.innerHTML = "Docente: " + SESSION.nombre;
+    } else {
         //se deja el label vacio
         label.innerHTML = " ";
     }
