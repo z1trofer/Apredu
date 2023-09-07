@@ -1,21 +1,41 @@
 <?php
 require_once('../../entities/dto/grados.php');
-
+require_once('../../entities/dto/permisos.php');
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
     $grados = new Grados;
+    $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_empleado'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
+            case 'getVistaAutorizacion':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } else {
+                    $result['status'] = 1;
+                }
+                break;
             case 'readAll':
                 //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
-                if ($result['dataset'] = $grados->readAll()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $grados->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
@@ -25,7 +45,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'cantidadEstudiantesXgrado':
-                if ($result['dataset'] = $grados->cantidadEstudiantesXgrado()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $grados->cantidadEstudiantesXgrado()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'No hay datos disponibles';
@@ -34,7 +61,14 @@ if (isset($_GET['action'])) {
             // Acción para crear un dato en la tabla de grados
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grados->setGrado($_POST['grado'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif ($grados->createRow()) {
                     $result['status'] = 1;
@@ -45,7 +79,14 @@ if (isset($_GET['action'])) {
                 break;
             //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
-                if (!$grados->setId($_POST['id_grado'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif ($result['dataset'] = $grados->readOne()) {
                     $result['status'] = 1;
@@ -58,7 +99,14 @@ if (isset($_GET['action'])) {
             // Acción para actualizar un dato en la tabla grados
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grados->setId($_POST['id'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id'])) {
                     $result['exception'] = 'Grado incorrecta';
                 } elseif (!$data = $grados->readOne()) {
                     $result['exception'] = 'Grado inexistente';
@@ -75,7 +123,14 @@ if (isset($_GET['action'])) {
                 break;
             // Acción para eliminar un dato de la tabla categorías
             case 'delete':
-                if (!$grados->setId($_POST['id_grado'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif (!$data = $grados->readOne()) {
                     $result['exception'] = 'Grado inexistente';
@@ -86,11 +141,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
             //------------------detalles grado-----------------
             case 'readDetalle':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grados->setId($_POST['id'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_detalles_docentes');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id'])) {
                     $result['exception'] = 'id malo';
                 } elseif ($result['dataset'] = $grados->readDetalle()) {
                     $result['status'] = 1;
@@ -103,7 +164,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'createDetalle':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grados->setId($_POST['id'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_detalles_docentes');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif ($grados->InsertarDetalle($_POST['detalle'])) {
                     $result['status'] = 1;
@@ -113,7 +181,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'deleteDetalle':
-                if (!$grados->setId($_POST['id_detalle'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_detalles_docentes');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id_detalle'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif ($grados->deleteDetalle()) {
                     $result['status'] = 1;
@@ -124,7 +199,14 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'readAsignaturas':
-                if ($result['dataset'] = $grados->readAsignaturas()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $grados->readAsignaturas()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
@@ -135,9 +217,16 @@ if (isset($_GET['action'])) {
                 break;
             case 'graficoPromedio':
                 $_POST = Validator::validateForm($_POST);
-                if (!$grados->setId($_POST['id'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id'])) {
                     $result['exception'] = 'Grado incorrecto';
-                }elseif ($result['dataset'] = $grados->graficoPromedio()) {
+                } elseif ($result['dataset'] = $grados->graficoPromedio()) {
                     $result['status'] = 1;
                     $result['message'] = 'Encontrado correctamente';
 
@@ -145,20 +234,26 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
-                case 'graficoPromedio2':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$grados->setId($_POST['id_grado'])) {
-                        $result['exception'] = 'Grado incorrecta';
-                    } elseif (!$data = $grados->readOne()) {
-                        $result['exception'] = 'Grado inexistente';
-                    }elseif ($result['dataset'] = $grados->graficoPromedio()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Encontrado correctamente';
-    
-                    } else {
-                        $result['exception'] = 'No hay datos disponibles';
-                    }
-                    break;
+            case 'graficoPromedio2':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_grados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$grados->setId($_POST['id_grado'])) {
+                    $result['exception'] = 'Grado incorrecta';
+                } elseif (!$data = $grados->readOne()) {
+                    $result['exception'] = 'Grado inexistente';
+                } elseif ($result['dataset'] = $grados->graficoPromedio()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Encontrado correctamente';
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

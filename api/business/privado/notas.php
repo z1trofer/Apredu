@@ -1,5 +1,6 @@
 <?php
 require_once('../../entities/dto/notas.php');
+require_once('../../entities/dto/permisos.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -7,6 +8,7 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $notas = new Notas;
+    $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -14,8 +16,16 @@ if (isset($_GET['action'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
+            
             case 'ObtenerMateriasDocente':
-                if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$notas->setId_empleado($_SESSION['id_empleado'])) {
                     $result['exception'] = 'empleado incorrecto';
                 } elseif ($result['dataset'] = $notas->ObtenerMateriasDocente()) {
                     $result['status'] = 1;
@@ -26,7 +36,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'ObtenerMaterias':
-                if ($result['dataset'] = $notas->ObtenerMaterias()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $notas->ObtenerMaterias()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -36,7 +53,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'ObtenerTrimestres':
                 $_POST = Validator::validateForm($_POST);
-                if ($result['dataset'] = $notas->ObtenerTrimestres($_POST['anio'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $notas->ObtenerTrimestres($_POST['anio'])) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Error al obtener los trimestres';
@@ -44,7 +68,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'ObtenerTrimestresNoParam':
                 $_POST = Validator::validateForm($_POST);
-                if ($result['dataset'] = $notas->ObtenerTrimestresActual()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $notas->ObtenerTrimestresActual()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Error al obtener los trimestres';
@@ -52,7 +83,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'ObtenerGrados':
                 $_POST = Validator::validateForm($_POST);
-                if ($result['dataset'] = $notas->ObtenerGrados()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $notas->ObtenerGrados()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Error al obtener los grados';
@@ -60,7 +98,14 @@ if (isset($_GET['action'])) {
                 break;
             case 'ObtenerActividades':
                 $_POST = Validator::validateForm($_POST);
-                if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$notas->setId_empleado($_SESSION['id_empleado'])) {
                     $result['exception'] = 'empleado incorrecto';
                 } elseif (!$notas->setId_asignatura($_POST['asignatura'])) {
                     $result['exception'] = 'asignatura, incorrecta';
@@ -87,7 +132,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'notaGlobal':
-                if ($result['dataset'] = $notas->notaGlobal()) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $notas->notaGlobal()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'No hay datos disponibles';
