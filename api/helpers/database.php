@@ -74,7 +74,7 @@ class Database
     public static function getRowsColumns($query, $values = null)
     {
         if (self::executeRow($query, $values)) {
-            return self::$statement->fetch(PDO::FETCH_BOTH);
+            return self::$statement->fetchAll(PDO::FETCH_NUM);
         } else {
             return false;
         }

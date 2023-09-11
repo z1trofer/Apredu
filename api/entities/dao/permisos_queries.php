@@ -31,7 +31,7 @@ class PermisosQueries
     public function viewPermissions()
     {
         $sql = 'SELECT * from cargos_empleados';
-        return Database::getRows($sql);
+        return Database::getRowsColumns($sql);
     }
 
     //obtener el nombre de las columnas
@@ -40,7 +40,7 @@ class PermisosQueries
         $sql = "SELECT COLUMN_NAME
         FROM INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_NAME = 'cargos_empleados'";
-        return Database::getRows($sql);
+        return Database::getRowsColumns($sql);
     }
 
 }
