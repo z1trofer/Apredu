@@ -49,6 +49,7 @@ async function fillHeaders() {
 }
 
 async function fillTable() {
+    
     // Se inicializa el contenido de la tabla.
     TB_BODY.innerHTML = '';
     //se manda a llamar al servidor
