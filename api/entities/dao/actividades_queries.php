@@ -116,10 +116,10 @@ class ActividadesQueries
         INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
         INNER JOIN grados USING (id_grado)
         INNER JOIN asignaturas USING (id_asignatura)
-        WHERE id_trimestre = " . $filtros['trimestre'] . " and detalle_asignaturas_empleados.id_grado = " . $filtros['grado'] . " and id_asignatura = " . $filtros['asignatura'] .
-            " GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
+        WHERE id_trimestre = ? and detalle_asignaturas_empleados.id_grado = ? and id_asignatura = ? GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
         ORDER BY actividades.nombre_actividad ASC";
-        return Database::getRows($sql);
+        $params = array($filtros['trimestre'], $filtros['grado'], $filtros['asignatura']);
+        return Database::getRows($sql, $params);
     }
 
     public function createRow()

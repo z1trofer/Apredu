@@ -38,7 +38,9 @@ class UsuariosQueries
             $this->id_cargo = $data['id_cargo'];
             $this->empleado = $data['nombre'];
             return $data;
-        } elseif($data['intentos'] >= 5) {
+        } elseif($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
+            return 'time';
+        } elseif($data['intentos'] >= 25) {
             return 'bloquear';
         } else {
             return 'fail';

@@ -377,4 +377,27 @@ class Validator
             return true;
         }
     }
+
+    public static function validateAttemptsCd()
+    {
+        if ($_SERVER['tiempo_inicio'] != null) {
+            //Tiempo en segundos para dar vida a la sesión.
+            $temporizador = 30; //Tiempo en segundos.
+
+            //Calculamos tiempo de vida inactivo.
+            $cuenta = time() - $_SERVER['tiempo_inicio'];
+
+            //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
+            if ($cuenta > $temporizador) {
+                //Destruimos sesión.
+                return true;
+                //Redirigimos pagina.
+                //self::$sessionError = 'Su sesión ha caducado';
+            } else {  // si no ha caducado la sesion, actualizamos
+                return $temporizador;
+            }
+        } else {
+            return true;
+        }
+    }
 }

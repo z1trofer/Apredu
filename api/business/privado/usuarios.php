@@ -209,30 +209,51 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'login':
-                $_POST = Validator::validateForm($_POST);
+                //$_POST = Validator::validateForm($_POST);
+                //validando usuario
                 if (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Ingrese un usuario';
+                //validando clave
                 } elseif (!$usuario->setClave($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
-                } else {
+                    //validando que no haya cd de intentos
+                } elseif (isset($_SERVER['tiempo_inicio'])) {
+                    $tiempo = Validator::validateAttemptsCd();
+                    $result['exception'] = 'Debe esperar '.$tiempo.'s para poder volver a intentar iniciar sesión';
+                } /*elseif ($tiempo != true) {
+                    $result['exception'] = 'Debe esperar '.$tiempo.'s para poder volver a intentar iniciar sesión';
+                } */else {
+                    //$GLOBALS['tiempo_inicio'] = null;
+                    //se manda a llamvar la consulta de la base
                     $data = $usuario->LogIn($_POST['clave']);
+                    //se verifica la respuenta
                     if ($data == false) {
+                        //se dio un error en el servidor
                         $result['exception'] = 'Error en el servidor';
                     } else if ($data == 'zzz') {
+                        //usuario bloqueado
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
+                    } else if ($data == 'time') {
+                        //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
+                        $usuario->agregarIntento();
+                        $_SERVER['tiempo_inicio'] = time();
+                        $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo'/*.$GLOBALS['tiempo_inicio']*/;
                     } else if ($data == 'bloquear') {
+                        //el usuario intento iniciar sesion demasiadas veces por lo que este sera bloqueado
                         if($usuario->blockUser()){
                             $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces por lo que su usuario ha sido bloquedo, por favor contactate con un administrador';
-                        }else{
+                        } else {
                             $result['exception'] = 'Error en el servidor bloq';
                         }
                     } else if ($data == 'fail') {
+                        //las credenciales no coincidieron por lo que el usuario no logro iniciar sesion
                         if ($usuario->agregarIntento()) {
-                            $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail';
+                            $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail'/*.$GLOBALS['tiempo_inicio']*/;
                         } else {
                             $result['exception'] = 'Error en el servidor Int';
                         }
                     } elseif ($data != false) {
+                        //el usuario inicio sesion satisfactoriamente
                         if($usuario->resetIntentos()){
                             $_SESSION['id_empleado'] = $usuario->getId();
                             $_SESSION['usuario'] = $usuario->getUser();

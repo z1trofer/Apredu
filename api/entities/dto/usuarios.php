@@ -16,6 +16,7 @@ class Usuarios extends UsuariosQueries
     public $apellido_empleado = null;
     public $correo_empleado = null;
     public $usuario_empleado = null;
+    public static $tiempo_inicio = null;
 
 
 
@@ -170,9 +171,23 @@ class Usuarios extends UsuariosQueries
         }
     }
 
+    public function setTiempoInicio($value)
+    {
+        if ($value) {
+            $this->tiempo_inicio = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
     /*
     *   Métodos para obtener valores de los atributos.
     */
+    public function getTiempoInicio()
+    {
+        return $tiempo_inicio;
+    }
+
     public function getId()
     {
         return $this->id;
