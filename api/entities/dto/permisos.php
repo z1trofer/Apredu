@@ -8,6 +8,9 @@ class Permisos extends PermisosQueries
 {
     // Declaración de atributos (propiedades).
     public $id = null;
+    private $permiso = null;
+    private $atributo = null;
+    private $id_cargo = null;
     
   
     public function setId($value)
@@ -19,5 +22,58 @@ class Permisos extends PermisosQueries
             return false;
         }
     }
+
+    public function setPermiso($value)
+    {
+        if (Validator::validateBoolean(($value))) {
+            $this->permiso = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setAtributo($value)
+    {
+        if (Validator::validateAlphabetic($value, 1, 30)) {
+            $this->atributo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setCargo($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_cargo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //getters
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getPermiso()
+    {
+        return $this->permiso;
+    }
+
+    public function getAtributo()
+    {
+        return $this->atributo;
+    }
+
+    public function getCargo()
+    {
+        return $this->id_cargo;
+    }
+
+
 }
 ?>

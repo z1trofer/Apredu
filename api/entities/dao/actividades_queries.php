@@ -88,9 +88,9 @@ class ActividadesQueries
     }
 
     // Para cargar combobox
-    public function readDetalle_asignatura_grado()
+    public function readDetalle_asignatura_grado($level)
     {
-        if ($_SESSION['tipo'] == 'admin') {
+        if ($level == true) {
             $sql = "Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
             FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
             INNER JOIN asignaturas USING(id_asignatura)

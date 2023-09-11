@@ -66,6 +66,21 @@ class Database
     }
 
     /*
+    --------------------PRUEBA----------------------
+    *   Método para obtener todos los registros de una sentencia SQL tipo SELECT.
+    *   Parámetros: $query (sentencia SQL) y $values (arreglo opcional con los valores para la sentencia SQL).
+    *   Retorno: arreglo asociativo de los registros si la sentencia SQL se ejecuta satisfactoriamente o false en caso contrario.
+    */
+    public static function getRowsColumns($query, $values = null)
+    {
+        if (self::executeRow($query, $values)) {
+            return self::$statement->fetch(PDO::FETCH_BOTH);
+        } else {
+            return false;
+        }
+    }
+
+        /*
     *   Método para obtener todos los registros de una sentencia SQL tipo SELECT.
     *   Parámetros: $query (sentencia SQL) y $values (arreglo opcional con los valores para la sentencia SQL).
     *   Retorno: arreglo asociativo de los registros si la sentencia SQL se ejecuta satisfactoriamente o false en caso contrario.

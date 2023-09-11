@@ -126,7 +126,7 @@ if (isset($_GET['action'])) {
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción, view_actividades';
                     //se ejecuta la accion
                 } elseif ($result['dataset'] = $Actividades_p->readTrimestres()) {
                     $result['status'] = 1;
@@ -134,18 +134,19 @@ if (isset($_GET['action'])) {
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'No hay datos registrados';
+                    $result['exception'] = 'Error al cargar los trimestres';
                 }
                 break;
             case 'readDetalle':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_actividades');
+                $level = array('view_all_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $Actividades_p->readDetalle_asignatura_grado()) {
+                } elseif ($result['dataset'] = $Actividades_p->readDetalle_asignatura_grado($permisos->getPermissions(($level)))) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {

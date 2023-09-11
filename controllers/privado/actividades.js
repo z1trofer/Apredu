@@ -237,7 +237,7 @@ async function CargarTrimestres() {
         });
     } else {
         //se envia un mensaje con el error respectivo
-        sweetAlert(2, "Ocurrio un error al cargar los trimestres, por favor comuniquese con un administrador", false);
+        sweetAlert(2, JSON.exception, false);
     }
 };
 
