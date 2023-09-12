@@ -2,8 +2,8 @@
 require_once('../../helpers/validator.php');
 require_once('../../entities/dao/usuarios_queries.php');
 /*
-*	Clase para manejar la transferencia de datos de la entidad USUARIO.
-*/
+ *	Clase para manejar la transferencia de datos de la entidad USUARIO.
+ */
 class Usuarios extends UsuariosQueries
 {
     // Declaración de atributos (propiedades).
@@ -17,7 +17,8 @@ class Usuarios extends UsuariosQueries
     public $correo_empleado = null;
     public $usuario_empleado = null;
     public $tiempo_inicio = null;
-
+    public $dias_clave = null;
+    public $dias_diferencia = null;
     public $tiempo_restante = null;
 
 
@@ -75,8 +76,8 @@ class Usuarios extends UsuariosQueries
 
     public function setEmpleado($value)
     {
-            $this->empleado = $value;
-            return true;
+        $this->empleado = $value;
+        return true;
     }
 
     public function setusuario_empleado($value)
@@ -161,7 +162,7 @@ class Usuarios extends UsuariosQueries
             return false;
         }
     }
-    
+
     public function setDui($value)
     {
         if (Validator::validateDUI($value, 1, 10)) {
@@ -172,7 +173,7 @@ class Usuarios extends UsuariosQueries
         }
     }
 
-    
+
     public function setDireccion($value)
     {
         if (Validator::validateString($value, 1, 150)) {
@@ -192,9 +193,20 @@ class Usuarios extends UsuariosQueries
             return false;
         }
     }
+
+    public function setDias_diferencia($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->dias_diferencia = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
-    *   Métodos para obtener valores de los atributos.
-    */
+     *   Métodos para obtener valores de los atributos.
+     */
     public function getTiempoInicio()
     {
         return $this->tiempo_inicio;
@@ -221,7 +233,7 @@ class Usuarios extends UsuariosQueries
         return $this->clave;
     }
 
-    
+
     public function getEmpleado()
     {
         return $this->empleado;
@@ -261,6 +273,11 @@ class Usuarios extends UsuariosQueries
     public function getDireccion()
     {
         return $this->direccion;
+    }
+
+    public function getDias_diferencia()
+    {
+        return $this->dias_diferencia;
     }
 }
 ?>

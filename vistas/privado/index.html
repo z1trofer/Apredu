@@ -39,11 +39,49 @@
             <a href="../../recovery.php" class="link" id="link_password">¿Olvidaste tu contraseña?</a>
         </form>
     </div>
-    <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" data-mdb-backdrop="static" data-mdb-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="passwordModal" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="colorH" id="staticBackdropLabel">Cambio de contraseña</h4>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="save-clave" method="post">
+                    <div class="modal-body">
+                        <div class="row g-3 align-items-center">
+                            <p class="colorH">La nueva contraseña debe ser diferente a la actual</p>
+                            <div class="form-outline col-auto">
+                                <input type="password" id="claveNueva" name="claveNueva" class="form-control"
+                                    aria-describedby="textExample2" />
+                                <label class="form-label" for="claveNueva">Contraseña</label>
+                            </div>
+                            <div class="form-outline col-auto">
+                                <input type="password" id="confirmarNueva" name="confirmarNueva" class="form-control"
+                                    aria-describedby="textExample2" />
+                                <label class="form-label" for="confirmarNueva">Confirmar Contraseña</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Cambiar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Modal de primer uso-->
+    <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" data-mdb-backdrop="static" data-mdb-keyboard="false"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal-title">Información del docente</h4>   
+                    <h4 class="colorH" id="modal-title">Información del docente</h4>
                 </div>
                 <form id="save-form" method="post" action="">
                     <div class="modal-body">
@@ -51,21 +89,21 @@
                             <input class="visually-hidden" type="number" id="id" name="id">
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="nombres" name="nombres" class="form-control"
-                                        maxlength="50" autocomplete="off"/>
+                                    <input type="text" id="nombres" name="nombres" class="form-control" maxlength="50"
+                                        autocomplete="off" />
                                     <label class="form-label" for="typeText">Nombres</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-outline">
                                     <input type="text" id="apellidos" name="apellidos" class="form-control"
-                                        maxlength="50" autocomplete="off"/>
+                                        maxlength="50" autocomplete="off" />
                                     <label class="form-label" for="typeText">Apellidos</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="dui" name="dui" class="form-control" autocomplete="off"/>
+                                    <input type="text" id="dui" name="dui" class="form-control" autocomplete="off" />
                                     <label class="form-label">DUI (con guión)</label>
                                 </div>
                             </div>
@@ -74,21 +112,22 @@
                             <br>
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="text" id="usuario" name="usuario" class="form-control"
-                                        maxlength="50" autocomplete="off"/>
+                                    <input type="text" id="usuario" name="usuario" class="form-control" maxlength="50"
+                                        autocomplete="off" />
                                     <label class="form-label" for="typeText">Nombre de usuario</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-outline">
                                     <input id="fecha_nacimiento" type="date" name="fecha_nacimiento"
-                                        class="form-control" autocomplete="off"/>
+                                        class="form-control" autocomplete="off" />
                                     <label class="form-label" for="typeDate">Fecha de nacimiento</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-outline">
-                                    <input type="email" id="correo" name="correo" class="form-control" autocomplete="off"/>
+                                    <input type="email" id="correo" name="correo" class="form-control"
+                                        autocomplete="off" />
                                     <label class="form-label" for="typeEmail">Correo electrónico</label>
                                 </div>
                             </div>
@@ -133,18 +172,18 @@
                     </div>
                 </form>
             </div>
-
         </div>
-    </div>
-    <div>
-        <button type="button" class="btn visually-hidden" id="btnEmpleados" data-mdb-toggle="modal"
-            data-mdb-target="#ModalDocentesInfo" onclick="openCreate()">Añadir empleados</button>
-    </div>
-    <script src="../../recursos/js/sweetalert.min.js"></script>
-    <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/login.js"></script>
-    <script src="../../controllers/privado/account.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+
+        <div>
+            <button type="button" class="btn visually-hidden" id="btnEmpleados" data-mdb-toggle="modal"
+                data-mdb-target="#ModalDocentesInfo" onclick="openCreate()">Añadir empleados</button>
+        </div>
+        <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+        <script src="../../recursos/js/sweetalert.min.js"></script>
+        <script src="../../controllers/components.js"></script>
+        <script src="../../controllers/privado/login.js"></script>
+        <script src="../../controllers/privado/account.js"></script>
 
 </body>
 

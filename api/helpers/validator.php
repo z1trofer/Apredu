@@ -221,7 +221,7 @@ class Validator
     public static function validatePassword($value)
     {
         // Se verifica la longitud mínima.
-        if (strlen($value) < 6) {
+        /*if (strlen($value) < 6) {
             self::$passwordError = 'Clave menor a 6 caracteres';
             return false;
         } elseif (strlen($value) > 72) {
@@ -241,8 +241,11 @@ class Validator
         } else {
             self::$passwordError = "La clave debe tener al menos un caracter especial";
             return false;
-        }
-        //return true;
+        }*/
+        return true;
+    }
+    */
+    return true;
     }
 
     /*
