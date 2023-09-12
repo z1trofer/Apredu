@@ -244,6 +244,9 @@ class Validator
         }*/
         return true;
     }
+    */
+    return true;
+    }
 
     /*
      *   Método para validar el formato del DUI (Documento Único de Identidad).

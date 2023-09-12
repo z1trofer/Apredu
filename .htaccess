@@ -3,7 +3,7 @@
 # ----------------------------------------------------------------------
 
 ErrorDocument 403 /apredu/recursos/error/403.html
-ErrorDocument 404 /apreud/recursos/error/404.html
+ErrorDocument 404 /apredu/recursos/error/404.html
 
 # ----------------------------------------------------------------------
 # | Character encodings                                                |
