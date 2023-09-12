@@ -214,7 +214,7 @@ if (isset($_GET['action'])) {
                 if (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Ingrese un usuario';
                     //validando clave
-                } elseif (!$usuario->setClave($_POST['clave'])) {
+                } elseif (!$usuario->setClaveLog($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
                 } elseif (!$data = $usuario->LogIn($_POST['clave'])) {
                     $result['exception'] = 'error en el servidor';

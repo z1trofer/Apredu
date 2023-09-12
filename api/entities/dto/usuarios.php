@@ -74,6 +74,15 @@ class Usuarios extends UsuariosQueries
         }
     }
 
+    public function setClaveLog($value)
+    {
+        if ($value) {
+            $this->clave = password_hash($value, PASSWORD_DEFAULT);
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function setEmpleado($value)
     {
         $this->empleado = $value;
