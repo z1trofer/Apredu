@@ -10,7 +10,7 @@ if (isset($_GET['action'])) {
     $usuario = new Usuarios;
     $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'clave' => false);
     //arreglo para guardar los permisos de usuario
     $permisos = array();
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -211,18 +211,20 @@ if (isset($_GET['action'])) {
             case 'login':
                 //$_POST = Validator::validateForm($_POST);
                 //validando usuario
-                if (!$usuario->setUser($_POST['usuario'])) {
+                if ($data = $usuario->readDiasClave()) {
+
+                } else if (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Ingrese un usuario';
-                //validando clave
+                    //validando clave
                 } elseif (!$usuario->setClave($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
                     //validando que no haya cd de intentos
                 } elseif (isset($_SERVER['tiempo_inicio'])) {
                     $tiempo = Validator::validateAttemptsCd();
-                    $result['exception'] = 'Debe esperar '.$tiempo.'s para poder volver a intentar iniciar sesión';
+                    $result['exception'] = 'Debe esperar ' . $tiempo . 's para poder volver a intentar iniciar sesión';
                 } /*elseif ($tiempo != true) {
-                    $result['exception'] = 'Debe esperar '.$tiempo.'s para poder volver a intentar iniciar sesión';
-                } */else {
+                 $result['exception'] = 'Debe esperar '.$tiempo.'s para poder volver a intentar iniciar sesión';
+                 } */else {
                     //$GLOBALS['tiempo_inicio'] = null;
                     //se manda a llamvar la consulta de la base
                     $data = $usuario->LogIn($_POST['clave']);
@@ -233,14 +235,19 @@ if (isset($_GET['action'])) {
                     } else if ($data == 'zzz') {
                         //usuario bloqueado
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
+                    } else if ($usuario->dias_clave >= 90) {
+                        $_SESSION['id_empleado_clave'] = $usuario->getId();
+                        $_SESSION['clave_caducada'] = $_POST['clave'];
+                        $result['clave'] = true;
+                        $result['exception'] = 'Su contraseña ha caducado';
                     } else if ($data == 'time') {
                         //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
                         $usuario->agregarIntento();
                         $_SERVER['tiempo_inicio'] = time();
-                        $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo'/*.$GLOBALS['tiempo_inicio']*/;
+                        $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo' /*.$GLOBALS['tiempo_inicio']*/;
                     } else if ($data == 'bloquear') {
                         //el usuario intento iniciar sesion demasiadas veces por lo que este sera bloqueado
-                        if($usuario->blockUser()){
+                        if ($usuario->blockUser()) {
                             $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces por lo que su usuario ha sido bloquedo, por favor contactate con un administrador';
                         } else {
                             $result['exception'] = 'Error en el servidor bloq';
@@ -248,13 +255,13 @@ if (isset($_GET['action'])) {
                     } else if ($data == 'fail') {
                         //las credenciales no coincidieron por lo que el usuario no logro iniciar sesion
                         if ($usuario->agregarIntento()) {
-                            $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail'/*.$GLOBALS['tiempo_inicio']*/;
+                            $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail' /*.$GLOBALS['tiempo_inicio']*/;
                         } else {
                             $result['exception'] = 'Error en el servidor Int';
                         }
                     } elseif ($data != false) {
                         //el usuario inicio sesion satisfactoriamente
-                        if($usuario->resetIntentos()){
+                        if ($usuario->resetIntentos()) {
                             $_SESSION['id_empleado'] = $usuario->getId();
                             $_SESSION['usuario'] = $usuario->getUser();
                             $_SESSION['tipo'] = $usuario->getTipo_empleado();
@@ -264,12 +271,30 @@ if (isset($_GET['action'])) {
                             $result['dataset'] = $data;
                             $result['status'] = 1;
                             $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
-                        }else{
+                        } else {
                             $result['exception'] = 'Error en el servidor resInt';
                         }
                     } else {
                         $result['exception'] = Database::getException();
                     }
+                }
+                break;
+            case 'changePassword':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setId($_SESSION['id_empleado_clave'])) {
+                    $result['exception'] = 'Usuario incorrecto';
+                } elseif ($_POST['claveNueva'] == $_SESSION['clave_caducada']) {
+                    $result['exception'] = 'La clave nueva debe ser diferente a la anterior.';
+                } elseif ($_POST['claveNueva'] != $_POST['confirmarNueva']) {
+                    $result['exception'] = 'Claves nuevas diferentes';
+                } elseif (!$usuario->setClave($_POST['claveNueva'])) {
+                    $result['exception'] = Validator::getPasswordError();
+                } elseif ($usuario->changePassword()) {
+                    session_destroy();
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
                 }
                 break;
             case 'logOut':

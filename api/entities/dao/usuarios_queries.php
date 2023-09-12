@@ -23,7 +23,7 @@ class UsuariosQueries
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
         cargos_empleados.cargo, CONCAT(empleados.nombre_empleado, ' ', empleados.apellido_empleado) as nombre,
-        empleados.estado, empleados.intentos from empleados INNER JOIN cargos_empleados USING(id_cargo)
+        empleados.estado, empleados.intentos, DATEDIFF(CURRENT_DATE, fecha_clave) as dias from empleados INNER JOIN cargos_empleados USING(id_cargo)
         WHERE usuario_empleado = ?";
         $params = array($this->usuario);
         $data = Database::getRow($sql, $params);
@@ -37,6 +37,7 @@ class UsuariosQueries
             $this->cargo =  $data['cargo'];
             $this->id_cargo = $data['id_cargo'];
             $this->empleado = $data['nombre'];
+            $this->dias_clave = $data['dias'];
             return $data;
         } elseif($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
             return 'time';
@@ -86,9 +87,18 @@ class UsuariosQueries
     public function changePassword()
     {
         $sql = 'UPDATE empleados
-                SET clave = ?
+                SET clave = ?, fecha_clave = current_timestamp()	
                 WHERE id_empleado = ?';
-        $params = array($this->clave, $_SESSION['id_empleado']);
+        $params = array($this->clave, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function changePasswordCaducada()
+    {
+        $sql = 'UPDATE empleados
+                SET clave = ?
+                WHERE usuario_empleado = ?';
+        $params = array($this->clave, $this->usuario_empleado);
         return Database::executeRow($sql, $params);
     }
 
@@ -110,7 +120,7 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
-
+    //Funcion para crear un usuario en el primer uso
     public function createRow()
     {
         $sql = 'INSERT INTO empleados (nombre_empleado, apellido_empleado, dui, fecha_nacimiento, id_cargo, usuario_empleado, direccion, clave, correo_empleado)
@@ -128,13 +138,20 @@ class UsuariosQueries
         return Database::getRows($sql);
     }
 
-    
+    //Función para evitar una vulnerabilidad en el primer usuario leyendo si ya existe un empleado
     public function readAll()
     {
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
         FROM empleados 
         INNER JOIN cargos_empleados USING (id_cargo)';
         return Database::getRows($sql);
+    }
+
+    public function readDiasClave()
+    {
+        $sql = 'SELECT DATEDIFF(CURRENT_DATE, fecha_clave) as dias FROM empleados WHERE id_empleado = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
     }
 
 }
