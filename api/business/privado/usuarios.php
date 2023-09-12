@@ -267,6 +267,7 @@ if (isset($_GET['action'])) {
                             $_SESSION['tipo'] = $usuario->getTipo_empleado();
                             $_SESSION['id_cargo'] = $usuario->getId_cargo();
                             $_SESSION['empleado'] = $usuario->getEmpleado();
+                            $_SESSION['correo_empleado'] = $usuario->getCorreo_empleado();
                             $_SESSION['tiempo'] = time();
                             $result['dataset'] = $data;
                             $result['status'] = 1;

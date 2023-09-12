@@ -23,7 +23,7 @@ class UsuariosQueries
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
         cargos_empleados.cargo, CONCAT(empleados.nombre_empleado, ' ', empleados.apellido_empleado) as nombre,
-        empleados.estado, empleados.intentos, DATEDIFF(CURRENT_DATE, fecha_clave) as dias from empleados INNER JOIN cargos_empleados USING(id_cargo)
+        empleados.estado, empleados.intentos, DATEDIFF(CURRENT_DATE, fecha_clave) as dias, correo_empleado from empleados INNER JOIN cargos_empleados USING(id_cargo)
         WHERE usuario_empleado = ?";
         $params = array($this->usuario);
         $data = Database::getRow($sql, $params);
@@ -38,6 +38,7 @@ class UsuariosQueries
             $this->id_cargo = $data['id_cargo'];
             $this->empleado = $data['nombre'];
             $this->dias_clave = $data['dias'];
+            $this->correo_empleado = $data['correo_empleado'];
             return $data;
         } elseif($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
             return 'time';
