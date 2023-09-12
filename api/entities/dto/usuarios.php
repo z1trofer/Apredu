@@ -16,8 +16,9 @@ class Usuarios extends UsuariosQueries
     public $apellido_empleado = null;
     public $correo_empleado = null;
     public $usuario_empleado = null;
-    public static $tiempo_inicio = null;
+    public $tiempo_inicio = null;
 
+    public $tiempo_restante = null;
 
 
     //atributos xtra
@@ -30,6 +31,17 @@ class Usuarios extends UsuariosQueries
     /*
     *   Métodos para validar y asignar valores de los atributos.
     */
+
+    public function setTiempoRest($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->tiempo_restante = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function setId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -185,8 +197,14 @@ class Usuarios extends UsuariosQueries
     */
     public function getTiempoInicio()
     {
-        return $tiempo_inicio;
+        return $this->tiempo_inicio;
     }
+
+    public function getTiempoRest()
+    {
+        return $this->tiempo_restante;
+    }
+
 
     public function getId()
     {

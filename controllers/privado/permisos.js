@@ -85,7 +85,7 @@ async function fillTable() {
                     htm = htm + `
                     <td>
                         <div class="form-check form-switch">
-                        <input  class="form-check-input" type="checkbox" role="switch" id="estados"
+                        <input  class="form-check-input" type="checkbox" role="switch"
                         name="estados" checked onchange="cambiarPermiso('${JSON_P.dataset[i][0]}', 0, ${cargos_ids[is]})"/>
                         </div>
                     </td>
@@ -94,7 +94,7 @@ async function fillTable() {
                     htm = htm + `
                     <td>
                         <div class="form-check form-switch">
-                        <input  class="form-check-input" type="checkbox" role="switch" id="estados"
+                        <input  class="form-check-input" type="checkbox" role="switch"
                         name="estados" onchange="cambiarPermiso('${JSON_P.dataset[i][0]}', 1, ${cargos_ids[is]})"/>
                         </div>
                     </td>

@@ -391,14 +391,14 @@ class Validator
         }
     }
 
-    public static function validateAttemptsCd()
+    public static function validateAttemptsCd($tiempo)
     {
-        if ($_SERVER['tiempo_inicio'] != null) {
+        if ($tiempo != null) {
             //Tiempo en segundos para dar vida a la sesión.
             $temporizador = 30; //Tiempo en segundos.
 
             //Calculamos tiempo de vida inactivo.
-            $cuenta = time() - $_SERVER['tiempo_inicio'];
+            $cuenta = time() - $tiempo;
 
             //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
             if ($cuenta > $temporizador) {
@@ -407,7 +407,7 @@ class Validator
                 //Redirigimos pagina.
                 //self::$sessionError = 'Su sesión ha caducado';
             } else { // si no ha caducado la sesion, actualizamos
-                return $temporizador;
+                return false;
             }
         } else {
             return true;

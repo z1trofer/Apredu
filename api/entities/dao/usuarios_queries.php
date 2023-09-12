@@ -23,27 +23,40 @@ class UsuariosQueries
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
         cargos_empleados.cargo, CONCAT(empleados.nombre_empleado, ' ', empleados.apellido_empleado) as nombre,
-        empleados.estado, empleados.intentos from empleados INNER JOIN cargos_empleados USING(id_cargo)
+        empleados.estado, empleados.intentos, empleados.timer_intento from empleados INNER JOIN cargos_empleados USING(id_cargo)
         WHERE usuario_empleado = ?";
         $params = array($this->usuario);
         $data = Database::getRow($sql, $params);
         if ($data == null) {
             return false;
-        } elseif ($data['estado'] == false) {
-            return 'zzz';
-        } elseif (password_verify($clave, $data['clave'])) {
-            $this->id = $data['id_empleado'];
-            $this->usuario = $data['usuario_empleado'];
-            $this->cargo =  $data['cargo'];
-            $this->id_cargo = $data['id_cargo'];
-            $this->empleado = $data['nombre'];
-            return $data;
-        } elseif($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
-            return 'time';
-        } elseif($data['intentos'] >= 25) {
-            return 'bloquear';
         } else {
-            return 'fail';
+            $timer = null;
+            if (Validator::validateAttemptsCd($data['timer_intento']) != true) {
+                $timer = false;
+                $this->tiempo_restante = Validator::validateAttemptsCd($data['timer_intento']);
+            } else {
+                $this->usuario = $data['usuario_empleado'];
+                $this->subirTiempoInicio(null);
+                $timer = true;
+            }
+            if ($data['estado'] == false) {
+                return 'zzz';
+            } elseif ($timer == false) {
+                return 'timer';
+            } elseif (password_verify($clave, $data['clave'])) {
+                $this->id = $data['id_empleado'];
+                $this->usuario = $data['usuario_empleado'];
+                $this->cargo =  $data['cargo'];
+                $this->id_cargo = $data['id_cargo'];
+                $this->empleado = $data['nombre'];
+                return $data;
+            } elseif ($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
+                return 'time';
+            } elseif ($data['intentos'] >= 25) {
+                return 'bloquear';
+            } else {
+                return 'fail';
+            }
         }
     }
 
@@ -60,6 +73,15 @@ class UsuariosQueries
         $params = array($this->usuario);
         return Database::executeRow($sql, $params);
     }
+
+    public function subirTiempoInicio($timer)
+    {
+        $sql = 'UPDATE empleados set timer_intento = ? where usuario_empleado = ?';
+        $params = array($timer, $this->usuario);
+        return Database::executeRow($sql, $params);
+    }
+
+
 
     public function blockUser()
     {
@@ -128,7 +150,7 @@ class UsuariosQueries
         return Database::getRows($sql);
     }
 
-    
+
     public function readAll()
     {
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
@@ -136,5 +158,4 @@ class UsuariosQueries
         INNER JOIN cargos_empleados USING (id_cargo)';
         return Database::getRows($sql);
     }
-
 }

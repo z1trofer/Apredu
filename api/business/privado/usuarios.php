@@ -34,7 +34,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
                 break;
-            //Obtener el usuario administrador
+                //Obtener el usuario administrador
             case 'getUser':
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
@@ -213,16 +213,13 @@ if (isset($_GET['action'])) {
                 //validando usuario
                 if (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Ingrese un usuario';
-                //validando clave
+                    //validando clave
                 } elseif (!$usuario->setClave($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
                     //validando que no haya cd de intentos
-                } elseif (isset($_SERVER['tiempo_inicio'])) {
-                    $tiempo = Validator::validateAttemptsCd();
-                    $result['exception'] = 'Debe esperar '.$tiempo.'s para poder volver a intentar iniciar sesión';
                 } /*elseif ($tiempo != true) {
                     $result['exception'] = 'Debe esperar '.$tiempo.'s para poder volver a intentar iniciar sesión';
-                } */else {
+                } */ else {
                     //$GLOBALS['tiempo_inicio'] = null;
                     //se manda a llamvar la consulta de la base
                     $data = $usuario->LogIn($_POST['clave']);
@@ -233,14 +230,22 @@ if (isset($_GET['action'])) {
                     } else if ($data == 'zzz') {
                         //usuario bloqueado
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
+                    } else if ($data == 'timer') {
+                        //usuario con temporizador
+                        $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere '.$usuario->getTiempoRest().'s para volver a intentar';
                     } else if ($data == 'time') {
                         //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
-                        $usuario->agregarIntento();
-                        $_SERVER['tiempo_inicio'] = time();
-                        $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo'/*.$GLOBALS['tiempo_inicio']*/;
+                        if (!$usuario->agregarIntento()) {
+                            $result['exception'] = 'error al agregar el intento';
+                        } elseif ($usuario->subirTiempoInicio(time())) {
+                            $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere 30s para volver a intentar aaaa';
+                        } else {
+                            $result['exception'] = 'Error en el servidor time';
+                        }
+                        //$result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo'/*.$GLOBALS['tiempo_inicio']*/;
                     } else if ($data == 'bloquear') {
                         //el usuario intento iniciar sesion demasiadas veces por lo que este sera bloqueado
-                        if($usuario->blockUser()){
+                        if ($usuario->blockUser()) {
                             $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces por lo que su usuario ha sido bloquedo, por favor contactate con un administrador';
                         } else {
                             $result['exception'] = 'Error en el servidor bloq';
@@ -254,7 +259,7 @@ if (isset($_GET['action'])) {
                         }
                     } elseif ($data != false) {
                         //el usuario inicio sesion satisfactoriamente
-                        if($usuario->resetIntentos()){
+                        if ($usuario->resetIntentos()) {
                             $_SESSION['id_empleado'] = $usuario->getId();
                             $_SESSION['usuario'] = $usuario->getUser();
                             $_SESSION['tipo'] = $usuario->getTipo_empleado();
@@ -264,7 +269,7 @@ if (isset($_GET['action'])) {
                             $result['dataset'] = $data;
                             $result['status'] = 1;
                             $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
-                        }else{
+                        } else {
                             $result['exception'] = 'Error en el servidor resInt';
                         }
                     } else {
@@ -318,8 +323,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha creado correctamente';
                 } else {
-                    $result['exception'] = Database::getException();
-                    ;
+                    $result['exception'] = Database::getException();;
                 }
                 break;
             case 'readCargos':
