@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else if(JSON2.exception) {
         // Se muestra el formulario para registrar el primer usuario
         document.getElementById('btnEmpleados').click();
-        sweetAlert(3, '¡Vaya!, parece que es tu primera vez con nosotros, debes registrar el primer usuario.', true);
+        sweetAlert(3, '¡Vaya!, parece que es tu primera vez con nosotros, debes registrar el primer usuario', true);
     } else {
         //se envia un mensaje de error
         sweetAlert(2, 'La sesión ya no es valida', false);
