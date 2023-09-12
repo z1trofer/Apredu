@@ -46,7 +46,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'logOut':
                 if (session_destroy()) {
-                    $result['status'] = 1; 
+                    $result['status'] = 1;
                     $result['message'] = 'Sesión eliminada correctamente';
                 } else {
                     $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
@@ -211,16 +211,14 @@ if (isset($_GET['action'])) {
             case 'login':
                 //$_POST = Validator::validateForm($_POST);
                 //validando usuario
-                if ($data = $usuario->readDiasClave()) {
-
-                } else if (!$usuario->setUser($_POST['usuario'])) {
+                if (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Ingrese un usuario';
                     //validando clave
                 } elseif (!$usuario->setClave($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
-                    //se manda a llamvar la consulta de la base
-                    $data = $usuario->LogIn($_POST['clave']);
-                    //se verifica la respuenta
+                } elseif (!$data = $usuario->LogIn($_POST['clave'])) {
+                    $result['exception'] = 'error en el servidor';
+                } else {
                     if ($data == false) {
                         //se dio un error en el servidor
                         $result['exception'] = 'Error en el servidor';
@@ -229,7 +227,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
                     } else if ($data == 'timer') {
                         //usuario con temporizador
-                        $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere '.$usuario->getTiempoRest().'s para volver a intentar';
+                        $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere ' . $usuario->getTiempoRest() . 's para volver a intentar';
                     } else if ($data == 'time') {
                         //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
                         if (!$usuario->agregarIntento()) {
@@ -250,7 +248,6 @@ if (isset($_GET['action'])) {
                         $usuario->agregarIntento();
                         $_SERVER['tiempo_inicio'] = time();
                         $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo' /*.$GLOBALS['tiempo_inicio']*/;
-
                     } else if ($data == 'bloquear') {
                         //el usuario intento iniciar sesion demasiadas veces por lo que este sera bloqueado
                         if ($usuario->blockUser()) {
