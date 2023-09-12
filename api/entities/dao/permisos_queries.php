@@ -22,8 +22,8 @@ class PermisosQueries
     //funcion para cambiar los permisos de un cargo
     public function changePermissions()
     {
-        $sql = 'UPDATE cargos_empleado SET ? = ? where ?';
-        $params = array($this->permiso, $this->atributo, $this->id_cargo);
+        $sql = 'UPDATE cargos_empleados SET '.$this->atributo.' = ? where id_cargo = ?';
+        $params = array($this->permiso, $this->id_cargo);
         return Database::executeRow($sql, $params);
     }
 
@@ -39,7 +39,7 @@ class PermisosQueries
     {
         $sql = "SELECT COLUMN_NAME
         FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = 'cargos_empleados'";
+        WHERE TABLE_NAME = 'cargos_empleados' and COLUMN_NAME != 'cargo' and COLUMN_NAME != 'id_cargo'";
         return Database::getRowsColumns($sql);
     }
 

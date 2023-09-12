@@ -39,17 +39,16 @@
             <a href="../../recovery.php" class="link" id="link_password">¿Olvidaste tu contraseña?</a>
         </form>
     </div>
-    <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" data-mdb-backdrop="static" data-mdb-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">Información del docente</h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title" id="modal-title">Información del docente</h4>   
                 </div>
                 <form id="save-form" method="post" action="">
                     <div class="modal-body">
                         <div class="row">
-                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
+                            <input class="visually-hidden" type="number" id="id" name="id">
                             <div class="col-sm-4">
                                 <div class="form-outline">
                                     <input type="text" id="nombres" name="nombres" class="form-control"
@@ -130,7 +129,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">Guardar Cambios</button>
                     </div>
                 </form>
