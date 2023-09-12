@@ -28,6 +28,7 @@ if (isset($_GET['action'])) {
                 break;
                 //cambiar los permisos de un usuario
             case 'CambiarPermiso':
+                $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('cambiar_permisos');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
@@ -36,9 +37,16 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$permisos->setPermiso($_POST['permiso'])) {
-                    $result['exception'] = 'empleado incorrecto';
+                    $result['exception'] = 'permiso malo';
+                } elseif (!$permisos->setAtributo($_POST['atributo'])) {
+                    $result['exception'] = 'atributo malo';
+                } elseif (!$permisos->setCargo($_POST['cargo'])) {
+                    $result['exception'] = 'cargo malo';
+                } elseif ($_POST['cargo'] == 1) {
+                    $result['exception'] = 'No puedes cambiar los permisos del administrador';
                 } elseif ($result['dataset'] = $permisos->changePermissions()) {
                     $result['status'] = 1;
+                    $result['message'] = 'Permiso Cambiado exitosamente';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {

@@ -8,9 +8,9 @@ class Permisos extends PermisosQueries
 {
     // Declaración de atributos (propiedades).
     public $id = null;
-    private $permiso = null;
-    private $atributo = null;
-    private $id_cargo = null;
+    public $permiso = null;
+    public $atributo = null;
+    public $id_cargo = null;
     
   
     public function setId($value)
@@ -35,7 +35,7 @@ class Permisos extends PermisosQueries
 
     public function setAtributo($value)
     {
-        if (Validator::validateAlphabetic($value, 1, 30)) {
+        if ($value != 'id_cargo' && $value != 'cargo') {
             $this->atributo = $value;
             return true;
         } else {
