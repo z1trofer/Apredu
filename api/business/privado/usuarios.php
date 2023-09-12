@@ -290,7 +290,9 @@ if (isset($_GET['action'])) {
                 break;
             case 'signup':
                 $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setNombre_empleado($_POST['nombres'])) {
+                if ($usuario->readAll()) {
+                    $result['exception'] = "Ya existen usuarios registrados";
+                } elseif (!$usuario->setNombre_empleado($_POST['nombres'])) {
                     $result['exception'] = 'Nombre del empleado mal ingresado';
                 } elseif (!$usuario->setapellido_empleado($_POST['apellidos'])) {
                     $result['exception'] = 'Apellidos del empleado mal ingresada';
@@ -301,7 +303,7 @@ if (isset($_GET['action'])) {
                 } elseif ($_POST['clave'] != $_POST['claveConfirm']) {
                     $result['exception'] = 'Las contraseñas no coinciden';
                 } elseif (!$usuario->setclave($_POST['clave'])) {
-                    $result['exception'] = 'Clave mal ingresada';
+                    $result['exception'] = Validator::getPasswordError();
                 } elseif (!$usuario->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo mal ingresado';
                 } elseif (!$usuario->setDireccion($_POST['direccion'])) {

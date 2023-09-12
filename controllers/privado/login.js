@@ -20,10 +20,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Se direcciona a la página web de bienvenida.
         location.href = 'principal.html';
     } else if(JSON2.exception) {
-        // Se muestra el formulario para iniciar sesión.
-        
+        // Se muestra el formulario para registrar el primer usuario
         document.getElementById('btnEmpleados').click();
-        sweetAlert(4, 'Parece que no tienes usuarios registrados, ¡comencemos con el tuyo!', true);
+        sweetAlert(4, '¡Vaya!, parece que es tu primera vez con nosotros, debes registrar el primer usuario.', true);
     } else {
         //se envia un mensaje de error
         sweetAlert(2, 'La sesión ya no es valida', false);

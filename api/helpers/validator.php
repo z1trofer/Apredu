@@ -1,7 +1,7 @@
 <?php
 /*
-*	Clase para validar todos los datos de entrada del lado del servidor.
-*/
+ *	Clase para validar todos los datos de entrada del lado del servidor.
+ */
 class Validator
 {
     // Propiedades para manejar algunas validaciones.
@@ -11,42 +11,42 @@ class Validator
     private static $fileName = null;
 
     /*
-    *   Método para obtener el error al validar una contraseña.
-    */
+     *   Método para obtener el error al validar una contraseña.
+     */
     public static function getPasswordError()
     {
         return self::$passwordError;
     }
 
     /*
-    *   Método para obtener el nombre del archivo validado previamente.
-    */
+     *   Método para obtener el nombre del archivo validado previamente.
+     */
     public static function getFileName()
     {
         return self::$fileName;
     }
 
     /*
-    *   Método para obtener el error al validar un archivo.
-    */
+     *   Método para obtener el error al validar un archivo.
+     */
     public static function getFileError()
     {
         return self::$fileError;
     }
 
     /*
-    *   Método para obtener el error al validar un archivo.
-    */
+     *   Método para obtener el error al validar un archivo.
+     */
     public static function getSessionError()
     {
         return self::$sessionError;
     }
 
     /*
-    *   Método para sanear todos los campos de un formulario (quitar los espacios en blanco al principio y al final).
-    *   Parámetros: $fields (arreglo con los campos del formulario).
-    *   Retorno: arreglo con los campos saneados del formulario.
-    */
+     *   Método para sanear todos los campos de un formulario (quitar los espacios en blanco al principio y al final).
+     *   Parámetros: $fields (arreglo con los campos del formulario).
+     *   Retorno: arreglo con los campos saneados del formulario.
+     */
     public static function validateForm($fields)
     {
         foreach ($fields as $index => $value) {
@@ -57,10 +57,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un número natural como por ejemplo llave primaria, llave foránea, entre otros.
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar un número natural como por ejemplo llave primaria, llave foránea, entre otros.
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateNaturalNumber($value)
     {
         // Se verifica que el valor sea un número entero mayor o igual a uno.
@@ -72,8 +72,8 @@ class Validator
     }
 
     /*
-    *   Método para validar un número del año.
-    */
+     *   Método para validar un número del año.
+     */
     public static function validateAnio($value)
     {
         // Se verifica que el valor sea un número entero mayor o igual a uno.
@@ -85,10 +85,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un archivo de imagen.
-    *   Parámetros: $file (archivo de un formulario), $maxWidth (ancho máximo para la imagen) y $maxHeigth (alto máximo para la imagen).
-    *   Retorno: booleano (true si el archivo es correcto o false en caso contrario).
-    */
+     *   Método para validar un archivo de imagen.
+     *   Parámetros: $file (archivo de un formulario), $maxWidth (ancho máximo para la imagen) y $maxHeigth (alto máximo para la imagen).
+     *   Retorno: booleano (true si el archivo es correcto o false en caso contrario).
+     */
     public static function validateImageFile($file, $maxWidth, $maxHeigth)
     {
         // Se obtienen las dimensiones y el tipo de la imagen.
@@ -113,10 +113,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un correo electrónico.
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar un correo electrónico.
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateEmail($value)
     {
         if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
@@ -127,10 +127,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un dato booleano.
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar un dato booleano.
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateBoolean($value)
     {
         if ($value == 1 || $value == 0 || $value == true || $value == false) {
@@ -141,10 +141,10 @@ class Validator
     }
 
     /*
-    *   Método para validar una cadena de texto (letras, digitos, espacios en blanco y signos de puntuación).
-    *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar una cadena de texto (letras, digitos, espacios en blanco y signos de puntuación).
+     *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateString($value, $minimum, $maximum)
     {
         // Se verifica el contenido y la longitud de acuerdo con la base de datos.
@@ -169,10 +169,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un dato alfabético (letras y espacios en blanco).
-    *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar un dato alfabético (letras y espacios en blanco).
+     *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateAlphabetic($value, $minimum, $maximum)
     {
         // Se verifica el contenido y la longitud de acuerdo con la base de datos.
@@ -184,10 +184,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un dato alfanumérico (letras, dígitos y espacios en blanco).
-    *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar un dato alfanumérico (letras, dígitos y espacios en blanco).
+     *   Parámetros: $value (dato a validar), $minimum (longitud mínima) y $maximum (longitud máxima).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateAlphanumeric($value, $minimum, $maximum)
     {
         // Se verifica el contenido y la longitud de acuerdo con la base de datos.
@@ -199,10 +199,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un dato monetario.
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar un dato monetario.
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateMoney($value)
     {
         // Se verifica que el número tenga una parte entera y como máximo dos cifras decimales.
@@ -214,29 +214,41 @@ class Validator
     }
 
     /*
-    *   Método para validar una contraseña.
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar una contraseña.
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validatePassword($value)
     {
         // Se verifica la longitud mínima.
         if (strlen($value) < 6) {
             self::$passwordError = 'Clave menor a 6 caracteres';
             return false;
-        } elseif (strlen($value) <= 72) {
+        } elseif (strlen($value) > 72) {
+            self::$passwordError = 'Clave mayor a 72 caracteres';
+            return false;
+        } elseif (!preg_match('`[a-z]`', $value)) {
+            self::$passwordError = "La clave debe tener al menos una letra minúscula";
+            return false;
+        } elseif (!preg_match('`[A-Z]`', $value)) {
+            self::$passwordError = "La clave debe tener al menos una letra mayúscula";
+            return false;
+        } elseif (!preg_match('`[0-9]`', $value)) {
+            self::$passwordError = "La clave debe tener al menos un caracter numérico";
+            return false;
+        } elseif (preg_match('`[\W]`', $value)) {
             return true;
         } else {
-            self::$passwordError = 'Clave mayor a 72 caracteres';
+            self::$passwordError = "La clave debe tener al menos un caracter especial";
             return false;
         }
     }
 
     /*
-    *   Método para validar el formato del DUI (Documento Único de Identidad).
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar el formato del DUI (Documento Único de Identidad).
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateDUI($value)
     {
         // Se verifica que el número tenga el formato 00000000-0.
@@ -248,10 +260,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un número telefónico.
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar un número telefónico.
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validatePhone($value)
     {
         // Se verifica que el número tenga el formato 0000-0000 y que inicie con 2, 6 o 7.
@@ -263,10 +275,10 @@ class Validator
     }
 
     /*
-    *   Método para validar una fecha.
-    *   Parámetros: $value (dato a validar).
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
+     *   Método para validar una fecha.
+     *   Parámetros: $value (dato a validar).
+     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+     */
     public static function validateDate($value)
     {
         // Se dividen las partes de la fecha y se guardan en un arreglo en el siguiene orden: año, mes y día.
@@ -279,10 +291,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un archivo al momento de subirlo al servidor.
-    *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
-    *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
-    */
+     *   Método para validar un archivo al momento de subirlo al servidor.
+     *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
+     *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
+     */
     public static function saveFile($file, $path, $name)
     {
         // Se verifica que el archivo sea movido al servidor.
@@ -294,10 +306,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un archivo al momento de subirlo al servidor.
-    *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
-    *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
-    */
+     *   Método para validar un archivo al momento de subirlo al servidor.
+     *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
+     *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
+     */
     public static function saveFilePreview($file, $path, $name)
     {
         // Se verifica que el archivo sea movido al servidor.
@@ -309,10 +321,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un archivo al momento de borrarlo del servidor.
-    *   Parámetros: $path (ruta del archivo) y $name (nombre del archivo).
-    *   Retorno: booleano (true si el archivo fue borrado del servidor o false en caso contrario).
-    */
+     *   Método para validar un archivo al momento de borrarlo del servidor.
+     *   Parámetros: $path (ruta del archivo) y $name (nombre del archivo).
+     *   Retorno: booleano (true si el archivo fue borrado del servidor o false en caso contrario).
+     */
     public static function deleteFile($path, $name)
     {
         // Se comprueba que el archivo sea borrado del servidor.
@@ -335,10 +347,10 @@ class Validator
     }
 
     /*
-    *   Método para validar un archivo PDF.
-    *   Parámetros: $file (archivo de un formulario).
-    *   Retorno: booleano (true si el archivo es correcto o false en caso contrario).
-    */
+     *   Método para validar un archivo PDF.
+     *   Parámetros: $file (archivo de un formulario).
+     *   Retorno: booleano (true si el archivo es correcto o false en caso contrario).
+     */
     public static function validatePDFFile($file)
     {
         // Se comprueba si el archivo tiene un tamaño mayor a 2MB.
@@ -372,7 +384,7 @@ class Validator
             //Redirigimos pagina.
             //self::$sessionError = 'Su sesión ha caducado';
             return false;
-        } else {  // si no ha caducado la sesion, actualizamos
+        } else { // si no ha caducado la sesion, actualizamos
             $_SESSION['tiempo'] = time();
             return true;
         }
@@ -393,7 +405,7 @@ class Validator
                 return true;
                 //Redirigimos pagina.
                 //self::$sessionError = 'Su sesión ha caducado';
-            } else {  // si no ha caducado la sesion, actualizamos
+            } else { // si no ha caducado la sesion, actualizamos
                 return $temporizador;
             }
         } else {
