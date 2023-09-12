@@ -33,7 +33,7 @@ async function fillHeaders() {
     const JSON = await dataFetch(PERMISOS_API, 'getHeaders');
     //se comprueba el resultado
     if (JSON.status) {
-        debugger
+         
         JSON.dataset.forEach(row => {
             TB_HEAD.innerHTML += `
             <th scope="col">${row.COLUMN_NAME}</th>
@@ -55,7 +55,7 @@ async function fillTable() {
     //se manda a llamar al servidor
     const JSON_P = await dataFetch(PERMISOS_API, 'getHeaders');
     const JSON_C = await dataFetch(PERMISOS_API, 'ObtenerPermisos');
-    debugger
+     
     //se comprueba el resultado de ambas consultas
     if (JSON_C.status && JSON_P.status) {
         //se carga el nombre de los cargos en los encabezados de la tabla
@@ -67,7 +67,7 @@ async function fillTable() {
         cargos_ids = [];
         //se eliminan los primeros 2 campos del arreglo (id_cargo, cargo)
         for (let i = 0; i < JSON_C.dataset.length; i++) {
-            debugger
+             
             cargos_ids.push(JSON_C.dataset[i][0]);
             JSON_C.dataset[i].splice(0, 1);
             JSON_C.dataset[i].splice(0, 1);
@@ -126,12 +126,14 @@ async function cambiarPermiso(atributo, permiso, cargo){
         const JSON = await dataFetch(PERMISOS_API, 'CambiarPermiso', FORM)
         if(JSON.status){
             fillTable();
-            debugger
+             
             sweetAlert(1, JSON.message, true);
         }else{
             fillTable();
-            debugger
+             
             sweetAlert(2, JSON.exception, false);
         }
+    }else{
+        fillTable();
     }
 };

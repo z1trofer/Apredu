@@ -89,7 +89,7 @@ class Usuarios extends UsuariosQueries
         }
     }
 
-     public function setNombre_empleado($value)
+    public function setNombre_empleado($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 150)) {
             $this->nombre_empleado = $value;

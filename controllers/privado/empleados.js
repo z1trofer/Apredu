@@ -32,8 +32,6 @@ function CapturandoDatos() {
     CargandoDatos(valor_empleado, valor_grado, valor_asignatura);
 }
 
-
-
 function CargandoDatos(empleado, grado, asignatura) {
     fillTable2(empleado, grado, asignatura);
 }
@@ -385,9 +383,7 @@ async function openUpdate(id_empleado) {
         //document.getElementById('clave').value = JSON.dataset.clave;
         document.getElementById('estado').selectedIndex = JSON.dataset.estado;
         document.getElementById('intentos').selectedIndex = JSON.dataset.intentos;
-        debugger
         if (JSON.dataset.intentos >= 5) {
-            debugger
             document.getElementById('intentoslab').className = 'form-label';
 
         } else {

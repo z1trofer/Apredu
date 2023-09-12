@@ -35,7 +35,7 @@ class Permisos extends PermisosQueries
 
     public function setAtributo($value)
     {
-        if ($value) {
+        if ($value != 'id_cargo' && $value != 'cargo') {
             $this->atributo = $value;
             return true;
         } else {
