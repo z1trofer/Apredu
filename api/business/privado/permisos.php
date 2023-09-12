@@ -36,9 +36,14 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$permisos->setPermiso($_POST['permiso'])) {
-                    $result['exception'] = 'empleado incorrecto';
+                    $result['exception'] = 'permiso malo';
+                } elseif (!$permisos->setAtributo($_POST['atributo'])) {
+                    $result['exception'] = 'atributo malo';
+                } elseif (!$permisos->setCargo($_POST['cargo'])) {
+                    $result['exception'] = 'cargo malo';
                 } elseif ($result['dataset'] = $permisos->changePermissions()) {
                     $result['status'] = 1;
+                    $result['message'] = 'Permiso Cambiado exitosamente';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
