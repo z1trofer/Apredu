@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-09-2023 a las 20:07:08
+-- Tiempo de generación: 13-09-2023 a las 20:08:26
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.13
 
@@ -181,7 +181,7 @@ INSERT INTO `asignaturas` (`id_asignatura`, `asignatura`) VALUES
 CREATE TABLE `cargos_empleados` (
   `id_cargo` int(11) NOT NULL COMMENT 'Id del cargo',
   `cargo` varchar(25) NOT NULL COMMENT 'Cargo del empleado',
-  `cambiar_permisos` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_permisos` tinyint(1) NOT NULL DEFAULT 0,
   `create_usuarios` tinyint(1) NOT NULL DEFAULT 0,
   `update_usuarios` tinyint(1) NOT NULL DEFAULT 0,
   `create_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
@@ -211,9 +211,9 @@ CREATE TABLE `cargos_empleados` (
 -- Volcado de datos para la tabla `cargos_empleados`
 --
 
-INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `cambiar_permisos`, `create_usuarios`, `update_usuarios`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `edit_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
+INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `edit_permisos`, `create_usuarios`, `update_usuarios`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `edit_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
 (1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 'profesor', 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+(2, 'profesor', 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 

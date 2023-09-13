@@ -38,23 +38,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle doce" href="#" id="navbarDropdownMenuLink" role="button"
+                        <li class="nav-item dropdown " id="mantenimientos_list" hidden>
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Mantenimientos
                             </a>
-                            <ul class="dropdown-menu doce" aria-labelledby="navbarDropdownMenuLink">
+                            <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item doce" href="grados.html">Grados</a>
+                                    <a class="dropdown-item" id="vista_grados" href="grados.html">Grados</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item doce" href="asignaturas.html">Asignaturas</a>
+                                    <a class="dropdown-item" id="vista_asignaturas" href="asignaturas.html">Asignaturas</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item doce" href="trimestres.html">Trimestres escolares</a>
+                                    <a class="dropdown-item" id="vista_trimestres" href="trimestres.html">Trimestres escolares</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item doce" href="permisos.html">Permisos</a>
+                                    <a class="dropdown-item" id="vista_permisos" href="permisos.html">Permisos</a>
                                 </li>
                             </ul>
                         </li>
@@ -118,15 +118,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
             <!-- Container wrapper -->
             </nav>`;
-
+            
             //si el nivel de usuario es docente se ocultan los menus respectivos
-            if(JSON.id_cargo == 2){
+            vistaPermisos();
+            /*if(JSON.id_cargo == 2){
                 menus = document.getElementsByClassName('doce');
                 for (let i = 0; i < menus.length; i++) {
                     menus[i].hidden = true;
                     
                 }
-            }
+            }*/
             // Se inicializa el componente Dropdown para que funcione la lista desplegable en los menús.
         } else {
             sweetAlert(3, JSON.exception, false, 'index.html');
@@ -142,3 +143,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si la página web es la principal, de lo contrario se direcciona a iniciar sesión
 }
 );
+
+//funcion para filtrar el menu navbar en funcion de los permisos del usuario
+async function vistaPermisos(){
+    
+    //se consulta los permisos del usuario
+    const JSON = await dataFetch(USER_API, 'getPermisosVista');
+    //se valida el resultado
+    if(JSON.status){
+        debugger
+        //se asigna el arreglo con los permisos a la variable atributos
+        atributos = JSON.dataset;
+        if(atributos.view_grados == 0 && atributos.view_asignaturas == 0 && atributos.view_trimestres == 0 && atributos.edit_permisos == 0){
+            document.getElementById('mantenimientos_list').hidden = true;
+        }else{
+            //se mouestra la lista
+            document.getElementById('mantenimientos_list').hidden = false;
+            //se declaran los elementos de la lista
+            v_grados = document.getElementById('vista_grados');
+            v_asignaturas = document.getElementById('vista_asignaturas');
+            v_trimestres = document.getElementById('vista_trimestres');
+            v_permisos = document.getElementById('vista_permisos');
+            (atributos.view_grados == 1) ? v_grados.hidden = false : v_grados.hidden = true;
+            (atributos.view_asignaturas == 1) ? v_asignaturas.hidden = false : v_asignaturas.hidden = true;
+            (atributos.view_trimestres == 1) ? v_trimestres.hidden = false : v_trimestres.hidden = true;
+            (atributos.edit_permisos == 1) ? v_permisos.hidden = false : v_permisos.hidden = true;
+    
+        }
+    }else{
+        sweetAlert(2, "Error, No se pudo obtener los permisos", false);
+    }
+    //se valida la seccion de mantenimientos
+   
+
+}

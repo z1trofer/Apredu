@@ -30,6 +30,20 @@ if (isset($_GET['action'])) {
                     $result['id_cargo'] = $_SESSION['id_cargo'];
                     $result['id_empleado'] = $_SESSION['id_empleado'];
                     $result['nombre'] = $_SESSION['empleado'];
+                    //$result['atributos_vista'] = $_SESSION['atributos_vista'];
+                } else {
+                    $result['exception'] = 'La sesión ya no es válida';
+                }
+                break;
+            case 'getPermisosVista':
+                if (isset($_SESSION['usuario'])) {
+                    $access = array('edit_permisos', 'view_grados', 'view_trimestres', 'view_asignaturas', 'view_actividades', 'view_empleados', 'view_estudiantes', 'view_fichas');
+                    if(!$usuario->setId($_SESSION['id_empleado'])){
+                        $result['exception'] = 'Error con el empleado';
+                    }
+                    elseif($result['dataset'] = $usuario->obtenerAtributosVista($access))
+                    $result['status'] = 1;
+                    $result['message'] = 'God';
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
@@ -263,8 +277,10 @@ if (isset($_GET['action'])) {
                             $result['exception'] = 'Error en el servidor Int';
                         }
                     } elseif ($data != false) {
-                        //el usuario inicio sesion satisfactoriamente
-                        if ($usuario->resetIntentos()) {
+                        /*if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
+                            $result['exception'] = 'Error al obtener los atributos del usuario';
+                        } else*/if ($usuario->resetIntentos()) {
+                             //el usuario inicio sesion satisfactoriamente
                             $_SESSION['id_empleado'] = $usuario->getId();
                             $_SESSION['usuario'] = $usuario->getUser();
                             $_SESSION['tipo'] = $usuario->getTipo_empleado();

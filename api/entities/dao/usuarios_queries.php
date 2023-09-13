@@ -5,7 +5,8 @@ require_once('../../helpers/database.php');
 */
 class UsuariosQueries
 {
-    public function getPermissions($access)
+    //funcion para verificar que todos los atributos solicitados en el parametro $access esten concedidos al cargo especificado
+    /*public function getPermissions($access)
     {
         $sql = 'SELECT ' . implode(",", $access) . ' from cargos_empleados INNER JOIN empleados USING(id_cargo) where empleados.id_empleado = ?';
         $params = array($this->id);
@@ -17,8 +18,9 @@ class UsuariosQueries
             }
         }
         return $autorized;
-    }
+    }*/
 
+    //funcion de login para permitir al usuario entrar al sistema
     public function LogIn($clave)
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
@@ -65,6 +67,7 @@ class UsuariosQueries
         }
     }
 
+    //Agregar un intento fallido de inicio al usuario
     public function agregarIntento()
     {
         $sql = 'UPDATE empleados set intentos = intentos+1 where usuario_empleado = ?';
@@ -72,6 +75,7 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Reiniciar el contador de intentos a 0
     public function resetIntentos()
     {
         $sql = 'UPDATE empleados set intentos = 0 where usuario_empleado = ?';
@@ -79,6 +83,7 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    //cambiar el contador de tiempo para incicar sesion nuevamente
     public function subirTiempoInicio($timer)
     {
         $sql = 'UPDATE empleados set timer_intento = ? where usuario_empleado = ?';
@@ -86,8 +91,15 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    //obtener los atributos del usuario para la vista del sitio
+    public function obtenerAtributosVista($access)
+    {
+        $sql = 'SELECT ' . implode(",", $access) . ' from cargos_empleados INNER JOIN empleados USING(id_cargo) where empleados.id_empleado = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
 
-
+    //bloquear un usuario
     public function blockUser()
     {
         $sql = 'UPDATE empleados set estado = 0 where usuario_empleado = ?';
@@ -95,6 +107,7 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    //verificar que la contraseña coincida con la de un usuario
     public function checkPassword($password)
     {
         $sql = 'SELECT clave
@@ -110,6 +123,7 @@ class UsuariosQueries
         }
     }
 
+    //cambiar la contraseña de un usuario
     public function changePassword()
     {
         $sql = 'UPDATE empleados
@@ -119,6 +133,7 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    //cambiar la contraseña que ya caducó
     public function changePasswordCaducada()
     {
         $sql = 'UPDATE empleados
@@ -128,6 +143,7 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    //obtener los datos personales de un usuario
     public function readProfile()
     {
         $sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, correo_empleado, usuario_empleado 
@@ -137,6 +153,7 @@ class UsuariosQueries
         return Database::getRow($sql, $params);
     }
 
+    //cambiar los datos personales de un usuario
     public function editProfile()
     {
         $sql = 'UPDATE empleados
@@ -155,6 +172,7 @@ class UsuariosQueries
         return Database::executeRow($sql, $params);
     }
 
+    //obtener los cargos
     public function readCargos()
     {
         $sql = 'SELECT id_cargo, cargo 
@@ -173,6 +191,7 @@ class UsuariosQueries
         return Database::getRows($sql);
     }
 
+    //obtener la cantidad de dia desde el ultimo cambio de contraseña
     public function readDiasClave()
     {
         $sql = 'SELECT DATEDIFF(CURRENT_DATE, fecha_clave) as dias FROM empleados WHERE id_empleado = ?';
