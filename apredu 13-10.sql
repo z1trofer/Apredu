@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2023 a las 20:08:26
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.0.13
+-- Tiempo de generación: 13-09-2023 a las 23:11:33
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `actividades` (
   `id_detalle_asignatura_empleado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla detalle_asignatura_empleados',
   `id_tipo_actividad` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla tipo_actividades',
   `id_trimestre` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla trimestres'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `actividades`
@@ -103,7 +103,7 @@ DELIMITER ;
 CREATE TABLE `anios` (
   `id_anio` int(11) NOT NULL COMMENT 'Id del año',
   `anio` varchar(4) NOT NULL COMMENT 'Año lectivo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `anios`
@@ -154,7 +154,7 @@ DELIMITER ;
 CREATE TABLE `asignaturas` (
   `id_asignatura` int(11) NOT NULL COMMENT 'Id de la asignatura',
   `asignatura` varchar(20) NOT NULL COMMENT 'asignaturas de aprendizaje'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `asignaturas`
@@ -205,7 +205,7 @@ CREATE TABLE `cargos_empleados` (
   `view_trimestres` tinyint(1) NOT NULL DEFAULT 0,
   `edit_trimestres` tinyint(1) NOT NULL DEFAULT 0,
   `edit_detalles_docentes` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cargos_empleados`
@@ -226,7 +226,7 @@ CREATE TABLE `detalle_asignaturas_empleados` (
   `id_empleado` int(11) DEFAULT NULL COMMENT 'Campo foráneo conectado a la tabla empleados',
   `id_asignatura` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla asignaturas',
   `id_grado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla grados'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `detalle_asignaturas_empleados`
@@ -281,14 +281,14 @@ CREATE TABLE `empleados` (
   `estado` tinyint(1) NOT NULL DEFAULT 1,
   `fecha_clave` datetime NOT NULL DEFAULT current_timestamp(),
   `timer_intento` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
 INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `correo_empleado`, `direccion`, `fecha_nacimiento`, `id_cargo`, `usuario_empleado`, `clave`, `intentos`, `estado`, `fecha_clave`, `timer_intento`) VALUES
-(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', 'gabriel@gmail.com', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$MrqSClHaRjDYU3Wbco2jGeOeMTjq/xwTK5QnQPE5vxi4eNZcq1aBe', 0, 1, '2023-09-12 07:28:16', NULL),
+(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', 'manbo631@gmail.com', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$aCDMvVcwBhIjsLdE0koH.O9hJnjWJdCIDgcx7B6tG.MT/LJYW5jw6', 0, 1, '2023-09-12 07:28:16', NULL),
 (12, 'Sara Marlene', 'Gúzman Torres', '00817345-1', 'sara_guzman@gmail.com', 'San Cristobal, Calle Al Matazano, San Salvador', '1982-10-03', 2, 'saritas', '$2y$10$OoT0ELydDJzBRgHrk9SX8u9JBBoCA2aVT0QXt4BL20JXr5H8ub3y6', 0, 1, '2023-09-12 07:28:16', NULL),
 (13, 'Joel Mauricio', 'Ruano Pérez', '01347890-5', 'joel_ruano35@gmail.com', 'Av. Los Girasoles, San Salvador', '1980-02-10', 2, 'inglis', '$2y$10$/JpiBIqq6uPFi3vwDs3NR.mhgD3xTw7Iz5.UYexkAlvRqbLuv5eV.', 0, 1, '2023-09-12 07:28:16', NULL),
 (14, 'Susana Nohemi', 'Gómez Morán', '00126734-3', 'susana_gomez67@gmail.com', 'Colonia Santa Clara, San Salvador', '1993-09-12', 2, 'susana', '$2y$10$QXOu/plrONzD/cZo1VeMbeozQzPUeLOoUCzTstXgoD77fUw4BtYbC', 0, 1, '2023-09-12 07:28:16', NULL),
@@ -309,7 +309,7 @@ INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, 
 (29, 'Keila Rosario', 'Melgar Mejía', '0067893-1', 'keila_melgar67@gmail.com', 'Col. 25 de Abril, San Salvador', '1993-08-14', 2, 'sdfsdfsdxcz', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
 (30, 'Fátima Esmeralda', 'Peralta Méndez', '0652569-8', 'fatima_peralta65@gmail.com', 'San Salvador', '2000-09-04', 2, 'zzzzzxxxx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
 (31, 'Andrea Beatriz', 'Fernández Olivo', '0912035-7', 'andrea_fernandez91@gmail.com', 'Nejapa, San Salvador', '2001-02-09', 2, 'xzccx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(32, 'Alberto', 'Masferrer', '23234553-1', 'albetrt@gmail.com', 'alla', '1992-01-15', 2, 'Albert', '$2y$10$6RiwbGVqfVYfMzz0Dmpdq.dZEyOid8oIYngYgJgyHbPgURnNCYaOu', 0, 1, '2023-09-12 07:28:16', NULL);
+(32, 'Alberto', 'Masferrer', '23234553-1', '', 'alla', '1992-01-15', 2, 'Albert', '$2y$10$CKoDtdjQcJAUY8uwFBQ1Peu/6NuceXDT.nEvusFM8U0ca.MphwIKi', 0, 1, '2023-09-12 07:28:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -328,7 +328,7 @@ CREATE TABLE `estudiantes` (
   `usuario_estudiante` varchar(50) NOT NULL COMMENT 'Usuario del estudiante',
   `clave` varchar(100) NOT NULL COMMENT 'Clave de acceso del usuario',
   `estado` tinyint(1) NOT NULL COMMENT 'Estado de actividad del usuario'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `estudiantes`
@@ -397,7 +397,7 @@ CREATE TABLE `fichas` (
   `descripcion_ficha` varchar(200) NOT NULL COMMENT 'Descripción de la ficha reporte',
   `fecha_ficha` date NOT NULL COMMENT 'Fecha de creación de la ficha',
   `id_empleado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  empleados'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `fichas`
@@ -418,7 +418,7 @@ INSERT INTO `fichas` (`id_ficha`, `id_estudiante`, `descripcion_ficha`, `fecha_f
 CREATE TABLE `grados` (
   `id_grado` int(11) NOT NULL COMMENT 'Id del grado',
   `grado` varchar(20) NOT NULL COMMENT 'Grado académico'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `grados`
@@ -446,7 +446,7 @@ CREATE TABLE `notas` (
   `id_estudiante` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  estudiante',
   `id_actividad` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  actividad',
   `nota` decimal(9,2) DEFAULT NULL COMMENT 'Nota obtenida del estudiante de la actividad'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `notas`
@@ -573,6 +573,28 @@ INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `recovery_tokens`
+--
+
+CREATE TABLE `recovery_tokens` (
+  `token_id` int(11) NOT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `id_empleado` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `recovery_tokens`
+--
+
+INSERT INTO `recovery_tokens` (`token_id`, `token`, `id_empleado`, `created_at`) VALUES
+(1, '652c3ab744da7a74a6469e98776c2ada', 32, '2023-09-13 21:05:28'),
+(2, '59316e442398058020373f4a9994041e', 32, '2023-09-13 21:06:28'),
+(3, '25f0412938e903bb72c1dfaa9bfde5db', 2, '2023-09-13 21:09:40');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `responsables`
 --
 
@@ -587,7 +609,7 @@ CREATE TABLE `responsables` (
   `parentesco` varchar(30) NOT NULL COMMENT 'parentesco del familiar',
   `telefono_1` varchar(9) NOT NULL,
   `telefono_2` varchar(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `responsables`
@@ -606,7 +628,7 @@ CREATE TABLE `responsables_estudiantes` (
   `id_responsable_estudiante` int(11) NOT NULL COMMENT 'Id de responsable estudiante',
   `id_responsable` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  responsable',
   `id_estudiante` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla estudiante'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `responsables_estudiantes`
@@ -625,7 +647,7 @@ CREATE TABLE `telefonos_empleados` (
   `id_telefono_empleado` int(11) NOT NULL COMMENT 'Id del teléfono del empleado',
   `telefono` varchar(9) NOT NULL COMMENT 'Número de teléfono del empleado',
   `id_empleado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  empleado'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -637,7 +659,7 @@ CREATE TABLE `telefonos_responsables` (
   `id_telefono_responsable` int(11) NOT NULL COMMENT 'Id del teléfono del estudiante',
   `telefono` varchar(9) NOT NULL COMMENT 'Número de teléfono del estudiante',
   `id_responsable` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  responsable '
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -648,7 +670,7 @@ CREATE TABLE `telefonos_responsables` (
 CREATE TABLE `tipo_actividades` (
   `id_tipo_actividad` int(11) NOT NULL COMMENT 'Id del tipo de actividad',
   `tipo_actividad` varchar(40) NOT NULL COMMENT 'Tipo de actividad asignable para el estudiante'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_actividades`
@@ -671,7 +693,7 @@ CREATE TABLE `trimestres` (
   `trimestre` varchar(20) NOT NULL COMMENT 'Trimestres del año',
   `id_anio` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  anio',
   `estado` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `trimestres`
@@ -787,6 +809,14 @@ ALTER TABLE `notas`
   ADD KEY `fk_nt_actividad` (`id_actividad`);
 
 --
+-- Indices de la tabla `recovery_tokens`
+--
+ALTER TABLE `recovery_tokens`
+  ADD PRIMARY KEY (`token_id`),
+  ADD UNIQUE KEY `token` (`token`),
+  ADD KEY `id_empleado` (`id_empleado`);
+
+--
 -- Indices de la tabla `responsables`
 --
 ALTER TABLE `responsables`
@@ -894,6 +924,12 @@ ALTER TABLE `notas`
   MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=250;
 
 --
+-- AUTO_INCREMENT de la tabla `recovery_tokens`
+--
+ALTER TABLE `recovery_tokens`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `responsables`
 --
 ALTER TABLE `responsables`
@@ -974,6 +1010,12 @@ ALTER TABLE `fichas`
 ALTER TABLE `notas`
   ADD CONSTRAINT `fk_nt_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id_actividad`),
   ADD CONSTRAINT `fk_nt_estudiantes` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`);
+
+--
+-- Filtros para la tabla `recovery_tokens`
+--
+ALTER TABLE `recovery_tokens`
+  ADD CONSTRAINT `recovery_tokens_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`);
 
 --
 -- Filtros para la tabla `responsables_estudiantes`
