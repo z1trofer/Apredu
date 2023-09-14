@@ -17,18 +17,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     let date = `${year}-${month}-${day}`;
     document.getElementById('fecha_nacimiento').max = date;
     
-    const JSON = await dataFetch(USER_API, 'getSession');
     const JSON2 = await dataFetch(USER_API, 'readUsers');
-    if(JSON.session) {
-        // Se direcciona a la página web de bienvenida.
-        location.href = 'principal.html';
-    } else if(JSON2.exception) {
-        // Se muestra el formulario para registrar el primer usuario
-        document.getElementById('btnEmpleados').click();
-        sweetAlert(3, '¡Vaya!, parece que es tu primera vez con nosotros, debes registrar el primer usuario', true);
-    } else {
-        //se envia un mensaje de error
-        sweetAlert(2, 'La sesión ya no es valida', false);
+   if(JSON2.status) {
+    
+    } else{
+         // Se muestra el formulario para registrar el primer usuario
+         document.getElementById('btnEmpleados').click();
+         sweetAlert(3, '¡Vaya!, parece que es tu primera vez con nosotros, debes registrar el primer usuario', true);
     }
 });
 
@@ -46,9 +41,8 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
 
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        //se redirecciona al la interfaz principal
-        location.href = 'principal.html';
-        sweetAlert(1, JSON.message, true, 'principal.html');
+        //se redirecciona al la interfaz 
+        sweetAlert(1, JSON.message, true, 'autenticacion.html');
     } else {
         if (JSON.clave) {
             sweetAlert(3, JSON.exception, true);

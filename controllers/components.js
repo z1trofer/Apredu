@@ -372,6 +372,6 @@ async function dataFetch(filename, action, form = null) {
         return await RESPONSE.json();
     } catch (error) {
         // Se muestra un mensaje en la consola del navegador web cuando ocurre un problema.
-        console.log(error);
+        // console.log(error);
     }
 }
