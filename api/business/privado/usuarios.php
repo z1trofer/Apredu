@@ -37,7 +37,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'getPermisosVista':
                 if (isset($_SESSION['usuario'])) {
-                    $access = array('edit_permisos', 'view_grados', 'view_trimestres', 'view_asignaturas', 'view_actividades', 'view_empleados', 'view_estudiantes', 'view_fichas');
+                    $access = array('edit_permisos', 'view_grados', 'view_trimestres', 'view_asignaturas', 'view_actividades', 'view_empleados', 'view_estudiantes', 'view_responsables','view_fichas', 'view_notas');
                     if(!$usuario->setId($_SESSION['id_empleado'])){
                         $result['exception'] = 'Error con el empleado';
                     }
@@ -241,7 +241,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
                     } else if ($data == 'timer') {
                         //usuario con temporizador
-                        $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere ' . $usuario->getTiempoRest() . 's para volver a intentar';
+                        $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere un momento para volver a intentar';
                     } else if ($data == 'time') {
                         //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
                         if (!$usuario->agregarIntento()) {

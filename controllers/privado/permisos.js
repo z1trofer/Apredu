@@ -51,17 +51,20 @@ async function fillHeaders() {
 async function fillTable() {
     // Se inicializa el contenido de la tabla.
     TB_BODY.innerHTML = '';
-    TB_HEAD.innerHTML = '<th scope="col"> asdasd</th>';
+    TB_HEAD.innerHTML = '<th scope="col"> </th>';
     //se manda a llamar al servidor
     const JSON_P = await dataFetch(PERMISOS_API, 'getHeaders');
     const JSON_C = await dataFetch(PERMISOS_API, 'ObtenerPermisos');
      
     //se comprueba el resultado de ambas consultas
     if (JSON_C.status && JSON_P.status) {
+        
         //se carga el nombre de los cargos en los encabezados de la tabla
         JSON_C.dataset.forEach(row => {
             TB_HEAD.innerHTML += `
-            <th scope="col">${row[1]}</th>
+            <th scope="col">${row[1]} <button type="button" id="icon-private" class="btn btn-danger btn-floating icon-private">
+            <img id="icon-img-private" src="../../recursos/iconos/icons8-menos-24.png">
+          </button></th>
             `;
         });
         cargos_ids = [];

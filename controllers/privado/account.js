@@ -58,38 +58,38 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="docentes_list" hidden>
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Docentes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item doce" href="empleados.html">Personal académico</a>
+                                    <a class="dropdown-item doce" id="vista_empleados" href="empleados.html">Personal académico</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item " href="actividades.html">Actividades</a>
+                                    <a class="dropdown-item" id="vista_actividades" href="actividades.html">Actividades</a>
                                 </li>
                                 
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="estudiantes_list">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 estudiantes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item doce" href="estudiantes.html">Alumnos</a>
+                                    <a class="dropdown-item" id="vista_estudiantes" href="estudiantes.html">Alumnos</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item doce" href="responsables.html">Responsables</a>
+                                    <a class="dropdown-item" id="vista_responsables" href="responsables.html">Responsables</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="fichas.html">Fichas de conducta</a>
+                                    <a class="dropdown-item" id="vista_fichas" href="fichas.html">Fichas de conducta</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="notas_ingresar.html">Notas</a>
+                                    <a class="dropdown-item" id="vista_notas" href="notas_ingresar.html">Notas</a>
                                 </li>
                             </ul>
                         </li>
@@ -151,9 +151,11 @@ async function vistaPermisos(){
     const JSON = await dataFetch(USER_API, 'getPermisosVista');
     //se valida el resultado
     if(JSON.status){
-        debugger
+        
         //se asigna el arreglo con los permisos a la variable atributos
         atributos = JSON.dataset;
+
+        //mantenimientos
         if(atributos.view_grados == 0 && atributos.view_asignaturas == 0 && atributos.view_trimestres == 0 && atributos.edit_permisos == 0){
             document.getElementById('mantenimientos_list').hidden = true;
         }else{
@@ -169,6 +171,38 @@ async function vistaPermisos(){
             (atributos.view_trimestres == 1) ? v_trimestres.hidden = false : v_trimestres.hidden = true;
             (atributos.edit_permisos == 1) ? v_permisos.hidden = false : v_permisos.hidden = true;
     
+        }
+
+        //docentes
+        if(atributos.view_empleados == 0 && atributos.view_actividades == 0){
+            document.getElementById('docentes_list').hidden = true;
+        }else{
+            //se mouestra la lista
+            document.getElementById('docentes_list').hidden = false;
+            //se declaran los elementos de la lista
+            v_empleados = document.getElementById('vista_empleados');
+            v_actividades = document.getElementById('vista_actividades');
+            (atributos.view_empleados == 1) ? v_empleados.hidden = false : v_empleados.hidden = true;
+            (atributos.view_actividades == 1) ? v_actividades.hidden = false : v_actividades.hidden = true;
+    
+        }
+
+        //estudiantes
+        if(atributos.view_estudiantes == 0 && atributos.view_responsables == 0 && atributos.view_fichas == 0 && atributos.view_notas == 0){
+            document.getElementById('estudiantes_list').hidden = true;
+        }else{
+            
+            //se mouestra la lista
+            document.getElementById('estudiantes_list').hidden = false;
+            //se declaran los elementos de la lista
+            v_estudiantes = document.getElementById('vista_estudiantes');
+            v_responsables = document.getElementById('vista_responsables');
+            v_fichas = document.getElementById('vista_fichas');
+            v_notas = document.getElementById('vista_notas');
+            (atributos.view_estudiantes == 1) ? v_estudiantes.hidden = false : v_estudiantes.hidden = true;
+            (atributos.view_responsables == 1) ? v_responsables.hidden = false : v_responsables.hidden = true;
+            (atributos.view_fichas == 1) ? v_fichas.hidden = false : v_fichas.hidden = true;
+            (atributos.view_notas == 1) ? v_notas.hidden = false : v_notas.hidden = true;
         }
     }else{
         sweetAlert(2, "Error, No se pudo obtener los permisos", false);

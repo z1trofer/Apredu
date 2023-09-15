@@ -11,6 +11,7 @@ class Permisos extends PermisosQueries
     public $permiso = null;
     public $atributo = null;
     public $id_cargo = null;
+    public $cargo = null;
     
   
     public function setId($value)
@@ -43,10 +44,20 @@ class Permisos extends PermisosQueries
         }
     }
 
-    public function setCargo($value)
+    public function setidCargo($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_cargo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setCargo($value)
+    {
+        if (Validator::validateAlphabetic($value, 1, 25)) {
+            $this->cargo = $value;
             return true;
         } else {
             return false;

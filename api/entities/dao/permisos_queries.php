@@ -28,9 +28,13 @@ class PermisosQueries
     }
 
     //funcion para obtener los cargos con todos sus permisos
-    public function viewPermissions()
+    public function viewPermissions($access)
     {
-        $sql = 'SELECT * from cargos_empleados';
+        $arreglo = array('id_cargo','cargo');
+        foreach ($access as $data) {
+            array_push($arreglo, $data[0]);
+        }
+        $sql = 'SELECT ' . implode(",", $arreglo). ' from cargos_empleados';
         return Database::getRowsColumns($sql);
     }
 
@@ -43,5 +47,20 @@ class PermisosQueries
         return Database::getRowsColumns($sql);
     }
 
+    //crear un nuevo cargo
+    public function agregarCargo()
+    {
+        $sql = "INSERT INTO cargos_empleados (cargo) VALUES ?";
+        $params = array($this->cargo);
+        return Database::executeRow($sql, $params);
+    }
+    
+    //eliminar un cargo
+    public function eliminarCargo()
+    {
+        $sql = "DELETE FROM cargos_empleados where id_cargo = ?";
+        $params = array($this->id_cargo);
+        return Database::executeRow($sql, $params);
+    }
 }
 ?>

@@ -28,11 +28,22 @@
     width: 300px;
     height: 60px;
 }
+/*
+.icon-private{
+    width: 10px;
+    height: 10px;
+}*/
 
 #icon-private{
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
 }
+
+#icon-img-private{
+    width: 20px;
+    height: 20px;
+}
+
 
 #size-select{
     width: 100px;
