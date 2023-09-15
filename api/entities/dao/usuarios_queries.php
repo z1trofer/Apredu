@@ -1,5 +1,7 @@
 <?php
 require_once('../../helpers/database.php');
+require_once('../../helpers/props.php');
+
 /*
 *	Clase para manejar el acceso a datos de la entidad USUARIO.
 */
@@ -197,6 +199,97 @@ class UsuariosQueries
         $sql = 'SELECT DATEDIFF(CURRENT_DATE, fecha_clave) as dias FROM empleados WHERE id_empleado = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
+    }
+
+    //Método para comprobar el usuario
+
+    public function checkRecovery()
+
+    {
+
+        $sql = 'SELECT id_empleado, usuario_empleado FROM empleados WHERE correo_empleado = ? ';
+        $params = array($this->correo_empleado);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['id_empleado'];
+            $this->usuario_empleado = $data['usuario_empleado'];
+
+            //Create an instance; passing `true` enables exceptions
+            $this->codigo_recuperacion = rand(100000, 999999);
+            $mensaje = 'Mensaje de verificación';
+            $mailSubject = 'Código de verificación de contraseña';
+            $mailAltBody = '¡Te saludamos la asistencia del colegio Aprendo COntigo para enviarte el código de verificación, por favor ingresarlo en el formulario!'; 
+            $mailBody = '<!DOCTYPE html>
+
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>' . $mailSubject . '</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            background-color: #f4f4f4;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .container {
+                            max-width: 600px;
+                            margin: 0 auto;
+                            background-color: #ffffff;
+                            padding: 20px;
+                            border-radius: 5px;
+                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+                        }
+                        h1 {
+                            color: #333;
+                        }
+                        p {
+                            color: #666;
+                        }
+                        .button {
+                            display: inline-block;
+                            padding: 10px 20px;
+                            background-color: #007BFF;
+                            color: #fff;
+                            text-decoration: none;
+                            border-radius: 3px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>Código de verificación</h1>
+                        <p>' . $mailAltBody . '</p>
+                        <p>' . $mensaje . '</p>
+                        <p>' . $random_string_number . '</p>
+
+                    </div>
+
+                </body>
+
+                </html>';
+
+            return Props::sendMail($this->correo_empleado, $mailSubject, $mailBody);
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+    public function checkAD($id)
+    {
+        $sql = 'SELECT id_empleado, usuario_empleado FROM empleados WHERE id_empleado = ?';
+        $params = array($id);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['id_empleado'];
+            $this->usuario_empleado = $data['usuario_empleado'];
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

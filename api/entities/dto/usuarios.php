@@ -20,6 +20,7 @@ class Usuarios extends UsuariosQueries
     public $dias_clave = null;
     public $dias_diferencia = null;
     public $tiempo_restante = null;
+    public $codigo_recuperacion = null;
 
 
     //atributos xtra
@@ -47,6 +48,16 @@ class Usuarios extends UsuariosQueries
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setCodigoVerificar($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->codigo_recuperacion = $value;
             return true;
         } else {
             return false;
@@ -287,6 +298,11 @@ class Usuarios extends UsuariosQueries
     public function getDias_diferencia()
     {
         return $this->dias_diferencia;
+    }
+
+     public function getCodigoVerificar()
+    {
+        return $this->codigo_recuperacion;
     }
 }
 ?>
