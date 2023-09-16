@@ -1,4 +1,5 @@
 const SAVE_FORM_AUTENTIFICACION = document.getElementById("codigo_verificacion-form");
+const USER_API = 'business/privado/usuarios.php';
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
     if (JSON.status) {
         // Se direcciona a la página web de bienvenida.
-        sweetAlert(2, 'Equis', false);
         location.href('principal.html');
     } else {
         //se envia un mensaje de error
