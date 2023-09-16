@@ -281,11 +281,14 @@ class UsuariosQueries
     }
     public function checkAD($id)
     {
-        $sql = 'SELECT id_empleado, usuario_empleado FROM empleados WHERE id_empleado = ?';
+        $sql = 'SELECT id_empleado, usuario_empleado, cargo FROM empleados
+        INNER JOIN cargos_empleados USING (id_cargo)
+        WHERE id_empleado = ?';
         $params = array($id);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_empleado'];
             $this->usuario_empleado = $data['usuario_empleado'];
+            $this->cargo = $data['cargo'];
             return true;
         } else {
             return false;

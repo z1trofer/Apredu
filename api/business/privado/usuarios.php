@@ -221,7 +221,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
-                 case 'login':
+                /* case 'login':
                      $_POST = Validator::validateForm($_POST);
                      // validando usuario
                     if (!$usuario->setUser($_POST['usuario'])) {
@@ -250,7 +250,7 @@ if (isset($_GET['action'])) {
                              } else {
                                  $result['exception'] = 'Error en el servidor time';
                              }
-                            //$result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo'/*.$GLOBALS['tiempo_inicio']*/;
+                            //$result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo'/*.$GLOBALS['tiempo_inicio'];
                          } else if ($usuario->dias_clave >= 90) {
                              $_SESSION['id_empleado_clave'] = $usuario->getId();
                              $_SESSION['clave_caducada'] = $_POST['clave'];
@@ -260,7 +260,7 @@ if (isset($_GET['action'])) {
                              //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
                              $usuario->agregarIntento();
                              $_SERVER['tiempo_inicio'] = time();
-                             $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo' /*.$GLOBALS['tiempo_inicio']*/;
+                             $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo' /*.$GLOBALS['tiempo_inicio'];
                          } else if ($data == 'bloquear') {
                              //el usuario intento iniciar sesion demasiadas veces por lo que este sera bloqueado
                              if ($usuario->blockUser()) {
@@ -271,14 +271,14 @@ if (isset($_GET['action'])) {
                          } else if ($data == 'fail') {
                             //las credenciales no coincidieron por lo que el usuario no logro iniciar sesion
                              if ($usuario->agregarIntento()) {
-                                 $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail' /*.$GLOBALS['tiempo_inicio']*/;
+                                 $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail' /*.$GLOBALS['tiempo_inicio'];
                              } else {
                                  $result['exception'] = 'Error en el servidor Int';
                              }
                          } elseif ($data != false) {
-                             /*if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
+                             if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
                                  $result['exception'] = 'Error al obtener los atributos del usuario';
-                             } else*/if ($usuario->resetIntentos()) {
+                             } elseif ($usuario->resetIntentos()) {
                                   //el usuario inicio sesion satisfactoriamente
                                  $_SESSION['id_empleado'] = $usuario->getId();
                                  $_SESSION['usuario'] = $usuario->getUser();
@@ -298,7 +298,8 @@ if (isset($_GET['action'])) {
                          }
                      }
                      break;
-          /*  case 'login':
+                     */
+            case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Ingrese un usuario';
@@ -352,9 +353,9 @@ if (isset($_GET['action'])) {
                             $result['exception'] = 'Error en el servidor Int';
                         }
                     } elseif ($data != false) {
-                        /*if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
-                            $result['exception'] = 'Error al obtener los atributos del usuario';
-                        } else
+                        //if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
+                          //  $result['exception'] = 'Error al obtener los atributos del usuario';
+                        //} else
                         if ($usuario->resetIntentos()) {
                             //el usuario inicio sesion satisfactoriamente
                             $result['status'] = 1;
@@ -375,7 +376,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = Database::getException();
                     }
                 }
-                break;*/
+                break;
             case 'ad':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['codigo_verificacion'] != $_SESSION['ad']) {
