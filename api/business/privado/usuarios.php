@@ -358,12 +358,15 @@ if (isset($_GET['action'])) {
                         //} else
                         if ($usuario->resetIntentos()) {
                             //el usuario inicio sesion satisfactoriamente
+                            // Inicia lo de verificar por el código...
                             $result['status'] = 1;
                             $_SESSION['usuario'] = $usuario->getUser();
                             $result['dataset'] = $data;
+                            // Se crean dos nuevas variables de sesion
                             $_SESSION['id_empleado_ad'] = $usuario->getId();
                             $_SESSION['ad'] = rand(100000, 999999);
                             $mensaje = $_SESSION['ad'];
+                            // Se envía el código al correo del usuario que inicio sesión en lo anterior...
                             if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de autenticación', $mensaje)) {
                                 $result['message'] = 'Credenciales correctas, revise su correo';
                             } else {
@@ -377,6 +380,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                // Acción de segundo factor de seguridad "ad"
             case 'ad':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['codigo_verificacion'] != $_SESSION['ad']) {
