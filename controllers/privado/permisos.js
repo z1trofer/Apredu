@@ -4,6 +4,7 @@ const PERMISOS_API = 'business/privado/permisos.php';
 const TB_BODY = document.getElementById('permisos-body');
 //cabecera de la talba
 const TB_HEAD = document.getElementById('permisos-head');
+const FORM = document.getElementById('permisos-body');
 
 
 

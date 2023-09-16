@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (JSON.status) {
         // Se direcciona a la página web de bienvenida.
         sweetAlert(2, 'Equis', false);
-        location.href('principal.html')
+        location.href('principal.html');
     } else {
         //se envia un mensaje de error
         sweetAlert(2, 'La sesión ya no es valida', false);

@@ -50,7 +50,7 @@ class UsuariosQueries
             } elseif (password_verify($clave, $data['clave'])) {
                 $this->id = $data['id_empleado'];
                 $this->usuario = $data['usuario_empleado'];
-                $this->cargo =  $data['cargo'];
+                $this->cargo = $data['cargo'];
                 $this->id_cargo = $data['id_cargo'];
                 $this->empleado = $data['nombre'];
                 $this->dias_clave = $data['dias'];
