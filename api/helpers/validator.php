@@ -218,32 +218,32 @@ class Validator
      *   Parámetros: $value (dato a validar).
      *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
      */
-    // public static function validatePassword($value)
-    // {
-    //     // Se verifica la longitud mínima.
-    //     if (strlen($value) < 6) {
-    //         self::$passwordError = 'Clave menor a 6 caracteres';
-    //         return false;
-    //     } elseif (strlen($value) > 72) {
-    //         self::$passwordError = 'Clave mayor a 72 caracteres';
-    //         return false;
-    //     } elseif (!preg_match('`[a-z]`', $value)) {
-    //         self::$passwordError = "La clave debe tener al menos una letra minúscula";
-    //         return false;
-    //     } elseif (!preg_match('`[A-Z]`', $value)) {
-    //         self::$passwordError = "La clave debe tener al menos una letra mayúscula";
-    //         return false;
-    //     } elseif (!preg_match('`[0-9]`', $value)) {
-    //         self::$passwordError = "La clave debe tener al menos un caracter numérico";
-    //         return false;
-    //     } elseif (preg_match('`[\W]`', $value)) {
-    //         return true;
-    //     } else {
-    //         self::$passwordError = "La clave debe tener al menos un caracter especial";
-    //         return false;
-    //     }
-    //     return true;
-    // }
+    public static function validatePassword($value)
+    {
+        // Se verifica la longitud mínima.
+        if (strlen($value) < 6) {
+            self::$passwordError = 'Clave menor a 6 caracteres';
+            return false;
+        } elseif (strlen($value) > 72) {
+            self::$passwordError = 'Clave mayor a 72 caracteres';
+            return false;
+        } elseif (!preg_match('`[a-z]`', $value)) {
+            self::$passwordError = "La clave debe tener al menos una letra minúscula";
+            return false;
+        } elseif (!preg_match('`[A-Z]`', $value)) {
+            self::$passwordError = "La clave debe tener al menos una letra mayúscula";
+            return false;
+        } elseif (!preg_match('`[0-9]`', $value)) {
+            self::$passwordError = "La clave debe tener al menos un caracter numérico";
+            return false;
+        } elseif (preg_match('`[\W]`', $value)) {
+            return true;
+        } else {
+            self::$passwordError = "La clave debe tener al menos un caracter especial";
+            return false;
+        }
+        return true;
+    }
 
     /*
      *   Método para validar el formato del DUI (Documento Único de Identidad).

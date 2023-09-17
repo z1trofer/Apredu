@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 
                             </ul>
                         </li>
-                        <li class="nav-item dropdown" id="estudiantes_list">
+                        <li class="nav-item dropdown" id="estudiantes_list" hidden>
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 estudiantes
