@@ -383,6 +383,7 @@ if (isset($_GET['action'])) {
                 // Acción de segundo factor de seguridad "ad"
             case 'ad':
                 $_POST = Validator::validateForm($_POST);
+                // Se valida el código enviado y el código ingresado
                 if ($_POST['codigo_verificacion'] != $_SESSION['ad']) {
                     $result['exception'] = 'Código incorrecto';
                 } elseif ($usuario->checkAD($_SESSION['id_empleado_ad'])) {
