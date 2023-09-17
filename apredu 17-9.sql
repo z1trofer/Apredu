@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2023 a las 23:11:33
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.0.25
+-- Tiempo de generación: 16-09-2023 a las 06:38:15
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -195,6 +195,8 @@ CREATE TABLE `cargos_empleados` (
   `edit_empleados` tinyint(1) NOT NULL DEFAULT 0,
   `view_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
   `edit_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
+  `view_responsables` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_responsables` tinyint(1) NOT NULL DEFAULT 0,
   `view_fichas` tinyint(1) NOT NULL DEFAULT 0,
   `delete_fichas` tinyint(1) NOT NULL DEFAULT 0,
   `edit_fichas` tinyint(1) NOT NULL DEFAULT 0,
@@ -211,9 +213,9 @@ CREATE TABLE `cargos_empleados` (
 -- Volcado de datos para la tabla `cargos_empleados`
 --
 
-INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `edit_permisos`, `create_usuarios`, `update_usuarios`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `edit_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
-(1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 'profesor', 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `edit_permisos`, `create_usuarios`, `update_usuarios`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `edit_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_responsables`, `edit_responsables`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
+(1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'profesor', 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -288,7 +290,7 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `correo_empleado`, `direccion`, `fecha_nacimiento`, `id_cargo`, `usuario_empleado`, `clave`, `intentos`, `estado`, `fecha_clave`, `timer_intento`) VALUES
-(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', 'manbo631@gmail.com', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$aCDMvVcwBhIjsLdE0koH.O9hJnjWJdCIDgcx7B6tG.MT/LJYW5jw6', 0, 1, '2023-09-12 07:28:16', NULL),
+(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', 'ggagte@gmail.com', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$MrqSClHaRjDYU3Wbco2jGeOeMTjq/xwTK5QnQPE5vxi4eNZcq1aBe', 0, 1, '2023-09-12 07:28:16', NULL),
 (12, 'Sara Marlene', 'Gúzman Torres', '00817345-1', 'sara_guzman@gmail.com', 'San Cristobal, Calle Al Matazano, San Salvador', '1982-10-03', 2, 'saritas', '$2y$10$OoT0ELydDJzBRgHrk9SX8u9JBBoCA2aVT0QXt4BL20JXr5H8ub3y6', 0, 1, '2023-09-12 07:28:16', NULL),
 (13, 'Joel Mauricio', 'Ruano Pérez', '01347890-5', 'joel_ruano35@gmail.com', 'Av. Los Girasoles, San Salvador', '1980-02-10', 2, 'inglis', '$2y$10$/JpiBIqq6uPFi3vwDs3NR.mhgD3xTw7Iz5.UYexkAlvRqbLuv5eV.', 0, 1, '2023-09-12 07:28:16', NULL),
 (14, 'Susana Nohemi', 'Gómez Morán', '00126734-3', 'susana_gomez67@gmail.com', 'Colonia Santa Clara, San Salvador', '1993-09-12', 2, 'susana', '$2y$10$QXOu/plrONzD/cZo1VeMbeozQzPUeLOoUCzTstXgoD77fUw4BtYbC', 0, 1, '2023-09-12 07:28:16', NULL),
@@ -309,7 +311,7 @@ INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, 
 (29, 'Keila Rosario', 'Melgar Mejía', '0067893-1', 'keila_melgar67@gmail.com', 'Col. 25 de Abril, San Salvador', '1993-08-14', 2, 'sdfsdfsdxcz', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
 (30, 'Fátima Esmeralda', 'Peralta Méndez', '0652569-8', 'fatima_peralta65@gmail.com', 'San Salvador', '2000-09-04', 2, 'zzzzzxxxx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
 (31, 'Andrea Beatriz', 'Fernández Olivo', '0912035-7', 'andrea_fernandez91@gmail.com', 'Nejapa, San Salvador', '2001-02-09', 2, 'xzccx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(32, 'Alberto', 'Masferrer', '23234553-1', '', 'alla', '1992-01-15', 2, 'Albert', '$2y$10$CKoDtdjQcJAUY8uwFBQ1Peu/6NuceXDT.nEvusFM8U0ca.MphwIKi', 0, 1, '2023-09-12 07:28:16', NULL);
+(32, 'Alberto', 'Masferrer', '23234553-1', 'albetrt@gmail.com', 'alla', '1992-01-15', 2, 'Albert', '$2y$10$6RiwbGVqfVYfMzz0Dmpdq.dZEyOid8oIYngYgJgyHbPgURnNCYaOu', 0, 1, '2023-09-12 07:28:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -453,25 +455,25 @@ CREATE TABLE `notas` (
 --
 
 INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
-(1, 2, 21, '5.60'),
-(2, 2, 22, '8.00'),
-(3, 2, 23, '9.00'),
-(4, 3, 21, '5.00'),
-(5, 3, 22, '8.00'),
-(6, 3, 23, '4.00'),
+(1, 2, 21, 5.60),
+(2, 2, 22, 8.00),
+(3, 2, 23, 9.00),
+(4, 3, 21, 5.00),
+(5, 3, 22, 8.00),
+(6, 3, 23, 4.00),
 (8, 4, 21, NULL),
 (23, 22, 21, NULL),
 (24, 22, 22, NULL),
 (25, 22, 23, NULL),
 (26, 22, 40, NULL),
-(90, 2, 43, '10.00'),
-(91, 3, 43, '2.00'),
-(92, 4, 43, '4.00'),
-(93, 5, 43, '1.00'),
+(90, 2, 43, 10.00),
+(91, 3, 43, 2.00),
+(92, 4, 43, 4.00),
+(93, 5, 43, 1.00),
 (94, 6, 43, NULL),
-(95, 7, 43, '8.00'),
-(96, 9, 43, '6.00'),
-(97, 10, 43, '3.00'),
+(95, 7, 43, 8.00),
+(96, 9, 43, 6.00),
+(97, 10, 43, 3.00),
 (98, 22, 43, NULL),
 (99, 2, 21, NULL),
 (100, 2, 22, NULL),
@@ -486,111 +488,89 @@ INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
 (113, 17, 46, NULL),
 (115, 16, 47, NULL),
 (116, 17, 47, NULL),
-(118, 16, 48, '9.00'),
-(119, 17, 48, '4.00'),
-(121, 2, 49, '4.00'),
-(122, 3, 49, '2.00'),
-(123, 4, 49, '7.00'),
-(124, 5, 49, '7.00'),
-(125, 6, 49, '10.00'),
-(126, 7, 49, '1.00'),
-(127, 9, 49, '8.00'),
-(128, 10, 49, '4.00'),
-(129, 22, 49, '8.00'),
-(136, 2, 50, '9.00'),
-(137, 3, 50, '8.00'),
-(138, 4, 50, '10.00'),
-(139, 5, 50, '8.00'),
-(140, 6, 50, '7.50'),
-(141, 7, 50, '7.00'),
-(142, 9, 50, '8.00'),
-(143, 10, 50, '6.00'),
-(144, 22, 50, '8.30'),
-(151, 2, 51, '10.00'),
-(152, 3, 51, '8.00'),
-(153, 4, 51, '9.00'),
-(154, 5, 51, '8.00'),
-(155, 6, 51, '5.00'),
-(156, 7, 51, '6.00'),
-(157, 9, 51, '8.00'),
-(158, 10, 51, '8.00'),
-(159, 22, 51, '7.00'),
-(166, 2, 52, '2.00'),
-(167, 3, 52, '8.00'),
-(168, 4, 52, '3.00'),
-(169, 5, 52, '9.00'),
-(170, 6, 52, '8.00'),
-(171, 7, 52, '4.00'),
-(172, 9, 52, '10.00'),
-(173, 10, 52, '8.00'),
-(174, 22, 52, '9.00'),
-(181, 2, 53, '9.00'),
-(182, 3, 53, '5.50'),
-(183, 4, 53, '5.00'),
-(184, 5, 53, '7.00'),
-(185, 6, 53, '2.00'),
-(186, 7, 53, '3.00'),
-(187, 9, 53, '8.00'),
-(188, 10, 53, '6.70'),
-(189, 22, 53, '9.90'),
-(196, 2, 54, '9.00'),
-(197, 3, 54, '6.00'),
-(198, 4, 54, '6.00'),
-(199, 5, 54, '5.00'),
-(200, 6, 54, '3.00'),
-(201, 7, 54, '10.00'),
-(202, 9, 54, '8.00'),
-(203, 10, 54, '6.00'),
-(204, 22, 54, '4.00'),
-(211, 2, 55, '9.00'),
-(212, 3, 55, '10.00'),
-(213, 4, 55, '8.00'),
-(214, 5, 55, '7.00'),
-(215, 6, 55, '8.80'),
-(216, 7, 55, '9.00'),
-(217, 9, 55, '6.00'),
-(218, 10, 55, '8.00'),
-(219, 22, 55, '7.00'),
-(226, 2, 56, '8.00'),
-(227, 3, 56, '10.00'),
-(228, 4, 56, '7.00'),
-(229, 5, 56, '10.00'),
-(230, 6, 56, '8.00'),
-(231, 7, 56, '5.00'),
-(232, 9, 56, '8.00'),
-(233, 10, 56, '10.00'),
-(234, 22, 56, '6.00'),
-(241, 2, 57, '7.00'),
-(242, 3, 57, '2.00'),
-(243, 4, 57, '9.00'),
-(244, 5, 57, '8.00'),
-(245, 6, 57, '9.00'),
-(246, 7, 57, '8.00'),
-(247, 9, 57, '9.00'),
-(248, 10, 57, '3.00'),
-(249, 22, 57, '10.00');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `recovery_tokens`
---
-
-CREATE TABLE `recovery_tokens` (
-  `token_id` int(11) NOT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `id_empleado` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `recovery_tokens`
---
-
-INSERT INTO `recovery_tokens` (`token_id`, `token`, `id_empleado`, `created_at`) VALUES
-(1, '652c3ab744da7a74a6469e98776c2ada', 32, '2023-09-13 21:05:28'),
-(2, '59316e442398058020373f4a9994041e', 32, '2023-09-13 21:06:28'),
-(3, '25f0412938e903bb72c1dfaa9bfde5db', 2, '2023-09-13 21:09:40');
+(118, 16, 48, 9.00),
+(119, 17, 48, 4.00),
+(121, 2, 49, 4.00),
+(122, 3, 49, 2.00),
+(123, 4, 49, 7.00),
+(124, 5, 49, 7.00),
+(125, 6, 49, 10.00),
+(126, 7, 49, 1.00),
+(127, 9, 49, 8.00),
+(128, 10, 49, 4.00),
+(129, 22, 49, 8.00),
+(136, 2, 50, 9.00),
+(137, 3, 50, 8.00),
+(138, 4, 50, 10.00),
+(139, 5, 50, 8.00),
+(140, 6, 50, 7.50),
+(141, 7, 50, 7.00),
+(142, 9, 50, 8.00),
+(143, 10, 50, 6.00),
+(144, 22, 50, 8.30),
+(151, 2, 51, 10.00),
+(152, 3, 51, 8.00),
+(153, 4, 51, 9.00),
+(154, 5, 51, 8.00),
+(155, 6, 51, 5.00),
+(156, 7, 51, 6.00),
+(157, 9, 51, 8.00),
+(158, 10, 51, 8.00),
+(159, 22, 51, 7.00),
+(166, 2, 52, 2.00),
+(167, 3, 52, 8.00),
+(168, 4, 52, 3.00),
+(169, 5, 52, 9.00),
+(170, 6, 52, 8.00),
+(171, 7, 52, 4.00),
+(172, 9, 52, 10.00),
+(173, 10, 52, 8.00),
+(174, 22, 52, 9.00),
+(181, 2, 53, 9.00),
+(182, 3, 53, 5.50),
+(183, 4, 53, 5.00),
+(184, 5, 53, 7.00),
+(185, 6, 53, 2.00),
+(186, 7, 53, 3.00),
+(187, 9, 53, 8.00),
+(188, 10, 53, 6.70),
+(189, 22, 53, 9.90),
+(196, 2, 54, 9.00),
+(197, 3, 54, 6.00),
+(198, 4, 54, 6.00),
+(199, 5, 54, 5.00),
+(200, 6, 54, 3.00),
+(201, 7, 54, 10.00),
+(202, 9, 54, 8.00),
+(203, 10, 54, 6.00),
+(204, 22, 54, 4.00),
+(211, 2, 55, 9.00),
+(212, 3, 55, 10.00),
+(213, 4, 55, 8.00),
+(214, 5, 55, 7.00),
+(215, 6, 55, 8.80),
+(216, 7, 55, 9.00),
+(217, 9, 55, 6.00),
+(218, 10, 55, 8.00),
+(219, 22, 55, 7.00),
+(226, 2, 56, 8.00),
+(227, 3, 56, 10.00),
+(228, 4, 56, 7.00),
+(229, 5, 56, 10.00),
+(230, 6, 56, 8.00),
+(231, 7, 56, 5.00),
+(232, 9, 56, 8.00),
+(233, 10, 56, 10.00),
+(234, 22, 56, 6.00),
+(241, 2, 57, 7.00),
+(242, 3, 57, 2.00),
+(243, 4, 57, 9.00),
+(244, 5, 57, 8.00),
+(245, 6, 57, 9.00),
+(246, 7, 57, 8.00),
+(247, 9, 57, 9.00),
+(248, 10, 57, 3.00),
+(249, 22, 57, 10.00);
 
 -- --------------------------------------------------------
 
@@ -754,7 +734,8 @@ ALTER TABLE `asignaturas`
 --
 ALTER TABLE `cargos_empleados`
   ADD PRIMARY KEY (`id_cargo`),
-  ADD UNIQUE KEY `cargo` (`cargo`);
+  ADD UNIQUE KEY `cargo` (`cargo`),
+  ADD UNIQUE KEY `unique_cargo` (`id_cargo`);
 
 --
 -- Indices de la tabla `detalle_asignaturas_empleados`
@@ -807,14 +788,6 @@ ALTER TABLE `notas`
   ADD PRIMARY KEY (`id_nota`),
   ADD KEY `fk_nt_estudiantes` (`id_estudiante`),
   ADD KEY `fk_nt_actividad` (`id_actividad`);
-
---
--- Indices de la tabla `recovery_tokens`
---
-ALTER TABLE `recovery_tokens`
-  ADD PRIMARY KEY (`token_id`),
-  ADD UNIQUE KEY `token` (`token`),
-  ADD KEY `id_empleado` (`id_empleado`);
 
 --
 -- Indices de la tabla `responsables`
@@ -924,12 +897,6 @@ ALTER TABLE `notas`
   MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=250;
 
 --
--- AUTO_INCREMENT de la tabla `recovery_tokens`
---
-ALTER TABLE `recovery_tokens`
-  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT de la tabla `responsables`
 --
 ALTER TABLE `responsables`
@@ -1010,12 +977,6 @@ ALTER TABLE `fichas`
 ALTER TABLE `notas`
   ADD CONSTRAINT `fk_nt_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id_actividad`),
   ADD CONSTRAINT `fk_nt_estudiantes` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`);
-
---
--- Filtros para la tabla `recovery_tokens`
---
-ALTER TABLE `recovery_tokens`
-  ADD CONSTRAINT `recovery_tokens_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`);
 
 --
 -- Filtros para la tabla `responsables_estudiantes`
