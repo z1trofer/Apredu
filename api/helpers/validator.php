@@ -242,7 +242,6 @@ class Validator
             self::$passwordError = "La clave debe tener al menos un caracter especial";
             return false;
         }
-        return true;
     }
 
     /*
