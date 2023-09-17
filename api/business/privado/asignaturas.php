@@ -69,10 +69,10 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$asignaturas->setAsignatura($_POST['asignatura'])) {
-                    $result['exception'] = 'asignatura incorrectos';
+                    $result['exception'] = 'Asignatura incorrecta';
                 } elseif ($asignaturas->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'asignatura creado correctamente';
+                    $result['message'] = 'Asignatura creada correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -87,14 +87,14 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$asignaturas->setId($_POST['id_asignatura'])) {
-                    $result['exception'] = 'asignaturas incorrecta';
+                    $result['exception'] = 'Asignatura incorrectas';
                     print_r($_POST);
                 } elseif ($result['dataset'] = $asignaturas->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'asignaturas inexistente';
+                    $result['exception'] = 'Asignaturas inexistentes';
                 }
                 break;
             //Acción para actualizar un dato de la tabla usuarios
@@ -112,7 +112,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$asignaturas->readOne()) {
                     $result['exception'] = 'Usuario inexistente';
                 } elseif (!$asignaturas->setAsignatura($_POST['asignatura'])) {
-                    $result['exception'] = 'Asignaturas incorrecta';
+                    $result['exception'] = 'Asignatura incorrecta';
                 } elseif ($asignaturas->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Asignatura modificada correctamente';

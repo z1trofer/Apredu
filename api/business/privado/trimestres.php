@@ -41,23 +41,23 @@ if (isset($_GET['action'])) {
                 //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
                 if (!$grados->setIdAnio($_POST['id_anio'])) {
-                    $result['exception'] = 'Anio incorrecto';
+                    $result['exception'] = 'Año incorrecto';
                 } elseif ($result['dataset'] = $trimestres->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Anio inexistente';
+                    $result['exception'] = 'Año inexistente';
                 }
                 break;
                 // Acción para actualizar un dato en la tabla grados
             case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$trimestres->setIdTrimestre($_POST['id'])) {
-                    $result['exception'] = 'trimestre incorrecta';
+                    $result['exception'] = 'Trimestre incorrecto';
                 } elseif ($trimestres->updateRow()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Trimestre Actualizado correctamente';
+                        $result['message'] = 'Trimestre modificado correctamente';
                         $trimestres->updateTabla();
                     } else {
                         $result['exception'] = Database::getException();

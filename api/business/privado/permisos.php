@@ -37,20 +37,20 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$permisos->setPermiso($_POST['permiso'])) {
-                    $result['exception'] = 'permiso malo';
+                    $result['exception'] = 'Permiso inválido';
                 } elseif (!$permisos->setAtributo($_POST['atributo'])) {
-                    $result['exception'] = 'atributo malo';
+                    $result['exception'] = 'Atributo inválido';
                 } elseif (!$permisos->setidCargo($_POST['cargo'])) {
-                    $result['exception'] = 'cargo malo';
+                    $result['exception'] = 'Cargo incorrecto';
                 } elseif ($_POST['cargo'] == 1) {
                     $result['exception'] = 'No puedes cambiar los permisos del administrador';
                 } elseif ($result['dataset'] = $permisos->changePermissions()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Permiso Cambiado exitosamente';
+                    $result['message'] = 'Permiso modificado exitosamente';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Error al modificar el permiso';
+                    $result['exception'] = 'Error';
                 }
                 break;
 
@@ -95,7 +95,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 } elseif ($permisos->agregarCargo()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Se agrego un nuevo cargo al sistema!';
+                    $result['message'] = 'Nuevo cargo agregado exitosamente';
                 } elseif (Database::getException()) {
                     $result['exception'] = 'Error al agregar un cargo';
                 }
@@ -109,7 +109,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 } elseif ($permisos->eliminarCargo()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Has eliminado el cargo exitosamente';
+                    $result['message'] = 'Cargo eliminado correctamente';
                 } elseif (Database::getException()) {
                     $result['exception'] = 'Error al eliminar el cargo';
                 }

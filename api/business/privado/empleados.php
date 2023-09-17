@@ -126,7 +126,7 @@ if (isset($_GET['action'])) {
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    $result['exception'] = 'No tienes autorización para realizar esta acción';
                     //accion
                 } elseif ($result['dataset'] = $Empleados_p->readAsignaturas()) {
                     $result['status'] = 1;
@@ -197,7 +197,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //accion
                 } elseif ($_POST['search'] == '') {
-                    $result['exception'] = 'Ingrese un valor para buscar';
+                    $result['exception'] = 'Ingrese un valor';
                 } elseif ($result['dataset'] = $Empleados_p->searchRows($_POST['search'], $_POST['check'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
@@ -217,21 +217,21 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //accion
                 } elseif (!$Empleados_p->setnombre_empleado($_POST['nombres'])) {
-                    $result['exception'] = 'Nombre del empleado mal ingresado';
+                    $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$Empleados_p->setapellido_empleado($_POST['apellidos'])) {
-                    $result['exception'] = 'Apellidos del empleado mal ingresada';
+                    $result['exception'] = 'Apellido incorrecto';
                 } elseif (!$Empleados_p->setdui($_POST['dui'])) {
-                    $result['exception'] = 'DUI mal ingresada';
+                    $result['exception'] = 'DUI incorrecto';
                 } elseif (!$Empleados_p->setusuario_empleado($_POST['usuario'])) {
-                    $result['exception'] = 'Usuario mal ingresado';
+                    $result['exception'] = 'Usuario incorrecto';
                 } elseif ($_POST['clave'] != $_POST['claveConfirm']) {
                     $result['exception'] = 'Las contraseñas no coinciden';
                 } elseif (!$Empleados_p->setclave($_POST['clave'])) {
-                    $result['exception'] = 'Clave mal ingresada';
+                    $result['exception'] = 'Clave incorrecta';
                 } elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
-                    $result['exception'] = 'Correo mal ingresado';
+                    $result['exception'] = 'Correo incorrecto';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
-                    $result['exception'] = 'Direccion mal ingresado';
+                    $result['exception'] = 'Direccion incorrecta';
                 } elseif (!isset($_POST['cargo'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
                 } elseif (!$Empleados_p->setid_cargo($_POST['cargo'])) {
@@ -273,23 +273,23 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //accion
                 } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
-                    $result['exception'] = 'id malo';
+                    $result['exception'] = 'id incorrecto';
                 } elseif (!$Empleados_p->setnombre_empleado($_POST['nombres'])) {
-                    $result['exception'] = 'Nombre del empleado mal ingresado';
+                    $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$Empleados_p->setapellido_empleado($_POST['apellidos'])) {
-                    $result['exception'] = 'Apellidos del empleado mal ingresada';
+                    $result['exception'] = 'Apellido incorrecto';
                 } elseif (!$Empleados_p->setdui($_POST['dui'])) {
-                    $result['exception'] = 'DUI mal ingresada';
+                    $result['exception'] = 'DUI incorrecto';
                 } elseif (!$Empleados_p->setusuario_empleado($_POST['usuario'])) {
-                    $result['exception'] = 'Usuario mal ingresado';
+                    $result['exception'] = 'Usuario incorrecto';
                 } /*elseif ($_POST['clave'] != $_POST['claveConfirm']) {
                     $result['exception'] = 'Las contraseñas no coinciden';
                 } elseif (!$Empleados_p->setclave($_POST['clave'])) {
-                    $result['exception'] = 'Clave mal ingresada';
+                    $result['exception'] = 'Clave incorrecta';
                 }*/elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
-                    $result['exception'] = 'Correo mal ingresado';
+                    $result['exception'] = 'Correo incorrecto';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
-                    $result['exception'] = 'Direccion mal ingresado';
+                    $result['exception'] = 'Direccion incorrecto';
                 } elseif (!isset($_POST['cargo'])) {
                     $result['exception'] = 'Seleccione un cargo';
                 } elseif (!$Empleados_p->setid_cargo($_POST['cargo'])) {
@@ -297,11 +297,11 @@ if (isset($_GET['action'])) {
                 } elseif (!$Empleados_p->setfecha_nacimiento($_POST['fecha_nacimiento'])) {
                     $result['exception'] = 'Fecha incorrecta';
                 } elseif (!$Empleados_p->setestado($_POST['estado'])) {
-                    $result['exception'] = 'estado malo';
+                    $result['exception'] = 'Estado incorrecto';
                 } elseif ($Empleados_p->updateRow()) {
                     if ($Empleados_p->getestado() == 1) {
                         if(!$Empleados_p->resetIntentos()){
-                            $result['exception'] = 'no se arreglaron los intentos';
+                            $result['exception'] = 'Error de los intentos';
                         }
                     }
                     $result['status'] = 1;
@@ -360,11 +360,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //accion
                 } elseif (!$Empleados_p->setid_empleado($_POST['grado'])) {
-                    $result['exception'] = 'grado Incorrecto';
+                    $result['exception'] = 'Grado incorrecto';
                 } elseif (!$Empleados_p->setid_empleado($_POST['asignatura'])) {
-                    $result['exception'] = 'asignatura Incorrecta';
+                    $result['exception'] = 'Asignatura Incorrecta';
                 } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
-                    $result['exception'] = 'id Incorrecta';
+                    $result['exception'] = 'id incorrecto';
                 } elseif ($Empleados_p->ActualizarDetalle($_POST['asignatura'], $_POST['grado'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha creado correctamente';
@@ -384,11 +384,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //accion
                 } elseif (!$Empleados_p->setid_empleado($_POST['grado'])) {
-                    $result['exception'] = 'grado Incorrecto';
+                    $result['exception'] = 'Grado incorrecto';
                 } elseif (!$Empleados_p->setid_empleado($_POST['asignatura'])) {
-                    $result['exception'] = 'asignatura Incorrecta';
+                    $result['exception'] = 'Asignatura incorrecta';
                 } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
-                    $result['exception'] = 'id Incorrecta';
+                    $result['exception'] = 'id incorrecto';
                     //se ejecuta la consulta
                 } elseif ($data = $Empleados_p->verificarDetalle($_POST['asignatura'], $_POST['grado'])) {
                     //se verifica el resultado de la consulta
@@ -396,10 +396,10 @@ if (isset($_GET['action'])) {
                         $result['status'] = 1;
                     } elseif ($data['id_empleado'] == $_POST['id']) {
                         $result['status'] = 0;
-                        $result['message'] = "Esta asignatura y grado ya estan asignados a este docente";
+                        $result['message'] = "Asignatura y grado ya fueron asignados";
                     } else {
                         $result['status'] = 2;
-                        $result['message'] = "Esta asignatura y grado ya estan asignados a un docente, si asignas este docente, el otro docente será desasignado. ¿Deseas Continuar?";
+                        $result['message'] = "Asignatura y grado ya fueron asignados, si asignas un nuevo docente, el otro docente será descartado. ¿Deseas Continuar?";
                     }
                 } else {
                     $result['exception'] = Database::getException();;
@@ -408,7 +408,7 @@ if (isset($_GET['action'])) {
                 //eliminar el detalle de un empleado respecto a los grados y asignaturas
             case 'deleteAsignation':
                 if (!$Empleados_p->setid_empleado($_POST['id'])) {
-                    $result['exception'] = 'El id no es correcto';
+                    $result['exception'] = 'id incorrecto';
                 } elseif ($Empleados_p->deleteDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Asignación eliminada correctamente';
@@ -425,7 +425,7 @@ if (isset($_GET['action'])) {
         // Se imprime el resultado en formato JSON y se retorna al controlador.
         print(json_encode($result));
     } else {
-        $result['exception'] = 'tu session a expirado, por favor recarga la pagina';
+        $result['exception'] = 'Tu sesión ha expirado, por favor recarga la pagina';
         print(json_encode('Acceso denegado'));
     }
 } else {

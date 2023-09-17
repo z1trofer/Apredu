@@ -19,7 +19,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['username'] = $_SESSION['usuario'];
                 } else {
-                    $result['exception'] = 'usuario indefinido';
+                    $result['exception'] = 'Usuario indefinido';
                 }
                 break;
             case 'logOut':

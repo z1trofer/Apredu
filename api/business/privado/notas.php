@@ -26,7 +26,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$notas->setId_empleado($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'empleado incorrecto';
+                    $result['exception'] = 'Empleado incorrecto';
                 } elseif ($result['dataset'] = $notas->ObtenerMateriasDocente()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
@@ -106,13 +106,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$notas->setId_empleado($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'empleado incorrecto';
+                    $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$notas->setId_asignatura($_POST['asignatura'])) {
-                    $result['exception'] = 'asignatura, incorrecta';
+                    $result['exception'] = 'Asignatura incorrecta';
                 } elseif (!$notas->setId_trimestre($_POST['trimestre'])) {
-                    $result['exception'] = 'trimestre incorrecto';
+                    $result['exception'] = 'Trimestre incorrecto';
                 } elseif (!$notas->setId_grado($_POST['grado'])) {
-                    $result['exception'] = 'grado0 incorrecto';
+                    $result['exception'] = 'Grado incorrecto';
                 } elseif ($_SESSION['tipo'] == 2) {
                     if ($result['dataset'] = $notas->ObtenerActividades()) {
                         $result['status'] = 1;
@@ -172,9 +172,9 @@ if (isset($_GET['action'])) {
             case 'ActualizarNotas':
                 $_POST = Validator::validateForm($_POST);
                 if (!$notas->setId_nota($_POST['id'])) {
-                    $result['exception'] = 'No Hay id nota';
+                    $result['exception'] = 'id incorrecto';
                 } elseif (!$notas->setnota($_POST['nota'])) {
-                    $result['exception'] = 'La nota no es valida';
+                    $result['exception'] = 'Nota inválida';
                 } elseif ($notas->CambiarNotas()) {
                     $result['status'] = 1;
                 } else {

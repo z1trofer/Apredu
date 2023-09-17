@@ -90,11 +90,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
-                    $result['exception'] = 'estudiante incorrecto';
+                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif (!$data = $fichas->setdescripcion_ficha($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
                 } elseif (!$data = $fichas->setid_empleado($_POST['id_empleado'])) {
-                    $result['exception'] = 'empleado incorrecta';
+                    $result['exception'] = 'Empleado incorrecto';
                 } elseif ($fichas->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Ficha de conducta creada correctamente';
@@ -171,9 +171,9 @@ if (isset($_GET['action'])) {
                 } elseif (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif (!$fichas->setdescripcion_ficha($_POST['descripcion'])) {
-                    $result['exception'] = 'descripción incorrecta';
+                    $result['exception'] = 'Descripción incorrecta';
                 } elseif (!$fichas->setfecha_ficha($_POST['fecha'])) {
-                    $result['exception'] = 'fecha incorrecta';
+                    $result['exception'] = 'Fecha incorrecta';
                 } elseif (!$fichas->setid_empleado($_POST['nombre_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif ($fichas->updateRow()) {

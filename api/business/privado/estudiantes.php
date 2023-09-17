@@ -79,7 +79,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif ($_POST['search'] == '') {
-                    $result['exception'] = 'Ingrese un valor para buscar';
+                    $result['exception'] = 'Ingrese un valor';
                 } elseif ($result['dataset'] = $Cliente_p->searchRows($_POST['search'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
@@ -99,13 +99,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
-                    $result['exception'] = 'estudiante incorrecto';
+                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($result['dataset'] = $estudiante->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'estudiante inexistente';
+                    $result['exception'] = 'Estudiante inexistente';
                 }
                 break;
             case 'readGrado':
@@ -139,7 +139,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$responsable->setApellidosResponsable($_POST['apellido_responsable'])) {
                     $result['exception'] = 'Apellidos incorrectos';
                 } elseif (!$responsable->setDui($_POST['dui'])) {
-                    $result['exception'] = 'Dui incorrecto';
+                    $result['exception'] = 'DUI incorrecto';
                 } elseif (!$responsable->setCorreo($_POST['correo_responsable'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$responsable->setLugarTrabajo($_POST['trabajo'])) {
@@ -171,9 +171,9 @@ if (isset($_GET['action'])) {
                 } elseif (!$estudiante->setNacimiento($_POST['nacimiento'])) {
                     $result['exception'] = 'Fecha incorrecta';
                 } elseif (!$estudiante->setDireccionEstudiante($_POST['direccion_estudiante'])) {
-                    $result['exception'] = 'dirección incorrecta';
+                    $result['exception'] = 'Dirección incorrecta';
                 } elseif (!$estudiante->setNie($_POST['nie'])) {
-                    $result['exception'] = 'Nie incorrecto';
+                    $result['exception'] = 'NIE incorrecto';
                 } elseif (!$estudiante->setIdGrado($_POST['grados_estudiante'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
@@ -200,7 +200,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
-                    $result['exception'] = 'estudiante incorrecto';
+                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif (!$data = $estudiante->readOne()) {
                     $result['exception'] = 'Estudiante inexistente';
                 } elseif (!$estudiante->setNombresEstudiante($_POST['nombre_estudiante'])) {
@@ -212,7 +212,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$estudiante->setDireccionEstudiante($_POST['direccion_estudiante'])) {
                     $result['exception'] = 'Direccion incorrecta';
                 } elseif (!$estudiante->setNie($_POST['nie'])) {
-                    $result['exception'] = 'Nie incorrecto';
+                    $result['exception'] = 'NIE incorrecto';
                 } elseif (!$estudiante->setIdGrado($_POST['grados_estudiante'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
@@ -236,11 +236,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$estudiante->setIdEstudiante($_POST['id_estudiante_ficha'])) {
-                    $result['exception'] = 'estudiante incorrecto';
+                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif (!$data = $estudiante->setDescripcionFicha($_POST['ficha_descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
                 } elseif (!$data = $estudiante->setIdEmpleado($_POST['id_empleado'])) {
-                    $result['exception'] = 'empleado incorrecta';
+                    $result['exception'] = 'Empleado incorrecto';
                 } elseif ($estudiante->createFicha()) {
                     $result['status'] = 1;
                     $result['message'] = 'Ficha de conducta creada correctamente';
@@ -258,9 +258,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
-                    $result['exception'] = 'cliente incorrecto';
+                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif (!$data = $estudiante->readOne()) {
-                    $result['exception'] = 'cliente inexistente';
+                    $result['exception'] = 'Estudiante inexistente';
                 } elseif ($estudiante->deleteEstudiante()) {
                     $result['status'] = 1;
                     $result['message'] = 'Estudiante eliminado correctamente';

@@ -134,7 +134,7 @@ if (isset($_GET['action'])) {
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Error al cargar los trimestres';
+                    $result['exception'] = 'Error';
                 }
                 break;
             case 'readDetalle':
@@ -165,7 +165,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif ($_POST['search'] == '') {
-                    $result['exception'] = 'Ingrese un valor para buscar';
+                    $result['exception'] = 'Ingrese un valor';
                 } elseif ($result['dataset'] = $Cliente_p->searchRows($_POST['search'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
@@ -185,11 +185,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$Actividades_p->setnombre_actividad($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre de la actividad mal ingresado';
+                    $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$Actividades_p->setponderacion($_POST['ponderacion'])) {
-                    $result['exception'] = 'Ponderación mal ingresada';
+                    $result['exception'] = 'Ponderación incorrecta';
                 } elseif (!$Actividades_p->setdescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción mal ingresada';
+                    $result['exception'] = 'Descripción incorrecta';
                 } elseif (!isset($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
                 } elseif (!$Actividades_p->setid_tipo_actividad($_POST['tipo_actividad'])) {
@@ -201,7 +201,7 @@ if (isset($_GET['action'])) {
                 } elseif (!isset($_POST['trimestre'])) {
                     $result['exception'] = 'Seleccione un trimestre';
                 } elseif (!$Actividades_p->setid_trimestre($_POST['trimestre'])) {
-                    $result['exception'] = 'Trimestre mal ingresado';
+                    $result['exception'] = 'Trimestre incorrecto';
                 } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
                 } elseif ($Actividades_p->createRow()) {
@@ -221,7 +221,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
-                    $result['exception'] = 'Actividad incorrecto';
+                    $result['exception'] = 'Actividad incorrecta';
                 } elseif ($result['dataset'] = $Actividades_p->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
@@ -244,11 +244,11 @@ if (isset($_GET['action'])) {
                 } elseif (!$data = $Actividades_p->readOne()) {
                     $result['exception'] = 'id inexistente';
                 } elseif (!$Actividades_p->setnombre_actividad($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre de la actividad mal ingresado';
+                    $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$Actividades_p->setponderacion($_POST['ponderacion'])) {
-                    $result['exception'] = 'Ponderación mal ingresada';
+                    $result['exception'] = 'Ponderación incorrecta';
                 } elseif (!$Actividades_p->setdescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción mal ingresada';
+                    $result['exception'] = 'Descripción incorrecta';
                 } elseif (!isset($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
                 } elseif (!$Actividades_p->setid_tipo_actividad($_POST['tipo_actividad'])) {
@@ -271,7 +271,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
-                    $result['exception'] = 'Actividad incorrecto';
+                    $result['exception'] = 'Actividad incorrecta';
                 } elseif (!$data = $Actividades_p->readOne()) {
                     $result['exception'] = 'Actividad inexistente';
                 } elseif ($Actividades_p->deleteRow()) {

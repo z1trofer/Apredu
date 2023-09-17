@@ -33,23 +33,23 @@ if (isset($_GET['action'])) {
                 } elseif (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
                     $result['exception'] = 'Apellidos incorrectos';
                 } elseif (!$responsable->setDui($_POST['dui'])) {
-                    $result['exception'] = 'Dui incorrectos';
+                    $result['exception'] = 'DUI incorrecto';
                 } elseif (!$responsable->setCorreo($_POST['correo'])) {
-                    $result['exception'] = 'Correo incorrectos';
+                    $result['exception'] = 'Correo incorrecto';
                 } elseif (!$responsable->setLugarTrabajo($_POST['lugar'])) {
-                    $result['exception'] = 'Lugar incorrectos';
+                    $result['exception'] = 'Lugar incorrecto';
                 } elseif (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
-                    $result['exception'] = 'Telefono incorrectos';
+                    $result['exception'] = 'Telefono incorrecto';
                 } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
-                    $result['exception'] = 'Parentesco incorrectos';
+                    $result['exception'] = 'Parentesco incorrecto';
                 } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
-                    $result['exception'] = 'estudiante malo';
+                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->createRow()) {
                     /*if (!$responsable->setIdResponsable($responsable->ObtenerResponsableIDdui())) {
                             $result['status'] = 1; 
                             $result['message'] = 'Responsable creado correctamente';
                     }else{
-                        $result['exception'] = "ocurrio un error al guardar los datos del respons";
+                        $result['exception'] = "Error al guardar los datos del respons";
                     }
                     */
                     $result['message'] = 'Responsable creado';
@@ -58,11 +58,11 @@ if (isset($_GET['action'])) {
                             $result['status'] = 1;
                             $result['message'] = 'Responsable creado correctamente';
                         } else {
-                            $result['exception'] = "ocurrió un error al agregar el responsable";
+                            $result['exception'] = "Error al agregar el responsable";
                         }
                         $result['message'] = 'Responsable creado correctamente';
                     } else {
-                        $result['exception'] = "ocurrió un error al obtener el id responsable";
+                        $result['exception'] = "Error al obtener el responsable";
                     }
                 } else {
                     $result['exception'] = Database::getException();
@@ -71,13 +71,13 @@ if (isset($_GET['action'])) {
                 //leer un dato seleccionado para luego actualizarlo o solo leer la información 
             case 'readOne':
                 if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
-                    $result['exception'] = 'responsable incorrecto';
+                    $result['exception'] = 'Responsable incorrecto';
                 } elseif ($result['dataset'] = $responsable->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'responsable inexistente';
+                    $result['exception'] = 'Responsable inexistente';
                 }
                 break;
                 //Acción para actualizar un dato de la tabla usuarios
@@ -92,24 +92,24 @@ if (isset($_GET['action'])) {
                 } elseif (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
                     $result['exception'] = 'Apellidos incorrectos';
                 } elseif (!$responsable->setDui($_POST['dui'])) {
-                    $result['exception'] = 'Dui incorrectos';
+                    $result['exception'] = 'DUI incorrectos';
                 } elseif (!$responsable->setCorreo($_POST['correo'])) {
-                    $result['exception'] = 'Correo incorrectos';
+                    $result['exception'] = 'Correo incorrecto';
                 } elseif (!$responsable->setLugarTrabajo($_POST['lugar'])) {
-                    $result['exception'] = 'Lugar incorrectos';
+                    $result['exception'] = 'Lugar incorrecto';
                 } elseif (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
-                    $result['exception'] = 'Telefono incorrectos';
+                    $result['exception'] = 'Telefono incorrecto';
                 } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
-                    $result['exception'] = 'Parentesco incorrectos';
+                    $result['exception'] = 'Parentesco incorrecto';
                 } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
-                    $result['exception'] = 'estudiante malo';
+                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->updateRow()) {
                     $result['message'] = 'Responsable creado';
                     if ($responsable->ActualizarResponsableDetalle()) {
                         $result['status'] = 1;
                         $result['message'] = 'Responsable actualizado correctamente';
                     } else {
-                        $result['exception'] = "ocurrió un error al actualizar el responsable";
+                        $result['exception'] = "Error al actualizar el responsable";
                     }
                     $result['message'] = 'Responsable actualizado correctamente';
                 } else {
@@ -118,13 +118,13 @@ if (isset($_GET['action'])) {
                 break;
                 /*case 'readOne':
                 if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
-                    $result['exception'] = 'responsable incorrecto';
+                    $result['exception'] = 'Responsable incorrecto';
                 } elseif ($result['dataset'] = $responsable->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'responsable inexistente';
+                    $result['exception'] = 'Responsable inexistente';
                 }
                 break;*/
             case 'SearchEstudiante':

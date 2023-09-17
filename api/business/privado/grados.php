@@ -118,7 +118,7 @@ if (isset($_GET['action'])) {
                 } else if (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'asdasdasdasdasd';
+                    $result['exception'] = '';
                 }
                 break;
             // Acción para eliminar un dato de la tabla categorías
@@ -152,7 +152,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$grados->setId($_POST['id'])) {
-                    $result['exception'] = 'id malo';
+                    $result['exception'] = 'id incorrecto';
                 } elseif ($result['dataset'] = $grados->readDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
@@ -175,7 +175,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif ($grados->InsertarDetalle($_POST['detalle'])) {
                     $result['status'] = 1;
-                    $result['message'] = 'Cambios Guardados exitosamente';
+                    $result['message'] = 'Cambios guardados exitosamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -189,7 +189,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
                 } elseif (!$grados->setId($_POST['id_detalle'])) {
-                    $result['exception'] = 'Grado incorrecto';
+                    $result['exception'] = 'Valor incorrecto';
                 } elseif ($grados->deleteDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Cambio eliminado correctamente';
