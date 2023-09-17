@@ -2,80 +2,80 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/estilos.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <title>Grados</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/estilos.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <title>Grados</title>
 </head>
 
 <body id="private">
-    <!--header-->
-    <header id="navbar">
-    </header>
-    <main>
-        <div class="container">
-          <div class="row">
-            <div class="col-3">
-              <div class="input-group">
-                <form id="search-form">
-                <div class="form-outline">
-                  <input type="search" id="search" name="search" class="form-control" required/>
-                  <label class="form-label" for="form1">Agregar Cargo</label>
-                </div>
-                <button id="serachBTN" type="button" class="btn btn-success">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </form>
+  <!--header-->
+  <header id="navbar">
+  </header>
+  <main>
+    <div class="container">
+      <div class="row">
+        <form id="insert-form">
+          <div class="col-3">
+            <div class="input-group">
+              <div class="form-outline">
+                <input type="search" id="search" name="cargo" class="form-control" required />
+                <label class="form-label" for="form1">Agregar Cargo</label>
               </div>
+              <button id="serachBTN" type="submit" class="btn btn-success">
+                <i class="fas fa-plus"></i>
+              </button>
             </div>
           </div>
-            <table class="table">
-                <thead>
-                  <tr id="permisos-head">
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                  </tr>
-                </thead>
-                <tbody id="permisos-body">
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-    </main>
-    <footer>
+        </form>
+      </div>
+      <table class="table">
+        <thead>
+          <tr id="permisos-head">
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody id="permisos-body">
+          <tr>
+            <th scope="row">1</th>
+            <td></td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer>
 
-    </footer>
+  </footer>
 
-    <script src="../../recursos/js/chart.umd.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script src="../../recursos/js/sweetalert.min.js"></script>
-    <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/account.js"></script>
-    <script src="../../controllers/privado/permisos.js"></script>
+  <script src="../../recursos/js/chart.umd.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="../../recursos/js/sweetalert.min.js"></script>
+  <script src="../../controllers/components.js"></script>
+  <script src="../../controllers/privado/account.js"></script>
+  <script src="../../controllers/privado/permisos.js"></script>
 </body>
 
 </html>

@@ -4,7 +4,8 @@ const PERMISOS_API = 'business/privado/permisos.php';
 const TB_BODY = document.getElementById('permisos-body');
 //cabecera de la talba
 const TB_HEAD = document.getElementById('permisos-head');
-const FORM = document.getElementById('permisos-body');
+//formulario para agregar un cargo
+const FORM_INSERT = document.getElementById('insert-form');
 
 
 
@@ -59,19 +60,18 @@ async function fillTable() {
      
     //se comprueba el resultado de ambas consultas
     if (JSON_C.status && JSON_P.status) {
-        
         //se carga el nombre de los cargos en los encabezados de la tabla
         JSON_C.dataset.forEach(row => {
+            debugger
             TB_HEAD.innerHTML += `
             <th scope="col">${row[1]} <button type="button" id="icon-private" class="btn btn-danger btn-floating icon-private">
-            <img id="icon-img-private" src="../../recursos/iconos/icons8-menos-24.png">
+            <img id="icon-img-private" src="../../recursos/iconos/icons8-menos-24.png" onclick="deleteCargo(${row[0]}, '${row[1]}')">
           </button></th>
             `;
         });
         cargos_ids = [];
         //se eliminan los primeros 2 campos del arreglo (id_cargo, cargo)
         for (let i = 0; i < JSON_C.dataset.length; i++) {
-             
             cargos_ids.push(JSON_C.dataset[i][0]);
             JSON_C.dataset[i].splice(0, 1);
             JSON_C.dataset[i].splice(0, 1);
@@ -113,7 +113,6 @@ async function fillTable() {
             htm = htm + '</tr>';
             TB_BODY.innerHTML += htm;
         }
-
     } else {
         sweetAlert(2, JSON_C.exception + ' ' + JSON_P.exception, false);
     }
@@ -127,7 +126,7 @@ async function cambiarPermiso(atributo, permiso, cargo){
         FORM.append('atributo', atributo);
         FORM.append('permiso', permiso);
         FORM.append('cargo', cargo);
-        const JSON = await dataFetch(PERMISOS_API, 'CambiarPermiso', FORM)
+        const JSON = await dataFetch(PERMISOS_API, 'CambiarPermiso', FORM);
         if(JSON.status){
             fillTable();
              
@@ -139,5 +138,35 @@ async function cambiarPermiso(atributo, permiso, cargo){
         }
     }else{
         fillTable();
+    }
+};
+
+FORM_INSERT.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    RESPONSE = await confirmAction('¿Estas seguro de añadir el cargo "'+ FORM_INSERT.cargo.value +'"? no podras modificar su nombre y solo lo podras eliminar cuando no este asignado a ningun empleado');
+    if (RESPONSE) {
+        const FORM = new FormData(FORM_INSERT);
+        const JSON = await dataFetch(PERMISOS_API, 'agregarCargo', FORM);
+        if(JSON.status){
+            fillTable();
+            sweetAlert(1, JSON.message, true);
+        }else{
+            sweetAlert(2, JSON.exception, false);
+        }
+    }
+});
+
+async function deleteCargo(id, cargo){
+    RESPONSE = await confirmAction('¿Estas seguro de añadir el cargo "'+ cargo +'"? no podras modificar su nombre y solo lo podras eliminar cuando no este asignado a ningun empleado');
+    if (RESPONSE) {
+        const FORM = new FormData();
+        FORM.append('id_cargo', id);
+        const JSON = await dataFetch(PERMISOS_API, 'eliminarCargo', FORM);
+        if(JSON.status){
+            fillTable();
+            sweetAlert(1, JSON.message, true);
+        }else{
+            sweetAlert(2, JSON.exception, false);
+        }
     }
 };

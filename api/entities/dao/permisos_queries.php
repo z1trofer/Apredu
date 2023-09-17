@@ -50,7 +50,7 @@ class PermisosQueries
     //crear un nuevo cargo
     public function agregarCargo()
     {
-        $sql = "INSERT INTO cargos_empleados (cargo) VALUES ?";
+        $sql = "INSERT INTO cargos_empleados (cargo) VALUES (?)";
         $params = array($this->cargo);
         return Database::executeRow($sql, $params);
     }
