@@ -19,7 +19,7 @@ if (isset($_GET['action'])) {
         $result['session'] = 1;
         //se obtiene el arreglo con los permisos del respectivo usuario
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
-        switch ($_GET['action']) {
+        switch ($_GET['action']) {    
             case 'readUsers':
                 if ($usuario->readAll()) {
                     $result['status'] = 1;

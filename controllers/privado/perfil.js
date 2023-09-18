@@ -9,6 +9,8 @@ const OPTIONS = {
 
  const PASSWORD_MODAL = document.getElementById('myModal');
 
+
+ 
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     // Petición para obtener los datos del usuario que ha iniciado sesión.

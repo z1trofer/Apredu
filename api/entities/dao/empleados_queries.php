@@ -238,7 +238,7 @@ class EmpleadosQueries
         $params = array($this->id_grado);
         return Database::getRows($sql, $params);
     }
-
+    
     public function ObtenerCorreo()
     {
         $sql = 'SELECT correo_empleado FROM empleados WHERE id_empleado = ?';
