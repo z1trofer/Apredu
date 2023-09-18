@@ -12,12 +12,24 @@ let notas = [];
 let id_actividad = null;
 let actividad = null;
 
+//funcion para verificar que el usuario tiene acceso a la pagina
+async function validate() {
+    const JSON = await dataFetch(NOTAS_API, 'getVistaAutorizacion');
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //evento Content load para cuando se cargue la pagina
 document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
     //se carg
     cargarNotasDetalles();
     //peticion para cargar la funcion CargarActividaddes
     cargarActividades();
+    }
 });
 
 //funcion para cargar los datos de las notas

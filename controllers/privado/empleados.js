@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 });
 
-//validar acceso a la pagina
+//funcion para verificar que el usuario tiene acceso a la pagina
 async function validate() {
 
     const JSON = await dataFetch(EMPLEADOS_API, 'getVistaAutorizacion');

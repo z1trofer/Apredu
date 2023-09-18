@@ -8,7 +8,7 @@ const TB_HEAD = document.getElementById('permisos-head');
 const FORM_INSERT = document.getElementById('insert-form');
 
 
-
+//funcion para verificar que el usuario tenga los permisos para acceder
 async function validate() {
     const JSON = await dataFetch(PERMISOS_API, 'getVistaAutorizacion');
     if (JSON.status) {
@@ -62,7 +62,7 @@ async function fillTable() {
     if (JSON_C.status && JSON_P.status) {
         //se carga el nombre de los cargos en los encabezados de la tabla
         JSON_C.dataset.forEach(row => {
-            debugger
+             
             TB_HEAD.innerHTML += `
             <th scope="col">${row[1]} <button type="button" id="icon-private" class="btn btn-danger btn-floating icon-private">
             <img id="icon-img-private" src="../../recursos/iconos/icons8-menos-24.png" onclick="deleteCargo(${row[0]}, '${row[1]}')">

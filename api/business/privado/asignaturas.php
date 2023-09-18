@@ -58,7 +58,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
-            //Acción para crear un nueva subcategoría 
+                //Acción para crear un nueva subcategoría 
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            //leer un dato seleccionado para luego actualizarlo o solo leer la información 
+                //leer un dato seleccionado para luego actualizarlo o solo leer la información 
             case 'readOne':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_asignaturas');
@@ -97,7 +97,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Asignaturas inexistentes';
                 }
                 break;
-            //Acción para actualizar un dato de la tabla usuarios
+                //Acción para actualizar un dato de la tabla usuarios
             case 'update':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
@@ -120,7 +120,25 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            //Acción para eliminar un dato de la tabla usuarios
+            case 'delete':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_asignaturas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$asignaturas->setId($_POST['id_asignatura'])) {
+                    $result['exception'] = 'Asignatura incorrecta';
+                } elseif ($asignaturas->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Asignatura eliminada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+                //Acción para eliminar un dato de la tabla usuarios
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
@@ -134,4 +152,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>

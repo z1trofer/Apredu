@@ -26,17 +26,26 @@ class NotasQueries
         INNER JOIN empleados USING(id_empleado)
         INNER JOIN asignaturas USING(id_asignatura)
         INNER JOIN grados USING (id_grado)
-         order by id_asignatura";
+        ";
+        if($_SESSION['id_cargo'] == 2){
+            $sql = $sql.' where id_empleado = '.$_SESSION['id_empleado'];
+        }
+        $sql = $sql." order by id_asignatura";
         return Database::getRows($sql);
     }
 
     //Obtener los trimestres del año lectivo
-    function ObtenerTrimestres($anio)
+    function ObtenerTrimestres()
     {
-        $sql = "SELECT trimestres.id_trimestre, trimestres.trimestre, anios.id_anio, anios.anio, trimestres.estado
-        From trimestres INNER JOIN anios USING (id_anio) WHERE anios.anio = ?";
-        $params = array($anio);
-        return Database::getRows($sql, $params);
+        if($_SESSION['id_cargo'] == 2){
+            $sql = "SELECT trimestres.id_trimestre, trimestres.trimestre, anios.id_anio, anios.anio, trimestres.estado
+            From trimestres INNER JOIN anios USING (id_anio) WHERE estado = true";
+        }else{
+            $sql = "SELECT trimestres.id_trimestre, trimestres.trimestre, anios.id_anio, anios.anio, trimestres.estado
+            From trimestres INNER JOIN anios USING (id_anio) WHERE anios.id_anio = (select id_anio from trimestres where estado = true)";
+        }
+        //$params = array($anio);
+        return Database::getRows($sql);
     }
 
     //Obtener los trimestres del año lectivo (sin parametro)

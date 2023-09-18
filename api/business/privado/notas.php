@@ -16,7 +16,18 @@ if (isset($_GET['action'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
-            
+            case 'getVistaAutorizacion':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_notas');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } else {
+                    $result['status'] = 1;
+                }
+                break;
             case 'ObtenerMateriasDocente':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
@@ -60,7 +71,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $notas->ObtenerTrimestres($_POST['anio'])) {
+                } elseif ($result['dataset'] = $notas->ObtenerTrimestres()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Error al obtener los trimestres';

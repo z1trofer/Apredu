@@ -55,7 +55,6 @@ class UsuariosQueries
                 $this->empleado = $data['nombre'];
                 $this->dias_clave = $data['dias'];
                 $this->correo_empleado = $data['correo_empleado'];
-                $this->dias_clave = $data['dias'];
                 return $data;
             } elseif($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
                 return 'time';
@@ -281,7 +280,7 @@ class UsuariosQueries
     }
     public function checkAD($id)
     {
-        $sql = 'SELECT id_empleado, usuario_empleado, cargo FROM empleados
+        $sql = 'SELECT id_empleado, usuario_empleado, cargos_empleados.cargo, cargos_empleados.id_cargo FROM empleados
         INNER JOIN cargos_empleados USING (id_cargo)
         WHERE id_empleado = ?';
         $params = array($id);
@@ -289,6 +288,7 @@ class UsuariosQueries
             $this->id = $data['id_empleado'];
             $this->usuario_empleado = $data['usuario_empleado'];
             $this->cargo = $data['cargo'];
+            $this->id_cargo = $data['id_cargo'];
             return true;
         } else {
             return false;

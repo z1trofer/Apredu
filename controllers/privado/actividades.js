@@ -16,15 +16,25 @@ let id_trimestre = null;
 let id_grado = null;
 let id_asignatura = null;
 
+async function validate() {
+    const JSON = await dataFetch(ACTIVIDADES_API, 'getVistaAutorizacion');
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // Método manejador de eventos para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     CargarTrimestres();
     fillTable();
     CargarGrados();
     cargarAsignaturas();
     CargarNombreDocente();
+    }
 });
 
 //funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session

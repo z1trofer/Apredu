@@ -9,10 +9,22 @@ const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 // Constante tipo objeto para establecer las opciones del componente Modal.
 
+//funcion para verificar que el usuario tiene acceso a la pagina
+async function validate() {
+    const JSON = await dataFetch(TRIMESTRES_API, 'getVistaAutorizacion');
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Método manejador de eventos para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
+    }
 });
 
 // Método manejador de eventos para cuando se envía el formulario de guardar.

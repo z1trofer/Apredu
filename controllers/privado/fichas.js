@@ -10,9 +10,21 @@ const RECORDS2 = document.getElementById('records2');
 const TBODY_ROWS3 = document.getElementById('tbody-rows3');
 const RECORDS3 = document.getElementById('records3');
 
-document.addEventListener('DOMContentLoaded', () => {
+//funcion para verificar que el usuario tiene acceso a la pagina
+async function validate() {
+    const JSON = await dataFetch(FICHA_API, 'getVistaAutorizacion');
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
+    }
 });
 
 SAVE_FORM.addEventListener('submit', async (event) => {

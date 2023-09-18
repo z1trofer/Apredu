@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+//funcion para verificar que el usuario tiene acceso a la pagina
 async function validate() {
 
     const JSON = await dataFetch(ESTUDIANTE_API, 'getVistaAutorizacion');

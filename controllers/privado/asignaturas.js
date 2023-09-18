@@ -2,7 +2,7 @@
 const ASIGNATURAS_API = 'business/privado/asignaturas.php';
 // Constante para establecer el formulario de buscar.
 // Constante para establecer el formulario de guardar.
-const SAVE_FORM = document.getElementById('save-form');
+const SAVE_FORM_AS = document.getElementById('save-form-as');
 // Constante para establecer el título de la modal.
 const MODAL_TITLE = document.getElementById('modal-title');
 // Constantes para establecer el contenido de la tabla.
@@ -10,20 +10,32 @@ const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 // Constante tipo objeto para establecer las opciones del componente Modal.
 
+//funcion para verificar que el usuario tenga los permisos para acceder
+async function validate() {
+    const JSON = await dataFetch(ASIGNATURAS_API, 'getVistaAutorizacion');
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+}
 // Método manejador de eventos para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
+        fillTable();
+    }
     // Llamada a la función para llenar la tabla con los registros disponibles.
-    fillTable();
+
 });
 
 // Método manejador de eventos para cuando se envía el formulario de guardar.
-SAVE_FORM.addEventListener('submit', async (event) => {
+SAVE_FORM_AS.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
     (document.getElementById('id_asignatura').value) ? action = 'update' : action = 'create';
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM);
+    const FORM = new FormData(SAVE_FORM_AS);
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(ASIGNATURAS_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -84,7 +96,7 @@ async function fillTable(form = null) {
 */
 function openCreate() {
     // Se restauran los elementos del formulario.
-    SAVE_FORM.reset();
+    SAVE_FORM_AS.reset();
 }
 
 /*
@@ -100,7 +112,7 @@ async function openUpdate(id) {
     const JSON = await dataFetch(ASIGNATURAS_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        SAVE_FORM.reset();
+        SAVE_FORM_AS.reset();
         // Se inicializan los campos del formulario.
         document.getElementById('id_asignatura').value = JSON.dataset.id_asignatura;
         document.getElementById('asignatura').value = JSON.dataset.asignatura;
@@ -116,14 +128,14 @@ async function openUpdate(id) {
 */
 async function openDelete(id) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar la subcategoría de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar esta asignatura de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('id_subcategoria', id);
+        FORM.append('id_asignatura', id);
         // Petición para eliminar el registro seleccionado.
-        const JSON = await dataFetch(SUBCATEGORIA_API, 'delete', FORM);
+        const JSON = await dataFetch(ASIGNATURAS_API, 'delete', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             // Se carga nuevamente la tabla para visualizar los cambios.

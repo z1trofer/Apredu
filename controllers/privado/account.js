@@ -9,7 +9,7 @@ const USER_API = 'business/privado/usuarios.php';
 const NAVBAR = document.getElementById('navbar');
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-    debugger
+     
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const JSON = await dataFetch(USER_API, 'getSession');
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.

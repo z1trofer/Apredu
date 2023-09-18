@@ -16,10 +16,22 @@ const SAVE_FORM1 = document.getElementById('save-formgr1');
 const MODAL_TITLE1 = document.getElementById('modal-title1');
 // Constante tipo objeto para establecer las opciones del componente Modal.
 
+//funcion para verificar que el usuario tiene acceso a la pagina
+async function validate() {
+    const JSON = await dataFetch(GRADOS_API, 'getVistaAutorizacion');
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Método manejador de eventos para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
+    }
 });
 
 //variable id_grado para uso

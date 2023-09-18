@@ -363,6 +363,9 @@ if (isset($_GET['action'])) {
                             $_SESSION['usuario'] = $usuario->getUser();
                             $result['dataset'] = $data;
                             // Se crean dos nuevas variables de sesion
+                            $_SESSION['empleado'] = $usuario->getEmpleado();
+                            $_SESSION['correo_empleado'] = $usuario->getCorreo_empleado();
+                            $_SESSION['tiempo'] = time();
                             $_SESSION['id_empleado_ad'] = $usuario->getId();
                             $_SESSION['ad'] = rand(100000, 999999);
                             $mensaje = $_SESSION['ad'];
@@ -398,7 +401,6 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
                 } else {
-
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;

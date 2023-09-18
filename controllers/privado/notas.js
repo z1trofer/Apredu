@@ -13,14 +13,26 @@ let id_trimestre = null;
 let trimestre = null;
 //se declara constante con el tipo_usuario
 
+//funcion para verificar que el usuario tiene acceso a la pagina
+async function validate() {
+    const JSON = await dataFetch(NOTAS_API, 'getVistaAutorizacion');
+    if (JSON.status) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //evento Content load para cuando se cargue la pagina
 document.addEventListener('DOMContentLoaded', async () => {
+    if (await validate() == true) {
     //función para cargar los Trimestres
     await cargarTrimestres();
     //Función para cargar las asignaturas 
     await cargarAsignaturas();
-
+    //cargar grafico
     graficoPieNotas()
+    }
 });
 
 //función Cargar Trimestres
@@ -30,7 +42,7 @@ async function cargarTrimestres() {
     //se instancia el año como parametro en el formulario
     FORM.append('anio', ANIO);
     //se llama a la API para obtener los trimestres del año respectivo
-    const JSON = await dataFetch(NOTAS_API, 'ObtenerTrimestres', FORM);
+    const JSON = await dataFetch(NOTAS_API, 'ObtenerTrimestres');
     //se comprueba la respuesta de la api
     if (JSON.status) {
         const SESSION = await dataFetch(USER_API, 'getSession');
@@ -41,7 +53,7 @@ async function cargarTrimestres() {
         //se llena el dropdown mediante la respuesta de la api
         JSON.dataset.forEach(async row => {
             //el dropdown se llena con el trimestre que poseea el valor de true
-            if (row.estado == true || SESSION.id_cargo != 2) {
+            //if (row.estado == true || SESSION.id_cargo != 2) {
                  
                 //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
                 id_trimestre = row.id_trimestre;
@@ -52,7 +64,7 @@ async function cargarTrimestres() {
                 dropdown.innerHTML += `
                 <li><a class="dropdown-item" onclick="opcionTrimestre('${row.id_trimestre}','${row.trimestre}')">${row.trimestre}</a></li>
                 `
-            }
+           // }
         });
     } else {
         //se envia un mensaje con el error respectivo
@@ -76,7 +88,8 @@ async function cargarAsignaturas(){
     }
      
     //llamada a la API obtener las materias del docente logeado
-    const JSON = await dataFetch(NOTAS_API, accion);
+    const JSON = await dataFetch(NOTAS_API, 'ObtenerMaterias');
+    debugger
     //Se compara la respuesta de la api
     if (JSON.status) {
          
