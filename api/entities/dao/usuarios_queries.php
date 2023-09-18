@@ -127,13 +127,15 @@ class UsuariosQueries
     //Obtener el correo de un empleado que no ha iniciado sesion
     public function getCorreo()
     {
-        $sql = 'SELECT id_empleado, correo_empleado from empleados where usuario_empleado = ?';
+        $sql = 'SELECT id_empleado, correo_empleado, estado from empleados where usuario_empleado = ?';
         $params = array($this->usuario);
         $data = Database::getRow($sql, $params);
         if ($data != false) {
             $this->correo_empleado = $data['correo_empleado'];
             $_SESSION['id_empleado_clave'] = $data['id_empleado'];
             return true;
+        } elseif($data['estado'] == false) {
+            return false;
         } else {
             return false;
         }

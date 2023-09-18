@@ -399,6 +399,7 @@ if (isset($_GET['action'])) {
                 // Se valida el código enviado y el código ingresado
                 if ($_POST['codigo_verificacion'] != $_SESSION['ad']) {
                     $result['exception'] = 'Código incorrecto';
+                    
                 } elseif ($usuario->checkAD($_SESSION['id_empleado_ad'])) {
                     unset($_SESSION['id_empleado_ad']);
                     unset($_SESSION['ad']);
@@ -424,6 +425,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $_SESSION['pin_recu'] = random_int(1000000, 9999999);
                     if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de recuperación', 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, para que puedas recuperar tu cuenta te envimos el siguiente codigo:', $_SESSION['pin_recu'])) {
+                        $_SESSION['intentos_recu'] = 0;
                         $result['status'] = 1;
                         $result['message'] = 'Se ha enviado un pin de recuperación a su correo electronico';
                     } else {
@@ -434,11 +436,15 @@ if (isset($_GET['action'])) {
 
             case 'validarRecu':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['code-recu'] == $_SESSION['pin_recu']) {
+                if($_SESSION['intentos_recu'] > 5){
+                    $result['exception'] = 'Su codigo de recuperación ya no es valido debido a que ha fallado muchas veces';
+                    session_destroy();
+                } elseif ($_POST['code-recu'] == $_SESSION['pin_recu']) {
                     $_SESSION['pin-us'] = $_POST['code-recu'];
                     $result['status'] = 1;
                     $result['message'] = 'Por favor ingrese una nueva contraseña';
                 } else {
+                    $_SESSION['intentos_recu'] = $_SESSION['intentos_recu']+1;
                     $result['exception'] = 'El codigo de recuperación no coincide';
 
                 }
