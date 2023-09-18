@@ -317,7 +317,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->setClaveLog($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
                 } elseif (!$data = $usuario->LogIn($_POST['clave'])) {
-                    $result['exception'] = 'Error en el servidor';
+                    $result['exception'] = 'Credenciales incorrectas';
                 } else {
                     if ($data == false) {
                         //se dio un error en el servidor
@@ -335,7 +335,7 @@ if (isset($_GET['action'])) {
                         } elseif ($usuario->subirTiempoInicio(time())) {
                             $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces, espere 30s para volver a intentar';
                         } else {
-                            $result['exception'] = 'Error en el servidor time';
+                            $result['exception'] = 'Error en el servidor';
                         }
                         //$result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo';
                     } else if ($usuario->dias_clave >= 90) {
@@ -360,7 +360,7 @@ if (isset($_GET['action'])) {
                         if ($usuario->agregarIntento()) {
                             $result['exception'] = 'Las credenciales no coinciden';
                         } else {
-                            $result['exception'] = 'Error en el servidor Int';
+                            $result['exception'] = 'Error en el servidor';
                         }
                     } elseif ($data != false) {
                         //if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
@@ -386,7 +386,7 @@ if (isset($_GET['action'])) {
                                 $result['exception'] = 'Ocurrió un problema al enviar el correo';
                             }
                         } else {
-                            $result['exception'] = 'Error en el servidor resInt';
+                            $result['exception'] = 'Error en el servidor';
                         }
                     } else {
                         $result['exception'] = Database::getException();
