@@ -85,9 +85,9 @@ class NotasQueries
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad
         from actividades
         INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
-        where id_empleado = ? and id_asignatura = ? and id_trimestre = ? and id_grado = ?
+        where id_empleado = ? and id_asignatura = ? and id_trimestre = (SELECT id_trimestre FROM trimestres WHERE estado = true)  and id_grado = ?
         order by id_actividad asc";
-        $params = array($this->id_empleado, $this->id_asignatura, $this->id_trimestre, $this->id_grado);
+        $params = array($this->id_empleado, $this->id_asignatura, $this->id_grado);
         return Database::getRows($sql, $params);
     }
 

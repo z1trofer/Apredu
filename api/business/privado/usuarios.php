@@ -20,7 +20,14 @@ if (isset($_GET['action'])) {
         //se obtiene el arreglo con los permisos del respectivo usuario
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
-
+            case 'readUsers':
+                if ($usuario->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Error de autenticación';
+                } else {
+                    $result['exception'] = 'Debe crear un usuario para comenzar';
+                }
+                break;
             case 'getSession':
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
@@ -40,9 +47,12 @@ if (isset($_GET['action'])) {
                     $access = array('edit_permisos', 'view_grados', 'view_trimestres', 'view_asignaturas', 'view_actividades', 'view_empleados', 'view_estudiantes', 'view_responsables', 'view_fichas', 'view_notas');
                     if (!$usuario->setId($_SESSION['id_empleado'])) {
                         $result['exception'] = 'Error con el empleado';
-                    } elseif ($result['dataset'] = $usuario->obtenerAtributosVista($access))
+                    } elseif ($result['dataset'] = $usuario->obtenerAtributosVista($access)) {
                         $result['status'] = 1;
-                    $result['message'] = 'God';
+                        $result['message'] = 'God';
+                    }else{
+                        $result['message'] = 'Error con los permisos'.Database::getException(); 
+                    }
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
@@ -348,13 +358,13 @@ if (isset($_GET['action'])) {
                     } else if ($data == 'fail') {
                         //las credenciales no coincidieron por lo que el usuario no logro iniciar sesion
                         if ($usuario->agregarIntento()) {
-                            $result['exception'] = 'Las credenciales no coinciden' ;
+                            $result['exception'] = 'Las credenciales no coinciden';
                         } else {
                             $result['exception'] = 'Error en el servidor Int';
                         }
                     } elseif ($data != false) {
                         //if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
-                          //  $result['exception'] = 'Error al obtener los atributos del usuario';
+                        //  $result['exception'] = 'Error al obtener los atributos del usuario';
                         //} else
                         if ($usuario->resetIntentos()) {
                             //el usuario inicio sesion satisfactoriamente

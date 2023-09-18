@@ -211,7 +211,6 @@ class UsuariosQueries
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_empleado'];
             $this->usuario_empleado = $data['usuario_empleado'];
-
             //Create an instance; passing `true` enables exceptions
             $this->codigo_recuperacion = rand(100000, 999999);
             $mensaje = 'Mensaje de verificación';

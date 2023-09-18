@@ -151,6 +151,7 @@ async function vistaPermisos(){
     //se consulta los permisos del usuario
     const JSON = await dataFetch(USER_API, 'getPermisosVista');
     //se valida el resultado
+    debugger
     if(JSON.status){
         
         //se asigna el arreglo con los permisos a la variable atributos

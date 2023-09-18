@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     let year = TODAY.getFullYear() - 20;
     let date = `${year}-${month}-${day}`;
     document.getElementById('fecha_nacimiento').max = date;
-    
+    const JSON = await dataFetch(USER_API, 'getSession');
+    if(JSON.status){
+        location.href = 'principal.html';
+    }
     const JSON2 = await dataFetch(USER_API, 'readUsers');
-   if(JSON2.status) {
-    
+    if(JSON2.status) {
     } else{
          // Se muestra el formulario para registrar el primer usuario
          document.getElementById('btnEmpleados').click();

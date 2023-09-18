@@ -124,7 +124,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Trimestre incorrecto';
                 } elseif (!$notas->setId_grado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif ($_SESSION['tipo'] == 2) {
+                } elseif ($_SESSION['id_cargo'] == 2) {
                     if ($result['dataset'] = $notas->ObtenerActividades()) {
                         $result['status'] = 1;
                     } elseif (Database::getException()) {

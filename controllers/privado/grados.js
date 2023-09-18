@@ -29,8 +29,8 @@ async function validate() {
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     if (await validate() == true) {
-    // Llamada a la función para llenar la tabla con los registros disponibles.
-    fillTable();
+        // Llamada a la función para llenar la tabla con los registros disponibles.
+        fillTable();
     }
 });
 
@@ -261,23 +261,24 @@ async function graficoPromedio2(id_grado) {
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(GRADOS_API, 'graficoPromedio2', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-        if (JSON.status) {
-            //se declaran ambos arreglos
-            let asignatura = [];
-            let promedio = [];
-            //se lee cada fila de la consulta
-            JSON.dataset.forEach(row => {
-                //se llenan los arreglos respectivamente
-                asignatura.push(row.asignatura);
-                promedio.push(row.promedio);
-            });
-            barGraph('chart4', asignatura, promedio, 'Promedio de notas', 'Top 3 Promedios de notas más altos por asignatura');
-            sweetAlert(1, JSON.message, true);
-        } else {   
-            //se resetea el canvas del grafico para dar lugar a uno nuevo
-                document.getElementById('grafico').innerHTML = "<canvas id='chart4'></canvas>";
-            sweetAlert(2, JSON.exception, false);    }
+    if (JSON.status) {
+        //se declaran ambos arreglos
+        let asignatura = [];
+        let promedio = [];
+        //se lee cada fila de la consulta
+        JSON.dataset.forEach(row => {
+            //se llenan los arreglos respectivamente
+            asignatura.push(row.asignatura);
+            promedio.push(row.promedio);
+        });
+        barGraph('chart4', asignatura, promedio, 'Promedio de notas', 'Top 3 Promedios de notas más altos por asignatura');
+        //sweetAlert(1, JSON.message, true);
+    } else {
+        //se resetea el canvas del grafico para dar lugar a uno nuevo
+        document.getElementById('grafico').innerHTML = "<canvas id='chart4'></canvas>";
+        sweetAlert(2, JSON.exception, false);
     }
+}
 
 
 //Buscador
