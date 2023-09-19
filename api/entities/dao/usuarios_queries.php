@@ -35,7 +35,7 @@ class UsuariosQueries
             return false;
         } elseif ($data['estado'] == false) {
             return 'zzz';
-        }  else {
+        } else {
             $timer = null;
             if (Validator::validateAttemptsCd($data['timer_intento']) != true) {
                 $timer = false;
@@ -56,11 +56,11 @@ class UsuariosQueries
                 $this->dias_clave = $data['dias'];
                 $this->correo_empleado = $data['correo_empleado'];
                 return $data;
-            } elseif($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
+            } /*elseif ($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
                 return 'time';
-            } elseif($data['intentos'] >= 25) {
+            } */elseif ($data['intentos'] > 5) {
                 return 'bloquear';
-            }elseif ($timer == false) {
+            } elseif ($timer == false) {
                 return 'timer';
             } else {
                 return 'fail';
@@ -123,6 +123,22 @@ class UsuariosQueries
             return false;
         }
     }
+
+    //Obtener el correo de un empleado que no ha iniciado sesion
+    public function getCorreo()
+    {
+        $sql = 'SELECT id_empleado, correo_empleado from empleados where usuario_empleado = ?';
+        $params = array($this->usuario);
+        $data = Database::getRow($sql, $params);
+        if ($data != false) {
+            $this->correo_empleado = $data['correo_empleado'];
+            $_SESSION['id_empleado_clave'] = $data['id_empleado'];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     //cambiar la contraseña de un usuario
     public function changePassword()
@@ -215,7 +231,7 @@ class UsuariosQueries
             $this->codigo_recuperacion = rand(100000, 999999);
             $mensaje = 'Mensaje de verificación';
             $mailSubject = 'Código de verificación de contraseña';
-            $mailAltBody = '¡Te saludamos la asistencia del colegio Aprendo COntigo para enviarte el código de verificación, por favor ingresarlo en el formulario!'; 
+            $mailAltBody = '¡Te saludamos la asistencia del colegio Aprendo COntigo para enviarte el código de verificación, por favor ingresarlo en el formulario!';
             $mailBody = '<!DOCTYPE html>
 
                 <html lang="en">
@@ -269,13 +285,10 @@ class UsuariosQueries
                 </html>';
 
             return Props::sendMail($this->correo_empleado, $mailSubject, $mailBody);
-
         } else {
 
             return false;
-
         }
-
     }
     public function checkAD($id)
     {
@@ -293,5 +306,4 @@ class UsuariosQueries
             return false;
         }
     }
-
 }

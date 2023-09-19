@@ -55,8 +55,9 @@ PASSWORD_FORM.addEventListener('submit', async (event) => {
     const JSON = await dataFetch(USER_API, 'changePassword', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
+        PASSWORD_FORM.reset();
         // Se cierra la caja de diálogo.
-        // PASSWORD_MODAL.close();
+        document.getElementById('btnClose').click();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
     } else {

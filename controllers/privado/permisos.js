@@ -119,7 +119,7 @@ async function fillTable() {
 }
 
 async function cambiarPermiso(atributo, permiso, cargo){
-    const RESPONSE = await confirmAction('¿Estas seguro de cambiar los permisos de '+ cargo +'?');
+    const RESPONSE = await confirmAction('¿Estas seguro de cambiar los permisos de '+ atributo +'?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         const FORM = new FormData();
