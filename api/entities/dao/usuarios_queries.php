@@ -23,7 +23,7 @@ class UsuariosQueries
     }*/
 
     //funcion de login para permitir al usuario entrar al sistema
-    public function LogIn($clave)
+    public function logIn($clave)
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
         cargos_empleados.cargo, CONCAT(empleados.nombre_empleado, ' ', empleados.apellido_empleado) as nombre,
@@ -292,6 +292,7 @@ class UsuariosQueries
             return false;
         }
     }
+
     public function checkAD($id)
     {
         $sql = 'SELECT id_empleado, usuario_empleado, cargos_empleados.cargo, cargos_empleados.id_cargo FROM empleados

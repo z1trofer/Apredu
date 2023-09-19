@@ -316,12 +316,12 @@ if (isset($_GET['action'])) {
                     //validando clave
                 } elseif (!$usuario->setClaveLog($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
-                } elseif (!$data = $usuario->LogIn($_POST['clave'])) {
+                } elseif (!$data = $usuario->logIn($_POST['clave'])) {
                     $result['exception'] = 'Credenciales incorrectas';
                 } else {
                     if ($data == false) {
                         //se dio un error en el servidor
-                        $result['exception'] = 'Error en el servidor';
+                        $result['exception'] = 'Credenciales incorrectas';
                     } else if ($data == 'zzz') {
                         //usuario bloqueado
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta a los administradores para desbloquear el usuario';
@@ -436,7 +436,7 @@ if (isset($_GET['action'])) {
 
             case 'validarRecu':
                 $_POST = Validator::validateForm($_POST);
-                if($_SESSION['intentos_recu'] > 5){
+                if ($_SESSION['intentos_recu'] > 5){
                     $result['exception'] = 'Su codigo de recuperación ya no es valido debido a que ha fallado muchas veces';
                     session_destroy();
                 } elseif ($_POST['code-recu'] == $_SESSION['pin_recu']) {
