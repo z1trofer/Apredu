@@ -92,9 +92,10 @@ class EstudiantesQueries
             $sql = "SELECT estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, grados.grado
             FROM estudiantes 
             INNER JOIN grados USING(id_grado)
-            WHERE id_grado = ".$filtros['grado']." 
+            WHERE id_grado = ? 
             GROUP BY  estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, grados.grado
             ORDER BY grados.grado ASC";
+            $params = array($filtros['grado']);
             return Database::getRows($sql);
         }
     

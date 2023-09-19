@@ -231,7 +231,8 @@ class NotasQueries
         $sql = $sql . "where id_trimestre = " . $parametros['trimestre'];
     };
     $sql = $sql . " GROUP BY id_estudiante
-    ORDER BY promedio DESC) as xd where promedio " . $parametros['condicion'] . " 6";
-    return Database::getRow($sql);
+    ORDER BY promedio DESC) as xd where promedio ? 6";
+    $params = array($parametros['condicion']);
+    return Database::getRow($sql, $params);
     }
 }

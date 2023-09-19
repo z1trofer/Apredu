@@ -195,8 +195,16 @@ if (isset($_GET['action'])) {
             case 'topNotas':
                 $_POST = Validator::validateForm($_POST);
                 $parametros = array('trimestre' => null, 'grado' => null);
-                $parametros['trimestre'] = $_POST['trimestre'];
-                $parametros['grado'] = $_POST['grado'];
+                if (!$notas->setId_trimestre($_POST['trimestre'])) {
+                    $parametros['trimestre'] = 'Todos';
+                } else {
+                    $parametros['trimestre'] = $_POST['trimestre'];
+                }
+                if (!$notas->setId_grado($_POST['grado'])) {
+                    $parametros['grado'] = 'Todos';
+                } else {
+                    $parametros['grado'] = $_POST['grado'];
+                }
                 if ($result['dataset'] = $notas->TopNotas($parametros)) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
@@ -204,12 +212,21 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'No hay datos registrados';
                 }
+
                 break;
             case 'estudiantesAprobados':
                 $_POST = Validator::validateForm($_POST);
                 $parametros = array('trimestre' => null, 'grado' => null);
-                $parametros['trimestre'] = $_POST['trimestre'];
-                $parametros['grado'] = $_POST['grado'];
+                if (!$notas->setId_trimestre($_POST['trimestre'])) {
+                    $parametros['trimestre'] = 'Todos';
+                } else {
+                    $parametros['trimestre'] = $_POST['trimestre'];
+                }
+                if (!$notas->setId_grado($_POST['grado'])) {
+                    $parametros['grado'] = 'Todos';
+                } else {
+                    $parametros['grado'] = $_POST['grado'];
+                }
                 $parametros['condicion'] = $_POST['condicion'];
                 if ($result['dataset'] = $notas->AproYRepro($parametros)) {
                     $result['status'] = 1;
