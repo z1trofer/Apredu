@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     // Arreglo para el filtrado parametrizado
     $filtro = array('trimestre' => 0, 'grado' => 0, 'asignatura' => 0);
-    if (isset($_SESSION['id_empleado'])) {
+    if (isset($_SESSION['id_empleado'])and Validator::validateSessionTime()) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getVistaAutorizacion':

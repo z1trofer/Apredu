@@ -16,7 +16,7 @@ if (isset($_GET['action'])) {
     //arreglo para filtro parametrizado
     $filtro = array('grado' => 0);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_empleado'])) {
+    if (isset($_SESSION['id_empleado'])and Validator::validateSessionTime()) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getVistaAutorizacion':
