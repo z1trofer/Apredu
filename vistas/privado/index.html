@@ -42,36 +42,36 @@
             <!--<a href="../../recovery.php" class="link" id="link_password">¿Olvidaste tu contraseña?</a>-->
         </form>
     </div>
-        <!-- Modal -->
-        <div class="modal fade" id="recu" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="colorH" id="staticBackdropLabel">Recuperación</h4>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="sendUs-form" method="post">
-                    <div class="modal-body">
-                        <div class="row g-3 align-items-center">
-                            <div class="form-outline col-auto">
-                                <p class="colorH">Ingresa tu usuario</p>
-                                <input type="text" id="user-recu" name="user" class="form-control"
-                                    aria-describedby="usuario" />
-                                <label class="form-label" for="claveNueva">usuario</label>
-                            </div>
+    <!-- Modal -->
+    <div class="modal fade" id="recu" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="colorH" id="staticBackdropLabel">Recuperación</h4>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="sendUs-form" method="post">
+                <div class="modal-body">
+                    <div class="row g-3 align-items-center">
+                        <div class="form-outline col-auto">
+                            <p class="colorH">Ingresa tu usuario</p>
+                            <input type="text" id="user-recu" name="user" class="form-control"
+                                aria-describedby="usuario" />
+                            <label class="form-label" for="claveNueva">usuario</label>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">siguiente</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">siguiente</button>
+                </div>
+            </form>
         </div>
     </div>
-
+</div>
     <!-- Modal -->
+    <!-- Modal de cambio de contraseña caducada-->
     <div class="modal fade" id="passwordModal" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -192,7 +192,7 @@
                             <br>
                             <div class="col-sm-8 marginTop">
                                 <div class="form-outline">
-                                    <textarea class="form-control" id="direccion" name="direccion" rows="5"></textarea>
+                                    <textarea class="form-control" id="direccion" name="direccion" rows="5" autocomplete="off"></textarea>
                                     <label class="form-label" for="textAreaExample">Dirección</label>
                                 </div>
                             </div>
