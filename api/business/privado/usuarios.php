@@ -377,7 +377,7 @@ if (isset($_GET['action'])) {
                             $_SESSION['correo_empleado'] = $usuario->getCorreo_empleado();
                             $_SESSION['tiempo'] = time();
                             $_SESSION['id_empleado_ad'] = $usuario->getId();
-                            $_SESSION['ad'] = rand(100000, 999999);
+                            $_SESSION['ad'] = random_int(100000, 999999);
                             $mensaje = $_SESSION['ad'];
                             // Se envía el código al correo del usuario que inicio sesión en lo anterior...
                             if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de autenticación', 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, este tu código de verificación:', $mensaje)) {
@@ -422,7 +422,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->getCorreo()) {
                     $result['exception'] = 'Este usuario no existe';
                 } else {
-                    $_SESSION['pin_recu'] = rand(1000000, 9999999);
+                    $_SESSION['pin_recu'] = random_int(1000000, 9999999);
                     if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de recuperación', 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, para que puedas recuperar tu cuenta te envimos el siguiente codigo:', $_SESSION['pin_recu'])) {
                         $result['status'] = 1;
                         $result['message'] = 'Se ha enviado un pin de recuperación a su correo electronico';
