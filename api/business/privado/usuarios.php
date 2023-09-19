@@ -19,7 +19,7 @@ if (isset($_GET['action'])) {
         $result['session'] = 1;
         //se obtiene el arreglo con los permisos del respectivo usuario
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
-        switch ($_GET['action']) {    
+        switch ($_GET['action']) {
             case 'readUsers':
                 if ($usuario->readAll()) {
                     $result['status'] = 1;
@@ -50,8 +50,8 @@ if (isset($_GET['action'])) {
                     } elseif ($result['dataset'] = $usuario->obtenerAtributosVista($access)) {
                         $result['status'] = 1;
                         $result['message'] = 'God';
-                    }else{
-                        $result['message'] = 'Error con los permisos'.Database::getException(); 
+                    } else {
+                        $result['message'] = 'Error con los permisos' . Database::getException();
                     }
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
@@ -380,7 +380,7 @@ if (isset($_GET['action'])) {
                             $_SESSION['ad'] = rand(100000, 999999);
                             $mensaje = $_SESSION['ad'];
                             // Se envía el código al correo del usuario que inicio sesión en lo anterior...
-                            if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de autenticación', $mensaje)) {
+                            if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de autenticación', 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, este tu código de verificación:', $mensaje)) {
                                 $result['message'] = 'Credenciales correctas, revise su correo';
                             } else {
                                 $result['exception'] = 'Ocurrió un problema al enviar el correo';
@@ -414,22 +414,72 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'crearEnviarPing':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setUser($_POST['user-recu'])) {
+                    $result['exception'] = 'Ingrese un usuario';
+                    //validando clave
+                } elseif (!$usuario->getCorreo()) {
+                    $result['exception'] = 'Este usuario no existe';
+                } else {
+                    $_SESSION['pin_recu'] = rand(1000000, 9999999);
+                    if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de recuperación', 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, para que puedas recuperar tu cuenta te envimos el siguiente codigo:', $_SESSION['pin_recu'])) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Se ha enviado un pin de recuperación a su correo electronico';
+                    } else {
+                        $result['exception'] = 'Ocurrió un problema al enviar el correo';
+                    }
+                }
+                break;
+
+            case 'validarRecu':
+                $_POST = Validator::validateForm($_POST);
+                if ($_POST['code-recu'] == $_SESSION['pin_recu']) {
+                    $_SESSION['pin-us'] = $_POST['code-recu'];
+                    $result['status'] = 1;
+                    $result['message'] = 'Por favor ingrese una nueva contraseña';
+                } else {
+                    $result['exception'] = 'El codigo de recuperación no coincide';
+
+                }
+                break;
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setId($_SESSION['id_empleado_clave'])) {
-                    $result['exception'] = 'Usuario incorrecto';
-                } elseif ($_POST['claveNueva'] == $_SESSION['clave_caducada']) {
-                    $result['exception'] = 'La clave nueva debe ser diferente a la anterior.';
-                } elseif ($_POST['claveNueva'] != $_POST['confirmarNueva']) {
-                    $result['exception'] = 'Claves nuevas diferentes';
-                } elseif (!$usuario->setClave($_POST['claveNueva'])) {
-                    $result['exception'] = Validator::getPasswordError();
-                } elseif ($usuario->changePassword()) {
-                    session_destroy();
-                    $result['status'] = 1;
-                    $result['message'] = 'Contraseña restablecida correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
+                //cambio de contraseña por dias y session
+                if(isset($_SESSION['clave_caducada']) || isset($_SESSION['id_empleado'])){
+                    if (!$usuario->setId($_SESSION['id_empleado_clave'])) {
+                        $result['exception'] = 'Usuario incorrecto';
+                    } elseif ($_POST['claveNueva'] == $_SESSION['clave_caducada']) {
+                        $result['exception'] = 'La clave nueva debe ser diferente a la anterior.';
+                    } elseif ($_POST['claveNueva'] != $_POST['confirmarNueva']) {
+                        $result['exception'] = 'Claves nuevas diferentes';
+                    } elseif (!$usuario->setClave($_POST['claveNueva'])) {
+                        $result['exception'] = Validator::getPasswordError();
+                    } elseif ($usuario->changePassword()) {
+                        session_destroy();
+                        $result['status'] = 1;
+                        $result['message'] = 'Contraseña restablecida correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                //cambio de contraseña por recuperacion
+                } elseif($_SESSION['pin_recu'] == $_SESSION['pin-us']) {
+                    if (!$usuario->setId($_SESSION['id_empleado_clave'])) {
+                        $result['exception'] = 'Usuario incorrecto';
+                    } elseif ($_POST['claveNueva'] != $_POST['confirmarNueva']) {
+                        $result['exception'] = 'Claves nuevas diferentes';
+                    } elseif (!$usuario->setClave($_POST['claveNueva'])) {
+                        $result['exception'] = Validator::getPasswordError();
+                    } elseif ($usuario->changePassword()) {
+                        session_destroy();
+                        $result['status'] = 1;
+                        $result['message'] = 'Contraseña restablecida correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                }
+                 else {
+                    $result['exception'] = 'No tienes autorización para realizar esta acción';
                 }
                 break;
             case 'logOut':

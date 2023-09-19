@@ -9,7 +9,7 @@ require '../../libraries/PHPMailer_Lb/src/PHPMailer.php';
 require '../../libraries/PHPMailer_Lb/src/SMTP.php';
 
 class Props{
-  public static function sendMail($address, $subject, $message)
+  public static function sendMail($address, $subject, $body, $message)
   {
 
       $mail = new PHPMailer(true);
@@ -32,7 +32,8 @@ class Props{
           $mail->CharSet = 'UTF-8'; //caracteres especiales
           $mail->isHTML(true);
           $mail->Subject = $subject;
-          $mail->Body = 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, este tu código de verificación: '.$message;
+          $mail->Body = $body.' '.$message;
+          //$mail->Body = 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, este tu código de verificación: '.$message;
           $mail->send();
           return true;
 

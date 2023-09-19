@@ -37,13 +37,14 @@
             <div>
                 <button type="submit" class="btn btn btn-rounded" id="login_button">Acceder</button>
             </div>
-            <a class="link" id="link_password" data-mdb-toggle="modal" data-mdb-target="#recu">¿Olvidaste tu
+            
+            <a href="#" id="link_password" data-mdb-toggle="modal" data-mdb-target="#recu">¿Olvidaste tu
                 contraseña?</a>
             <!--<a href="../../recovery.php" class="link" id="link_password">¿Olvidaste tu contraseña?</a>-->
         </form>
     </div>
-        <!-- Modal -->
-        <div class="modal fade" id="recu" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
+    <!-- Modal ingresar usuario -->
+    <div class="modal fade" id="recu" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -54,16 +55,46 @@
                 <form id="sendUs-form" method="post">
                     <div class="modal-body">
                         <div class="row g-3 align-items-center">
+                            <p class="colorH">Ingresa tu usuario para poder recuperar tu contraseña</p>
                             <div class="form-outline col-auto">
-                                <p class="colorH">Ingresa tu usuario</p>
-                                <input type="text" id="user-recu" name="user" class="form-control"
-                                    aria-describedby="usuario" />
+                                <input type="text" id="user-recu" name="user-recu" class="form-control"
+                                    aria-describedby="usuario" required autocomplete="off"/>
                                 <label class="form-label" for="claveNueva">usuario</label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+                        <button id="closeModal" type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Cerrar</button>
+                        <button type="submit" class="btn btn-primary">siguiente</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<!--boton para abrir el modal-->
+    <button type="button" id="openCodebtn" class="btn btn-primary visually-hidden" data-mdb-toggle="modal" data-mdb-target="#recu-cod">a</button>
+
+        <!-- Modal escribir codigo del usuario -->
+        <div class="modal fade" id="recu-cod" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="colorH" id="staticBackdropLabel">Ingresar Codigo</h4>
+                </div>
+                <form id="sendCod-form" method="post">
+                    <div class="modal-body">
+                        <div class="row g-3 align-items-center">
+                            <p class="colorH">Ingresa el codigo que te enviamos a tu correo electronico</p>
+                            <div class="form-outline col-auto">
+                                <input type="text" id="code-recu" name="code-recu" class="form-control"
+                                    aria-describedby="usuario" required autocomplete="off"/>
+                                <label class="form-label" for="claveNueva">codigo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">siguiente</button>
                     </div>
                 </form>
@@ -71,41 +102,40 @@
         </div>
     </div>
 
-    <!-- Modal -->
+
+    <!-- Modal  -->
     <div class="modal fade" id="passwordModal" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="colorH" id="staticBackdropLabel">Cambio de contraseña</h4>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="save-clave" method="post">
                     <div class="modal-body">
                         <div class="row g-3 align-items-center">
-                            <p class="colorH">La nueva contraseña debe ser diferente a la actual</p>
+                            <p id="textRec" class="colorH">La nueva contraseña debe ser diferente a la actual</p>
                             <div class="form-outline col-auto">
                                 <input type="password" id="claveNueva" name="claveNueva" class="form-control"
-                                    aria-describedby="textExample2" />
+                                    aria-describedby="textExample2" autocomplete="off"/>
                                 <label class="form-label" for="claveNueva">Contraseña</label>
                             </div>
                             <div class="form-outline col-auto">
                                 <input type="password" id="confirmarNueva" name="confirmarNueva" class="form-control"
-                                    aria-describedby="textExample2" />
+                                    aria-describedby="textExample2" autocomplete="off"/>
                                 <label class="form-label" for="confirmarNueva">Confirmar Contraseña</label>
                             </div>
-
                         </div>
-
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+                        
                         <button type="submit" class="btn btn-primary">Cambiar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
     <!--Modal de primer uso-->
     <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" data-mdb-backdrop="static" data-mdb-keyboard="false"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
