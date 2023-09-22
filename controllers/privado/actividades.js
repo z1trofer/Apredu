@@ -44,13 +44,10 @@ async function CargarNombreDocente() {
     //se llama a la API para obtener los datos
     const SESSION = await dataFetch(USER_API, 'getSession');
     //se verifica el id_cargo
-    if (SESSION.id_cargo == 2) {
+        debugger
         //se llena el label con el nombre del docente
-        label.innerHTML = "Docente: " + SESSION.nombre;
-    } else {
+        label.innerHTML = "Empleado: " + SESSION.empleado + ", " + SESSION.tipo;
         //se deja el label vacio
-        label.innerHTML = " ";
-    }
 };
 
 //función del evento submit del formulario para agregar/guardar los datos de una actividad

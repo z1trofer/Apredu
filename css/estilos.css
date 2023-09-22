@@ -2,6 +2,10 @@
     color: rgb(0, 0, 0);
 }
 
+.nav-link{
+    color: #000000;
+}
+
 .marginTop{
     padding-top: 20px;
 }

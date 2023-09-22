@@ -89,7 +89,7 @@ async function cargarAsignaturas(){
      
     //llamada a la API obtener las materias del docente logeado
     const JSON = await dataFetch(NOTAS_API, 'ObtenerMaterias');
-    debugger
+     
     //Se compara la respuesta de la api
     if (JSON.status) {
          

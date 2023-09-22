@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
                     $result['tipo'] = $_SESSION['tipo'];
                     $result['id_cargo'] = $_SESSION['id_cargo'];
                     $result['id_empleado'] = $_SESSION['id_empleado'];
-                    $result['nombre'] = $_SESSION['empleado'];
+                    $result['empleado'] = $_SESSION['empleado'];
                     //$result['atributos_vista'] = $_SESSION['atributos_vista'];
                 } else {
                     $result['exception'] = 'La sesión ya no es válida';
@@ -406,7 +406,6 @@ if (isset($_GET['action'])) {
                     $_SESSION['id_empleado'] = $usuario->getId();
                     $_SESSION['tipo'] = $usuario->getTipo_empleado();
                     $_SESSION['id_cargo'] = $usuario->getId_cargo();
-                    $_SESSION['empleado'] = $usuario->getEmpleado();
                     $_SESSION['correo_empleado'] = $usuario->getCorreo_empleado();
                     $_SESSION['tiempo'] = time();
                     $result['status'] = 1;

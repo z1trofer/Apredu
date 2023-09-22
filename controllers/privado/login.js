@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const JSON2 = await dataFetch(USER_API, 'readUsers');
     if (JSON2.status) {
     } else {
-        debugger
+         
         // Se muestra el formulario para registrar el primer usuario
         document.getElementById('btnEmpleados').click();
         sweetAlert(3, '¡Vaya!, parece que es tu primera vez con nosotros, debes registrar el primer usuario', true);

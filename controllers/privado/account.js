@@ -9,7 +9,7 @@ const USER_API = 'business/privado/usuarios.php';
 const NAVBAR = document.getElementById('navbar');
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-     
+
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const JSON = await dataFetch(USER_API, 'getSession');
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
@@ -18,108 +18,115 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (JSON.status) {
 
             NAVBAR.innerHTML = `        
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <!-- Container wrapper -->
-            <div class="container">
-                <!-- Navbar brand -->
-                <a class="img_navbar" href="principal.html">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
                     <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
                 </a>
-
-                <!-- Toggle button -->
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                    data-mdb-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                    <!-- Left links -->
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <!--dashboard-->
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="principal.html">Dashboard</a>
                         </li>
-                        <li class="nav-item dropdown " id="mantenimientos_list" hidden>
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        <!--dropdown mantenimientos-->
+                        <li class="nav-item dropdown"  id="mantenimientos_list">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Mantenimientos
                             </a>
-                            <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <!--Grados-->
                                 <li>
                                     <a class="dropdown-item" id="vista_grados" href="grados.html">Grados</a>
                                 </li>
+                                <!--Asignaturas-->
                                 <li>
-                                    <a class="dropdown-item" id="vista_asignaturas" href="asignaturas.html">Asignaturas</a>
+                                    <a class="dropdown-item" id="vista_asignaturas"
+                                        href="asignaturas.html">Asignaturas</a>
                                 </li>
+                                <!--Trimestres-->
                                 <li>
-                                    <a class="dropdown-item" id="vista_trimestres" href="trimestres.html">Trimestres escolares</a>
+                                    <a class="dropdown-item" id="vista_trimestres" href="trimestres.html">Trimestres
+                                        escolares</a>
                                 </li>
+                                <!--Permisos-->
                                 <li>
                                     <a class="dropdown-item" id="vista_permisos" href="permisos.html">Permisos</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown" id="docentes_list" hidden>
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        <!--dropdown Docente-->
+                        <li class="nav-item dropdown" id="docentes_list">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Docentes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <!--Personal-->
                                 <li>
-                                    <a class="dropdown-item doce" id="vista_empleados" href="empleados.html">Personal académico</a>
+                                    <a class="dropdown-item" id="vista_empleados" href="empleados.html">Personal
+                                        académico</a>
                                 </li>
+                                <!--Actividades-->
                                 <li>
-                                    <a class="dropdown-item" id="vista_actividades" href="actividades.html">Actividades</a>
+                                    <a class="dropdown-item" id="vista_actividades"
+                                        href="actividades.html">Actividades</a>
                                 </li>
-                                
                             </ul>
                         </li>
-                        <li class="nav-item dropdown" id="estudiantes_list" hidden>
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        <!--dropdown Estudiantes-->
+                        <li class="nav-item dropdown" id="docentes_list">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
-                                estudiantes
+                                Estudiantes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <!--estudiantes-->
                                 <li>
                                     <a class="dropdown-item" id="vista_estudiantes" href="estudiantes.html">Alumnos</a>
                                 </li>
+                                <!--Responsables-->
                                 <li>
-                                    <a class="dropdown-item" id="vista_responsables" href="responsables.html">Responsables</a>
+                                    <a class="dropdown-item" id="vista_responsables"
+                                        href="responsables.html">Responsables</a>
                                 </li>
+                                <!--Fichas-->
                                 <li>
                                     <a class="dropdown-item" id="vista_fichas" href="fichas.html">Fichas de conducta</a>
                                 </li>
+                                <!--Notas-->
                                 <li>
                                     <a class="dropdown-item" id="vista_notas" href="notas_ingresar.html">Notas</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                        </li>
-                    </ul>
-                    <!-- Left links -->
-                </div>
-                <div class="dropdown">
-                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
-                        id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                        <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
-                            alt="Black and White Portrait of a Man" loading="lazy" />
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                        <li>
-                            <a class="dropdown-item" id="userActive" class="nav-link active">${JSON.usuario}</a>
-                                <a class="dropdown-item">cargo: ${JSON.tipo}</a>
-                                <a class="dropdown-item" href="perfil.html"> Editar perfil</a>
-                                <a class="dropdown-item" onclick="logOut()">Cerrar sesión</a>
+                        <!--dropdown Perfil-->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
+                                    alt="Black and White Portrait of a Man" loading="lazy">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" id="userActive">admin</a>
+                                    <a class="dropdown-item">cargo: admin</a>
+                                    <a class="dropdown-item" href="perfil.html"> Editar perfil</a>
+                                    <a class="dropdown-item" onclick="logOut()">Cerrar sesión</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
             </div>
-            <!-- Collapsible wrapper -->
-            </div>
-            <!-- Container wrapper -->
-            </nav>`;
-            
+        </nav>`;
+
             //si el nivel de usuario es docente se ocultan los menus respectivos
             vistaPermisos();
             /*if(JSON.id_cargo == 2){
@@ -135,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             JSON = await dataFetch(USER_API, 'logOut');
             location.href = 'index.html';
         }
-        
+
     } else if (location.pathname == '/Apredu/vistas/privado/index.html') {
         // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
     } else {
@@ -146,21 +153,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 );
 
 //funcion para filtrar el menu navbar en funcion de los permisos del usuario
-async function vistaPermisos(){
-    
+async function vistaPermisos() {
+
     //se consulta los permisos del usuario
     const JSON = await dataFetch(USER_API, 'getPermisosVista');
     //se valida el resultado
-    debugger
-    if(JSON.status){
-        
+
+    if (JSON.status) {
+
         //se asigna el arreglo con los permisos a la variable atributos
         atributos = JSON.dataset;
 
         //mantenimientos
-        if(atributos.view_grados == 0 && atributos.view_asignaturas == 0 && atributos.view_trimestres == 0 && atributos.edit_permisos == 0){
+        if (atributos.view_grados == 0 && atributos.view_asignaturas == 0 && atributos.view_trimestres == 0 && atributos.edit_permisos == 0) {
             document.getElementById('mantenimientos_list').hidden = true;
-        }else{
+        } else {
             //se mouestra la lista
             document.getElementById('mantenimientos_list').hidden = false;
             //se declaran los elementos de la lista
@@ -172,13 +179,13 @@ async function vistaPermisos(){
             (atributos.view_asignaturas == 1) ? v_asignaturas.hidden = false : v_asignaturas.hidden = true;
             (atributos.view_trimestres == 1) ? v_trimestres.hidden = false : v_trimestres.hidden = true;
             (atributos.edit_permisos == 1) ? v_permisos.hidden = false : v_permisos.hidden = true;
-    
+
         }
 
         //docentes
-        if(atributos.view_empleados == 0 && atributos.view_actividades == 0){
+        if (atributos.view_empleados == 0 && atributos.view_actividades == 0) {
             document.getElementById('docentes_list').hidden = true;
-        }else{
+        } else {
             //se mouestra la lista
             document.getElementById('docentes_list').hidden = false;
             //se declaran los elementos de la lista
@@ -186,14 +193,14 @@ async function vistaPermisos(){
             v_actividades = document.getElementById('vista_actividades');
             (atributos.view_empleados == 1) ? v_empleados.hidden = false : v_empleados.hidden = true;
             (atributos.view_actividades == 1) ? v_actividades.hidden = false : v_actividades.hidden = true;
-    
+
         }
 
         //estudiantes
-        if(atributos.view_estudiantes == 0 && atributos.view_responsables == 0 && atributos.view_fichas == 0 && atributos.view_notas == 0){
+        if (atributos.view_estudiantes == 0 && atributos.view_responsables == 0 && atributos.view_fichas == 0 && atributos.view_notas == 0) {
             document.getElementById('estudiantes_list').hidden = true;
-        }else{
-            
+        } else {
+
             //se mouestra la lista
             document.getElementById('estudiantes_list').hidden = false;
             //se declaran los elementos de la lista
@@ -206,7 +213,7 @@ async function vistaPermisos(){
             (atributos.view_fichas == 1) ? v_fichas.hidden = false : v_fichas.hidden = true;
             (atributos.view_notas == 1) ? v_notas.hidden = false : v_notas.hidden = true;
         }
-    }else{
+    } else {
         sweetAlert(2, "Error, No se pudo obtener los permisos, su sesión no es valida, o ha expirado", false);
     }
     //se valida la seccion de mantenimientos
