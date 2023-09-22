@@ -47,14 +47,18 @@
     width: 20px;
     height: 20px;
 }
-
-
+/*
+#cont-nav{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+*/
 #size-select{
     width: 100px;
 }
 
 main{
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 #tabla{

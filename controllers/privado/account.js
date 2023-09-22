@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             NAVBAR.innerHTML = `        
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+            <div id="cont-nav" class="container-fluid">
+                <a class="navbar-brand" href="principal.html">
                     <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <div class=" collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <!--dashboard-->
                         <li class="nav-item">
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </ul>
                         </li>
                         <!--dropdown Estudiantes-->
-                        <li class="nav-item dropdown" id="docentes_list">
+                        <li class="nav-item dropdown" id="estudiantes_list">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Estudiantes
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
                                     alt="Black and White Portrait of a Man" loading="lazy">
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
                                     <a class="dropdown-item" id="userActive">admin</a>
                                     <a class="dropdown-item">cargo: admin</a>
