@@ -77,6 +77,7 @@ class Usuarios extends UsuariosQueries
 
     public function setClave($value)
     {
+        //validación de contraseña y conversión a hash
         if (Validator::validatePassword($value)) {
             $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;
@@ -87,6 +88,7 @@ class Usuarios extends UsuariosQueries
 
     public function setClaveLog($value)
     {
+        //conversión a hash sin validar (solo para logIn)
         if ($value) {
             $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;

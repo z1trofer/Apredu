@@ -124,7 +124,6 @@ async function cargarNotas(id_actividadFun, actividadFun) {
                 <th scope="col">${row.apellido_estudiante}</th>
                 <th scope="col">${row.nombre_estudiante}</th>
                 <th scope="col"><input id="input${row.id_nota}" class="${color} notaIn" value="${nota}" onclick="value=''" onblur="NotaUpdatePreparar(${row.id_nota})"></th>
-                <th scope="col"><button onclick="openReport(${row.id_estudiante})"><i class='bx bxs-report'></i></button>
                 </th>
 
             </tr>

@@ -6,20 +6,20 @@ require_once('../../entities/dto/permisos.php');
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
-    // Se instancia la clase correspondiente.
+    // Se instancia las clases correspondiente.
     $usuario = new Usuarios;
     $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'clave' => false);
     //arreglo para guardar los permisos de usuario
     $permisos = array();
-    // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
+    // se valida el estado de la sesión
     if (isset($_SESSION['id_empleado']) and Validator::validateSessionTime()) {
-        //se identifica que hay una session iniciada
+        //hay una sesión activa
         $result['session'] = 1;
-        //se obtiene el arreglo con los permisos del respectivo usuario
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
+            //acción obtener los empleados registrados
             case 'readUsers':
                 if ($usuario->readAll()) {
                     $result['status'] = 1;
@@ -28,6 +28,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
+                //acción obtener información de la sesión
             case 'getSession':
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
@@ -42,7 +43,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
                 break;
+                //obtener permisos de las vistas (navbar)
             case 'getPermisosVista':
+
                 if (isset($_SESSION['usuario'])) {
                     $access = array('edit_permisos', 'view_grados', 'view_trimestres', 'view_asignaturas', 'view_actividades', 'view_empleados', 'view_estudiantes', 'view_responsables', 'view_fichas', 'view_notas');
                     if (!$usuario->setId($_SESSION['id_empleado'])) {
@@ -67,6 +70,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias de usuario indefinido';
                 }
                 break;
+                //salir de la sesión
             case 'logOut':
                 if (session_destroy()) {
                     $result['status'] = 1;
@@ -75,6 +79,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
+                //obtener los datos del usuario
             case 'readProfile':
                 if ($result['dataset'] = $usuario->readProfile()) {
                     $result['status'] = 1;
@@ -84,6 +89,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario inexistente';
                 }
                 break;
+                //cambiar información del empleado
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setNombre_empleado($_POST['nombres'])) {
@@ -102,6 +108,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+                //cambiar contraseña (perfil)
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setId($_SESSION['id_empleado'])) {
@@ -119,47 +126,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'readAll':
-                if ($result['dataset'] = $usuario->readAll()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
-            case 'readAdmin':
-                if ($result['dataset'] = $usuario->readAdmin()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
-            case 'readEst':
-                if ($result['dataset'] = $usuario->readEst()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
-            case 'search':
-                $_POST = Validator::validateForm($_POST);
-                if ($result['dataset'] = $usuario->searchRows($_POST['search'])) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay coincidencias';
-                }
-                break;
+                //crear un usuario/empleado
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
@@ -177,52 +144,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'readOne':
-                if (!$usuario->setId($_POST['id_usuario_administrador'])) {
-                    $result['exception'] = 'Usuario incorrecto';
-                } elseif ($result['dataset'] = $usuario->readOne()) {
-                    $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'Usuario inexistente';
-                }
-                break;
-            case 'update':
-                $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setId($_POST['id'])) {
-                    $result['exception'] = 'Usuario incorrecto';
-                } elseif (!$usuario->setUser($_POST['usuario'])) {
-                    $result['exception'] = 'Alias incorrecto';
-                } elseif (!$usuario->setEstado($_POST['estado'])) {
-                    $result['exeption'] = 'Estado malo';
-                } elseif ($usuario->updateRow()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Usuario modificado correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
-            case 'delete':
-                if ($_POST['id_usuario_administrador'] == $_SESSION['id_usuario_administrador']) {
-                    $result['exception'] = 'No se puede eliminar a sí mismo';
-                } elseif (!$usuario->setId($_POST['id_usuario_administrador'])) {
-                    $result['exception'] = 'Usuario incorrecto';
-                } elseif (!$usuario->readOne()) {
-                    $result['exception'] = 'Usuario inexistente';
-                } elseif ($usuario->deleteRow()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Usuario eliminado correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
     } else {
-        // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
+        // no hay sesión activa
         switch ($_GET['action']) {
+                //verificar si existen usuarios en la base
             case 'readUsers':
                 if ($usuario->readAll()) {
                     $result['status'] = 1;
@@ -231,84 +159,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
-                /* case 'login':
-                     $_POST = Validator::validateForm($_POST);
-                     // validando usuario
-                    if (!$usuario->setUser($_POST['usuario'])) {
-                         $result['exception'] = 'Ingrese un usuario';
-                         //validando clave
-                     } elseif (!$usuario->setClaveLog($_POST['clave'])) {
-                         $result['exception'] = 'Ingrese una contraseña';
-                     } elseif (!$data = $usuario->LogIn($_POST['clave'])) {
-                         $result['exception'] = 'error en el servidor';
-                     } else {
-                         if ($data == false) {
-                             //se dio un error en el servidor
-                             $result['exception'] = 'Error en el servidor';
-                         } else if ($data == 'zzz') {
-                             //usuario bloqueado
-                             $result['exception'] = 'Este usuario ha sido bloqueado. Contacta con los administradores para desbloquear el usuario';
-                         } else if ($data == 'timer') {
-                             //usuario con temporizador
-                            $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere ' . $usuario->getTiempoRest() . 's para volver a intentar';
-                         } else if ($data == 'time') {
-                             //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
-                             if (!$usuario->agregarIntento()) {
-                                 $result['exception'] = 'error al agregar el intento';
-                             } elseif ($usuario->subirTiempoInicio(time())) {
-                                 $result['exception'] = 'Ha intentado iniciar sessión demasiadas espere 30s para volver a intentar aaaa';
-                             } else {
-                                 $result['exception'] = 'Error en el servidor time';
-                             }
-                            //$result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo'/*.$GLOBALS['tiempo_inicio'];
-                         } else if ($usuario->dias_clave >= 90) {
-                             $_SESSION['id_empleado_clave'] = $usuario->getId();
-                             $_SESSION['clave_caducada'] = $_POST['clave'];
-                             $result['clave'] = true;
-                             $result['exception'] = 'Su contraseña ha caducado';
-                         } else if ($data == 'time') {
-                             //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
-                             $usuario->agregarIntento();
-                             $_SERVER['tiempo_inicio'] = time();
-                             $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo' /*.$GLOBALS['tiempo_inicio'];
-                         } else if ($data == 'bloquear') {
-                             //el usuario intento iniciar sesion demasiadas veces por lo que este sera bloqueado
-                             if ($usuario->blockUser()) {
-                                 $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces por lo que su usuario ha sido bloquedo, por favor contactate con un administrador';
-                             } else {
-                                 $result['exception'] = 'Error en el servidor bloq';
-                             }
-                         } else if ($data == 'fail') {
-                            //las credenciales no coincidieron por lo que el usuario no logro iniciar sesion
-                             if ($usuario->agregarIntento()) {
-                                 $result['exception'] = 'No hay coincidencia con las credenciales ingresadas fail' /*.$GLOBALS['tiempo_inicio'];
-                             } else {
-                                 $result['exception'] = 'Error en el servidor Int';
-                             }
-                         } elseif ($data != false) {
-                             if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
-                                 $result['exception'] = 'Error al obtener los atributos del usuario';
-                             } elseif ($usuario->resetIntentos()) {
-                                  //el usuario inicio sesion satisfactoriamente
-                                 $_SESSION['id_empleado'] = $usuario->getId();
-                                 $_SESSION['usuario'] = $usuario->getUser();
-                                 $_SESSION['tipo'] = $usuario->getTipo_empleado();
-                                 $_SESSION['id_cargo'] = $usuario->getId_cargo();
-                                 $_SESSION['empleado'] = $usuario->getEmpleado();
-                                 $_SESSION['correo_empleado'] = $usuario->getCorreo_empleado();
-                                 $_SESSION['tiempo'] = time();
-                                    $result['dataset'] = $data;
-                                 $result['status'] = 1;
-                                 $result['message'] = 'Autenticación correcta, ¡Bienvenido!';
-                             } else {
-                                 $result['exception'] = 'Error en el servidor resInt';
-                             }
-                         } else {
-                            $result['exception'] = Database::getException();
-                         }
-                     }
-                     break;
-                     */
+                //logear un usuario en sistemas
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['usuario'])) {
@@ -323,13 +174,13 @@ if (isset($_GET['action'])) {
                         //se dio un error en el servidor
                         $result['exception'] = 'Credenciales incorrectas';
                     } else if ($data == 'zzz') {
-                        //usuario bloqueado
+                        //el usuario esta bloqueado
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta a los administradores para desbloquear el usuario';
                     } else if ($data == 'timer') {
-                        //usuario con temporizador
+                        //el usuario tiene un contador de tiempo para iniciar sesión
                         $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces, espere un momento para volver a intentar';
                     } else if ($data == 'time') {
-                        //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
+                        //el usuario intento iniciar sesión demasiadas veces por lo que se le pondra un contador de tiempo
                         if (!$usuario->agregarIntento()) {
                             $result['exception'] = 'Error al agregar el intento';
                         } elseif ($usuario->subirTiempoInicio(time())) {
@@ -337,42 +188,33 @@ if (isset($_GET['action'])) {
                         } else {
                             $result['exception'] = 'Error en el servidor';
                         }
-                        //$result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo';
                     } else if ($usuario->dias_clave >= 90) {
+                        //el usuario tiene una contraseña vieja de mas de noventa dias, por lo que se le solicitará que cambie la contraseña
                         $_SESSION['id_empleado_clave'] = $usuario->getId();
                         $_SESSION['clave_caducada'] = $_POST['clave'];
                         $result['clave'] = true;
                         $result['exception'] = 'Su contraseña ha caducado';
-                    } else if ($data == 'time') {
-                        //el usuario intento iniciar sesion 5 veces seguidas por lo que se le dara un cd para vovler a intentarlo
-                        $usuario->agregarIntento();
-                        $_SERVER['tiempo_inicio'] = time();
-                        $result['exception'] = 'Has intentado iniciar sesión demasiadas veces. Espera 30 s para volver a intentarlo';
                     } else if ($data == 'bloquear') {
-                        //el usuario intento iniciar sesion demasiadas veces por lo que este sera bloqueado
+                        //el usuario será bloqueado por acumular intentos fallidos.
                         if ($usuario->blockUser()) {
                             $result['exception'] = 'Ha intentado iniciar sessión demasiadas veces. Usuario ha sido bloqueado, por favor contacta a un administrador';
                         } else {
                             $result['exception'] = 'Error en el servidor';
                         }
                     } else if ($data == 'fail') {
-                        //las credenciales no coincidieron por lo que el usuario no logro iniciar sesion
+                        //el usuario falló el intento de sesión al no introducir sus credenciales correctamente
                         if ($usuario->agregarIntento()) {
                             $result['exception'] = 'Las credenciales no coinciden';
                         } else {
                             $result['exception'] = 'Error en el servidor';
                         }
                     } elseif ($data != false) {
-                        //if(!$_SESSION['atributos_vista'] = $usuario->obtenerAtributosVista()){
-                        //  $result['exception'] = 'Error al obtener los atributos del usuario';
-                        //} else
+                        //el usuario inició sesión correctamente
                         if ($usuario->resetIntentos()) {
-                            //el usuario inicio sesion satisfactoriamente
-                            // Inicia lo de verificar por el código...
+                            //se reinicia el contador de intentos para el usuario correspondinte
                             $result['status'] = 1;
                             $_SESSION['usuario'] = $usuario->getUser();
-                            $result['dataset'] = $data;
-                            // Se crean dos nuevas variables de sesion
+                            //$result['dataset'] = $data;
                             $_SESSION['empleado'] = $usuario->getEmpleado();
                             $_SESSION['correo_empleado'] = $usuario->getCorreo_empleado();
                             $_SESSION['tiempo'] = time();
@@ -399,8 +241,8 @@ if (isset($_GET['action'])) {
                 // Se valida el código enviado y el código ingresado
                 if ($_POST['codigo_verificacion'] != $_SESSION['ad']) {
                     $result['exception'] = 'Código incorrecto';
-                    
                 } elseif ($usuario->checkAD($_SESSION['id_empleado_ad'])) {
+                    //se obtienen los dataos faltantes de el empleado
                     unset($_SESSION['id_empleado_ad']);
                     unset($_SESSION['ad']);
                     $_SESSION['id_empleado'] = $usuario->getId();
@@ -414,15 +256,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+                //enviar Ping de recuperación de contraseña
             case 'crearEnviarPing':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setUser($_POST['user-recu'])) {
                     $result['exception'] = 'Ingrese un usuario';
-                    //validando clave
+                    //validando usuario
                 } elseif (!$usuario->getCorreo()) {
                     $result['exception'] = 'Este usuario no existe';
                 } else {
+                    //se genera el codigo usando un algoritmo
                     $_SESSION['pin_recu'] = random_int(1000000, 9999999);
+                    //se envia el correo
                     if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de recuperación', 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, para que puedas recuperar tu cuenta te envimos el siguiente codigo:', $_SESSION['pin_recu'])) {
                         $_SESSION['intentos_recu'] = 0;
                         $result['status'] = 1;
@@ -432,26 +277,30 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
-
+                //Validación del codigo de recuperación
             case 'validarRecu':
                 $_POST = Validator::validateForm($_POST);
-                if ($_SESSION['intentos_recu'] > 5){
+                //se verifican los intentos del codigo
+                if ($_SESSION['intentos_recu'] > 5) {
+                    //se interrumpe el intento de recuperación y se cierra la sesión parcial
                     $result['exception'] = 'Su codigo de recuperación ya no es valido debido a que ha fallado muchas veces';
                     session_destroy();
                 } elseif ($_POST['code-recu'] == $_SESSION['pin_recu']) {
+                    //el codigo de recuperación es correcto
                     $_SESSION['pin-us'] = $_POST['code-recu'];
                     $result['status'] = 1;
                     $result['message'] = 'Por favor ingrese una nueva contraseña';
                 } else {
-                    $_SESSION['intentos_recu'] = $_SESSION['intentos_recu']+1;
+                    //el codigo de recuperación es erroneo, se agrega un intento de recuperación fallido
+                    $_SESSION['intentos_recu'] = $_SESSION['intentos_recu'] + 1;
                     $result['exception'] = 'El codigo de recuperación no coincide';
-
                 }
                 break;
+                //cambiar contraseña (recuperación)
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
-                //cambio de contraseña por dias y session
-                if(isset($_SESSION['clave_caducada']) || isset($_SESSION['id_empleado'])){
+                //cambio de contraseña por dias y sesión
+                if (isset($_SESSION['clave_caducada']) || isset($_SESSION['id_empleado'])) {
                     if (!$usuario->setId($_SESSION['id_empleado_clave'])) {
                         $result['exception'] = 'Usuario incorrecto';
                     } elseif ($_POST['claveNueva'] == $_SESSION['clave_caducada']) {
@@ -467,8 +316,8 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = Database::getException();
                     }
-                //cambio de contraseña por recuperacion
-                } elseif($_SESSION['pin_recu'] == $_SESSION['pin-us']) {
+                    //cambio de contraseña por recuperacion
+                } elseif ($_SESSION['pin_recu'] == $_SESSION['pin-us']) {
                     if (!$usuario->setId($_SESSION['id_empleado_clave'])) {
                         $result['exception'] = 'Usuario incorrecto';
                     } elseif ($_POST['claveNueva'] != $_POST['confirmarNueva']) {
@@ -482,19 +331,11 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = Database::getException();
                     }
-                }
-                 else {
+                } else {
                     $result['exception'] = 'No tienes autorización para realizar esta acción';
                 }
                 break;
-            case 'logOut':
-                if (session_destroy()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Sesión eliminada correctamente';
-                } else {
-                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
-                }
-                break;
+                //obtener información de la sesión
             case 'getSession':
                 if (isset($_SESSION['usuario'])) {
                     $result['status'] = 1;
@@ -503,6 +344,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'La sesión ya no es válida';
                 }
                 break;
+                //registrar un empleado (primer uso)
             case 'signup':
                 $_POST = Validator::validateForm($_POST);
                 if ($usuario->readAll()) {
@@ -536,6 +378,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();;
                 }
                 break;
+                //obtener los cargos
             case 'readCargos':
                 if ($result['dataset'] = $usuario->readCargos()) {
                     $result['status'] = 1;
