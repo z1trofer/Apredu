@@ -43,11 +43,13 @@ let idgrado = null
 
 // Método manejador de eventos para cuando se envía el formulario de inicio de sesión.
 LOGIN_FORM.addEventListener('submit', async (event) => {
+    buto = document.getElementById('login_button');
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(LOGIN_FORM);
     // Petición para iniciar sesión.
+    buto.disabled = true;
     const JSON = await dataFetch(USER_API, 'login', FORM);
 
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -60,7 +62,9 @@ LOGIN_FORM.addEventListener('submit', async (event) => {
             sweetAlert(3, JSON.exception, true);
             //Abrir model para cambiar contraseña
             PASSWORD_MODAL.show();
+            buto.disabled = false;
         } else {
+            buto.disabled = false;
             sweetAlert(2, JSON.exception, false);
         }
     }
