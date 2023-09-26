@@ -389,6 +389,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //cerrar sesión
+                case 'logOut':
+                    if (session_destroy()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Sesión eliminada correctamente';
+                    } else {
+                        $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
+                    }
+                    break;
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }

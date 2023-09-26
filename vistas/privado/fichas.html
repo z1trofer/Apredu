@@ -11,10 +11,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <title>Fichas de conducta</title>
 </head>
-<main id="private">
-    <header id="navbar">
 
-    </header>
+
+
+<main>
 
     <div class="container">
         <div class="row">
@@ -40,7 +40,8 @@
                     </div>
                     <div class="offcanvas-body">
                         <div>
-                            <button onclick="openReportSemanal()" type="button" class="btn btn-success btn-rounded">Reporte semanal</button>
+                            <button onclick="openReportSemanal()" type="button"
+                                class="btn btn-success btn-rounded">Reporte semanal</button>
                         </div>
                     </div>
                 </div>
@@ -62,22 +63,24 @@
                                 <label>Buscar ficha de conducta:</label>
                                 <input class="form-control me-2 light-table-filter" data-table="table" type="text">
                             </div>
-                            <table class="table table-responsive-sm">
-                                <thead>
-                                    <tr id="records2"></tr>
-                                    <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Apellido</th>
-                                        <th scope="col">Grado</th>
-                                        <th scope="col">Descripción</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Profesor que la asignó</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody-rows2">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr id="records2"></tr>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Grado</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Profesor que la asignó</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-rows2">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -96,22 +99,24 @@
                 </form>
             </div>
         </div>
-        <table class="table table-responsive-sm">
-            <thead>
-                <tr id="records"></tr>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Grado</th>
-                    <th scope="col">Reporte</th>
-                    <th scope="col">Agregar/Ver fichas</th>
-                </tr>
-            </thead>
-            <tbody id="tbody-rows">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr id="records"></tr>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Grado</th>
+                        <th scope="col">Reporte</th>
+                        <th scope="col">Agregar/Ver fichas</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-rows">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div>
@@ -152,7 +157,8 @@
                             </div>
                             <div class="input-field col s12 m6">
                                 <label for="nombres">Descripción</label>
-                                <textarea class="form-control" id="descripcion" name="descripcion" rows="7" autocomplete="off"></textarea>
+                                <textarea class="form-control" id="descripcion" name="descripcion" rows="7"
+                                    autocomplete="off"></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>

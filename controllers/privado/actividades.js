@@ -2,7 +2,7 @@
 const ACTIVIDADES_API = 'business/privado/actividades.php';
 const NOTAS_API = 'business/privado/notas.php';
 const TITULO_MODAL = document.getElementById('modal-title');
-const TBODY_ROWS = document.getElementById('TablaEm');
+const TBODY_ROWS = document.getElementById('tbody');
 const FORMULARIO = document.getElementById('save-form');
 const SEARCH_FORM = document.getElementById('search');
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     CargarTrimestres();
-    fillTable();
+    //fillTable();
     CargarGrados();
     cargarAsignaturas();
     CargarNombreDocente();
@@ -44,7 +44,6 @@ async function CargarNombreDocente() {
     //se llama a la API para obtener los datos
     const SESSION = await dataFetch(USER_API, 'getSession');
     //se verifica el id_cargo
-        debugger
         //se llena el label con el nombre del docente
         label.innerHTML = "Empleado: " + SESSION.empleado + ", " + SESSION.tipo;
         //se deja el label vacio
@@ -91,16 +90,30 @@ async function fillTable(form = null) {
             // Se establece un icono para el estado del producto.
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
+            <tr>
+                <th>${row.nombre_actividad}</th>
+                <td>${row.tipo_actividad}</td>
+                <td>${row.descripcion}</td>
+                <td>${row.ponderacion}%</td>
+                <td>${row.fecha_entrega}</td>
+                <td><button tittle="actualizar información"  onclick="updateActividades(${row.id_actividad})" type="button" class="btn btn-info " data-mdb-toggle="modal"
+                data-mdb-target="#ModalActividad"><i class="fa-solid fa-pencil"></i></button>
+                <button tittle="Eliminar" onclick="DeleteActividades(${row.id_actividad})" type="button" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                </td>
+                
+            </tr>`
+
+/*
 <tr>
 
 <div class="row">
 <div class="col-sm text-center">
     <!--<p>Titulo</p>-->
-    <h3>${row.nombre_actividad}</h3>
+    <h3></h3>
 
     <!--<p>Tipo de actividad</p>-->
     <button class="btn btn-primary" type="button" id="btnEm_grado" aria-expanded="false">
-    ${row.tipo_actividad}
+    
     </button>
     <br>
     <td>${row.grado}</td>
@@ -110,15 +123,15 @@ async function fillTable(form = null) {
 <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
 <div class="col-sm text-center">
     <h5>Descripción</h5>
-    <p>${row.descripcion}</p>
+    <p></p>
 </div>
 <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
 <div class="col-sm text-center">
     <h5>Ponderación</h5>
-    <p>${row.ponderacion}%</p>
+    <p></p>
 
     <h5>Fecha Limite</h5>
-    <p>${row.fecha_entrega}</p>
+    <p></p>
 </div>
 <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
 <div class="col-sm-1 text-center">
@@ -141,10 +154,10 @@ async function fillTable(form = null) {
 
 
 
-    <hr class="hr" />
+    <hr />
 
 </tr>
-`;
+*/;
         });
 
         // RECORDS.textContent = JSON.message;

@@ -82,15 +82,15 @@ async function fillTable(form = null) {
                 <td>${row.id_grado}</td>
                     <td>${row.grado}</td>
                     <td>
-                    <button onclick="openUpdate(${row.id_grado})"  type="button" class="btn btn-info btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button title="cambiar nombre" onclick="openUpdate(${row.id_grado})"  type="button" class="btn btn-info btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa-solid fa-pencil"></i>
                     </button>
-                    <button onclick="openDetalle(${row.id_grado})"  type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalDetalle">
+                    <button title="ver asignaturas" onclick="openDetalle(${row.id_grado})"  type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalDetalle">
                     <i class="fa-solid fa-eye"></i>
                     </button>
-                    <button onclick="openDelete(${row.id_grado})" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                    <button onclick="openReport(${row.id_grado})" type="button" class="btn btn-warning"><i class="fas fa-book"></i></button>
-                    <button onclick="graficoPromedio2(${row.id_grado})" type="button" class="btn btn-primary btn-outline btn-floating"
+                    <button title="eliminar" onclick="openDelete(${row.id_grado})" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    <button title="ver reporte" onclick="openReport(${row.id_grado})" type="button" class="btn btn-warning"><i class="fas fa-book"></i></button>
+                    <button title="ver grafico" onclick="graficoPromedio2(${row.id_grado})" type="button" class="btn btn-primary btn-outline btn-floating"
                             data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#save-modalgr1">
                             <i class="fas fa-chart-pie"></i>
                         </button>

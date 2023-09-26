@@ -214,7 +214,7 @@ async function vistaPermisos() {
             (atributos.view_notas == 1) ? v_notas.hidden = false : v_notas.hidden = true;
         }
     } else {
-        sweetAlert(2, "Error, No se pudo obtener los permisos, su sesión no es valida, o ha expirado", false);
+        sweetAlert(2, "Error, no se pudo obtener los permisos. Su sesión no es valida o ha expirado, cierre sesión para volver a entrar", false);
     }
     //se valida la seccion de mantenimientos
 }

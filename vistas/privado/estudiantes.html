@@ -68,22 +68,24 @@
         </div>
         <br>
         <div class="container">
-            <table class="table table-responsive-sm">
-                <thead>
-                    <tr id="records"></tr>
-                    <tr>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Grado</th>
-                        <th scope="col">Información</th>
-                        <th scope="col">Notas</th>
-                        <th scope="col">Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody-rows">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr id="records"></tr>
+                        <tr>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Grado</th>
+                            <th scope="col">Información</th>
+                            <th scope="col">Notas</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-rows">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!--Modals-->
 
@@ -341,12 +343,13 @@
                             <div class="row">
                                 <div class="col-sm">
                                     <h5>Dirección</h5>
-                                    <textarea name="direccion_estudiante" id="direccion_estudiante" class="Validate try" autocomplete="off"
-                                        rows="3"></textarea>
+                                    <textarea name="direccion_estudiante" id="direccion_estudiante" class="Validate try"
+                                        autocomplete="off" rows="3"></textarea>
                                 </div>
                                 <div class="col-sm">
                                     <h5>NIE</h5>
-                                    <input type="text" name="nie" id="nie" class="Validate try" autocomplete="off" required>
+                                    <input type="text" name="nie" id="nie" class="Validate try" autocomplete="off"
+                                        required>
                                 </div>
                                 <div class="col-sm">
                                     <h5>Usuario</h5>
@@ -355,7 +358,8 @@
                                 </div>
                                 <div class="col-sm">
                                     <h5 id="nombre_clave">Clave</h5>
-                                    <input type="password" id="clave" name="clave" class="validate try" autocomplete="off">
+                                    <input type="password" id="clave" name="clave" class="validate try"
+                                        autocomplete="off">
                                 </div>
                                 <div class="col-sm">
                                     <h5>Estado del estudiante</h5>

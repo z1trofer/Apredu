@@ -8,6 +8,7 @@
     <link rel="icon" href="../../recursos/logo1xd2.png">
     <link rel="stylesheet" href="../../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <title>Gestionar Actividades</title>
 </head>
 
@@ -58,23 +59,8 @@
                                         <div class="col-4">
                                             <h5>Ponderación</h5>
                                             <div class="mb-3">
-                                                <select class="form-select" required aria-label="select example"
-                                                    id="ponderacion" name="ponderacion">
-                                                    <option value="">Seleccione una opción</option>
-                                                    <option value="10">10</option>
-                                                    <option value="15">15</option>
-                                                    <option value="20">20</option>
-                                                    <option value="25">25</option>
-                                                    <option value="30">30</option>
-                                                    <option value="35">35</option>
-                                                    <option value="40">40</option>
-                                                    <option value="45">45</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                                <div class="invalid-feedback">Ejemplo de comentarios de selección no
-                                                    válidos
-                                                </div>
+                                                <input id="ponderacion" name="ponderacion" type="text" class="form-control is-valid"
+                                                id="input-ponderacion" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -160,7 +146,7 @@
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Año 2023
                             </button>
-                            <ul id="listTrimestre" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul id="listAnios" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" href="#">Año 2022</a></li>
                                 <li><a class="dropdown-item" href="#">Año 2021</a></li>
                             </ul>
@@ -204,132 +190,74 @@
                 <div class="row">
                     <div id="infoMenuEmp" class="col text-center">
                         <button id="buscar" type="button" class="btn btn-primary"
-                            onclick="BusquedaParametrizada()">Filtrar</button>
+                            onclick="BusquedaParametrizada()">Filtrar <i class="fas fa-filter"></i></button>
                     </div>
                 </div>
             </form>
         </div>
         <!----------------------------------tablA------------------------>
         <div class="container" id="TablaEm">
-            <!--rows-->
-            <div class="row">
-                <div class="col-sm text-center">
-                    <!--<p>Titulo</p>-->
-                    <h3>Actividad Cotidiana 1</h3>
-
-                    <!--<p>Tipo de actividad</p>-->
-                    <button class="btn btn-primary" type="button" id="btnEm_grado" aria-expanded="false">
-                        Actividad Cotidiana
-                    </button>
-                </div>
-                <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
-                <div class="col-sm text-center">
-                    <h5>Descripción</h5>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio eius ad voluptatibus
-                        quisquam neque illo ullam, enim nobis in, sed accusantium dolorum nesciunt cumque saepe
-                        obcaecati dignissimos sapiente. Ullam, provident.</p>
-                </div>
-                <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
-                <div class="col-sm text-center">
-                    <h3>Ponderación</h3>
-                    <p>15%</p>
-
-                    <h3>Fecha Limite</h3>
-                    <p>27/03/2023</p>
-                </div>
-                <div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
-                <div class="col-sm-1 text-center">
-                    <br>
-                    <br>
-
-                    <button style="border-style: none; background: transparent; "><img
-                            src="../../recursos/iconos/informacion-removebg-preview.png" data-mdb-toggle="modal"
-                            data-mdb-target="#ModalActividad" alt=""></button>
-
-                </div>
-                <div class="col-sm-1 text-center">
-                    <br>
-                    <br>
-                    <button style="border-style: none; background: transparent; "><img
-                            src="../../recursos/iconos/eliminar2.png" alt=""></button>
-
-                </div>
-            </div>
-
-            <hr class="hr" />
-
-            <div class="row">
-                <div class="col-sm text-center">
-                    <h3>Titulo</h3>
-                    <p>Examen de Trimestre</p>
-
-                    <h3>Tipo de actividad</h3>
-                    <button class="btn btn-primary" type="button" id="btnEm_grado" data-mdb-toggle="dropdown"
-                        aria-expanded="false">
-                        Examen
-                    </button>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Descripción</h3>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio eius ad voluptatibus
-                        quisquam neque illo ullam, enim nobis in, sed accusantium dolorum nesciunt cumque saepe
-                        obcaecati dignissimos sapiente. Ullam, provident.</p>
-                </div>
-                <div class="col-sm text-center">
-                    <h3>Ponderación</h3>
-                    <p>50%</p>
-
-                    <h3>Fecha Limite</h3>
-                    <p>31/03/2023</p>
-                </div>
-                <div class="col-sm-1 text-center">
-                    <img src="../../recursos/iconos/icons8-editar-30.png" alt="">
-                </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre actividad</th>
+                            <th scope="col">Tipo actividad</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Ponderación</th>
+                            <th scope="col">Fecha Límite</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
 
     </main>
-        <footer class="bg-dark text-center text-white">
-            <div class="container p-4 pb-0">
-                <!-- Seccion: Social -->
-                <section class="mb-4">
-                    <!-- Facebook -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                            class="fab fa-facebook-f"></i></a>
+    <footer class="bg-dark text-center text-white">
+        <div class="container p-4 pb-0">
+            <!-- Seccion: Social -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-facebook-f"></i></a>
 
-                    <!-- Twitter -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                            class="fab fa-twitter"></i></a>
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-twitter"></i></a>
 
-                    <!-- Google -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                            class="fab fa-google"></i></a>
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-google"></i></a>
 
-                    <!-- Instagram -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                            class="fab fa-instagram"></i></a>
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-instagram"></i></a>
 
-                    <!-- Linkedin -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                            class="fab fa-linkedin-in"></i></a>
-                </section>
-            </div>
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                © 2023 Copyright:
-                <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-linkedin-in"></i></a>
+            </section>
+        </div>
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
     <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 </body>
 
-    <script src="../../recursos/js/sweetalert.min.js"></script>
-    <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/account.js" defer></script>
-    <script src="../../controllers/privado/actividades.js"></script>
+<script src="../../recursos/js/sweetalert.min.js"></script>
+<script src="../../controllers/components.js"></script>
+<script src="../../controllers/privado/account.js" defer></script>
+<script src="../../controllers/privado/actividades.js"></script>
 
 </body>
 
