@@ -102,62 +102,7 @@ async function fillTable(form = null) {
                 </td>
                 
             </tr>`
-
-/*
-<tr>
-
-<div class="row">
-<div class="col-sm text-center">
-    <!--<p>Titulo</p>-->
-    <h3></h3>
-
-    <!--<p>Tipo de actividad</p>-->
-    <button class="btn btn-primary" type="button" id="btnEm_grado" aria-expanded="false">
-    
-    </button>
-    <br>
-    <td>${row.grado}</td>
-    <br>
-    <td>${row.asignatura}</td>
-</div>
-<div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
-<div class="col-sm text-center">
-    <h5>Descripción</h5>
-    <p></p>
-</div>
-<div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
-<div class="col-sm text-center">
-    <h5>Ponderación</h5>
-    <p></p>
-
-    <h5>Fecha Limite</h5>
-    <p></p>
-</div>
-<div class="vr" style="width: 1px; padding: 0px; background-color: gray;"></div>
-<div class="col-sm-1 text-center">
-<br>
-<br>
-
-<button style="border-style: none; background: transparent; "><img
-    src="../../recursos/iconos/informacion-removebg-preview.png" data-mdb-toggle="modal"
-    data-mdb-target="#ModalActividad" onclick="updateActividades(${row.id_actividad})" alt=""></button>
-</div>
-<div class="col-sm-1 text-center">
-<br>
-<br>
-
-<button style="border-style: none; background: transparent; "><img src="../../recursos/iconos/eliminar2.png"
-        alt="" onclick="DeleteActividades(${row.id_actividad})"></button>
-
-</div>
-</div>
-
-
-
-    <hr />
-
-</tr>
-*/;
+            ;
         });
 
         // RECORDS.textContent = JSON.message;
