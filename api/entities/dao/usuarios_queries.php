@@ -47,7 +47,9 @@ class UsuariosQueries
             }
             if ($data['estado'] == false) {
                 return 'zzz';
-            } elseif (password_verify($clave, $data['clave'])) {
+            } elseif ($timer == false) {
+                return 'timer';
+            }elseif (password_verify($clave, $data['clave'])) {
                 $this->id = $data['id_empleado'];
                 $this->usuario = $data['usuario_empleado'];
                 $this->cargo = $data['cargo'];
@@ -56,13 +58,11 @@ class UsuariosQueries
                 $this->dias_clave = $data['dias'];
                 $this->correo_empleado = $data['correo_empleado'];
                 return $data;
-            } /*elseif ($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
+            }  elseif ($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
                 return 'time';
-            } */elseif ($data['intentos'] > 3) {
+            } elseif ($data['intentos'] > 25) {
                 return 'bloquear';
-            } elseif ($timer == false) {
-                return 'timer';
-            } else {
+            }  else {
                 return 'fail';
             }
         }

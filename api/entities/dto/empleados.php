@@ -101,7 +101,7 @@ class Empleados extends EmpleadosQueries
 
     public function setfecha_nacimiento($value)
     {
-        if (Validator::validateDate($value)) {
+        if (Validator::validateDate18($value)) {
             $this->fecha_nacimiento = $value;
             return true;
         } else {

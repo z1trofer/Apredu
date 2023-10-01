@@ -22,14 +22,22 @@ if (isset($_GET['action'])) {
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                 } else {
                     $result['status'] = 1;
                 }
                 break;
             case 'readAll':
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_trimestres');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif ($result['dataset'] = $trimestres->readAll()) {
                 //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
-                if ($result['dataset'] = $trimestres->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen '.count($result['dataset']).' registros';
                 } elseif (Database::getException()) {
@@ -41,7 +49,13 @@ if (isset($_GET['action'])) {
                 // Acción para crear un dato en la tabla de grados
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$trimestres->setAnio($_POST['anio'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_trimestres');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$trimestres->setAnio($_POST['anio'])) {
                     $result['exception'] = 'Año incorrecto';
                 }elseif ($trimestres->createRow()) {
                     $result['status'] = 1;
@@ -52,7 +66,14 @@ if (isset($_GET['action'])) {
                 break;
                 //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
-                if (!$grados->setIdAnio($_POST['id_anio'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('view_trimestres');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$grados->setIdAnio($_POST['id_anio'])) {
                     $result['exception'] = 'Año incorrecto';
                 } elseif ($result['dataset'] = $trimestres->readOne()) {
                     $result['status'] = 1;
@@ -65,7 +86,14 @@ if (isset($_GET['action'])) {
                 // Acción para actualizar un dato en la tabla grados
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$trimestres->setIdTrimestre($_POST['id'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_trimestres');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$trimestres->setIdTrimestre($_POST['id'])) {
                     $result['exception'] = 'Trimestre incorrecto';
                 } elseif ($trimestres->updateRow()) {
                         $result['status'] = 1;
@@ -77,7 +105,14 @@ if (isset($_GET['action'])) {
                 break;
                 // Acción para eliminar un dato de la tabla categorías
             case 'delete':
-                if (!$grados->setIdAnio($_POST['id_anio'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_trimestres');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$grados->setIdAnio($_POST['id_anio'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif (!$data = $trimestres->readOne()) {
                     $result['exception'] = 'Grado inexistente';

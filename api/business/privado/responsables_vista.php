@@ -28,7 +28,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readAll':
-                if ($result['dataset'] = $responsable->readAll()) {
+                //obtener permisos de la accion
+                $access = array('view_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega la acción
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif ($result['dataset'] = $responsable->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
@@ -40,7 +47,15 @@ if (isset($_GET['action'])) {
                 //Acción para crear un nuevo Responsable 
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$responsable->setNombresResponsable($_POST['nombres'])) {
+                //obtener permisos de la accion
+                $access = array('edit_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega la acción
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$responsable->setNombresResponsable($_POST['nombres'])) {
+                    //se validan todos los campos
                     $result['exception'] = 'Nombres incorrectos';
                 } elseif (!$responsable->setApellidosResponsable($_POST['apellidos'])) {
                     $result['exception'] = 'Apellidos incorrectos';
@@ -57,13 +72,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->createRow()) {
-                    /*if (!$responsable->setIdResponsable($responsable->ObtenerResponsableIDdui())) {
-                            $result['status'] = 1; 
-                            $result['message'] = 'Responsable creado correctamente';
-                    }else{
-                        $result['exception'] = "Error al guardar los datos del respons";
-                    }
-                    */
+                    //se comprueba la respuesta de la acci´no
                     $result['message'] = 'Responsable creado';
                     if ($responsable->setIdResponsable($responsable->ObtenerResponsableIDdui())) {
                         if ($responsable->AgregarResponsableDetalle()) {
@@ -82,7 +91,14 @@ if (isset($_GET['action'])) {
                 break;
                 //leer un dato seleccionado para luego actualizarlo o solo leer la información 
             case 'readOne':
-                if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
+                //se verifican los permisos necesarios
+                $access = array('view_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se deniega el acceso
+                } elseif (!$responsable->setIdResponsable($_POST['id_responsable'])) {
                     $result['exception'] = 'Responsable incorrecto';
                 } elseif ($result['dataset'] = $responsable->readOne()) {
                     $result['status'] = 1;
@@ -95,7 +111,15 @@ if (isset($_GET['action'])) {
                 //Acción para actualizar un dato de la tabla usuarios
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
+                //obtener permisos de la accion
+                $access = array('edit_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega la acción
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$responsable->setIdResponsable($_POST['id_responsable'])) {
+                    //se validan los campos
                     $result['exception'] = 'Responsable incorrecto';
                 } elseif (!$responsable->readOne()) {
                     $result['exception'] = 'Responsable inexistente';
@@ -116,6 +140,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->updateRow()) {
+                    //se verifica el resultado de la acción
                     $result['message'] = 'Responsable creado';
                     if ($responsable->ActualizarResponsableDetalle()) {
                         $result['status'] = 1;
@@ -128,20 +153,16 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-                /*case 'readOne':
-                if (!$responsable->setIdResponsable($_POST['id_responsable'])) {
-                    $result['exception'] = 'Responsable incorrecto';
-                } elseif ($result['dataset'] = $responsable->readOne()) {
-                    $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'Responsable inexistente';
-                }
-                break;*/
             case 'SearchEstudiante':
                 $_POST = Validator::validateForm($_POST);
-                if ($result['dataset'] = $responsable->SearchEstudiantes($_POST['data'])) {
+                //obtener permisos de la accion
+                $access = array('edit_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega la acción
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif ($result['dataset'] = $responsable->SearchEstudiantes($_POST['data'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {

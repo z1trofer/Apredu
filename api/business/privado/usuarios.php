@@ -12,7 +12,7 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'clave' => false);
     //arreglo para guardar los permisos de usuario
-    $permisos = array();
+    //$permisos = array();
     // se valida el estado de la sesión
     if (isset($_SESSION['id_empleado']) and Validator::validateSessionTime()) {
         //hay una sesión activa
@@ -92,7 +92,14 @@ if (isset($_GET['action'])) {
                 //cambiar información del empleado
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setNombre_empleado($_POST['nombres'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_perfil');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$usuario->setNombre_empleado($_POST['nombres'])) {
                     $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$usuario->setapellido_empleado($_POST['apellidos'])) {
                     $result['exception'] = 'Apellidos incorrectos';
@@ -111,7 +118,14 @@ if (isset($_GET['action'])) {
                 //cambiar contraseña (perfil)
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setId($_SESSION['id_empleado'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_perfil');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$usuario->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 } elseif (!$usuario->checkPassword($_POST['actual'])) {
                     $result['exception'] = 'Clave actual incorrecta';
@@ -129,7 +143,14 @@ if (isset($_GET['action'])) {
                 //crear un usuario/empleado
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setUser($_POST['usuario'])) {
+                //se declaran los permisos necesarios para la accion
+                $access = array('create_usuarios');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($_POST['contrasenia'] != $_POST['confirmar']) {
                     $result['exception'] = 'Claves diferentes';
@@ -168,11 +189,11 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->setClaveLog($_POST['clave'])) {
                     $result['exception'] = 'Ingrese una contraseña';
                 } elseif (!$data = $usuario->logIn($_POST['clave'])) {
-                    $result['exception'] = 'Credenciales incorrectas';
+                    $result['exception'] = 'Las credenciales no coinciden';
                 } else {
                     if ($data == false) {
                         //se dio un error en el servidor
-                        $result['exception'] = 'Credenciales incorrectas';
+                        $result['exception'] = 'Las credenciales no coinciden';
                     } else if ($data == 'zzz') {
                         //el usuario esta bloqueado
                         $result['exception'] = 'Este usuario ha sido bloqueado. Contacta a los administradores para desbloquear el usuario';
@@ -219,7 +240,8 @@ if (isset($_GET['action'])) {
                             $_SESSION['correo_empleado'] = $usuario->getCorreo_empleado();
                             $_SESSION['tiempo'] = time();
                             $_SESSION['id_empleado_ad'] = $usuario->getId();
-                            $_SESSION['ad'] = random_int(100000, 999999);
+                            $_SESSION['2fa_intentos'] = 0;
+                            $_SESSION['ad'] = random_int(10000000, 99999999);
                             $mensaje = $_SESSION['ad'];
                             // Se envía el código al correo del usuario que inicio sesión en lo anterior...
                             if (Props::sendMail($usuario->getCorreo_empleado(), 'Código de autenticación', 'Hola, te saluda la asistencia del Colegio Aprendo Contigo, este tu código de verificación:', $mensaje)) {
@@ -239,7 +261,10 @@ if (isset($_GET['action'])) {
             case 'ad':
                 $_POST = Validator::validateForm($_POST);
                 // Se valida el código enviado y el código ingresado
-                if ($_POST['codigo_verificacion'] != $_SESSION['ad']) {
+                if ($_SESSION['2fa_intentos'] > 4) {
+                    $result['exception'] = 'El codigo ha sido bloqueado debido a que has fallado demasiadas veces. Por favor reinicia el proceso de inicio de sesión';
+                } elseif ($_POST['codigo_verificacion'] != $_SESSION['ad']) {
+                    $_SESSION['2fa_intentos'] = $_SESSION['2fa_intentos']+1;
                     $result['exception'] = 'Código incorrecto';
                 } elseif ($usuario->checkAD($_SESSION['id_empleado_ad'])) {
                     //se obtienen los dataos faltantes de el empleado

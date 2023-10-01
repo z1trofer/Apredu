@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 });
 
+//evento submit del formulario
 SAVE_FORM_AUTENTIFICACION.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -33,3 +34,22 @@ SAVE_FORM_AUTENTIFICACION.addEventListener('submit', async (event) => {
         sweetAlert(2, JSON.exception, false);
     }
 });
+
+//función asíncrona para reiniciar el proceso de inicio de sesión
+async function volverIntentar() {
+     
+    // Se muestra un mensaje de confirmación y se captura la respuesta en una constante.
+    const RESPONSE = await confirmAction('¿Está seguro de reiniciar el proceso de inicio de sesión?');
+    // Se verifica la respuesta del mensaje.
+    if (RESPONSE) {
+         
+        // Petición para eliminar la sesión.
+        const JSON = await dataFetch(USER_API, 'logOut');
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (JSON.status) {
+            sweetAlert(1, JSON.message, true, 'index.html');
+        } else {
+            sweetAlert(2, JSON.exception, false);
+        }
+    }
+}
