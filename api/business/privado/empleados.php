@@ -286,7 +286,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Las contraseñas no coinciden';
                 } elseif (!$Empleados_p->setclave($_POST['clave'])) {
                     $result['exception'] = 'Clave incorrecta';
-                }*/elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
+                }*/ elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
                     $result['exception'] = 'Direccion incorrecto';
@@ -300,7 +300,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif ($Empleados_p->updateRow()) {
                     if ($Empleados_p->getestado() == 1) {
-                        if(!$Empleados_p->resetIntentos()){
+                        if (!$Empleados_p->resetIntentos()) {
                             $result['exception'] = 'Error de los intentos';
                         }
                     }
@@ -308,6 +308,31 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Se ha actualizado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
+                }
+                break;
+                //cambiar contraseña (Empleados)
+            case 'changePasswordUp':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_empleados');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega el acceso
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                    $result['exception'] = 'Claves nuevas diferentes';
+                } elseif (!$Empleados_p->setClave($_POST['nueva'])) {
+                    $result['exception'] = Validator::getPasswordError();
+                } elseif ($Empleados_p->changePassword()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cambio de contraseña exitoso';
+                } elseif(Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else{
+                    $result['exception'] = "Ocurrio un error al cambiar la contraseña";
                 }
                 break;
             case 'delete':

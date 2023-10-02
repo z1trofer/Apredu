@@ -54,6 +54,15 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
+    public function changePassword()
+    {
+        $sql = 'UPDATE empleados
+                SET clave = ?, fecha_clave = current_timestamp()	
+                WHERE id_empleado = ?';
+        $params = array($this->clave, $this->id_empleado);
+        return Database::executeRow($sql, $params);
+    }
+
     public function resetIntentos()
     {
         $sql = 'UPDATE empleados set intentos = 0 where usuario_empleado = ?';

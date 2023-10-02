@@ -107,6 +107,8 @@ if (isset($_GET['action'])) {
                 $access = array('edit_permisos');
                 if (!$permisos->setidCargo($_POST['id_cargo'])) {
                     $result['exception'] = 'Cargo incorrecto';
+                } elseif ($_POST['id_cargo'] == 1 ||$_POST['id_cargo'] == 2) {
+                    $result['exception'] = 'No puedes eliminar este cargo';
                 } elseif ($permisos->eliminarCargo()) {
                     $result['status'] = 1;
                     $result['message'] = 'Cargo eliminado correctamente';

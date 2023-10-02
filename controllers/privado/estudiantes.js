@@ -3,7 +3,7 @@ const ESTUDIANTE_API = 'business/privado/estudiantes.php';
 // Constante para establecer el formulario de guardar para el estudiante.
 const SAVE_FORM_E = document.getElementById('save-formE');
 // Constante para establecer el formulario de guardar para el responsable.
-const SAVE_FORM_R = document.getElementById('save-formR');
+//const SAVE_FORM_R = document.getElementById('save-formR');
 // Constantes para establecer el contenido de la tabla.
 const SAVE_FORM_C = document.getElementById('save_formC');
 const SEARCH_FORM = document.getElementById('search');
@@ -72,7 +72,7 @@ function opcionGrado(grado) {
     document.getElementById('grado').innerHTML = grado;
     document.getElementById('grados_estudiante').value = grado;
 }
-
+/*
 // Método manejador de eventos para cuando se envía el formulario de guardar.
 SAVE_FORM_R.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -93,7 +93,7 @@ SAVE_FORM_R.addEventListener('submit', async (event) => {
     }
 
 });
-
+*/
 
 // Método manejador de eventos para cuando se envía el formulario de guardar.
 SAVE_FORM_E.addEventListener('submit', async (event) => {
@@ -115,28 +115,6 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     }
 });
 
-
-
-// Método manejador de eventos para cuando se envía el formulario de guardar.
-SAVE_FORM_R.addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se verifica la acción a realizar.
-    (document.getElementById('id_responsable').value) ? action = 'update' : action = 'createResponsable';
-    // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM_R);
-    // Petición para guardar los datos del formulario.
-    const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (JSON.status) {
-        fillTable();
-
-        sweetAlert(1, JSON.message, true);
-    } else {
-        sweetAlert(2, JSON.exception, false);
-    }
-
-});
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
@@ -292,7 +270,7 @@ document.getElementById('buscar').addEventListener('onclick', async (event) => {
 
 });*/
 
-
+/*
 // Método manejador de eventos para cuando se envía el formulario de guardar.
 SAVE_FORM_C.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -312,7 +290,8 @@ SAVE_FORM_C.addEventListener('submit', async (event) => {
     }
 
 });
-
+*/
+/*
 async function openFicha(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
@@ -344,7 +323,7 @@ async function openFicha(id) {
         sweetAlert(2, JSON.exception, false);
     }
 }
-
+*/
 
 //funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session
 async function CargarNombreDocente() {
@@ -395,7 +374,7 @@ async function CargarGrados() {
         sweetAlert(2, "Ocurrio un error al cargar los grados, por favor comuniquese con un administrador", false);
     }
 };
-
+/*
 //----busqueda
 async function BusquedaParametrizada() {
     const FORM = new FormData();
@@ -403,7 +382,7 @@ async function BusquedaParametrizada() {
     fillTable(FORM);
 
 }
-
+*/
 
 //REPORTE NOTAS
 function reportNotas(id) {

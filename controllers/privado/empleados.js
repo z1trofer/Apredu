@@ -130,6 +130,24 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         SAVE_FORM.reset();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
+
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+});
+
+//evento click cambiar contraseña (update)
+document.getElementById('savePass').addEventListener('click', async () =>{
+    const FORM = new FormData();
+    FORM.append('id', document.getElementById('id').value);
+    FORM.append('nueva', document.getElementById('claveCarrosel').value);
+    FORM.append('confirmar', document.getElementById('claveConfirmCarrosel').value);
+    const JSON = await dataFetch(EMPLEADOS_API, 'changePasswordUp', FORM);
+    if(JSON.status){
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, JSON.message, true);
+        document.getElementById('claveCarrosel').value == "";
+        document.getElementById('claveConfirmCarrosel').value == "";
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -340,6 +358,8 @@ function openCreate() {
     document.getElementById('estado').hidden = true;
     TITULO_MODAL.textContent = 'Asignar un nuevo empleado';
     fillSelect(EMPLEADOS_API, 'readCargos', 'cargo', 'Seleccione un cargo');
+    document.getElementById('contraCreate').hidden = false;
+    document.getElementById('accordionContra').hidden = true;
 }
 
 function openDetalleActividad(id_empleado) {
@@ -361,7 +381,10 @@ function openDetalleActividad(id_empleado) {
 */
 async function openUpdate(id_empleado) {
     SAVE_FORM.reset();
+    //ocultar elementos no deseados
     document.getElementById('estado').hidden = false;
+    document.getElementById('contraCreate').hidden = true;
+    document.getElementById('accordionContra').hidden = false;
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
     FORM.append('id_empleado', id_empleado);

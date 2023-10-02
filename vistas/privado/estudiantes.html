@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../../css/estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     <title>Gestión de Estudiante</title>
 </head>
 
@@ -23,26 +22,23 @@
         <!--Sección Principal-->
         <div class="container">
             <div class="row">
-                <div class="col-3 col-sm-2">
-                    <button onclick="openCreate()" type="button" class="btn btn-primary" id="btnEmpleados"
-                        data-mdb-toggle="modal" data-mdb-target="#ModalEstInfo">Añadir Estudiante</button>
+                <div class="col-lg-3 col-md-3 col-sm-4">
+                    <button type="button" class="btn btn-primary"  data-mdb-toggle="modal" data-mdb-target="#ModalEstInfo"><i class="fas fa-plus"></i> Añadir estudiante</button>
                 </div>
-                <div class="col-12 col-sm-12">
+                <div class="col-lg-9 col-md-9 col-sm-8 ">
                     <div class="input-group">
                         <div class="form-outline">
-                            <form id="search" role="search" action="">
-                                <input class="form-control me-2 light-table-filter" data-table="table" type="text">
-                                <label class="form-label" for="form1">Buscar</label>
-                            </form>
+                          <input type="search" id="search" name="search" class="form-control" />
+                          <label class="form-label" for="form1">Buscar</label>
                         </div>
-                        <button onclick="BusquedaParametrizada()" type="button" class="btn btn-primary">
-                            <i class="fas fa-search"></i>
+                        <button type="button" class="btn btn-primary">
+                          <i class="fas fa-search"></i>
                         </button>
-                    </div>
+                      </div>
                 </div>
             </div>
         </div>
-
+        
         <br>
         <div class="container">
             <div class="row">
@@ -50,7 +46,6 @@
                     <p>Filtrar por:
                     </p>
                 </div>
-                <!--filtros estudiantes-->
                 <div class="col-5">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropGrados"
@@ -87,76 +82,10 @@
                 </table>
             </div>
         </div>
-        <!--Modals-->
 
-        <div class="modal fade" id="save_form_conducta" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="save_formC" action="">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Conducta del estudiante
-                            </h5>
-                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <input type="hidden" name="id_estudiante_ficha" id="id_estudiante_ficha">
-                                <div class="col">
-                                    <h5>Estudiante</h5>
-                                    <input class="try2" type="text" name="nombre_ficha" id="nombre_ficha" readonly>
-                                    <input class="try2" type="text" name="apellido_ficha" id="apellido_ficha" readonly>
-                                    <p id="nombre_ficha"></p>
-                                    <p id="apellido_ficha"></p>
-                                </div>
-                                <div class="col">
-                                    <h5>Grado</h5>
-                                    <input class="try2" type="text" name="grado_ficha" id="grado_ficha" readonly>
-                                    <p id="grado_ficha"></p>
-                                </div>
-                            </div>
-                            <h5 class="text-center">Fichas de conducta</h5>
-                            <button type="button" class="btn btn btn-floating btn-lg" data-mdb-toggle="modal"
-                                data-mdb-target="#ModalEstConducta">
-                                <img src="../../recursos/iconos/icons8-más-30.png" alt="">
-                            </button>
-                            <!--modal de las fichas / conducta estudiante -->
-                            <div class="row">
-                                <div class="col text-center">
-                                    <h5 id="nombre_empleado">Docente</h5>
-                                    <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2"
-                                        readonly>
-                                    <input class="try2" type="hidden" name="id_empleado" id="id_empleado" readonly>
-                                </div>
-                                <div class="col text-center">
-                                    <h5>Descripción</h5>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row FIcha">
-                                    <div class="col text-center">
-                                        <h5 id="docente_ficha"></h5>
-                                    </div>
-                                    <div class="col text-center">
-                                        <textarea name="ficha_descripcion" id="ficha_descripcion" cols="30"
-                                            rows="4"></textarea>
-                                    </div>
-                                </div>
-                                <br>
-                                <div>
-                                    <button type="submitg" class="btn btn-danger"
-                                        data-mdb-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <!-- Modal notas estudiante -->
+
+        <!-- Modal notas estudiante 
         <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -181,7 +110,7 @@
                 </div>
             </div>
         </div>
-        <!--Modal Perfiles del estudiante-->
+        <!--Modal Perfiles del estudiante-
         <div class="modal fade" id="ModalEstudianteAct" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -236,7 +165,7 @@
                                 </h5>
                             </div>
                         </div>
-                        <!--tabla-->
+                        <!--tabla--
                         <div class="container">
                             <div id="table_act" class="row">
                                 <div class="row">
@@ -298,8 +227,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Modal información del estudiante -->
+        </div> -->
         <div class="modal fade" id="ModalEstInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -382,7 +310,7 @@
                 </div>
             </div>
         </div>
-        <!--modal responsable estudiante -->
+        <!--modal responsable estudiante --
         <div class="modal fade" id="ModalEstResInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -487,9 +415,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </main>
-    <footer>
         <footer class="bg-dark text-center text-white">
             <div class="container p-4 pb-0">
                 <!-- Seccion: Social -->
@@ -518,13 +445,12 @@
             </div>
             <!-- Copyright -->
         </footer>
-    </footer>
     <!--JavaScrip-->
-
-    <script src="../../recursos/js/sweetalert.min.js"></script>
-    <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/account.js"></script>
-    <script src="../../controllers/privado/estudiantes.js"></script>
 </body>
+<script src="../../recursos/js/sweetalert.min.js"></script>
+<script src="../../controllers/components.js"></script>
+<script src="../../controllers/privado/account.js"></script>
+<script src="../../controllers/privado/estudiantes.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 
 </html>
