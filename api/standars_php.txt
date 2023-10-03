@@ -1,0 +1,55 @@
+Estándares de programación utilizados del lado del servidor (PHP)
+Los estándares de programación en el lado del servidor, en el contexto de PHP, son pautas y convenciones que los desarrolladores siguen para escribir código PHP de manera organizada, segura y mantenible, que se detalla a continuación:
+
+Nomenclatura de Variables y Funciones:
+Utilizar nombres descriptivos y en minúsculas para las variables y funciones.
+Utilizar el formato snake_case (separando palabras con guiones bajos) para nombres de variables y funciones.
+Evitar nombres de una sola letra o nombres poco descriptivos.
+Ejemplo
+$trimestres = new Trimestres;
+ public function delete_Detalle()
+    {
+	/...
+    }
+
+
+Indentación:
+Utilizar una sangría (indentación) consistente, generalmente de 4 espacios por nivel, para mejorar la legibilidad del código.
+
+Comentarios:
+Documentar el código usando comentarios descriptivos para explicar la lógica detrás del código.
+Utilizar comentarios de línea (//) o comentarios de bloque (/* */) según corresponda.
+
+Variables muy globales:
+Tener cuidado con las variables muy globales como $_GET, $_POST, $_SESSION, etc., y validar y filtrar sus valores adecuadamente para prevenir ataques de seguridad como la inyección de SQL o la ejecución de código malicioso.
+Ejemplo:
+ $_SESSION['usuario'] = $_POST['usuario'];
+
+Evita el Uso de Variables Globales:
+Minimiza el uso de variables globales para prevenir colisiones de nombres y mantener la encapsulación.
+
+Seguridad:
+Implementa medidas de seguridad adecuadas, como la validación y la sanitización de entradas, para prevenir ataques como la inyección de código SQL o la vulnerabilidad de scripts entre sitios (XSS).
+Ejemplo:
+ public function setcorreo_empleado($value)
+    {
+        if (Validator::validateEmail($value, 1, 150)) {
+            $this->correo_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+División de Código en Módulos y Funciones:
+Dividir el código en módulos y funciones reutilizables para mantenerlo limpio y modular.
+Seguir el principio de la "separación de preocupaciones" para mantener la lógica de negocios separada de la presentación.
+Ejemplo:
+   // Para cargar combobox
+    public function readTipoActividades()
+    {
+        $sql = 'SELECT id_tipo_actividad, tipo_actividad FROM tipo_actividades';
+        return Database::getRows($sql);
+    }
+
