@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../libraries/PHPMailer_Lb/src/Exception.php';
-require '../../libraries/PHPMailer_Lb/src/PHPMailer.php';
-require '../../libraries/PHPMailer_Lb/src/SMTP.php';
+require '../libraries/PHPMailer_Lb/src/Exception.php';
+require '../libraries/PHPMailer_Lb/src/PHPMailer.php';
+require '../libraries/PHPMailer_Lb/src/SMTP.php';
 
 class Props{
   public static function sendMail($address, $subject, $body, $message)

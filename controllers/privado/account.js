@@ -4,12 +4,12 @@
 */
 
 // Constante para completar la ruta de la API.
-const USER_API = 'business/privado/usuarios.php';
+const USER_API = 'business/usuarios.php';
 // Constantes para obtener la etiqueta donde va el usuario
 const NAVBAR = document.getElementById('navbar');
 // Método manejador de eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-
+ 
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const JSON = await dataFetch(USER_API, 'getSession');
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div id="cont-nav" class="container-fluid">
                 <a class="navbar-brand" href="principal.html">
-                    <img src="../../recursos/images/logo.png" style="width: 9rem;" alt="">
+                    <img src="../recursos/images/logo.png" style="width: 9rem;" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
                     data-mdb-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
-                                <img src="../../recursos/iconos/usuario.png" class="rounded-circle" height="25"
+                                <img src="../recursos/iconos/usuario.png" class="rounded-circle" height="25"
                                     alt="Black and White Portrait of a Man" loading="lazy">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             location.href = 'index.html';
         }
 
-    } else if (location.pathname == '/Apredu/vistas/privado/index.html') {
+    } else if (location.pathname == '/Apredu/vistas/index.html') {
         // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
     } else {
         location.href = 'index.html';

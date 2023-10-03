@@ -1,5 +1,5 @@
 //direccion de la api
-const PERMISOS_API = 'business/privado/permisos.php';
+const PERMISOS_API = 'business/permisos.php';
 //cuerpo de la tabla
 const TB_BODY = document.getElementById('permisos-body');
 //cabecera de la talba
@@ -65,7 +65,7 @@ async function fillTable() {
              
             TB_HEAD.innerHTML += `
             <th scope="col">${row[1]} <button type="button" id="icon-private" class="btn btn-danger btn-floating icon-private">
-            <img id="icon-img-private" src="../../recursos/iconos/icons8-menos-24.png" onclick="deleteCargo(${row[0]}, '${row[1]}')">
+            <img id="icon-img-private" src="../recursos/iconos/icons8-menos-24.png" onclick="deleteCargo(${row[0]}, '${row[1]}')">
           </button></th>
             `;
         });

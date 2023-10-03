@@ -1,6 +1,6 @@
 <?php
-require_once('../../helpers/validator.php');
-require_once('../../entities/dao/responsables_queries.php');
+require_once('../helpers/validator.php');
+require_once('../entities/dao/responsables_queries.php');
 
 class Responsables extends ResponsablesQueries{
 

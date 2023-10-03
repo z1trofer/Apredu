@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const ESTUDIANTE_API = 'business/privado/estudiantes.php';
+const ESTUDIANTE_API = 'business/estudiantes.php';
 // Constante para establecer el formulario de guardar para el estudiante.
 const SAVE_FORM_E = document.getElementById('save-formE');
 // Constante para establecer el formulario de guardar para el responsable.
@@ -81,7 +81,7 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     //se agrega el id grado al formulario
     FORM.append('grado', id_grado);
     //se carga la tabla nuevamente
-    debugger
+     
     fillTable(FORM);
 });
 
@@ -118,7 +118,7 @@ async function fillTable(form = null) {
     // Se verifica la acción a realizar.
     (form) ? action = 'FiltrosEstudiantes' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    debugger
+     
     const JSON = await dataFetch(ESTUDIANTE_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
@@ -180,7 +180,7 @@ async function openUpdate(id) {
 }
 
 function openCreate() {
-    debugger
+     
     // Se restauran los elementos del formulario.
     SAVE_FORM_E.reset();
     fillList(ESTUDIANTE_API, 'readGrado', 'lectura')
@@ -381,7 +381,7 @@ async function BusquedaParametrizada() {
 //REPORTE NOTAS
 function reportNotas(id) {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/notas.php`);
+    const PATH = new URL(`${SERVER_URL}reports/notas.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     PATH.searchParams.append('id', id);
     window.open(PATH.href);
@@ -389,7 +389,7 @@ function reportNotas(id) {
 
 function openReport() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/estudiantes_grado.php`);
+    const PATH = new URL(`${SERVER_URL}reports/estudiantes_grado.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }

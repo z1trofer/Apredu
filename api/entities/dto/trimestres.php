@@ -1,6 +1,6 @@
 <?php
-require_once('../../helpers/validator.php');
-require_once('../../entities/dao/trimestres_queries.php');
+require_once('../helpers/validator.php');
+require_once('../entities/dao/trimestres_queries.php');
 
 class Trimestres extends TrimestresQueries{
 

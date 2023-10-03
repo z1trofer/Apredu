@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../recursos/images/logo1xd2.png">
+    <link rel="stylesheet" href="../recursos/css/estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <title>Gestión De Personal</title>
+</head>
+
+<body id="private">
+
+    <!---------------------- Modals ------------------------>
+    <!--modal para informacion del docente-->
+    <div class="modal fade" id="ModalDocentesInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!--header del modal-->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Información del docente</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!--formulario-->
+                <form id="save-form" method="post" action="">
+                    <div class="modal-body">
+                        <!--body del modal-->
+                        <div class="row">
+                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
+                            <div class="col-sm-4">
+                                <!--input nombres-->
+                                <div class="form-outline">
+                                    <input type="text" id="nombres" name="nombres" class="form-control"
+                                        maxlength="50" />
+                                    <label class="form-label" for="typeText">Nombres</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!--input apellidos-->
+                                <div class="form-outline">
+                                    <input type="text" id="apellidos" name="apellidos" class="form-control"
+                                        maxlength="50" autocomplete="off" />
+                                    <label class="form-label" for="typeText">Apellidos</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!--input DUI-->
+                                <div class="form-outline">
+                                    <input type="text" id="dui" name="dui" class="form-control" autocomplete="off" />
+                                    <label class="form-label">DUI (con guión)</label>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="col-sm-4">
+                                <!--input nombre de usuario-->
+                                <div class="form-outline">
+                                    <input type="text" id="usuario" name="usuario" class="form-control" maxlength="50"
+                                        autocomplete="off" />
+                                    <label class="form-label" for="typeText">Nombre de usuario</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!--input fecha de nacimiento-->
+                                <div class="form-outline">
+                                    <input id="fecha_nacimiento" type="date" name="fecha_nacimiento"
+                                        class="form-control" autocomplete="off" />
+                                    <label class="form-label" for="typeDate">Fecha de nacimiento</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!--input correo electronico-->
+                                <div class="form-outline">
+                                    <input type="email" id="correo" name="correo" class="form-control"
+                                        autocomplete="off" />
+                                    <label class="form-label" for="typeEmail">Correo electrónico</label>
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col">
+                                <!--accordion desplegable "cambio de contraseña (editar usuarios)"-->
+                                <div class="accordion" id="accordionContra" hidden>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-mdb-toggle="collapse" data-mdb-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                <i class="fas fa-key"></i>Cambiar Contraseña
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="headingTwo" data-mdb-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="row g-3 align-items-center">
+                                                    <div class="form-outline col-auto">
+                                                        <!--input cambiar la contraseña (accordion)-->
+                                                        <input type="password" id="claveCarrosel" name="claveCarrosel"
+                                                            class="form-control" aria-describedby="textExample2" />
+                                                        <label class="form-label">Nueva Contraseña</label>
+                                                    </div>
+                                                    <div class="form-outline col-auto">
+                                                        <!--input confirmar la contraseña (accordion)-->
+                                                        <input type="password" id="claveConfirmCarrosel" name="claveConfirmCarrosel"
+                                                            class="form-control" aria-describedby="textExample2" />
+                                                        <label class="form-label" for="formTextExample2">Confirmar Nueva
+                                                            Contraseña</label>
+                                                    </div>
+                                                    <button id="savePass" type="button" class="btn btn-primary"
+                                                        >Guardar Contraseña</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--cambio de contraseña (create)-->
+                                <div id="contraCreate" class="row g-3 align-items-center">
+                                    <div class="form-outline col-auto">
+                                        <!--input contraseña-->
+                                        <input type="password" id="clave" name="clave" class="form-control"
+                                            aria-describedby="textExample2" />
+                                        <label class="form-label">Contraseña</label>
+                                    </div>
+                                    <div class="form-outline col-auto">
+                                        <!--input confirmar contraseña-->
+                                        <input type="password" id="claveConfirm" name="claveConfirm"
+                                            class="form-control" aria-describedby="textExample2" />
+                                        <label class="form-label" for="formTextExample2">Confirmar Contraseña</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col-sm-4">
+                                <div class="mb-4">
+                                    <!--select seleccionar cargo-->
+                                    <select class="form-select" required aria-label="select example" id="cargo"
+                                        name="cargo">
+                                        <option value="">Seleccione un cargo</option>
+                                    </select>
+                                    <div class="invalid-feedback">Ejemplo de comentarios de selección no válidos
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-sm-8 marginTop">
+                                <div class="form-outline">
+                                    <!--input dirección del empleado-->
+                                    <textarea class="form-control" id="direccion" name="direccion" rows="5"
+                                        autocomplete="off"></textarea>
+                                    <label class="form-label">Dirección</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!--input estado-->
+                                <div class="mb-4">
+                                    <label class="form-label">estado</label>
+                                    <input type="text" id="intentos" name="intentos" class="visually-hidden-focusable">
+                                    <select class="form-select" required aria-label="select example" id="estado"
+                                        name="estado">
+                                        <option value="0">Bloqueado</option>
+                                        <option value="1">Activo</option>
+                                    </select>
+                                    <!--label de intentos-->
+                                    <label id="intentoslab" class="visually-hidden-focusable" style="color: red;">Este
+                                        usuario fue bloqueado automaticamente por alcanzar el limite de intentos al
+                                        iniciar sesión</label>
+                                    <div class="invalid-feedback">Ejemplo de comentarios de selección no válidos
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--footer modal-->
+                    <div class="modal-footer">
+                        <!--botones cerrar y submit-->
+                        <button id="closeEmpleados" type="button" class="btn btn-danger"
+                            data-mdb-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--modal para asignar asignaturas y grados-->
+    <!-- Modal -->
+    <div class="modal fade" id="DetallesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Añadir asignaturas y grados</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="detalles_form">
+                        <div class="row">
+                            <div class="col">
+                                <h6>Grado</h6>
+                                <select class="form-select" required aria-label="select example" id="DetallesGrado"
+                                    name="grado">
+                                    <option value="">Seleccione una opción</option>
+
+                                </select>
+                            </div>
+                            <div class="col">
+                                <h6>Asignatura</h6>
+                                <select class="form-select" required aria-label="select example" id="DetallesAsignatura"
+                                    name="asignatura">
+                                    <option value="">Seleccione una opción</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col" style="margin-top: 10px;">
+                                <button type="submit" class="btn btn-info">Agregar</button>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <h6>Grado</h6>
+                                        </th>
+                                        <th scope="col">
+                                            <h6>Asignatura</h6>
+                                        </th>
+                                        <th scope="col">
+                                            <h6>Acción</h6>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body_asignatura">
+                                    <tr>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal para actividades-->
+    <div class="modal fade" id="ModalDocentesAct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title2">Información del docente</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <form id="info_act" method="post" action="">
+                                <input class="visually-hidden-focusable" type="number" id="idInfo" name="id">
+
+                                <h4 id="">Buscar por:</h4>
+                            </form>
+                        </div>
+                        <div class="col-sm-3" style="margin-left: -200px;">
+                            <h6>Grado</h6>
+                            <select class="form-select" required aria-label="select example" id="grado" name="grado">
+                                <option value="">Seleccione una opción</option>
+
+                            </select>
+                        </div>
+                        <div class="col-3 Respon_BTN">
+                            <h6>Materia</h6>
+                            <select class="form-select" required aria-label="select example" id="asignatura"
+                                name="asignatura">
+                                <option value="">Seleccione una opción</option>
+                            </select>
+                        </div>
+                        <div class="col-3 Respon_BTN">
+                            <h6></h6>
+                            <button type="button" id="buscarAct" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                    <br>
+                    <!--tabla-->
+
+                    <div id="table_act" class="row">
+                        <div class="row">
+
+                            <div class="col-sm-2">
+                                <th>Actividad</th>
+                                <p>Actividad Cotidiana 1</p>
+                                <button class="btn btn-primary" type="button" id="btnTipo_Act"
+                                    data-mdb-toggle="dropdown">
+                                    Activid..
+                                </button>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <th>Descripción</th>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quae deserunt
+                                    nostrum
+                                    molestiae cumque ipsum, optio beatae et saepe eum error ducimus vel maiores
+                                    assumenda
+                                    tenetur dolorem aliquam facilis pariatur.</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <th>%</th>
+                                <p>15%</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <th>Grado</th>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    2° grado
+                                </button>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <th>Asignatura</th>
+                                <button class="btn btn-primary" type="button" id="btnEm_grado"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    Estudios Sociales
+                                </button>
+                                <th>Fecha de entrega</th>
+                                <p>27/03/2023</p>
+
+                            </div>
+                        </div>
+
+                        <hr class="hr" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <header id="navbar">
+        <!-- Navbar -->
+    </header>
+    <!-- Navbar -->
+    <main>
+        <!--Sección Principal-->
+
+        <div class="container">
+            <div class="row align-items-center" id="colDivEM">
+                <div class="col-5 EmpleadosBTN">
+                    <!--añadir empleados boton-->
+                    <button type="button" class="btn" id="btnEmpleados" data-mdb-toggle="modal"
+                        data-mdb-target="#ModalDocentesInfo" onclick="openCreate()">Añadir empleados</button>
+
+                </div>
+                <div class="col-7">
+                    <button type="button" class="btn btn-warning" onclick="openReport()">Reporte de Personal
+                        académico</button>
+                </div>
+
+                <div class="col-10">
+                    <!--buscador-->
+                    <form method="post" id="search-form" action="">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input type="search" id="search" name="search" class="form-control" />
+                                <label class="form-label" for="form1">Buscar</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row" id="colDivEM">
+                <div class="col-sm-4 Respon_BTN">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Ver solo profesores<div class="form-check form-switch">
+                                    <input checked class="form-check-input" type="checkbox" role="switch" id="chekboxAdmin" />
+                                </div>
+                            </h6>
+
+                            <div class="col">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!----------------------------------tablA------------------------>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="table-alum">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <footer class="bg-dark text-center text-white">
+            <div class="container p-4 pb-0">
+                <!-- Seccion: Social -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-facebook-f"></i></a>
+
+                    <!-- Twitter -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-twitter"></i></a>
+
+                    <!-- Google -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-google"></i></a>
+
+                    <!-- Instagram -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-instagram"></i></a>
+
+                    <!-- Linkedin -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </section>
+            </div>
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </footer>
+</body>
+    <script src="../recursos/js/sweetalert.min.js"></script>
+    <script src="../controllers/components.js"></script>
+    <script src="../controllers/privado/account.js"></script>
+    <script src="../controllers/privado/empleados.js"></script>
+    <!--JavaScrip-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+
+
+</html>

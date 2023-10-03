@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../recursos/images/logo1xd2.png">
+    <link rel="stylesheet" href="../recursos/css/estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <title>Página Principal</title>
+</head>
+
+<body id="private">
+
+    <header id="navbar">
+        <!-- Navbar -->
+
+    </header>
+    <!-- Navbar -->
+    <main>
+        <!--Sección Principal-->
+        <div class="container" id="private-container">
+            <div class="container" id="private-container">
+                <form id="profile-form" method="post" action="">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input class="visually-hidden-focusable" type="number" id="id" name="id">
+                            <div class="col-sm">
+                                <h5>Nombres</h5>
+                                <input id="nombres" name="nombres" type="text" class="form-control is-valid"
+                                    id="validationServer01" required autocomplete="off">
+                                <div class="invalid-feedback">
+                                    Por favor ingrese una datos en el área de texto.
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <h5>Apellidos</h5>
+                                <input id="apellidos" name="apellidos" type="text" class="form-control is-valid"
+                                    id="validationServer01" required autocomplete="off">
+                                <div class="invalid-feedback">
+                                    Por favor ingrese una datos en el área de texto.
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="col-sm">
+                                <h5>Nombre del usuario</h5>
+                                <input id="usuario" name="usuario" type="text" class="form-control is-valid"
+                                    id="validationServer01" required autocomplete="off">
+                                <div class="invalid-feedback">
+                                    Por favor ingrese una datos en el área de texto.
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <h5>Correo electrónico</h5>
+                                <input id="correo" name="correo" type="text" class="form-control is-valid"
+                                    id="validationServer01" required autocomplete="off">
+                                <div class="invalid-feedback">
+                                    Por favor ingrese una datos en el área de texto.
+                                </div>
+                            </div>
+                            <br><br><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+
+                </form>
+
+                <!-- Button trigger modal -->
+                <button type="submit" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#myModal"
+                    onclick="openPassword()">
+                    <i class="fab fa-airbnb fa-lg pe-none"></i> Cambiar contraseña
+
+                </button>
+
+                <form id="password-form" method="post" action="">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Cambiar la contraseña</h5>
+                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-sm">
+                                        <h5>Contraseña actual</h5>
+                                        <input id="actual" name="actual" type="password" class="form-control is-valid"
+                                            id="validationServer01" required>
+                                        <div class="invalid-feedback">
+                                            Por favor ingrese una datos en el área de texto.
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <h5>Contraseña nueva</h5>
+                                        <input id="nueval" name="nueva" type="password" class="form-control is-valid"
+                                            id="validationServer01" required>
+                                        <div class="invalid-feedback">
+                                            Por favor ingrese una datos en el área de texto.
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <h5>Confirmar contraseña</h5>
+                                        <input id="confirmar" name="confirmar" type="password"
+                                            class="form-control is-valid" id="validationServer01" required>
+                                        <div class="invalid-feedback">
+                                            Por favor ingrese una datos en el área de texto.
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btnClose" type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <script src="../recursos/js/chart.umd.min.js"></script>
+
+    </main>
+    <footer>
+        <footer class="bg-dark text-center text-white ">
+            <div class="container p-4 pb-0">
+                <!-- Seccion: Social -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-facebook-f"></i></a>
+
+                    <!-- Twitter -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-twitter"></i></a>
+
+                    <!-- Google -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-google"></i></a>
+
+                    <!-- Instagram -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-instagram"></i></a>
+
+                    <!-- Linkedin -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </section>
+            </div>
+            <!-- Copyright -->
+            <div class="text-center  p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
+            </div>
+        </footer>
+    </footer>
+
+    <!--JavaScrip-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="../recursos/js/sweetalert.min.js"></script>
+    <script src="../controllers/components.js"></script>
+    <script src="../controllers/privado/account.js"></script>
+    <script src="../controllers/privado/perfil.js"></script>
+    <!-- MDB 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+-->
+</body>
+
+</html>

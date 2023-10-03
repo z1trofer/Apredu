@@ -1,6 +1,6 @@
 
 //Declaración API notas
-const NOTAS_API = 'business/privado/notas.php';
+const NOTAS_API = 'business/notas.php';
 //declaración tabla de actividades
 const ROWS_ACTIVIDADES = document.getElementById('rows_actividades');
 //declarando objeto para obtener los parámetros de consulta de la URL

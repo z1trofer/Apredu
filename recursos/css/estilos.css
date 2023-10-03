@@ -197,7 +197,7 @@ main{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: url(../recursos/login_privado/fondo_login_privado.png);
+    background: url(../images/fondo_login_privado.png);
     background-size: cover;
     background-position: center;
     font-family: sans-serif;

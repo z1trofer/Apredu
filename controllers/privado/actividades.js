@@ -1,6 +1,6 @@
 // Constantes para completar las rutas de la API.
-const ACTIVIDADES_API = 'business/privado/actividades.php';
-const NOTAS_API = 'business/privado/notas.php';
+const ACTIVIDADES_API = 'business/actividades.php';
+const NOTAS_API = 'business/notas.php';
 const TITULO_MODAL = document.getElementById('modal-title');
 const TBODY_ROWS = document.getElementById('tbody');
 const FORMULARIO = document.getElementById('save-form');

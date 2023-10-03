@@ -1,5 +1,5 @@
 const SAVE_FORM_AUTENTIFICACION = document.getElementById("codigo_verificacion-form");
-const USER_API = 'business/privado/usuarios.php';
+const USER_API = 'business/usuarios.php';
 
 
 document.addEventListener('DOMContentLoaded', async () => {

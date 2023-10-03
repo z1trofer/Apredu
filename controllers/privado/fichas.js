@@ -1,4 +1,4 @@
-const FICHA_API = 'business/privado/fichas.php';
+const FICHA_API = 'business/fichas.php';
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.
 const MODAL_TITLE = document.getElementById('modal-title');
@@ -203,7 +203,7 @@ async function openDetalle(id_ficha) {
 
 function openReportSemanal() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/fichas_en_semana.php`);
+    const PATH = new URL(`${SERVER_URL}reports/fichas_en_semana.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
@@ -211,7 +211,7 @@ function openReportSemanal() {
 
 function openReportConducta(id_estudiante) {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/fichas_por_estudiante.php`);
+    const PATH = new URL(`${SERVER_URL}reports/fichas_por_estudiante.php`);
     // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
     PATH.searchParams.append('id_estudiante', id_estudiante);
     // Se abre el reporte en una nueva pestaña del navegador web.

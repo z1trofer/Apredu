@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const ASIGNATURAS_API = 'business/privado/asignaturas.php';
+const ASIGNATURAS_API = 'business/asignaturas.php';
 // Constante para establecer el formulario de buscar.
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM_AS = document.getElementById('save-form-as');
@@ -150,14 +150,14 @@ async function openDelete(id) {
 
 function openReport() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/asignatura_empleado.php`);
+    const PATH = new URL(`${SERVER_URL}reports/asignatura_empleado.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
 
 function openReport(id) {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/asignatura_empleado.php`);
+    const PATH = new URL(`${SERVER_URL}reports/asignatura_empleado.php`);
     // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
     PATH.searchParams.append('id_asignatura', id);
     // Se abre el reporte en una nueva pestaña del navegador web.

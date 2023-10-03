@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const GRADOS_API = 'business/privado/grados.php';
+const GRADOS_API = 'business/grados.php';
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.
@@ -240,7 +240,7 @@ async function eliminarDetalle(id) {
 
 function openReport(id) {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/actividades_grado.php`);
+    const PATH = new URL(`${SERVER_URL}reports/actividades_grado.php`);
     // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
     PATH.searchParams.append('id_grado', id);
     // Se abre el reporte en una nueva pestaña del navegador web.
@@ -249,7 +249,7 @@ function openReport(id) {
 
 function openReport2() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/grados_asignatura.php`);
+    const PATH = new URL(`${SERVER_URL}reports/grados_asignatura.php`);
     window.open(PATH.href);
 }
 

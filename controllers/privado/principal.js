@@ -1,7 +1,7 @@
-const GRADOS_API = 'business/privado/grados.php';
-const NOTAS_API = 'business/privado/notas.php';
-const ASIGNATURA_API = 'business/privado/asignaturas.php';
-const CONDUCTA_API = 'business/privado/fichas.php';
+const GRADOS_API = 'business/grados.php';
+const NOTAS_API = 'business/notas.php';
+const ASIGNATURA_API = 'business/asignaturas.php';
+const CONDUCTA_API = 'business/fichas.php';
 //llamar formulario log in
 let tipoUsuario = null;
 

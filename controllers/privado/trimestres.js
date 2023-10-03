@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const TRIMESTRES_API = 'business/privado/trimestres.php';
+const TRIMESTRES_API = 'business/trimestres.php';
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.

@@ -1,7 +1,7 @@
 //-----------------NOTAS-----------------------
 
 //Declaración API notas
-const NOTAS_API = 'business/privado/notas.php';
+const NOTAS_API = 'business/notas.php';
 //declaración de la sección donde apareceran las materias
 const CONT_MATERIAS = document.getElementById('cont_materias');
 //constante para obtener fechas
@@ -180,7 +180,7 @@ function opcionTrimestre(id_trimestreFun, trimestreFun) {
 // funcion para reporte de productos por categoria
 function openReport() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/notas_subir.php`);
+    const PATH = new URL(`${SERVER_URL}reports/notas_subir.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }

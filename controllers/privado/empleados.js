@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const EMPLEADOS_API = 'business/privado/empleados.php';
+const EMPLEADOS_API = 'business/empleados.php';
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');
 // Constante para establecer el título de la modal.
@@ -558,7 +558,7 @@ async function fillTable2(id_empleado, id_grado = null, id_asignatura = null) {
 // funcion para productos en general 
 function openReport() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/dashboard/empleados.php`);
+    const PATH = new URL(`${SERVER_URL}reports/empleados.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
@@ -566,7 +566,7 @@ function openReport() {
 //Buscador
 (function (document) {
     'buscador';
-    debugger
+     
     var LightTableFilter = (function (Arr) {
 
         var _input;

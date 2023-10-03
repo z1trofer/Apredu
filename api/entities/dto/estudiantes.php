@@ -1,6 +1,6 @@
 <?php
-require_once('../../helpers/validator.php');
-require_once('../../entities/dao/estudiantes_queries.php');
+require_once('../helpers/validator.php');
+require_once('../entities/dao/estudiantes_queries.php');
 
 class Estudiantes extends EstudiantesQueries{
 
