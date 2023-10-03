@@ -201,20 +201,12 @@ async function fillTable(form = null) {
             btnActividades = null;
             btnAsignaciones = null;
             if (row.cargo == 'profesor') {
-                btnActividades = `
-                <td>
-                <button type="button" class="btn btn-info" data-mdb-toggle="modal"
-                    data-mdb-target="#ModalDocentesAct" onclick="openDetalleActividad(${row.id_empleado})">
-                    <i class="fas fa-clipboard"></i>
-                </button>
-                </td>    `;
                 btnAsignaciones = `
                 <button type="button" class="btn btn-success" data-mdb-toggle="modal"
                     data-mdb-target="#DetallesModal" onclick="cargarAsignaturasGrados(${row.id_empleado})">
                     <i class="fab fa-elementor"></i>
                 </button>`
             } else {
-                btnActividades = '<td></td>';
                 btnAsignaciones = '';
             }
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
@@ -570,11 +562,11 @@ function openReport() {
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
-
+/*
 //Buscador
 (function (document) {
     'buscador';
-
+    debugger
     var LightTableFilter = (function (Arr) {
 
         var _input;
@@ -611,3 +603,4 @@ function openReport() {
     });
 
 })(document);
+*/

@@ -3,10 +3,9 @@ const ESTUDIANTE_API = 'business/privado/estudiantes.php';
 // Constante para establecer el formulario de guardar para el estudiante.
 const SAVE_FORM_E = document.getElementById('save-formE');
 // Constante para establecer el formulario de guardar para el responsable.
-//const SAVE_FORM_R = document.getElementById('save-formR');
+const SEARCH_FORM = document.getElementById('search-form');
 // Constantes para establecer el contenido de la tabla.
 const SAVE_FORM_C = document.getElementById('save_formC');
-const SEARCH_FORM = document.getElementById('search');
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 
@@ -72,28 +71,19 @@ function opcionGrado(grado) {
     document.getElementById('grado').innerHTML = grado;
     document.getElementById('grados_estudiante').value = grado;
 }
-/*
-// Método manejador de eventos para cuando se envía el formulario de guardar.
-SAVE_FORM_R.addEventListener('submit', async (event) => {
+
+//metodo para buscar estudiantes
+SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-    // Se verifica la acción a realizar.
-    (document.getElementById('id_responsable').value) ? action = 'update' : action = 'createResponsable';
-    // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM_R);
-    // Petición para guardar los datos del formulario.
-    const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (JSON.status) {
-        fillTable();
-
-        sweetAlert(1, JSON.message, true);
-    } else {
-        sweetAlert(2, JSON.exception, false);
-    }
-
+    //declaracion de formulario
+    const FORM = new FormData(SEARCH_FORM);
+    //se agrega el id grado al formulario
+    FORM.append('grado', id_grado);
+    //se carga la tabla nuevamente
+    debugger
+    fillTable(FORM);
 });
-*/
 
 // Método manejador de eventos para cuando se envía el formulario de guardar.
 SAVE_FORM_E.addEventListener('submit', async (event) => {
@@ -127,6 +117,7 @@ async function fillTable(form = null) {
     // Se verifica la acción a realizar.
     (form) ? action = 'FiltrosEstudiantes' : action = 'readAll';
     // Petición para obtener los registros disponibles.
+    debugger
     const JSON = await dataFetch(ESTUDIANTE_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
@@ -250,6 +241,7 @@ async function CargarGrados() {
                 <li><a class="dropdown-item" onclick="OpcionGrado('${row.id_grado}','${row.grado}')">${row.grado}</a></li>
                 `
         });
+        
     } else {
         //se envia un mensaje con el error respectivo
         sweetAlert(2, "Ocurrio un error al cargar los grados, por favor comuniquese con un administrador", false);
@@ -261,12 +253,12 @@ async function CargarGrados() {
 function OpcionGrado(id_gradoFun, gradoFun) {
     //se iguala el id_trimeste con el paramentro de la función y con trimestres respectivamente
     id_grado = id_gradoFun;
+
     //se designa el texto del boton como el trimestre seleccionado
     document.getElementById('dropGrados').innerHTML = gradoFun;
 };
 /*
 document.getElementById('buscar').addEventListener('onclick', async (event) => {
-     
 
 });*/
 
@@ -343,6 +335,7 @@ async function CargarNombreDocente() {
 //--------------filtro
 
 //función Cargar Grados
+/*
 async function CargarGrados() {
     //se instancia un formulario
     const FORM = new FormData();
@@ -373,7 +366,7 @@ async function CargarGrados() {
         //se envia un mensaje con el error respectivo
         sweetAlert(2, "Ocurrio un error al cargar los grados, por favor comuniquese con un administrador", false);
     }
-};
+};*/
 /*
 //----busqueda
 async function BusquedaParametrizada() {
@@ -400,7 +393,7 @@ function openReport() {
     window.open(PATH.href);
 }
 
-
+/*
 (function (document) {
     'buscador';
 
@@ -441,3 +434,4 @@ function openReport() {
 
 })(document);
 
+*/

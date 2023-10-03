@@ -12,7 +12,7 @@ class EmpleadosQueries
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
         FROM empleados 
         INNER JOIN cargos_empleados USING (id_cargo)';
-        if ($check == "false") {
+        if ($check == "true") {
             $sql = $sql . ' where id_cargo = 2 ORDER BY id_empleado';
         } else {
             $sql = $sql . ' where id_cargo != 2 ORDER BY id_empleado';

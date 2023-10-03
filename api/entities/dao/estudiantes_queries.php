@@ -87,16 +87,16 @@ class EstudiantesQueries
         }
 
         //busqueda parametrizada por grados
-        public function FiltrarEstudiante($filtros)
+        public function FiltrarEstudiante($value)
         {
             $sql = "SELECT estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, grados.grado
             FROM estudiantes 
             INNER JOIN grados USING(id_grado)
-            WHERE id_grado = ? 
+            WHERE id_grado = ? and (estudiantes.nombre_estudiante LIKE ? or estudiantes.apellido_estudiante LIKE ?)
             GROUP BY  estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, grados.grado
             ORDER BY grados.grado ASC";
-            $params = array($filtros['grado']);
-            return Database::getRows($sql);
+            $params = array($this->id_grado, "%$value%", "%$value%");
+            return Database::getRows($sql, $params);
         }
     
 

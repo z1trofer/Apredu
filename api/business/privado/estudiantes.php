@@ -52,7 +52,6 @@ if (isset($_GET['action'])) {
             //filtro de grado para el estudiante
             case 'FiltrosEstudiantes':
                 $_POST = Validator::validateForm($_POST);
-                $filtro['grado'] = $_POST['grado'];
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_estudiantes');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
@@ -60,7 +59,10 @@ if (isset($_GET['action'])) {
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $estudiante->FiltrarEstudiante($filtro)) {
+                } elseif (!$estudiante->setIdGrado($_POST['grado'])) {
+                    $result['exception'] = 'Id grado invalido';
+                    //se ejecuta la accion
+                } elseif ($result['dataset'] = $estudiante->FiltrarEstudiante($_POST['search'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
