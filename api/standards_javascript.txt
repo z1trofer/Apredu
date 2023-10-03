@@ -1,0 +1,55 @@
+Estándares de programación utilizados del lado del cliente (Javascript)
+Los estándares de programación en JavaScript son pautas y convenciones que los desarrolladores siguen para escribir código de manera consistente, legible y mantenible, que se detalla a continuación:
+
+Nomenclatura de variables y funciones:
+Utilizar nombres descriptivos para tus variables y funciones, preferiblemente en camelCase.
+Usar nombres significativos que indiquen el propósito de la variable o función.
+Evitar nombres genéricos como a, b, x, etc.
+Ejemplo:
+const nombreCompleto = "María Susana";o 
+const n = "María Susana";
+
+Indentación:
+Usar sangría (indentación) consistente, generalmente de 2 o 4 espacios por nivel, para mejorar la legibilidad del código.
+Ejemplo:
+// 4 espacios de sangría 
+function saludar() {
+ console.log("Hola");
+ }
+ //2 espacios de sangría 
+if (condicion) {
+__ // ..... 
+}
+
+Punto y coma:
+Aunque JavaScript permite omitir el punto y coma al final de una línea, es recomendable incluirlos para evitar problemas potenciales.
+Ejemplo: 
+const mensaje = "Hola";
+
+Declaración de variables:
+Utilizar const para declarar variables cuando el valor no cambiará.
+Utilizar let cuando el valor de una variable puede cambiar.
+Evitar var debido a su alcance más amplio y problemas potenciales.
+
+Comentarios:
+Documentar el código utilizando comentarios descriptivos para explicar la lógica detrás del código.
+Usar comentarios de una línea (//) o comentarios multilínea (/* */)
+
+
+Evitar el uso de variables globales:
+Minimizar el uso de variables globales para prevenir colisiones de nombres y mantener la encapsulación.
+
+Evitar la escritura en línea:
+Evitar escribir múltiples declaraciones en una sola línea para mejorar la legibilidad del código.
+Ejemplo:
+if (condicion) {
+    console.log("Hola");
+}
+
+Manejo de errores:
+Utilizar bloques try...catch para manejar errores de manera adecuada y proporcionar mensajes significativos.
+Ejemplo:
+try { // Código que puede generar errores 
+} catch (error) { 
+console.error("Ocurrió un error:", error); 
+}
