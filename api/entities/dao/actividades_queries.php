@@ -76,7 +76,7 @@ class ActividadesQueries
             FROM asignaturas LEFT JOIN detalle_asignaturas_empleados USING (id_asignatura)";
         if ($_SESSION['id_cargo'] == 2) {
             $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'] . " AND detalle_asignaturas_empleados.id_grado = ?";
-        }else{
+        } else {
             $sql = $sql . " WHERE detalle_asignaturas_empleados.id_grado = ?";
         }
         $params = array($this->id_grado);
@@ -133,6 +133,48 @@ class ActividadesQueries
         return Database::executeRow($sql, $params);
     }
 
+    //validar ponderación
+    public function validatePonderacion($modo)
+    {
+        if ($modo == 'up') {
+            $sql = "SELECT actividades.id_actividad, actividades.ponderacion, actividades.id_trimestre, grados.id_grado, asignaturas.id_asignatura FROM actividades INNER JOIN tipo_actividades USING (id_tipo_actividad)
+            INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+            INNER JOIN grados USING (id_grado)
+            INNER JOIN asignaturas USING (id_asignatura) INNER JOIN ( SELECT actividades.id_actividad, actividades.ponderacion, actividades.id_trimestre, grados.id_grado, asignaturas.id_asignatura
+            FROM actividades
+            INNER JOIN tipo_actividades USING (id_tipo_actividad)
+            INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+            INNER JOIN grados USING (id_grado)
+            INNER JOIN asignaturas USING (id_asignatura)
+            WHERE id_actividad = ?  GROUP BY actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
+            ORDER BY actividades.nombre_actividad ASC) as actiparam 
+            where actividades.id_trimestre = actiparam.id_trimestre and grados.id_grado = actiparam.id_grado and asignaturas.id_asignatura = actiparam.id_asignatura and actividades.id_actividad != actiparam.id_actividad";
+            $params = array($this->id_trimestre);
+            $data = Database::getRows($sql, $params);
+        } else {
+            $sql = "SELECT actividades.id_actividad, actividades.ponderacion,  grados.grado, asignaturas.asignatura
+            FROM actividades
+            INNER JOIN tipo_actividades USING (id_tipo_actividad)
+            INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
+            INNER JOIN grados USING (id_grado)
+            INNER JOIN asignaturas USING (id_asignatura)
+            WHERE id_trimestre = ? and detalle_asignaturas_empleados.id_grado = ? and id_asignatura = ?
+            ORDER BY actividades.nombre_actividad ASC";
+            $params = array($this->id_trimestre, $this->id_grado, $this->id_asignatura);
+            $data = Database::getRows($sql, $params);
+        }
+        $suma = $this->ponderacion;
+        foreach ($data as $datarow) {
+            $suma = $suma + $datarow['ponderacion'];
+        }
+        if ($suma > 100) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //actualizar actividad
     public function updateRow()
     {
         $sql = 'UPDATE actividades SET nombre_actividad = ?, ponderacion = ?, id_tipo_actividad = ?, descripcion = ?, fecha_entrega = ? WHERE id_actividad= ? ';
@@ -147,6 +189,4 @@ class ActividadesQueries
         $params = array($this->id_actividad);
         return Database::executeRow($sql, $params);
     }
-
 }
-?>

@@ -29,11 +29,11 @@ async function validate() {
 document.addEventListener('DOMContentLoaded', async () => {
     if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
-    CargarTrimestres();
+    await CargarTrimestres();
     //fillTable();
-    CargarGrados();
-    //cargarAsignaturas();
-    CargarNombreDocente();
+    await CargarGrados();
+    await cargarAsignaturas();
+    await CargarNombreDocente();
     }
 });
 
@@ -61,7 +61,7 @@ FORMULARIO.addEventListener('submit', async (event) => {
     const JSON = await dataFetch(ACTIVIDADES_API, action, FORM);
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTable();
+        BusquedaParametrizada();
         FORMULARIO.reset();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
@@ -156,7 +156,7 @@ async function DeleteActividades(id_actividad) {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTable();
+            BusquedaParametrizada();
             // Se muestra un mensaje de éxito.
             sweetAlert(1, JSON.message, true);
         } else {

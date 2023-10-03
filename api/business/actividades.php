@@ -206,6 +206,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Trimestre incorrecto';
                 } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
+                } elseif ($Actividades_p->validatePonderacion('cr')) {
+                    $result['exception'] = 'La ponderación total dbe ser menor o igual a 100';
                 } elseif ($Actividades_p->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha creado correctamente';
@@ -257,7 +259,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Tipo de actividad incorrecto';
                 } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
-                } elseif ($Actividades_p->updateRow()) {
+                } /*elseif ($Actividades_p->validatePonderacion('up')) {
+                    $result['exception'] = 'La ponderación total dbe ser menor o igual a 100';
+                } */elseif ($Actividades_p->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha actualizado correctamente';
                 } else {
