@@ -16,6 +16,7 @@ class Actividades extends ActividadesQueries
     protected $id_trimestre = null;
     protected $id_detalle_asignatura_empleado = null;
     protected $id_asignatura = null;
+    protected $id_grado = null;
 
 
     /*
@@ -30,6 +31,17 @@ class Actividades extends ActividadesQueries
             return false;
         }
     }
+
+    public function setid_grado($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_grado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public function setnombre_actividad($value)
     {

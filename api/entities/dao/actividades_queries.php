@@ -75,9 +75,12 @@ class ActividadesQueries
         $sql = "SELECT DISTINCT id_asignatura, asignatura
             FROM asignaturas LEFT JOIN detalle_asignaturas_empleados USING (id_asignatura)";
         if ($_SESSION['id_cargo'] == 2) {
-            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'];
+            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'] . " AND detalle_asignaturas_empleados.id_grado = ?";
+        }else{
+            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_grado = ?";
         }
-        return Database::getRows($sql);
+        $params = array($this->id_grado);
+        return Database::getRows($sql, $params);
     }
 
     public function readTrimestres()

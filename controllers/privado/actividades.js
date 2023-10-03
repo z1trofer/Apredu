@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     CargarTrimestres();
     //fillTable();
     CargarGrados();
-    cargarAsignaturas();
+    //cargarAsignaturas();
     CargarNombreDocente();
     }
 });
@@ -256,6 +256,7 @@ function OpcionGrado(id_gradoFun, gradoFun) {
     id_grado = id_gradoFun;
     //se designa el texto del boton como el trimestre seleccionado
     document.getElementById('dropGrado').innerHTML = gradoFun;
+    cargarAsignaturas();
 };
 /*
 document.getElementById('buscar').addEventListener('onclick', async (event) => {
@@ -268,6 +269,7 @@ async function cargarAsignaturas() {
     //se instancia un formulario
     const FORM = new FormData();
     //se instancia el año como parametro en el formulario
+    FORM.append('id_grado', id_grado);
     FORM.append('id_asignatura', id_asignatura);
     //se llama a la API para obtener los trimestres del año respectivo
     const JSON = await dataFetch(ACTIVIDADES_API, 'readAsignaturas', FORM);
@@ -292,7 +294,7 @@ async function cargarAsignaturas() {
         });
     } else {
         //se envia un mensaje con el error respectivo
-        sweetAlert(2, "Ocurrio un error al cargar las asignaturas, por favor comuniquese con un administrador", false);
+        sweetAlert(3, "Ocurrio un error al cargar las asignaturas, Posiblemente se deba a que no hay asignaturas asignadas a este curso", false);
     }
 };
 

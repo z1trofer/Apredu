@@ -50,9 +50,9 @@ async function fillList(filename, action, list, selected = null) {
             value = Object.values(row)[0];
             text = Object.values(row)[1];
             if (value != selected) {
-                content += `<li><a class="dropdown-item" onclick="opcionGrado('${value}')">${text}</a></li>`;
+                content += `<li><a class="dropdown-item" onclick="opcionGrado('${value}', '${text}')">${text}</a></li>`;
             } else {
-                content += `<li><a class="dropdown-item" onclick="opcionGrado('${value}')" class="active">${text}</a></li>`;
+                content += `<li><a class="dropdown-item" onclick="opcionGrado('${value}', '${text}')" class="active">${text}</a></li>`;
             }
         });
     } else {
@@ -99,6 +99,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         fillTable();
+        SAVE_FORM_E.reset();
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
@@ -179,9 +180,9 @@ async function openUpdate(id) {
 }
 
 function openCreate() {
+    debugger
     // Se restauran los elementos del formulario.
     SAVE_FORM_E.reset();
-    SAVE_FORM_R.reset();
     fillList(ESTUDIANTE_API, 'readGrado', 'lectura')
 
 }
