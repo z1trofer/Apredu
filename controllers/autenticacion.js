@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
     if (JSON.status) {
         // Se direcciona a la página web de bienvenida.
-        location.href('principal.html');
+        //location.href = 'principal.html';
     } else {
         //se envia un mensaje de error
         sweetAlert(2, 'La sesión ya no es valida', false);
