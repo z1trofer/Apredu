@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 <div class="container">
     <!-- Navbar brand -->
     <a class="img_navbar">
-        <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
+        <img src="../../recursos/images/logo.png" style="width: 9rem;" alt="">
     </a>
 
     <!-- Toggle button -->
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="container">
             <!-- Navbar brand -->
             <a class="img_navbar">
-                <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
+                <img src="../../recursos/images/logo.png" style="width: 9rem;" alt="">
             </a>
 
             <!-- Toggle button -->
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <div class="container p-4 pb-0">
         <!-- Section: Social media -->
         <section class="mb-4">
-            <img src="../../recursos/logo_abajo.png" style="width: 20rem;" alt="">
+            <img src="../../recursos/images/logo_abajo.png" style="width: 20rem;" alt="">
         </section>
         <div class="row">
             <div class="col">

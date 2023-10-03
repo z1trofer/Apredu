@@ -57,8 +57,8 @@ class Report extends FPDF
     public function header()
     {
         // Se establece el logo.
-        $this->image('../../../recursos/header.png', 0, 0, 220);
-        $this->image('../../../recursos/logo1.png', 15, 10, 20);
+        $this->image('../../../recursos/images/header.png', 0, 0, 220);
+        $this->image('../../../recursos/images/logo1.png', 15, 10, 20);
         // Se ubica el título.
         $this->SetFont('Helvetica','B', 15);
         $this->Cell(190, 10,'Colegio Aprendo Contigo', 0, 1, 'C');
@@ -82,7 +82,7 @@ class Report extends FPDF
     */
     public function footer()
     {
-        $this->image('../../../recursos/footer1.png', 0, 245, 220);
+        $this->image('../../../recursos/images/footer1.png', 0, 245, 220);
         // Se establece la posición para el número de página (a 15 milímetros del final).
         $this->setY(-15);
         // Se establece la fuente para el número de página.

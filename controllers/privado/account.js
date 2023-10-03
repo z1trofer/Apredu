@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div id="cont-nav" class="container-fluid">
                 <a class="navbar-brand" href="principal.html">
-                    <img src="../../recursos/logo.png" style="width: 9rem;" alt="">
+                    <img src="../../recursos/images/logo.png" style="width: 9rem;" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
                     data-mdb-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
