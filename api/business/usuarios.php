@@ -127,6 +127,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                 } elseif (!$usuario->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Usuario incorrecto';
+                } elseif ($_POST['nueva'] == $_POST['actual']) {
+                    $result['exception'] = 'La clave nueva debe ser diferente a la actual.';
                 } elseif (!$usuario->checkPassword($_POST['actual'])) {
                     $result['exception'] = 'Clave actual incorrecta';
                 } elseif ($_POST['nueva'] != $_POST['confirmar']) {

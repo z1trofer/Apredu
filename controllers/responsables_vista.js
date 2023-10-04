@@ -97,9 +97,9 @@ async function fillTable(form = null) {
                     <td>${row.parentesco}</td>
                     <td>
                     <button onclick="openUpdate(${row.id_responsable})"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Actualizar
+                    <i class="fa-solid fa-pencil"></i>
                     </button>
-                    <button onclick="openDelete(${row.id_responsable})" type="button" class="btn btn-danger">Eliminar</button>
+                    <button onclick="openDelete(${row.id_responsable})" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             `;
