@@ -206,7 +206,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Trimestre incorrecto';
                 } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
-                } elseif ($Actividades_p->validatePonderacion('cr')) {
+                } elseif (!$Actividades_p->validatePonderacion(false)) {
                     $result['exception'] = 'La ponderación total dbe ser menor o igual a 100';
                 } elseif ($Actividades_p->createRow()) {
                     $result['status'] = 1;
@@ -259,9 +259,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Tipo de actividad incorrecto';
                 } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
-                } /*elseif ($Actividades_p->validatePonderacion('up')) {
+                } elseif (!$Actividades_p->validatePonderacion(true)) {
                     $result['exception'] = 'La ponderación total dbe ser menor o igual a 100';
-                } */elseif ($Actividades_p->updateRow()) {
+                } elseif ($Actividades_p->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha actualizado correctamente';
                 } else {
@@ -270,7 +270,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'delete':
                 //se declaran los permisos necesarios para la accion
-                $access = array('edit_actividades');
+                $access = array('edit_actividades', 'view_all_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {

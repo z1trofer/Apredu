@@ -136,7 +136,7 @@ class ActividadesQueries
     //validar ponderación
     public function validatePonderacion($modo)
     {
-        if ($modo == 'up') {
+        if ($modo == true) {
             $sql = "SELECT actividades.id_actividad, actividades.ponderacion, actividades.id_trimestre, grados.id_grado, asignaturas.id_asignatura FROM actividades INNER JOIN tipo_actividades USING (id_tipo_actividad)
             INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
             INNER JOIN grados USING (id_grado)
@@ -149,18 +149,17 @@ class ActividadesQueries
             WHERE id_actividad = ?  GROUP BY actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
             ORDER BY actividades.nombre_actividad ASC) as actiparam 
             where actividades.id_trimestre = actiparam.id_trimestre and grados.id_grado = actiparam.id_grado and asignaturas.id_asignatura = actiparam.id_asignatura and actividades.id_actividad != actiparam.id_actividad";
-            $params = array($this->id_trimestre);
+            $params = array($this->id_actividad);
             $data = Database::getRows($sql, $params);
         } else {
-            $sql = "SELECT actividades.id_actividad, actividades.ponderacion,  grados.grado, asignaturas.asignatura
+            $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion,  grados.grado, asignaturas.asignatura
             FROM actividades
             INNER JOIN tipo_actividades USING (id_tipo_actividad)
             INNER JOIN detalle_asignaturas_empleados USING(id_detalle_asignatura_empleado)
             INNER JOIN grados USING (id_grado)
             INNER JOIN asignaturas USING (id_asignatura)
-            WHERE id_trimestre = ? and detalle_asignaturas_empleados.id_grado = ? and id_asignatura = ?
-            ORDER BY actividades.nombre_actividad ASC";
-            $params = array($this->id_trimestre, $this->id_grado, $this->id_asignatura);
+            WHERE actividades.id_detalle_asignatura_empleado = ? and id_trimestre = ?";
+            $params = array($this->id_detalle_asignatura_empleado, $this->id_trimestre);
             $data = Database::getRows($sql, $params);
         }
         $suma = $this->ponderacion;
