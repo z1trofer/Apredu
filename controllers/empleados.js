@@ -217,7 +217,6 @@ async function fillTable(form = null) {
                 <td>${row.nombre_empleado}</td>
                 <td>${row.cargo}</td>
                 <td>${row.correo_empleado}</td>
-                `+ btnActividades + `
                     <td>`+ btnAsignaciones + `
                         <button type="button" class="btn btn-info" data-mdb-toggle="modal"
                             data-mdb-target="#ModalDocentesInfo" onclick="openUpdate(${row.id_empleado})">

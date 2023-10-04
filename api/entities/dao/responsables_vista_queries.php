@@ -27,7 +27,7 @@ class ResponsablesVistaQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function readOne()
     {
-        $sql = "SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco, CONCAT(estudiantes.nombre_estudiante, ' ', estudiantes.apellido_estudiante) as estudiante
+        $sql = "SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco, estudiantes.id_estudiante, CONCAT(estudiantes.nombre_estudiante, ' ', estudiantes.apellido_estudiante) as estudiante
         FROM responsables INNER JOIN responsables_estudiantes USING (id_responsable)
         INNER JOIN estudiantes USING (id_estudiante)
         WHERE id_responsable = ?";
@@ -85,6 +85,17 @@ class ResponsablesVistaQueries
         $sql = 'UPDATE responsables_estudiantes set id_estudiante = ? where id_responsable = ?';
         $params = array($this->id_alumno, $this->id_responsable);
         return Database::executeRow($sql, $params);
+    }
+
+    //reporte estudiantes (responsable segun id de estudiante)
+    public function reportEstudiantesRes()
+    {
+        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco
+        FROM responsables INNER JOIN responsables_estudiantes USING (id_responsable)
+        INNER JOIN estudiantes USING (id_estudiante)
+        WHERE estudiantes.id_estudiante = ?';
+        $params = array($this->id_alumno);
+        return Database::getRows($sql, $params);
     }
 }
 ?>

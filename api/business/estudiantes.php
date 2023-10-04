@@ -127,36 +127,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay grados registrados';
                 }
                 break;
-            case 'createResponsable':
-                $_POST = Validator::validateForm($_POST);
-                //se declaran los permisos necesarios para la accion
-                $access = array('edit_estudiantes');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
-                } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$responsable->setNombresResponsable($_POST['nombre_responsable'])) {
-                    $result['exception'] = 'Nombres incorrectos';
-                } elseif (!$responsable->setApellidosResponsable($_POST['apellido_responsable'])) {
-                    $result['exception'] = 'Apellidos incorrectos';
-                } elseif (!$responsable->setDui($_POST['dui'])) {
-                    $result['exception'] = 'DUI incorrecto';
-                } elseif (!$responsable->setCorreo($_POST['correo_responsable'])) {
-                    $result['exception'] = 'Correo incorrecto';
-                } elseif (!$responsable->setLugarTrabajo($_POST['trabajo'])) {
-                    $result['exception'] = 'Lugar de trabajo incorrecto';
-                } elseif (!$responsable->setTelefonoTrabajo($_POST['telefono_trabajo'])) {
-                    $result['exception'] = 'Telefono de trabajo incorrecto';
-                } elseif (!$responsable->setParentesco($_POST['parentesco_responsable'])) {
-                    $result['exception'] = 'Parentesco incorrecto';
-                } elseif ($responsable->createResponsable()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Usuario creado correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
             case 'CreateEstudiante':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion

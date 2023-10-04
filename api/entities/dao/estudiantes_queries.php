@@ -119,6 +119,16 @@ class EstudiantesQueries
         return Database::getRows($sql, $params);
     }
 
+        //consulta para el reporte de los datos de un estudiante
+        public function reporteEstudianteOne(){
+            $sql = "SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado
+            FROM estudiantes
+            INNER JOIN grados USING(id_grado)
+            WHERE id_estudiante = ?";
+        $params = array($this->id_estudiante);
+        return Database::getRow($sql, $params);
+    }
+
     public function checkPassword($password)
     {
         $sql = 'SELECT clave FROM estudiantes WHERE id_estudiante = ?';

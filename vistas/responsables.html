@@ -34,7 +34,7 @@
                         </div>
                         <div class="modal-body">
                             <form id="save-form">
-                                <input class="" type="hidden" id="id_responsable" name="id_responsable">
+                                <input class="" type="hidden" id="id_responsable" name="id_responsable" autocomplete="off">
                                 <div class="input-field col s12 m6">
                                     <label for="nombres">Nombre</label>
                                     <input id="nombres" type="text" name="nombres" maxlength="50"
@@ -42,25 +42,25 @@
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="apellidos">Apellidos</label>
-                                    <input id="apellidos" type="text" name="apellidos" maxlength="50"
+                                    <input id="apellidos" type="text" name="apellidos" maxlength="50"  autocomplete="off"
                                         class="validate form-control" required>
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="dui">Dui</label>
-                                    <input id="dui" type="text" name="dui" class="validate form-control" required>
+                                    <input id="dui" type="text" name="dui" class="validate form-control" required  autocomplete="off">
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="correo">Correo</label>
-                                    <input id="correo" type="text" name="correo" class="validate form-control" required>
+                                    <input id="correo" type="text" name="correo" class="validate form-control" required  autocomplete="off">
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="lugar">Lugar de trabajo</label>
-                                    <input id="lugar" type="text" name="lugar" maxlength="150"
+                                    <input id="lugar" type="text" name="lugar" maxlength="150"  autocomplete="off"
                                         class="validate form-control" required>
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="telefono">Telefono de trabajo</label>
-                                    <input id="telefono" type="text" name="telefono" class="validate form-control"
+                                    <input id="telefono" type="text" name="telefono" class="validate form-control"  autocomplete="off"
                                         required>
                                 </div>
                                 <div class="input-field col s12 m6">
@@ -94,7 +94,7 @@
                                 <div class="input-field col s12 m6">
                                     <select class="form-select" required aria-label="select example" id="estudiante"
                                         name="estudiante">
-                                        <option value="">Seleccione un estudiante</option>
+                                        <option value="0">Seleccione un estudiante</option>
                                     </select>
                                 </div>
                                 <div class="modal-footer">

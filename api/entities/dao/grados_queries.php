@@ -105,7 +105,7 @@ class GradosQueries
     //consulta para el reporte de actividades por grado
     public function gradoActividades()
     {
-        $sql = 'SELECT a.nombre_actividad, a.ponderacion, a.descripcion, a.fecha_entrega, ta.tipo_actividad, t.trimestre, asi.asignatura
+        $sql = 'SELECT a.id_trimestre, t.trimestre, a.nombre_actividad, a.ponderacion, a.descripcion, a.fecha_entrega, ta.tipo_actividad,  asi.asignatura
         FROM actividades a
         JOIN detalle_asignaturas_empleados dae USING(id_detalle_asignatura_empleado)
         JOIN asignaturas asi USING(id_asignatura)

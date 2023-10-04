@@ -130,7 +130,9 @@ async function fillTable(form = null) {
                     <td>${row.apellido_estudiante}</td>
                     <td>${row.nombre_estudiante}</td>
                     <td>${row.grado}</td>
-                    <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn-info " data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><i class="fa-solid fa-pencil"></i></button></td>
+                    
+                    <td><button  onclick="openUpdate(${row.id_estudiante})" type="button" class="btn btn-info " data-mdb-toggle="modal"data-mdb-target="#ModalEstInfo"><i class="fa-solid fa-pencil"></i></button>
+                    <button  onclick="openReportOne(${row.id_estudiante})" type="button" class="btn btn-primary "><i class="fab fa-elementor"></i></button></td>
                     <td><button  onclick="reportNotas(${row.id_estudiante})" type="button" class="btn btn-warning"><i class="far fa-clipboard"></i></button></td>
                     <td><button onclick="openDelete(${row.id_estudiante})" type="button" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button></td>
                 </tr>
@@ -391,6 +393,14 @@ function openReport() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}reports/estudiantes_grado.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+}
+
+function openReportOne(id) {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/estudiante.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    PATH.searchParams.append('id_estudiante', id);
     window.open(PATH.href);
 }
 

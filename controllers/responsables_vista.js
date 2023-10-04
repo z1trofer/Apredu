@@ -120,6 +120,7 @@ function openCreate() {
     SAVE_FORM.reset();
     document.getElementById('estudiante_label').hidden = true;
     document.getElementById('estudiante_aniadir').hidden = true;
+    document.getElementById('estudiante').innerHTML = '<option value="">Seleccione un estudiante</option>';
 }
 
 /*
@@ -147,6 +148,8 @@ async function openUpdate(id) {
         document.getElementById('parentesco').value = JSON.dataset.parentesco;
         document.getElementById('estudiante_label').hidden = false;
         document.getElementById('estudiante_aniadir').hidden = false;
+        document.getElementById('estudiante').required = false;
+        document.getElementById('estudiante').innerHTML = `<option value="${JSON.dataset.id_estudiante}">${JSON.dataset.estudiante}</option>`;
         document.getElementById('estudiante_label').innerHTML = `Estudiante: ${JSON.dataset.estudiante}`;
     } else {
         sweetAlert(2, JSON.exception, false);
