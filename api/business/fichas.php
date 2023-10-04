@@ -184,14 +184,21 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'MasFichasConducta':
-                //se declaran los permisos necesarios para la accion
+                //se valida el parametro
+                $_POST = Validator::validateForm($_POST);
+                if (!$fichas->setid_grado($_POST['grado_conduct'])) {
+                    $parametro = 'Todos';
+                } else {
+                    $parametro = $_POST['grado_conduct'];
+                }
+                //se declaran los permisos necesarios para la accion 
                 $access = array('view_fichas');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $fichas->EstudianteMasReportes()) {
+                } elseif ($result['dataset'] = $fichas->EstudianteMasReportes($parametro)) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'No hay datos disponibles';

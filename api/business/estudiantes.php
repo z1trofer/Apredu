@@ -1,5 +1,4 @@
 <?php
-require_once('../entities/dto/responsables.php');
 require_once('../entities/dto/estudiantes.php');
 require_once('../entities/dto/permisos.php');
 
@@ -9,7 +8,6 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $estudiante = new Estudiantes;
-    $responsable = new Responsables;
     $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);

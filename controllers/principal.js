@@ -8,7 +8,7 @@ let tipoUsuario = null;
 document.addEventListener('DOMContentLoaded', async () => {
     // Petición para consultar los usuarios registrados.
     const JSON = await dataFetch(USER_API, 'getSession');
-     
+
     //agregarndo valor a tipo_usuario
     tipoUsuario = JSON.id_cargo;
     //filtrar el menu de usuario segun los permisos respectivos
@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 //funcion para controlar las opciones disponibles segun el nivel de usuario
-function validarPermisos(){
-     
+function validarPermisos() {
+
     switch (tipoUsuario) {
         //caso nivel de usuario docente/profesor
         case "2":
@@ -43,7 +43,7 @@ function validarPermisos(){
             for (let index = 0; index < things.length; index++) {
                 //se esconde el elemento que no deba ver el docente
                 things[index].hidden = true;
-              }
+            }
             break;
         default:
             break;
@@ -73,7 +73,7 @@ async function graficoBarrasSubCategorias() {
         barGraph('chart1', grados, cantidad_estudiantes, 'Estudiantes', 'Top 3 grados con más estudiantes');
     } else {
         document.getElementById('chart1').remove();
-        console.log(DATA.exception);
+        document.getElementById('chartspace1').innerHTML = "No hay datos para mostrar";
     }
 }
 
@@ -95,17 +95,19 @@ async function graficoPieMaterias() {
         pieGraph('chart2', nombre_empleado, cantidad_materias_asignadas, 'Top 5 docentes con mas materias', 'Top 5 docentes con mas materias');
     } else {
         document.getElementById('chart2').remove();
-        console.log(DATA.exception);
+        document.getElementById('chartspace2').innerHTML = "No hay datos para mostrar";
+
     }
 }
 
-async function llenarCMB(){
-    await fillSelect(NOTAS_API, 'ObtenerTrimestresNoParam', 'trimestre_top','Todos');
-    await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_top','Todos');
+async function llenarCMB() {
+    await fillSelect(NOTAS_API, 'ObtenerTrimestresNoParam', 'trimestre_top', 'Todos');
+    await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_top', 'Todos');
+    await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_conduct', 'Todos');
 }
 
 async function graficoBarrasNotas() {
-     
+
     const FORM = new FormData();
     FORM.append('trimestre', document.getElementById('trimestre_top').value);
     FORM.append('grado', document.getElementById('grado_top').value);
@@ -126,13 +128,16 @@ async function graficoBarrasNotas() {
         pieGraph('chart4', estudiantes, notas, 'Top 5 promedios', 'NOTAS');
     } else {
         document.getElementById('chart4').remove();
-        console.log(DATA.exception);
+        document.getElementById('chartspace4').innerHTML = "No hay datos para mostrar";
     }
 }
 
 async function graficoReportesConductas() {
+
+    const FORM = new FormData();
+    FORM.append('grado_conduct', document.getElementById('grado_conduct').value);
     // Petición para obtener los datos del gráfico.
-    const DATA = await dataFetch(CONDUCTA_API, 'MasFichasConducta');
+    const DATA = await dataFetch(CONDUCTA_API, 'MasFichasConducta', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
     if (DATA.status) {
         // Se declaran los arreglos para guardar los datos a graficar.
@@ -145,10 +150,10 @@ async function graficoReportesConductas() {
             cantidad_ficha.push(row.cantidad_ficha);
         });
         // Llamada a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
-        barGraphLineal('chart3', nombre_estudiante, cantidad_ficha, 'Top 3 de los estudiantes con más reportes de conducta', 'Top 3 de los estudiantes con más reportes de conducta');
+        pieGraph('chart3', nombre_estudiante, cantidad_ficha, 'Top 3 de los estudiantes con más reportes de conducta', 'Top 3 de los estudiantes con más reportes de conducta');
     } else {
         document.getElementById('chart3').remove();
-        console.log(DATA.exception);
+        document.getElementById('chartspace3').innerHTML = "No hay datos para mostrar";
     }
 }
 
@@ -166,9 +171,9 @@ async function graficoReproYApro() {
         FORM.append('grado', document.getElementById('grado_top').value);
         //segun la repeticion del codigo se manda una condicion diferente para obtener los 
         //aprobados y reprobados
-        if(index == 0){
+        if (index == 0) {
             FORM.append('condicion', '>=');
-        }else{
+        } else {
             FORM.append('condicion', '<');
         }
         //se manda a llamar a la consulta
@@ -177,20 +182,25 @@ async function graficoReproYApro() {
         if (DATA.status) {
             //se sube la cantidad al arreglo declarado previamente
             cantidad.push(DATA.dataset.cantidad);
-        }else {
-        //document.getElementById('chart5').remove();
-        console.log(DATA.exception);
+        } else {
+            //document.getElementById('chart5').remove();
+            document.getElementById('chartspace5').innerHTML = "No hay datos para mostrar";
         }
-        
+
     };
     //se genera el grafico
-    pieGraph('chart5', array, cantidad, 'Estudiante Aprobados', 'Estudiantes');
-}   
+    if (cantidad == 0) {
+        document.getElementById('chartspace5').innerHTML = "No hay datos para mostrar";
+    }else{
+        pieGraph('chart5', array, cantidad, 'Estudiante Aprobados', 'Estudiantes');
+    }
+
+}
 
 
 //eventos para graficos parametrizados graficos
-document.getElementById('trimestre_top').addEventListener('change', async (event) => {
-     
+document.getElementById('trimestre_top').addEventListener('change', async () => {
+
     //se resetean los canvas de los graficos para dar lugar a unos nuevos
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
     document.getElementById('chartspace5').innerHTML = "<canvas id='chart5'></canvas>";
@@ -199,11 +209,18 @@ document.getElementById('trimestre_top').addEventListener('change', async (event
     graficoReproYApro();
 });
 
-document.getElementById('grado_top').addEventListener('change', async (event) => {
+document.getElementById('grado_top').addEventListener('change', async () => {
     //se resetean los canvas de los graficos para dar lugar a unos nuevos
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
     document.getElementById('chartspace5').innerHTML = "<canvas id='chart5'></canvas>";
-        //se recargan los graficos
+    //se recargan los graficos
     graficoBarrasNotas();
     graficoReproYApro();
+});
+
+document.getElementById('grado_conduct').addEventListener('change', async () => {
+    //se resetean los canvas de los graficos para dar lugar a unos nuevos
+    document.getElementById('chartspace3').innerHTML = "<canvas id='chart3'></canvas>";
+    //se recargan los graficos
+    graficoReportesConductas();
 });

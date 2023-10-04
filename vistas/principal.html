@@ -30,19 +30,71 @@
         </h4>
         <br><br><br>
         <div class="container text-center">
-          <div class="row row-cols-2">
-            <div class="card col-sm-12 col-md-6">
+          <!--graficos automaticos-->
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
               <div>
                 <canvas id="chart1"></canvas>
               </div>
             </div>
-            <div class="card col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6">
               <div>
                 <canvas id="chart2"></canvas>
               </div>
             </div>
           </div>
+          <hr>
           <!--graficos parametrizados-->
+          <div class="table-responsive">
+            <div class="row">
+              <!--grafico conducta-->
+              <div class="col-sm-4 col-md-4">
+                <div>
+                  <label class="form-label">Grado</label>
+                  <select class="form-select" required aria-label="select example" id="grado_conduct" name="grado_conduct">
+                    <option value="">Todos</option>
+                  </select>
+                </div>
+                <div id="chartspace3" style=" width: 400; height: 200;">
+                  <canvas id='chart3'></canvas>
+                </div>
+              </div>
+              <div class="col">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div>
+                      <label class="form-label">Trimestre</label>
+                      <select class="form-select" required aria-label="select example" id="trimestre_top"
+                        name="trimestre_top">
+                        <option value="">Todos</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <div>
+                      <label class="form-label">Grado</label>
+                      <select class="form-select" required aria-label="select example" id="grado_top" name="grado_top">
+                        <option value="">Todos</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div id="chartspace4">
+                      <canvas id="chart4"></canvas>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div id="chartspace5">
+                      <canvas id="chart5"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--graficos parametrizados
           <div class="row">
 
             <div class="card col-sm-12 col-md-6">
@@ -79,7 +131,7 @@
                 <canvas id="chart2"></canvas>
               </div>
             </div>
-          </div>
+          </div>-->
           <br>
           <br>
         </div>

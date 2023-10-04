@@ -41,6 +41,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         // Se carga nuevamente la tabla para visualizar los cambios.
         fillTable();
         // Se muestra un mensaje de éxito.
+        document.getElementById('btnClose').click();
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);

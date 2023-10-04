@@ -111,14 +111,17 @@ class FichasQueries
         return Database::getRows($sql, $params);
     }
 
-    public function EstudianteMasReportes()
+    public function EstudianteMasReportes($param)
     {
         $sql = "SELECT nombre_estudiante, COUNT(id_ficha) AS cantidad_ficha
-        FROM fichas INNER JOIN estudiantes USING(id_estudiante)
-        GROUP BY nombre_estudiante
+        FROM fichas INNER JOIN estudiantes USING(id_estudiante)";
+        if($param != "Todos"){
+        $sql = $sql." WHERE estudiantes.id_grado = $param";
+        }
+        $sql = $sql." GROUP BY nombre_estudiante
         ORDER BY cantidad_ficha DESC
-        LIMIT 3";
-         return Database::getRows($sql);
+        LIMIT 5";
+        return Database::getRows($sql);
 
     }
 }

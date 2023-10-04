@@ -12,6 +12,7 @@ class Fichas extends FichasQueries
     protected $descripcion_ficha = null;
     protected $fecha_ficha = null;
     protected $id_empleado = null;
+    protected $id_grado = null;
 
     //Parte estudiante
     public $nombre_estudiante = null;
@@ -24,6 +25,16 @@ class Fichas extends FichasQueries
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_ficha = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setid_grado($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_grado = $value;
             return true;
         } else {
             return false;
