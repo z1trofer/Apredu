@@ -15,10 +15,8 @@
 <body id="private">
     <!-- Navbar -->
     <header id="navbar">
-        <!-- Navbar -->
 
     </header>
-    <!-- Navbar -->
     <main>
         <!--Sección Principal-->
 
@@ -114,14 +112,16 @@
                                             </div>
                                         </div>
                                         <div class="col">
+                                            <!--descripción de la actividad-->
                                             <h5>Descripción</h5>
-                                            <textarea name="descripcion" id="descripcion" cols="40" rows="4"
-                                                style="border: solid; border-width: 2px; border-radius: 2px;"></textarea>
+                                            <textarea class="form-control" name="descripcion" id="descripcion" rows="4"
+                                            autocomplete="off"></textarea>
                                         </div>
 
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <!--botones para cerrar el modal y subir el formulario-->
                                     <button id="closeAct" type="button" class="btn btn-danger"
                                         data-mdb-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-success">Guardar Cambios</button>
@@ -131,7 +131,6 @@
                     </div>
                 </div>
                 <div class="col-10">
-                    <!--buscador-->
                     <!--nombre del docente-->
                     <h4 id="nombre_empleado">
                     </h4>
@@ -143,6 +142,7 @@
                     <!--filtros empleados-->
                     <div id="infoMenuEmp" class="col-lg-4 col-md-4 col-sm-6 text-center">
                         <div class="dropdown">
+                            <!--dropdown para seleccionar el trimestre-->
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropTrimestre"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 Primer Trimestre
@@ -155,6 +155,7 @@
                     </div>
                     <div id="infoMenuEmp" class="col-lg-4 col-md-4 col-sm-6 text-center">
                         <div class="dropdown">
+                            <!--dropdown para seleccionar el grado -->
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropGrado"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
                                 2° grado
@@ -165,6 +166,7 @@
                         </div>
                     </div>
                     <div id="infoMenuEmp" class="col-lg-4 col-md-4 col-sm-6 text-center">
+                        <!--dropdown para seleccionar la asingatura-->
                         <div class="dropdown">
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropAsignatura"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
@@ -177,6 +179,7 @@
                     </div>
                 </div>
                 <div class="row">
+                    <!--boton para hacer las busquedas parametrizadas-->
                     <div id="infoMenuEmp" class="col text-center">
                         <button id="buscar" type="button" class="btn btn-primary"
                             onclick="BusquedaParametrizada()">Filtrar <i class="fas fa-filter"></i></button>
@@ -188,6 +191,7 @@
         <div class="container" id="TablaEm">
             <div class="table-responsive">
                 <table class="table">
+                    <!--encabezados de la tabla-->
                     <thead>
                         <tr>
                             <th scope="col">Nombre actividad</th>
@@ -198,6 +202,7 @@
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
+                    <!--cuerpo de la tabla (contenido)-->
                     <tbody id="tbody">
                         
                     </tbody>
@@ -207,38 +212,8 @@
 
     </main>
     <footer id="footer" class="bg-dark text-center text-white">
-        <div class="container p-4 pb-0">
-            <!-- Seccion: Social -->
-            <section class="mb-4">
-                <!-- Facebook -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-facebook-f"></i></a>
-
-                <!-- Twitter -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-twitter"></i></a>
-
-                <!-- Google -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-google"></i></a>
-
-                <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-instagram"></i></a>
-
-                <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-linkedin-in"></i></a>
-            </section>
-        </div>
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">Aprendo Contigo</a>
-        </div>
-        <!-- Copyright -->
+        <!--contenido footer-->
     </footer>
-    <!--JavaScrip-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 </body>
 <script src="../recursos/js/sweetalert.min.js"></script>

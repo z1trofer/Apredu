@@ -61,11 +61,11 @@ FORMULARIO.addEventListener('submit', async (event) => {
     const JSON = await dataFetch(ACTIVIDADES_API, action, FORM);
     if (JSON.status) {
         // Se carga nuevamente la tabla para visualizar los cambios.
-        BusquedaParametrizada();
         FORMULARIO.reset();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
         document.getElementById('closeAct').click();
+        BusquedaParametrizada();
     } else {
         sweetAlert(2, JSON.exception, false);
     }

@@ -224,3 +224,12 @@ document.getElementById('grado_conduct').addEventListener('change', async () => 
     //se recargan los graficos
     graficoReportesConductas();
 });
+/*
+let clicks = 0;
+document.getElementById('logoA').addEventListener('click', () =>{
+    if(clicks > 20){
+        document.getElementById('logoA').height= 1000;
+    }else{
+        clicks++;
+    }
+})*/

@@ -13,6 +13,7 @@
 </head>
 
 <body id="private">
+    <!--header-->
     <header id="navbar">
 
     </header>
@@ -20,12 +21,13 @@
 
         <div class="container">
             <h1>Agregar asignaturas</h1>
-            <!-- Button trigger modal -->
+            <!-- boton abrir el modal agregar asignatura -->
             <button onclick="openCreate()" type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
-                Agregar asignatura
+                <i class="fas fa-circle-plus"></i>
             </button>
-            <button onclick="openReport()" type="button" class="btn btn-warning">Reporte</button>
+            <!--boton abrir reporte asignaturas-->
+            <button onclick="openReport()" type="button" class="btn btn-warning"><i class="fas fa-id-badge"></i></button>
         </div>
 
 
@@ -42,8 +44,9 @@
                             <input class="visually-hidden" type="number" id="id_asignatura" name="id_asignatura">
                             <div class="input-field col s12 m6">
                                 <label for="nombres">Nombre de la asignatura</label>
-                                <input id="asignatura" type="text" name="asignatura" class="validate" autocomplete="off"
-                                    required>
+                                <div class="mb-3">
+                                    <input id="asignatura" type="text" name="asignatura" class="form-control is-valid" required>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
