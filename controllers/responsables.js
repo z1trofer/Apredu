@@ -1,6 +1,6 @@
 
 // Constante para completar la ruta de la API.
-const RESPONSABLES_API = 'business/responsables_vista.php';
+const RESPONSABLES_API = 'business/responsables.php';
 // Constante para establecer el formulario de buscar.
 // Constante para establecer el formulario de guardar.
 const SAVE_FORM = document.getElementById('save-form');
@@ -10,6 +10,8 @@ const MODAL_TITLE = document.getElementById('modal-title');
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 // Constante tipo objeto para establecer las opciones del componente Modal.
+//formulario bsucar
+const SEARCH = document.getElementById('search-form');
 
 //funcion para verificar que el usuario tiene acceso a la pagina
 async function validate() {
@@ -50,6 +52,19 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         sweetAlert(2, JSON.exception, false);
     }
 });
+/*
+async function search(){
+    const FORM = new FormData();
+    fillTable(FORM);
+}
+*/
+
+SEARCH.addEventListener('submit', async (event) => {
+    debugger
+    event.preventDefault();
+    const FORM = new FormData(SEARCH);
+    fillTable(FORM);
+});
 
 
 //buscador estudiantes
@@ -59,6 +74,17 @@ document.getElementById('search').addEventListener('change', async () => {
     const FORM = new FormData();
     FORM.append('param', document.getElementById('search').value);
     fillSelect2(RESPONSABLES_API, 'SearchEstudiante', 'estudiante', data, null)
+   /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
+    if(JSON.status){
+        fillSelect
+    }*/
+});
+
+document.getElementById('searchEs').addEventListener('change', async () => {
+    data = document.getElementById('searchEs').value;
+    const FORM = new FormData();
+    FORM.append('param', document.getElementById('searchEs').value);
+    fillSelect2(RESPONSABLES_API, 'SearchEstudiante', 'selectEs', data, null)
    /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
     if(JSON.status){
         fillSelect

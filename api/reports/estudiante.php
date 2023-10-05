@@ -8,7 +8,7 @@ $pdf = new Report;
 // Se verifica si existe un valor para la categoría, de lo contrario se muestra un mensaje.
 if (isset($_GET['id_estudiante'])) {
     require_once('../entities/dto/estudiantes.php');
-    require_once('../entities/dto/responsables_vista.php');
+    require_once('../entities/dto/responsables.php');
     // Se instancian las entidades correspondientes.
     $estudiante = new Estudiantes;
     $responsable = new ResponsablesVista;

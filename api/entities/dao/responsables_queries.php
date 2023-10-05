@@ -24,6 +24,20 @@ class ResponsablesVistaQueries
         return Database::getRows($sql);
     }
 
+    //funcion para buscar responsables
+    public function search($param, $idEs)
+    {
+        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco
+        FROM responsables INNER JOIN responsables_estudiantes USING (id_responsable)
+        WHERE (nombre_responsable LIKE ? or apellido_responsable LIKE ?)';
+        if($idEs != 'todos'){
+            $sql = $sql.' and id_estudiante = '.$idEs;
+        };
+        $sql = $sql.' ORDER BY id_responsable';
+        $params = array("%$param%", "%$param%");
+        return Database::getRows($sql, $params);
+    }
+
     //Método para consultar una columna específica de la tabla por medio de su id
     public function readOne()
     {

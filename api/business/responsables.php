@@ -1,5 +1,5 @@
 <?php
-require_once('../entities/dto/responsables_vista.php');
+require_once('../entities/dto/responsables.php');
 require_once('../entities/dto/permisos.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -12,7 +12,7 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_empleado'])and Validator::validateSessionTime()) {
+    if (isset($_SESSION['id_empleado']) and Validator::validateSessionTime()) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getVistaAutorizacion':
@@ -36,6 +36,30 @@ if (isset($_GET['action'])) {
                     //se deniega la acción
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                 } elseif ($result['dataset'] = $responsable->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+
+            case 'search':
+                //se valida el id del estudiante
+                if (!$responsable->setIdAlumno($_POST['selectEs'])) {
+                    $idEs = 'todos';
+                } else {
+                    $idEs = $_POST['selectEs'];
+                }
+                //obtener permisos de la accion
+                $access = array('view_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega la acción
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif ($result['dataset'] = $responsable->search($_POST['searchRes'], $idEs)) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
@@ -185,4 +209,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>

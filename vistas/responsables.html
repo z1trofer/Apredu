@@ -19,7 +19,8 @@
         <div class="container">
             <h1>Responsables</h1>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openCreate()">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                onclick="openCreate()">
                 Agregar Responsables
             </button>
 
@@ -34,7 +35,8 @@
                         </div>
                         <div class="modal-body">
                             <form id="save-form">
-                                <input class="" type="hidden" id="id_responsable" name="id_responsable" autocomplete="off">
+                                <input class="" type="hidden" id="id_responsable" name="id_responsable"
+                                    autocomplete="off">
                                 <div class="input-field col s12 m6">
                                     <label for="nombres">Nombre</label>
                                     <input id="nombres" type="text" name="nombres" maxlength="50"
@@ -42,26 +44,28 @@
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="apellidos">Apellidos</label>
-                                    <input id="apellidos" type="text" name="apellidos" maxlength="50"  autocomplete="off"
+                                    <input id="apellidos" type="text" name="apellidos" maxlength="50" autocomplete="off"
                                         class="validate form-control" required>
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="dui">Dui</label>
-                                    <input id="dui" type="text" name="dui" class="validate form-control" required  autocomplete="off">
+                                    <input id="dui" type="text" name="dui" class="validate form-control" required
+                                        autocomplete="off">
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="correo">Correo</label>
-                                    <input id="correo" type="text" name="correo" class="validate form-control" required  autocomplete="off">
+                                    <input id="correo" type="text" name="correo" class="validate form-control" required
+                                        autocomplete="off">
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="lugar">Lugar de trabajo</label>
-                                    <input id="lugar" type="text" name="lugar" maxlength="150"  autocomplete="off"
+                                    <input id="lugar" type="text" name="lugar" maxlength="150" autocomplete="off"
                                         class="validate form-control" required>
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="telefono">Telefono de trabajo</label>
-                                    <input id="telefono" type="text" name="telefono" class="validate form-control"  autocomplete="off"
-                                        required>
+                                    <input id="telefono" type="text" name="telefono" class="validate form-control"
+                                        autocomplete="off" required>
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <label for="parentesco">Parentesco</label>
@@ -109,36 +113,74 @@
             </div>
         </div>
 
-
-        <div class="container col-6">
-            <label>Buscar Responsables:</label>
-            <input class="form-control me-2 light-table-filter" data-table="table" type="text">
+        <!--filtros de busqueda para los responsables-->
+        <div class="container">
+            <form id="search-form">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12 marginTop">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input type="text" id="searchRes" name="searchRes" class="form-control" />
+                                <label class="form-label" for="form1">Buscar por Responsables</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 marginTop">
+                        <!--buscador estudiantes filtros-->
+                        <div class="input-field col s12 m6">
+                            <div class="input-group">
+                                <!--buscador por responsable-->
+                                <div class="form-outline">
+                                    <input type="search" id="searchEs" name="searchEs" class="form-control" />
+                                    <label class="form-label" for="form1">Buscar por Estudiante</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <!--buscador por estudiante-->
+                            <select class="form-select" required aria-label="select example" id="selectEs"
+                                name="selectEs">
+                                <option value="0">Seleccione un estudiante</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center marginTop">
+                    <div class="col">
+                        <!--boton submit para buscar-->
+                        <button id="buscar" type="submit" class="btn btn-primary">
+                            Filtrar <i class="fas fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
+        <!--tabla de responsables-->
         <div class="container">
             <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr id="records"></tr>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellidos</th>
-                        <th scope="col">Dui</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Lugar</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Parentesco</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody-rows">
+                <table class="table">
+                    <thead>
+                        <tr id="records"></tr>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Dui</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Lugar</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Parentesco</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-rows">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
-    <footer>
-
+    <footer id="footer" class="bg-dark text-center text-white">
+        <!--contenido footer-->
     </footer>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
@@ -148,7 +190,7 @@
     <script src="../recursos/js/sweetalert.min.js"></script>
     <script src="../controllers/components.js"></script>
     <script src="../controllers/account.js"></script>
-    <script src="../controllers/responsables_vista.js"></script>
+    <script src="../controllers/responsables.js"></script>
 </body>
 
 </html>
