@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 02:27:10
+-- Tiempo de generación: 07-10-2023 a las 00:36:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -192,6 +192,7 @@ CREATE TABLE `cargos_empleados` (
   `update_notas` tinyint(1) NOT NULL DEFAULT 0,
   `view_notas` tinyint(1) NOT NULL DEFAULT 0,
   `edit_actividades` tinyint(1) NOT NULL DEFAULT 0,
+  `edit_tipo_actividades` tinyint(1) NOT NULL DEFAULT 0,
   `view_actividades` tinyint(1) NOT NULL DEFAULT 0,
   `view_all_actividades` tinyint(1) NOT NULL DEFAULT 0,
   `view_empleados` tinyint(1) NOT NULL DEFAULT 0,
@@ -216,9 +217,9 @@ CREATE TABLE `cargos_empleados` (
 -- Volcado de datos para la tabla `cargos_empleados`
 --
 
-INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `edit_permisos`, `create_usuarios`, `update_usuarios`, `edit_perfil`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `edit_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_responsables`, `edit_responsables`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
-(1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 'profesor', 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `edit_permisos`, `create_usuarios`, `update_usuarios`, `edit_perfil`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `edit_actividades`, `edit_tipo_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_responsables`, `edit_responsables`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
+(1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'profesor', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -333,8 +334,8 @@ CREATE TABLE `estudiantes` (
   `direccion` varchar(150) NOT NULL COMMENT 'Direccion del estudiante',
   `nie` varchar(8) NOT NULL COMMENT 'Número de identificación del estudiante',
   `id_grado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  grado',
-  `usuario_estudiante` varchar(50) NOT NULL COMMENT 'Usuario del estudiante',
-  `clave` varchar(100) NOT NULL COMMENT 'Clave de acceso del usuario',
+  `id_responsable` int(11) DEFAULT NULL,
+  `parentesco_responsable` enum('padre','madre','tío/a','abuelo/a','tutor legal') DEFAULT NULL,
   `estado` tinyint(1) NOT NULL COMMENT 'Estado de actividad del usuario'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -342,28 +343,28 @@ CREATE TABLE `estudiantes` (
 -- Volcado de datos para la tabla `estudiantes`
 --
 
-INSERT INTO `estudiantes` (`id_estudiante`, `nombre_estudiante`, `apellido_estudiante`, `fecha_nacimiento`, `direccion`, `nie`, `id_grado`, `usuario_estudiante`, `clave`, `estado`) VALUES
-(2, 'Merlinda Saraí', 'SantaMaría Pérez', '2016-03-02', 'Col. Los Girasoles, Santa Domingo, San Salvador', '200232', 3, 'awebo', '', 1),
-(3, 'William Alexander', 'Acosta Mendoza', '2018-04-19', 'Col. Los Laureles, San Salvador', '12345-6', 3, 'asdasdas', '124', 0),
-(4, 'Lorena Patricia', 'Santos Gutiérrez', '2015-12-12', 'Av. Las Palmeras, San Salvador', '203452-1', 3, 'zzszsdsd', '124', 0),
-(5, 'Katherine Yolanda', 'López Barahona', '2014-02-12', 'Av. Texacuangos, Nejapa, San Salvador', '12342-1', 3, 'kiiikiki', '124', 0),
-(6, 'Salvador Josué', 'Serrano Monge', '2014-07-23', 'Av. Los Naranjos, San Salvador, El Salvador', '234531-2', 3, '3443drrtddfgd', '124', 0),
-(7, 'Mason Leví', 'Serrano Ascencio', '2012-08-11', 'Av. Villa de San Antonio, San Salvador', '12345-5', 3, '454gsdfdfsd', '124', 0),
-(8, 'Walter Antonio', 'Menjivar Escalante', '2012-09-12', 'Valle de San Marcos, San Salvador', '222321-2', 9, 'zzzzxcxccxz', '124', 0),
-(9, 'Lucas Samuel', 'Medrano Santos', '2016-12-23', 'Col. Santa Marta, San Salvador', '145673-3', 3, '3333gggt', '124', 0),
-(10, 'Susana Nohemi', 'Barahona Escobar', '2017-10-09', 'Col. Escalón, 75 av. Norte, San Salvador', '65312-3', 3, 'oloñoñoñ', '124', 0),
-(11, 'Marcela Josefina', 'Posada Fuentes', '2018-08-19', 'Av. Aguilares, Calle San Cristóbal, S.S', '345712-3', 6, 'eerwewrwerewr', '124', 0),
-(12, 'Carlos Humberto', 'Rivera Durán', '2014-09-08', 'San Salvador', '120945-6', 7, '343434sfdsd', '124', 0),
-(13, 'Walter Armando', 'Santos Nuñez', '2015-03-02', 'San Salvador', '231256-3', 6, 'sdsdfsdfs', '124', 0),
-(14, 'Astrid Saraí', 'Parada Jimenez', '2016-07-15', 'San Salvador', '134205-4', 4, '345345dfgdfg', '124', 0),
-(15, 'Jimena Elizabeth', 'Guardado Fernández', '2016-05-15', 'Col. Escalón, San Salvador', '152305-2', 4, 'zzzzss', '124', 0),
-(16, 'Brenda Celene', 'Hernández Delgado', '2015-12-03', 'San Marcos, San Salvador', '142309-5', 5, '1123123', '124', 0),
-(17, 'Edwin Alexander', 'Rivera Guardado', '2015-11-19', 'San Salvador', '125409-2', 5, 'dfdssdfsd', '124', 0),
-(18, 'Dora Alicia', 'Monge Rivera', '2014-09-21', 'Nejapa, San Salvador', '165323-6', 7, 'sdsdfdsf', '124', 0),
-(19, 'Wendy Liseth', 'Carrillo Torres', '2014-06-03', 'San Salvador', '132423-0', 7, '112321232', '124', 0),
-(20, 'Isabella Abigail', 'Rodriguez Mujica', '2015-02-01', 'San Salvador', '124309-6', 6, 'awaawwawa', '124', 0),
-(21, 'David Francisco', 'Rivera Guardado', '2016-12-23', 'San Salvador', '128675-6', 4, 'ghgfhfghgf', '124', 0),
-(22, 'Alejandro', 'Velgara', '2018-06-05', 'wadwaewaewe', '232323', 3, 'AlejandroVelgara', '', 1);
+INSERT INTO `estudiantes` (`id_estudiante`, `nombre_estudiante`, `apellido_estudiante`, `fecha_nacimiento`, `direccion`, `nie`, `id_grado`, `id_responsable`, `parentesco_responsable`, `estado`) VALUES
+(2, 'Merlinda Saraí', 'SantaMaría Pérez', '2016-03-02', 'Col. Los Girasoles, Santa Domingo, San Salvador', '200232', 3, NULL, NULL, 1),
+(3, 'William Alexander', 'Acosta Mendoza', '2018-04-19', 'Col. Los Laureles, San Salvador', '12345-6', 3, NULL, NULL, 0),
+(4, 'Lorena Patricia', 'Santos Gutiérrez', '2015-12-12', 'Av. Las Palmeras, San Salvador', '203452-1', 3, NULL, NULL, 0),
+(5, 'Katherine Yolanda', 'López Barahona', '2014-02-12', 'Av. Texacuangos, Nejapa, San Salvador', '12342-1', 3, NULL, NULL, 0),
+(6, 'Salvador Josué', 'Serrano Monge', '2014-07-23', 'Av. Los Naranjos, San Salvador, El Salvador', '234531-2', 3, NULL, NULL, 0),
+(7, 'Mason Leví', 'Serrano Ascencio', '2012-08-11', 'Av. Villa de San Antonio, San Salvador', '12345-5', 3, NULL, NULL, 0),
+(8, 'Walter Antonio', 'Menjivar Escalante', '2012-09-12', 'Valle de San Marcos, San Salvador', '222321-2', 9, 10, NULL, 0),
+(9, 'Lucas Samuel', 'Medrano Santos', '2016-12-23', 'Col. Santa Marta, San Salvador', '145673-3', 3, NULL, NULL, 0),
+(10, 'Susana Nohemi', 'Barahona Escobar', '2017-10-09', 'Col. Escalón, 75 av. Norte, San Salvador', '65312-3', 3, NULL, NULL, 0),
+(11, 'Marcela Josefina', 'Posada Fuentes', '2018-08-19', 'Av. Aguilares, Calle San Cristóbal, S.S', '345712-3', 6, NULL, NULL, 0),
+(12, 'Carlos Humberto', 'Rivera Durán', '2014-09-08', 'San Salvador', '120945-6', 7, NULL, NULL, 0),
+(13, 'Walter Armando', 'Santos Nuñez', '2015-03-02', 'San Salvador', '231256-3', 6, NULL, NULL, 0),
+(14, 'Astrid Saraí', 'Parada Jimenez', '2016-07-15', 'San Salvador', '134205-4', 4, NULL, NULL, 0),
+(15, 'Jimena Elizabeth', 'Guardado Fernández', '2016-05-15', 'Col. Escalón, San Salvador', '152305-2', 4, NULL, NULL, 0),
+(16, 'Brenda Celene', 'Hernández Delgado', '2015-12-03', 'San Marcos, San Salvador', '142309-5', 5, NULL, NULL, 0),
+(17, 'Edwin Alexander', 'Rivera Guardado', '2015-11-19', 'San Salvador', '125409-2', 5, NULL, NULL, 0),
+(18, 'Dora Alicia', 'Monge Rivera', '2014-09-21', 'Nejapa, San Salvador', '165323-6', 7, NULL, NULL, 0),
+(19, 'Wendy Liseth', 'Carrillo Torres', '2014-06-03', 'San Salvador', '132423-0', 7, NULL, NULL, 0),
+(20, 'Isabella Abigail', 'Rodriguez Mujica', '2015-02-01', 'San Salvador', '124309-6', 6, NULL, NULL, 0),
+(21, 'David Francisco', 'Rivera Guardado', '2016-12-23', 'San Salvador', '128675-6', 4, NULL, NULL, 0),
+(22, 'Alejandro', 'Velgara', '2018-06-05', 'wadwaewaewe', '232323', 3, NULL, NULL, 1);
 
 --
 -- Disparadores `estudiantes`
@@ -593,7 +594,277 @@ INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
 (273, 22, 59, NULL),
 (274, 14, 60, NULL),
 (275, 15, 60, NULL),
-(276, 21, 60, NULL);
+(276, 21, 60, NULL),
+(277, 2, 21, NULL),
+(278, 2, 22, NULL),
+(279, 2, 23, NULL),
+(280, 2, 40, NULL),
+(281, 2, 43, NULL),
+(282, 2, 50, NULL),
+(283, 2, 51, NULL),
+(284, 2, 52, NULL),
+(285, 2, 53, NULL),
+(286, 2, 54, NULL),
+(287, 2, 55, NULL),
+(288, 2, 56, NULL),
+(289, 2, 57, NULL),
+(290, 2, 58, NULL),
+(291, 2, 59, NULL),
+(292, 22, 21, NULL),
+(293, 22, 22, NULL),
+(294, 22, 23, NULL),
+(295, 22, 40, NULL),
+(296, 22, 43, NULL),
+(297, 22, 50, NULL),
+(298, 22, 51, NULL),
+(299, 22, 52, NULL),
+(300, 22, 53, NULL),
+(301, 22, 54, NULL),
+(302, 22, 55, NULL),
+(303, 22, 56, NULL),
+(304, 22, 57, NULL),
+(305, 22, 58, NULL),
+(306, 22, 59, NULL),
+(307, 7, 21, NULL),
+(308, 7, 22, NULL),
+(309, 7, 23, NULL),
+(310, 7, 40, NULL),
+(311, 7, 43, NULL),
+(312, 7, 50, NULL),
+(313, 7, 51, NULL),
+(314, 7, 52, NULL),
+(315, 7, 53, NULL),
+(316, 7, 54, NULL),
+(317, 7, 55, NULL),
+(318, 7, 56, NULL),
+(319, 7, 57, NULL),
+(320, 7, 58, NULL),
+(321, 7, 59, NULL),
+(322, 7, 21, NULL),
+(323, 7, 22, NULL),
+(324, 7, 23, NULL),
+(325, 7, 40, NULL),
+(326, 7, 43, NULL),
+(327, 7, 50, NULL),
+(328, 7, 51, NULL),
+(329, 7, 52, NULL),
+(330, 7, 53, NULL),
+(331, 7, 54, NULL),
+(332, 7, 55, NULL),
+(333, 7, 56, NULL),
+(334, 7, 57, NULL),
+(335, 7, 58, NULL),
+(336, 7, 59, NULL),
+(337, 2, 21, NULL),
+(338, 2, 22, NULL),
+(339, 2, 23, NULL),
+(340, 2, 40, NULL),
+(341, 2, 43, NULL),
+(342, 2, 50, NULL),
+(343, 2, 51, NULL),
+(344, 2, 52, NULL),
+(345, 2, 53, NULL),
+(346, 2, 54, NULL),
+(347, 2, 55, NULL),
+(348, 2, 56, NULL),
+(349, 2, 57, NULL),
+(350, 2, 58, NULL),
+(351, 2, 59, NULL),
+(352, 21, 60, NULL),
+(353, 2, 21, NULL),
+(354, 2, 22, NULL),
+(355, 2, 23, NULL),
+(356, 2, 40, NULL),
+(357, 2, 43, NULL),
+(358, 2, 50, NULL),
+(359, 2, 51, NULL),
+(360, 2, 52, NULL),
+(361, 2, 53, NULL),
+(362, 2, 54, NULL),
+(363, 2, 55, NULL),
+(364, 2, 56, NULL),
+(365, 2, 57, NULL),
+(366, 2, 58, NULL),
+(367, 2, 59, NULL),
+(368, 21, 60, NULL),
+(369, 18, 25, NULL),
+(370, 18, 29, NULL),
+(371, 18, 30, NULL),
+(372, 18, 31, NULL),
+(373, 18, 32, NULL),
+(376, 2, 21, NULL),
+(377, 2, 22, NULL),
+(378, 2, 23, NULL),
+(379, 2, 40, NULL),
+(380, 2, 43, NULL),
+(381, 2, 50, NULL),
+(382, 2, 51, NULL),
+(383, 2, 52, NULL),
+(384, 2, 53, NULL),
+(385, 2, 54, NULL),
+(386, 2, 55, NULL),
+(387, 2, 56, NULL),
+(388, 2, 57, NULL),
+(389, 2, 58, NULL),
+(390, 2, 59, NULL),
+(391, 2, 21, NULL),
+(392, 2, 22, NULL),
+(393, 2, 23, NULL),
+(394, 2, 40, NULL),
+(395, 2, 43, NULL),
+(396, 2, 50, NULL),
+(397, 2, 51, NULL),
+(398, 2, 52, NULL),
+(399, 2, 53, NULL),
+(400, 2, 54, NULL),
+(401, 2, 55, NULL),
+(402, 2, 56, NULL),
+(403, 2, 57, NULL),
+(404, 2, 58, NULL),
+(405, 2, 59, NULL),
+(406, 13, 24, NULL),
+(407, 13, 28, NULL),
+(409, 18, 25, NULL),
+(410, 18, 29, NULL),
+(411, 18, 30, NULL),
+(412, 18, 31, NULL),
+(413, 18, 32, NULL),
+(416, 2, 21, NULL),
+(417, 2, 22, NULL),
+(418, 2, 23, NULL),
+(419, 2, 40, NULL),
+(420, 2, 43, NULL),
+(421, 2, 50, NULL),
+(422, 2, 51, NULL),
+(423, 2, 52, NULL),
+(424, 2, 53, NULL),
+(425, 2, 54, NULL),
+(426, 2, 55, NULL),
+(427, 2, 56, NULL),
+(428, 2, 57, NULL),
+(429, 2, 58, NULL),
+(430, 2, 59, NULL),
+(431, 2, 21, NULL),
+(432, 2, 22, NULL),
+(433, 2, 23, NULL),
+(434, 2, 40, NULL),
+(435, 2, 43, NULL),
+(436, 2, 50, NULL),
+(437, 2, 51, NULL),
+(438, 2, 52, NULL),
+(439, 2, 53, NULL),
+(440, 2, 54, NULL),
+(441, 2, 55, NULL),
+(442, 2, 56, NULL),
+(443, 2, 57, NULL),
+(444, 2, 58, NULL),
+(445, 2, 59, NULL),
+(446, 21, 60, NULL),
+(447, 17, 47, NULL),
+(448, 17, 48, NULL),
+(449, 17, 44, NULL),
+(450, 17, 45, NULL),
+(451, 17, 46, NULL),
+(454, 6, 21, NULL),
+(455, 6, 22, NULL),
+(456, 6, 23, NULL),
+(457, 6, 40, NULL),
+(458, 6, 43, NULL),
+(459, 6, 50, NULL),
+(460, 6, 51, NULL),
+(461, 6, 52, NULL),
+(462, 6, 53, NULL),
+(463, 6, 54, NULL),
+(464, 6, 55, NULL),
+(465, 6, 56, NULL),
+(466, 6, 57, NULL),
+(467, 6, 58, NULL),
+(468, 6, 59, NULL),
+(469, 2, 21, NULL),
+(470, 2, 22, NULL),
+(471, 2, 23, NULL),
+(472, 2, 40, NULL),
+(473, 2, 43, NULL),
+(474, 2, 50, NULL),
+(475, 2, 51, NULL),
+(476, 2, 52, NULL),
+(477, 2, 53, NULL),
+(478, 2, 54, NULL),
+(479, 2, 55, NULL),
+(480, 2, 56, NULL),
+(481, 2, 57, NULL),
+(482, 2, 58, NULL),
+(483, 2, 59, NULL),
+(484, 2, 21, NULL),
+(485, 2, 22, NULL),
+(486, 2, 23, NULL),
+(487, 2, 40, NULL),
+(488, 2, 43, NULL),
+(489, 2, 50, NULL),
+(490, 2, 51, NULL),
+(491, 2, 52, NULL),
+(492, 2, 53, NULL),
+(493, 2, 54, NULL),
+(494, 2, 55, NULL),
+(495, 2, 56, NULL),
+(496, 2, 57, NULL),
+(497, 2, 58, NULL),
+(498, 2, 59, NULL),
+(499, 8, 27, NULL),
+(500, 8, 38, NULL),
+(502, 2, 21, NULL),
+(503, 2, 22, NULL),
+(504, 2, 23, NULL),
+(505, 2, 40, NULL),
+(506, 2, 43, NULL),
+(507, 2, 50, NULL),
+(508, 2, 51, NULL),
+(509, 2, 52, NULL),
+(510, 2, 53, NULL),
+(511, 2, 54, NULL),
+(512, 2, 55, NULL),
+(513, 2, 56, NULL),
+(514, 2, 57, NULL),
+(515, 2, 58, NULL),
+(516, 2, 59, NULL),
+(517, 8, 27, NULL),
+(518, 8, 38, NULL),
+(520, 2, 21, NULL),
+(521, 2, 22, NULL),
+(522, 2, 23, NULL),
+(523, 2, 40, NULL),
+(524, 2, 43, NULL),
+(525, 2, 50, NULL),
+(526, 2, 51, NULL),
+(527, 2, 52, NULL),
+(528, 2, 53, NULL),
+(529, 2, 54, NULL),
+(530, 2, 55, NULL),
+(531, 2, 56, NULL),
+(532, 2, 57, NULL),
+(533, 2, 58, NULL),
+(534, 2, 59, NULL),
+(535, 8, 27, NULL),
+(536, 8, 38, NULL),
+(538, 2, 21, NULL),
+(539, 2, 22, NULL),
+(540, 2, 23, NULL),
+(541, 2, 40, NULL),
+(542, 2, 43, NULL),
+(543, 2, 50, NULL),
+(544, 2, 51, NULL),
+(545, 2, 52, NULL),
+(546, 2, 53, NULL),
+(547, 2, 54, NULL),
+(548, 2, 55, NULL),
+(549, 2, 56, NULL),
+(550, 2, 57, NULL),
+(551, 2, 58, NULL),
+(552, 2, 59, NULL),
+(553, 8, 27, NULL),
+(554, 8, 38, NULL),
+(556, 8, 27, NULL),
+(557, 8, 38, NULL);
 
 -- --------------------------------------------------------
 
@@ -608,20 +879,15 @@ CREATE TABLE `responsables` (
   `dui` varchar(10) NOT NULL COMMENT 'Documento de identidad del estudiante',
   `correo_responsable` varchar(100) DEFAULT NULL COMMENT 'Correo electrónico del estudiante',
   `lugar_de_trabajo` varchar(150) NOT NULL COMMENT 'Dirección del lugar de trabajo',
-  `telefono_trabajo` varchar(9) NOT NULL COMMENT 'Teléfono del lugar de trabajo',
-  `parentesco` varchar(30) NOT NULL COMMENT 'parentesco del familiar',
-  `id_estudiante` int(11) NOT NULL COMMENT 'Campo id del estudiante correspondiente al responsable'
+  `telefono` varchar(9) NOT NULL COMMENT 'Teléfono del lugar de trabajo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `responsables`
 --
 
-INSERT INTO `responsables` (`id_responsable`, `nombre_responsable`, `apellido_responsable`, `dui`, `correo_responsable`, `lugar_de_trabajo`, `telefono_trabajo`, `parentesco`, `id_estudiante`) VALUES
-(1, 'William', 'Afton', '54545434-2', 'morado@gmail.com', 'freddy fazbears pizzeria', '6343-2343', 'Tutor legal', 14),
-(2, 'Cara deloco', 'De posada', '23423563-3', 'ellocod@gmail.com', 'por aqui y alla', '2323-4564', 'Padre', 19),
-(3, 'Cara Larga', 'Ludovina', '76453452-2', 'ggagte@gmail.com', 'alla', '2342-2323', 'Madre', 2),
-(5, 'el coco', 'ludovina', '76544323-2', 'aaaaaa@gmail.com', 'estudiante', '7655-4444', 'Padre', 2);
+INSERT INTO `responsables` (`id_responsable`, `nombre_responsable`, `apellido_responsable`, `dui`, `correo_responsable`, `lugar_de_trabajo`, `telefono`) VALUES
+(10, 'El perro', 'bermudez', '23434232-3', 'adas@gmail.com', 'aedasdasd', '2323-5656');
 
 -- --------------------------------------------------------
 
@@ -745,8 +1011,8 @@ ALTER TABLE `empleados`
 ALTER TABLE `estudiantes`
   ADD PRIMARY KEY (`id_estudiante`),
   ADD UNIQUE KEY `nie` (`nie`),
-  ADD UNIQUE KEY `usuario_estudiante` (`usuario_estudiante`),
-  ADD KEY `fk_grado` (`id_grado`);
+  ADD KEY `fk_grado` (`id_grado`),
+  ADD KEY `fk_responsable_estudiante` (`id_responsable`);
 
 --
 -- Indices de la tabla `fichas`
@@ -777,8 +1043,7 @@ ALTER TABLE `notas`
 ALTER TABLE `responsables`
   ADD PRIMARY KEY (`id_responsable`),
   ADD UNIQUE KEY `dui` (`dui`),
-  ADD UNIQUE KEY `correo_responsable` (`correo_responsable`),
-  ADD KEY `responsables_estudiantes` (`id_estudiante`);
+  ADD UNIQUE KEY `correo_responsable` (`correo_responsable`);
 
 --
 -- Indices de la tabla `tipo_actividades`
@@ -855,13 +1120,13 @@ ALTER TABLE `grados`
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=277;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=558;
 
 --
 -- AUTO_INCREMENT de la tabla `responsables`
 --
 ALTER TABLE `responsables`
-  MODIFY `id_responsable` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del responsable', AUTO_INCREMENT=7;
+  MODIFY `id_responsable` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del responsable', AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_actividades`
@@ -905,7 +1170,8 @@ ALTER TABLE `empleados`
 -- Filtros para la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  ADD CONSTRAINT `fk_grado` FOREIGN KEY (`id_grado`) REFERENCES `grados` (`id_grado`);
+  ADD CONSTRAINT `fk_grado` FOREIGN KEY (`id_grado`) REFERENCES `grados` (`id_grado`),
+  ADD CONSTRAINT `fk_responsable_estudiante` FOREIGN KEY (`id_responsable`) REFERENCES `responsables` (`id_responsable`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Filtros para la tabla `fichas`
@@ -920,12 +1186,6 @@ ALTER TABLE `fichas`
 ALTER TABLE `notas`
   ADD CONSTRAINT `fk_nt_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id_actividad`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_nt_estudiantes` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`);
-
---
--- Filtros para la tabla `responsables`
---
-ALTER TABLE `responsables`
-  ADD CONSTRAINT `responsables_estudiantes` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`);
 
 --
 -- Filtros para la tabla `trimestres`
