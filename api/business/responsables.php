@@ -117,9 +117,18 @@ if (isset($_GET['action'])) {
                 } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->createRow()) {
-                    //se comprueba la respuesta de la acci´no
-                    $result['status'] = 1;
-                    $result['message'] = 'Responsable creado exitosamente';
+                    if(!$responsable->setIdResponsable($responsable->obtenerResponsableIDdui())){
+                        $result['exception'] = 'Error al crear el responsable';
+                    } elseif(!$responsable->removeRes()) {
+                        $result['exception'] = 'Error al eliminar el id';
+                    } elseif($responsable->updateEstId()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Responsable actualizado correctamente';
+                    } elseif (Database::getException()){
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = "error al guardar el estudiante";
+                    }
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -154,7 +163,6 @@ if (isset($_GET['action'])) {
                     //se deniega la acción
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                 } elseif (!$responsable->setIdResponsable($_POST['id_responsable'])) {
-                    //se validan los campos
                     $result['exception'] = 'Responsable incorrecto';
                 } elseif (!$responsable->readOne()) {
                     $result['exception'] = 'Responsable inexistente';
@@ -175,17 +183,43 @@ if (isset($_GET['action'])) {
                 } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->updateRow()) {
-                    //se verifica el resultado de la acción
-                    $result['message'] = 'Responsable actualizado correctamente';
-                    $result['status'] = 1;
+                    if(!$responsable->removeRes()) {
+                        $result['exception'] = 'Error al eliminar el id';
+                    } elseif ($responsable->updateEstId()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Responsable actualizado correctamente';
+                    } else{
+                        $result['exception'] = Database::getException();
+                    }
                 } else {
                     $result['exception'] = Database::getException();
+                }
+                break;
+
+                //Quitar un responsable de un estudiante
+            case 'removeRes':
+                //se verifican los permisos necesarios
+                $access = array('edit_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se deniega el acceso
+                } elseif (!$responsable->setIdAlumno($_POST['id_estudiante'])) {
+                    $result['exception'] = 'Responsable incorrecto';
+                } elseif ($responsable->removeRes()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Registro actualizado correctamente';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No se pudo eliminar el registro';
                 }
                 break;
             case 'SearchEstudiante':
                 $_POST = Validator::validateForm($_POST);
                 //obtener permisos de la accion
-                $access = array('edit_responsables');
+                $access = array('view_responsables');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {

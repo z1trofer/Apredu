@@ -337,48 +337,6 @@ async function CargarNombreDocente() {
 };
 //--------------filtro
 
-//función Cargar Grados
-/*
-async function CargarGrados() {
-    //se instancia un formulario
-    const FORM = new FormData();
-    //se instancia el año como parametro en el formulario
-    FORM.append('id_grado', id_grado);
-    //se llama a la API para obtener los trimestres del año respectivo
-    const JSON = await dataFetch(ESTUDIANTE_API, 'readGrado', FORM);
-    //se comprueba la respuesta de la api
-    if (JSON.status) {
-        //se declara el combobox de trimestres en la variable dropdown
-        dropdown = document.getElementById('listGrados');
-        //se limpia el dropdown para asegurarse que no haya ningun contenido
-        dropdown.innerHTML = '';
-        //se llena el dropdown mediante la respuesta de la api
-        JSON.dataset.forEach(async row => {
-            //el dropdown se llena con el trimestre que poseea el valor de true
-            //se le asignan valores a las variables id_trimestre y trimestre para usarlos en posteriores consultas
-            id_grado = row.id_grado;
-            //trimestre = row.trimestre;
-            //se asigna el nombre del trimestre en el boton
-            document.getElementById('dropGrados').innerHTML = row.grado;
-            //se llena el dropdown con el trimestre especifico
-            dropdown.innerHTML += `
-                <li><a class="dropdown-item" onclick="OpcionGrado('${row.id_grado}','${row.grado}')">${row.grado}</a></li>
-                `
-        });
-    } else {
-        //se envia un mensaje con el error respectivo
-        sweetAlert(2, "Ocurrio un error al cargar los grados, por favor comuniquese con un administrador", false);
-    }
-};*/
-/*
-//----busqueda
-async function BusquedaParametrizada() {
-    const FORM = new FormData();
-    FORM.append('grado', id_grado);
-    fillTable(FORM);
-
-}
-*/
 
 //REPORTE NOTAS
 function reportNotas(id) {
@@ -403,46 +361,3 @@ function openReportOne(id) {
     PATH.searchParams.append('id_estudiante', id);
     window.open(PATH.href);
 }
-
-/*
-(function (document) {
-    'buscador';
-
-    var LightTableFilter = (function (Arr) {
-
-        var _input;
-
-        function _onInputEvent(e) {
-            _input = e.target;
-            var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-            Arr.forEach.call(tables, function (table) {
-                Arr.forEach.call(table.tBodies, function (tbody) {
-                    Arr.forEach.call(tbody.rows, _filter);
-                });
-            });
-        }
-
-        function _filter(row) {
-            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-        }
-
-        return {
-            init: function () {
-                var inputs = document.getElementsByClassName('light-table-filter');
-                Arr.forEach.call(inputs, function (input) {
-                    input.oninput = _onInputEvent;
-                });
-            }
-        };
-    })(Array.prototype);
-
-    document.addEventListener('readystatechange', function () {
-        if (document.readyState === 'complete') {
-            LightTableFilter.init();
-        }
-    });
-
-})(document);
-
-*/
