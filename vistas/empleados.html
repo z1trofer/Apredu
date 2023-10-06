@@ -54,9 +54,8 @@
                                     <label class="form-label">DUI (con guión)</label>
                                 </div>
                             </div>
-                            <br>
-                            <br>
-                            <br>
+                        </div>
+                        <div class="row marginTop">
                             <div class="col-sm-4">
                                 <!--input nombre de usuario-->
                                 <div class="form-outline">
@@ -76,13 +75,22 @@
                             <div class="col-sm-4">
                                 <!--input correo electronico-->
                                 <div class="form-outline">
+                                    <input type="text" id="telefono" name="telefono" class="form-control"
+                                        autocomplete="off" />
+                                    <label class="form-label" for="typetelefono">Teléfono</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row marginTop">
+                            <div class="col-sm-4">
+                                <!--input correo electronico-->
+                                <div class="form-outline">
                                     <input type="email" id="correo" name="correo" class="form-control"
                                         autocomplete="off" />
                                     <label class="form-label" for="typeEmail">Correo electrónico</label>
                                 </div>
                             </div>
-                            <br><br><br>
-                            <div class="col">
+                            <div class="col-sm-4">
                                 <!--accordion desplegable "cambio de contraseña (editar usuarios)"-->
                                 <div class="accordion" id="accordionContra" hidden>
                                     <div class="accordion-item">
@@ -105,13 +113,15 @@
                                                     </div>
                                                     <div class="form-outline col-auto">
                                                         <!--input confirmar la contraseña (accordion)-->
-                                                        <input type="password" id="claveConfirmCarrosel" name="claveConfirmCarrosel"
-                                                            class="form-control" aria-describedby="textExample2" />
-                                                        <label class="form-label" for="formTextExample2">Confirmar Nueva
+                                                        <input type="password" id="claveConfirmCarrosel"
+                                                            name="claveConfirmCarrosel" class="form-control"
+                                                            aria-describedby="textExample2" />
+                                                        <label class="form-label" for="formTextExample2">Confirmar
+                                                            Nueva
                                                             Contraseña</label>
                                                     </div>
-                                                    <button id="savePass" type="button" class="btn btn-primary"
-                                                        >Guardar Contraseña</button>
+                                                    <button id="savePass" type="button" class="btn btn-primary">Guardar
+                                                        Contraseña</button>
 
                                                 </div>
                                             </div>
@@ -130,12 +140,12 @@
                                         <!--input confirmar contraseña-->
                                         <input type="password" id="claveConfirm" name="claveConfirm"
                                             class="form-control" aria-describedby="textExample2" />
-                                        <label class="form-label" for="formTextExample2">Confirmar Contraseña</label>
+                                        <label class="form-label" for="formTextExample2">Confirmar
+                                            Contraseña</label>
                                     </div>
 
                                 </div>
                             </div>
-                            <br><br><br>
                             <div class="col-sm-4">
                                 <div class="mb-4">
                                     <!--select seleccionar cargo-->
@@ -147,46 +157,47 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div class="col-sm-8 marginTop">
-                                <div class="form-outline">
-                                    <!--input dirección del empleado-->
-                                    <textarea class="form-control" id="direccion" name="direccion" rows="5"
-                                        autocomplete="off"></textarea>
-                                    <label class="form-label">Dirección</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <!--input estado-->
-                                <div class="mb-4">
-                                    <label class="form-label">estado</label>
-                                    <input type="text" id="intentos" name="intentos" class="visually-hidden-focusable">
-                                    <select class="form-select" required aria-label="select example" id="estado"
-                                        name="estado">
-                                        <option value="0">Bloqueado</option>
-                                        <option value="1">Activo</option>
-                                    </select>
-                                    <!--label de intentos-->
-                                    <label id="intentoslab" class="visually-hidden-focusable" style="color: red;">Este
-                                        usuario fue bloqueado automaticamente por alcanzar el limite de intentos al
-                                        iniciar sesión</label>
-                                    <div class="invalid-feedback">Ejemplo de comentarios de selección no válidos
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                        <div class="row marginTop">
+                        <div class="col-sm-8">
+                            <div class="form-outline">
+                                <!--input dirección del empleado-->
+                                <textarea class="form-control" id="direccion" name="direccion" rows="5"
+                                    autocomplete="off"></textarea>
+                                <label class="form-label">Dirección</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <!--input estado-->
+                            <div class="mb-4">
+                                <label class="form-label">estado</label>
+                                <input type="text" id="intentos" name="intentos" class="visually-hidden-focusable">
+                                <select class="form-select" required aria-label="select example" id="estado"
+                                    name="estado">
+                                    <option value="0">Bloqueado</option>
+                                    <option value="1">Activo</option>
+                                </select>
+                                <!--label de intentos-->
+                                <label id="intentoslab" class="visually-hidden-focusable" style="color: red;">Este
+                                    usuario fue bloqueado automaticamente por alcanzar el limite de intentos al
+                                    iniciar sesión</label>
+                                <div class="invalid-feedback">Ejemplo de comentarios de selección no válidos
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
                     </div>
-                    <!--footer modal-->
-                    <div class="modal-footer">
-                        <!--botones cerrar y submit-->
-                        <button id="closeEmpleados" type="button" class="btn btn-danger"
-                            data-mdb-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                    </div>
-                </form>
+            <!--footer modal-->
+            <div class="modal-footer">
+                <!--botones cerrar y submit-->
+                <button id="closeEmpleados" type="button" class="btn btn-danger"
+                    data-mdb-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success">Guardar Cambios</button>
             </div>
+            </form>
         </div>
+    </div>
     </div>
 
     <!--modal para asignar asignaturas y grados-->
@@ -391,7 +402,8 @@
                     <div class="row">
                         <div class="col">
                             <h6>Ver solo profesores<div class="form-check form-switch">
-                                    <input checked class="form-check-input" type="checkbox" role="switch" id="chekboxAdmin" />
+                                    <input checked class="form-check-input" type="checkbox" role="switch"
+                                        id="chekboxAdmin" />
                                 </div>
                             </h6>
 
@@ -430,12 +442,12 @@
         <!--contenido footer-->
     </footer>
 </body>
-    <script src="../recursos/js/sweetalert.min.js"></script>
-    <script src="../controllers/components.js"></script>
-    <script src="../controllers/account.js"></script>
-    <script src="../controllers/empleados.js"></script>
-    <!--JavaScrip-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+<script src="../recursos/js/sweetalert.min.js"></script>
+<script src="../controllers/components.js"></script>
+<script src="../controllers/account.js"></script>
+<script src="../controllers/empleados.js"></script>
+<!--JavaScrip-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 
 
 </html>

@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Método manejador de eventos para cuando se envía el formulario de guardar.
 SAVE_FORM.addEventListener('submit', async (event) => {
+    debugger
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.

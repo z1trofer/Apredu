@@ -390,6 +390,7 @@ async function openUpdate(id_empleado) {
         document.getElementById('apellidos').value = JSON.dataset.apellido_empleado;
         document.getElementById('dui').value = JSON.dataset.dui;
         fillSelect(EMPLEADOS_API, 'readCargos', 'cargo', 'Seleccione un cargo', JSON.dataset.id_cargo);
+        document.getElementById('telefono').value = JSON.dataset.telefono;
         document.getElementById('correo').value = JSON.dataset.correo_empleado;
         document.getElementById('direccion').value = JSON.dataset.direccion;
         document.getElementById('fecha_nacimiento').value = JSON.dataset.fecha_nacimiento;

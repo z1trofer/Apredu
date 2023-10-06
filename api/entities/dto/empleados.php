@@ -21,6 +21,8 @@ class Empleados extends EmpleadosQueries
     protected $id_grado = null;
     protected $id_asignatura = null;
 
+    protected $telefono = null;
+
 
 
     /*
@@ -82,6 +84,16 @@ class Empleados extends EmpleadosQueries
     {
         if (Validator::validateEmail($value, 1, 150)) {
             $this->correo_empleado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setTelefono($value)
+    {
+        if (Validator::validatePhone($value)) {
+            $this->telefono = $value;
             return true;
         } else {
             return false;

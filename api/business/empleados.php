@@ -228,6 +228,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Las contraseñas no coinciden';
                 } elseif (!$Empleados_p->setclave($_POST['clave'])) {
                     $result['exception'] = 'Clave incorrecta';
+                } elseif (!$Empleados_p->setTelefono($_POST['telefono'])) {
+                    $result['exception'] = 'Correo incorrecto';
                 } elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
@@ -282,11 +284,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'DUI incorrecto';
                 } elseif (!$Empleados_p->setusuario_empleado($_POST['usuario'])) {
                     $result['exception'] = 'Usuario incorrecto';
-                } /*elseif ($_POST['clave'] != $_POST['claveConfirm']) {
-                    $result['exception'] = 'Las contraseñas no coinciden';
-                } elseif (!$Empleados_p->setclave($_POST['clave'])) {
-                    $result['exception'] = 'Clave incorrecta';
-                }*/ elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
+                } elseif (!$Empleados_p->setTelefono($_POST['telefono'])) {
+                    $result['exception'] = 'telefono incorrecto';
+                } elseif (!$Empleados_p->setcorreo_empleado($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$Empleados_p->setdireccion($_POST['direccion'])) {
                     $result['exception'] = 'Direccion incorrecto';

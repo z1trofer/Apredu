@@ -69,6 +69,27 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //Acción para crear un nuevo Responsable 
+            case 'delete':
+                $_POST = Validator::validateForm($_POST);
+                //obtener permisos de la accion
+                $access = array('edit_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega la acción
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif (!$responsable->setIdResponsable($_POST['id_responsable'])) {
+                    //se validan todos los campos
+                    $result['exception'] = 'id responsable incorrecto';
+                } elseif ($responsable->deleteRow()) {
+                    //se comprueba la respuesta de la acci´no
+                    $result['status'] = 1;
+                    $result['message'] = 'Responsable eliminado satisfactoriamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+                //Acción para crear un nuevo Responsable 
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 //obtener permisos de la accion
@@ -89,7 +110,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$responsable->setLugarTrabajo($_POST['lugar'])) {
                     $result['exception'] = 'Lugar incorrecto';
-                } elseif (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
+                } elseif (!$responsable->setTelefono($_POST['telefono'])) {
                     $result['exception'] = 'Telefono incorrecto';
                 } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
                     $result['exception'] = 'Parentesco incorrecto';
@@ -97,18 +118,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->createRow()) {
                     //se comprueba la respuesta de la acci´no
-                    $result['message'] = 'Responsable creado';
-                    if ($responsable->setIdResponsable($responsable->ObtenerResponsableIDdui())) {
-                        if ($responsable->AgregarResponsableDetalle()) {
-                            $result['status'] = 1;
-                            $result['message'] = 'Responsable creado correctamente';
-                        } else {
-                            $result['exception'] = "Error al agregar el responsable";
-                        }
-                        $result['message'] = 'Responsable creado correctamente';
-                    } else {
-                        $result['exception'] = "Error al obtener el responsable";
-                    }
+                    $result['status'] = 1;
+                    $result['message'] = 'Responsable creado exitosamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -157,7 +168,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$responsable->setLugarTrabajo($_POST['lugar'])) {
                     $result['exception'] = 'Lugar incorrecto';
-                } elseif (!$responsable->setTelefonoTrabajo($_POST['telefono'])) {
+                } elseif (!$responsable->setTelefono($_POST['telefono'])) {
                     $result['exception'] = 'Telefono incorrecto';
                 } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
                     $result['exception'] = 'Parentesco incorrecto';
@@ -165,14 +176,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->updateRow()) {
                     //se verifica el resultado de la acción
-                    $result['message'] = 'Responsable creado';
-                    if ($responsable->ActualizarResponsableDetalle()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Responsable actualizado correctamente';
-                    } else {
-                        $result['exception'] = "Error al actualizar el responsable";
-                    }
                     $result['message'] = 'Responsable actualizado correctamente';
+                    $result['status'] = 1;
                 } else {
                     $result['exception'] = Database::getException();
                 }

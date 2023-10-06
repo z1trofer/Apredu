@@ -81,7 +81,7 @@ class ResponsablesVista extends ResponsablesVistaQueries{
         }
     }
 
-    public function setTelefonoTrabajo($value)
+    public function setTelefono($value)
     {
         if (Validator::validatePhone($value)) {
             $this->telefono_trabajo = $value;
