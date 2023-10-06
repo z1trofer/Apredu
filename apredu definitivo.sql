@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2023 a las 00:45:51
+-- Tiempo de generación: 06-10-2023 a las 02:27:10
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -68,15 +68,17 @@ INSERT INTO `actividades` (`id_actividad`, `nombre_actividad`, `ponderacion`, `d
 (46, 'examen artistica', 50, 'examen', '2023-04-21', 59, 3, 1),
 (47, 'Mate actividad', 35, 'ghghghghgh', '2023-04-05', 55, 2, 1),
 (48, 'Mate aaaa', 25, 'zzzzz', '2023-04-06', 55, 1, 1),
-(49, 'Tareas', 25, 'ngt  trge  h rgerge gr', '2023-01-02', 53, 1, 1),
 (50, 'Examen', 50, 'examen', '2023-08-30', 53, 3, 1),
 (51, 'expo', 25, 'efwdfwefwef', '2023-08-18', 53, 2, 1),
 (52, 'Examen trimestre 2', 50, 'hnhujjujujuju', '2023-05-03', 53, 3, 2),
-(53, 'tareas ordinarias', 25, 'tareas', '2023-07-12', 53, 1, 2),
+(53, 'tareas ordinarias', 20, 'tareas', '2023-07-12', 53, 1, 2),
 (54, 'exporaro', 25, 'iyuiyuiui', '2023-08-24', 53, 2, 2),
 (55, 'Examn final', 50, 'fianl examen', '2023-10-10', 53, 3, 3),
 (56, 'tareas 3 periodo', 25, 'fefrefre', '2023-10-18', 53, 1, 3),
-(57, 'trabajo activo', 25, 'rtfgfgfgfgfg', '2023-10-12', 53, 2, 3);
+(57, 'trabajo activo', 25, 'rtfgfgfgfgfg', '2023-10-12', 53, 2, 3),
+(58, 'sadasd', 15, 'fgfdg', '2023-10-18', 53, 1, 1),
+(59, 'sdasd', 10, 'asdasd', '2023-10-24', 53, 3, 1),
+(60, 'Examen de mate basica', 50, 'Examen de parvularia', '2023-01-31', 63, 3, 1);
 
 --
 -- Disparadores `actividades`
@@ -257,12 +259,13 @@ INSERT INTO `detalle_asignaturas_empleados` (`id_detalle_asignatura_empleado`, `
 (49, NULL, 3, 2),
 (51, 12, 1, 3),
 (53, 13, 5, 3),
-(54, NULL, 4, 4),
 (55, 14, 1, 5),
 (56, 14, 2, 5),
 (57, 14, 3, 5),
 (59, 14, 8, 5),
-(60, NULL, 5, 2);
+(60, NULL, 5, 2),
+(62, 18, 4, 4),
+(63, 16, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -276,6 +279,7 @@ CREATE TABLE `empleados` (
   `apellido_empleado` varchar(30) NOT NULL COMMENT 'apellido del empleado',
   `dui` varchar(10) NOT NULL COMMENT 'Documento de identidad del empleado',
   `correo_empleado` varchar(100) NOT NULL COMMENT 'Correo electrónico del empleado',
+  `telefono` varchar(9) DEFAULT NULL,
   `direccion` varchar(150) NOT NULL COMMENT 'Direccion del empleado',
   `fecha_nacimiento` date NOT NULL COMMENT 'Fecha de nacimiento del empleado',
   `id_cargo` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  cargos',
@@ -291,29 +295,29 @@ CREATE TABLE `empleados` (
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `correo_empleado`, `direccion`, `fecha_nacimiento`, `id_cargo`, `usuario_empleado`, `clave`, `intentos`, `estado`, `fecha_clave`, `timer_intento`) VALUES
-(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', '201905211@ricaldone.edu.sv', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$MrqSClHaRjDYU3Wbco2jGeOeMTjq/xwTK5QnQPE5vxi4eNZcq1aBe', 9, 1, '2023-09-12 07:28:16', NULL),
-(12, 'Sara Marlene', 'Gúzman Torres', '00817345-1', 'sara_guzman@gmail.com', 'San Cristobal, Calle Al Matazano, San Salvador', '1982-10-03', 2, 'saritas', '$2y$10$OoT0ELydDJzBRgHrk9SX8u9JBBoCA2aVT0QXt4BL20JXr5H8ub3y6', 0, 1, '2023-09-12 07:28:16', NULL),
-(13, 'Joel Mauricio', 'Ruano Pérez', '01347890-5', '20190211@ricaldone.edu.sv', 'Av. Los Girasoles, San Salvador', '1980-02-10', 2, 'inglis', '$2y$10$/kqwbAibDi4jeG74w.VcCuszsQ3m8irru8.Zi1VZM/lFHj.PvmCPa', 0, 1, '2023-09-18 10:48:37', NULL),
-(14, 'Susana Nohemi', 'Gómez Morán', '00126734-3', 'susana_gomez67@gmail.com', 'Colonia Santa Clara, San Salvador', '1993-09-12', 2, 'susana', '$2y$10$QXOu/plrONzD/cZo1VeMbeozQzPUeLOoUCzTstXgoD77fUw4BtYbC', 0, 1, '2023-09-12 07:28:16', NULL),
-(15, 'Laura Maribel', 'Posada Fuentes', '00246798-0', 'laura_posada24@gmail.com', 'Residencial Versalles, San Salvador', '1999-04-01', 2, '123dfvfdg', '$2y$10$S/Ww7g0IIYSyvYYUS1jvfeVyYzy/a3JWYFx8pWUfgtOE9jotHN4je', 0, 1, '2023-09-12 07:28:16', NULL),
-(16, 'Kenia Alejandra', 'Mujica Melgar', '00561278-0', 'kenia_mujica56@gmail.com', 'Col. El tránsito 3, Santo Tómas, San Salvador', '2000-03-03', 2, 'ghgh', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(17, 'Maribel Lucía', 'Guardia López', '00348901-3', 'maribel_guardia34@gmail.com', ' Col. Santa Mónica, Mejicanos, San Salvador', '1976-02-27', 2, 'xzcxzcxz', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(18, 'Juan Lauro', 'Portillo Monterosa', '00125690-1', 'juan_portillo12@gmail.com', 'Col. Santo Domingo, Merliot, San Salvador', '1983-11-02', 2, 'gerrwer', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(19, 'William Humberto', 'Romero Serrano', '00234512-0', 'william_romero23@gmail.com', 'Calle 25 av. Norte, San Salvador', '2000-09-12', 2, 'sasasd', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(20, 'Lisbeth Guadalupe', 'Mendez Monge', '00124590-4', 'lisbeth_mendez12@gmail.com', 'San Antonio Abad, San Salvador', '1990-01-31', 2, 'rf453d', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(21, 'María Laura', 'González Iraheta', '00646569-1', 'maria_gon12@gmail.com', 'Av. Aguilares, San Salvador', '1991-12-12', 2, 'webos', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(22, 'Mauricio Salomón', 'Mendoza Escobar', '0091256-2', 'mauricio_mendoza91@gmail.com', 'Av. 25 Norte, colonia El Tránsito 3, San Salvador', '1998-02-01', 2, 'dfsfdsd', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(23, 'Juan Carlos', 'Lima Zaragoza', '00125367-8', 'juan_lima12@gmail.com', 'Col. La Rábida, Col. Urb. su casa #123', '1997-05-31', 2, 'asdsadq', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(24, 'Wilver Geovanni', 'Yanes López', '0631870-5', 'wilver_yanes01@gmail.com', 'San Salvador', '1976-11-09', 1, 'rthrthtr', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(25, 'Laura Margarita', 'Hernández Carrillo', '0951424-2', 'laura_hernandez09@gmail.com', 'La Troncal, San Salvador', '1997-05-31', 2, 'dfgfg', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(26, 'Ana Ivette', 'Ticas Pérez', '0345681-2', 'ana_ticas03@gmail.com', 'Mejicanos, San Salvador', '1976-06-12', 2, '454554wsw', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(27, 'María Luisa', 'Serrano Juárez', '0089642-8', 'maria_serrano08@gmail.com', 'Ciudad Delgado, San Salvador', '1984-07-30', 2, 'maruia', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(28, 'Joaquín Vladimir', 'Figueroa Torres', '0091844-2', 'joaquin_figueroa09@gmail.com', 'Col. Altos del cerro, Soyapango, San Salvador', '1987-10-31', 2, 'bhghghgh', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(29, 'Keila Rosario', 'Melgar Mejía', '0067893-1', 'keila_melgar67@gmail.com', 'Col. 25 de Abril, San Salvador', '1993-08-14', 2, 'sdfsdfsdxcz', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(30, 'Fátima Esmeralda', 'Peralta Méndez', '0652569-8', 'fatima_peralta65@gmail.com', 'San Salvador', '2000-09-04', 2, 'zzzzzxxxx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(31, 'Andrea Beatriz', 'Fernández Olivo', '0912035-7', 'andrea_fernandez91@gmail.com', 'Nejapa, San Salvador', '2001-02-09', 2, 'xzccx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
-(32, 'Alberto', 'Masferrer', '23234553-1', 'albetrt@gmail.com', 'alla', '1992-01-15', 2, 'Albert', '$2y$10$6RiwbGVqfVYfMzz0Dmpdq.dZEyOid8oIYngYgJgyHbPgURnNCYaOu', 0, 1, '2023-09-12 07:28:16', NULL);
+INSERT INTO `empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `dui`, `correo_empleado`, `telefono`, `direccion`, `fecha_nacimiento`, `id_cargo`, `usuario_empleado`, `clave`, `intentos`, `estado`, `fecha_clave`, `timer_intento`) VALUES
+(2, 'Gabriel Guillermo', 'Aparicio García', '23234534-4', 'ggagte@gmail.com', '6645-4545', 'elepepepepepepepepepepepepepepepepep', '2013-10-27', 1, 'admin', '$2y$10$MrqSClHaRjDYU3Wbco2jGeOeMTjq/xwTK5QnQPE5vxi4eNZcq1aBe', 0, 1, '2023-09-12 07:28:16', NULL),
+(12, 'Sara Marlene', 'Gúzman Torres', '00817345-1', 'sara_guzman@gmail.com', '2323-2323', 'San Cristobal, Calle Al Matazano, San Salvador', '2001-02-01', 2, 'saritas', '$2y$10$fDO44Ha0P.6mT5WD1q0ecufFa692vihSGj2fCOuDJj9aSxMuAHZYW', 0, 1, '2023-10-01 21:36:11', NULL),
+(13, 'Joel Mauricio', 'Ruano Pérez', '01347890-5', '20190211@ricaldone.edu.sv', NULL, 'Av. Los Girasoles, San Salvador', '1980-02-10', 2, 'inglis', '$2y$10$/kqwbAibDi4jeG74w.VcCuszsQ3m8irru8.Zi1VZM/lFHj.PvmCPa', 0, 1, '2023-09-18 10:48:37', NULL),
+(14, 'Susana Nohemi', 'Gómez Morán', '00126734-3', 'susana_gomez67@gmail.com', NULL, 'Colonia Santa Clara, San Salvador', '1993-09-12', 2, 'susana', '$2y$10$QXOu/plrONzD/cZo1VeMbeozQzPUeLOoUCzTstXgoD77fUw4BtYbC', 0, 1, '2023-09-12 07:28:16', NULL),
+(15, 'Laura Maribel', 'Posada Fuentes', '00246798-0', 'laura_posada24@gmail.com', NULL, 'Residencial Versalles, San Salvador', '1999-04-01', 2, '123dfvfdg', '$2y$10$S/Ww7g0IIYSyvYYUS1jvfeVyYzy/a3JWYFx8pWUfgtOE9jotHN4je', 0, 1, '2023-09-12 07:28:16', NULL),
+(16, 'Kenia Alejandra', 'Mujica Melgar', '00561278-0', 'kenia_mujica56@gmail.com', NULL, 'Col. El tránsito 3, Santo Tómas, San Salvador', '2000-03-03', 2, 'ghgh', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(17, 'Maribel Lucía', 'Guardia López', '00348901-3', 'maribel_guardia34@gmail.com', NULL, ' Col. Santa Mónica, Mejicanos, San Salvador', '1976-02-27', 2, 'xzcxzcxz', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(18, 'Juan Lauro', 'Portillo Monterosa', '00125690-1', 'juan_portillo12@gmail.com', NULL, 'Col. Santo Domingo, Merliot, San Salvador', '1983-11-02', 2, 'gerrwer', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(19, 'William Humberto', 'Romero Serrano', '00234512-0', 'william_romero23@gmail.com', NULL, 'Calle 25 av. Norte, San Salvador', '2000-09-12', 2, 'sasasd', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(20, 'Lisbeth Guadalupe', 'Mendez Monge', '00124590-4', 'lisbeth_mendez12@gmail.com', NULL, 'San Antonio Abad, San Salvador', '1990-01-31', 2, 'rf453d', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(21, 'María Laura', 'González Iraheta', '00646569-1', 'maria_gon12@gmail.com', NULL, 'Av. Aguilares, San Salvador', '1991-12-12', 2, 'webos', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(22, 'Mauricio Salomón', 'Mendoza Escobar', '0091256-2', 'mauricio_mendoza91@gmail.com', NULL, 'Av. 25 Norte, colonia El Tránsito 3, San Salvador', '1998-02-01', 2, 'dfsfdsd', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(23, 'Juan Carlos', 'Lima Zaragoza', '00125367-8', 'juan_lima12@gmail.com', NULL, 'Col. La Rábida, Col. Urb. su casa #123', '1997-05-31', 2, 'asdsadq', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(24, 'Wilver Geovanni', 'Yanes López', '0631870-5', 'wilver_yanes01@gmail.com', NULL, 'San Salvador', '1976-11-09', 1, 'rthrthtr', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(25, 'Laura Margarita', 'Hernández Carrillo', '0951424-2', 'laura_hernandez09@gmail.com', NULL, 'La Troncal, San Salvador', '1997-05-31', 2, 'dfgfg', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(26, 'Ana Ivette', 'Ticas Pérez', '0345681-2', 'ana_ticas03@gmail.com', NULL, 'Mejicanos, San Salvador', '1976-06-12', 2, '454554wsw', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(27, 'María Luisa', 'Serrano Juárez', '0089642-8', 'maria_serrano08@gmail.com', NULL, 'Ciudad Delgado, San Salvador', '1984-07-30', 2, 'maruia', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(28, 'Joaquín Vladimir', 'Figueroa Torres', '0091844-2', 'joaquin_figueroa09@gmail.com', NULL, 'Col. Altos del cerro, Soyapango, San Salvador', '1987-10-31', 2, 'bhghghgh', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(29, 'Keila Rosario', 'Melgar Mejía', '0067893-1', 'keila_melgar67@gmail.com', NULL, 'Col. 25 de Abril, San Salvador', '1993-08-14', 2, 'sdfsdfsdxcz', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(30, 'Fátima Esmeralda', 'Peralta Méndez', '0652569-8', 'fatima_peralta65@gmail.com', NULL, 'San Salvador', '2000-09-04', 2, 'zzzzzxxxx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(31, 'Andrea Beatriz', 'Fernández Olivo', '0912035-7', 'andrea_fernandez91@gmail.com', NULL, 'Nejapa, San Salvador', '2001-02-09', 2, 'xzccx', '1234', 0, 0, '2023-09-12 07:28:16', NULL),
+(32, 'Alberto', 'Masferrer', '23234553-1', 'albetrt@gmail.com', NULL, 'alla', '1992-01-15', 2, 'Albert', '$2y$10$6RiwbGVqfVYfMzz0Dmpdq.dZEyOid8oIYngYgJgyHbPgURnNCYaOu', 0, 1, '2023-09-12 07:28:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -436,6 +440,7 @@ INSERT INTO `grados` (`id_grado`, `grado`) VALUES
 (8, 'Cuarto grado'),
 (2, 'Kinder 4'),
 (3, 'Kinder 5'),
+(12, 'maternidad'),
 (4, 'Parvularia'),
 (5, 'Primer grado'),
 (9, 'Quinto grado'),
@@ -496,17 +501,8 @@ INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
 (116, 17, 47, NULL),
 (118, 16, 48, 9.00),
 (119, 17, 48, 4.00),
-(121, 2, 49, 4.00),
-(122, 3, 49, 2.00),
-(123, 4, 49, 7.00),
-(124, 5, 49, 7.00),
-(125, 6, 49, 10.00),
-(126, 7, 49, 1.00),
-(127, 9, 49, 8.00),
-(128, 10, 49, 4.00),
-(129, 22, 49, 8.00),
 (136, 2, 50, 9.00),
-(137, 3, 50, 8.00),
+(137, 3, 50, 1.00),
 (138, 4, 50, 10.00),
 (139, 5, 50, 8.00),
 (140, 6, 50, 7.50),
@@ -576,7 +572,28 @@ INSERT INTO `notas` (`id_nota`, `id_estudiante`, `id_actividad`, `nota`) VALUES
 (246, 7, 57, 8.00),
 (247, 9, 57, 9.00),
 (248, 10, 57, 3.00),
-(249, 22, 57, 10.00);
+(249, 22, 57, 10.00),
+(250, 2, 58, NULL),
+(251, 3, 58, NULL),
+(252, 4, 58, NULL),
+(253, 5, 58, NULL),
+(254, 6, 58, NULL),
+(255, 7, 58, NULL),
+(256, 9, 58, NULL),
+(257, 10, 58, NULL),
+(258, 22, 58, NULL),
+(265, 2, 59, NULL),
+(266, 3, 59, NULL),
+(267, 4, 59, NULL),
+(268, 5, 59, NULL),
+(269, 6, 59, NULL),
+(270, 7, 59, NULL),
+(271, 9, 59, NULL),
+(272, 10, 59, NULL),
+(273, 22, 59, NULL),
+(274, 14, 60, NULL),
+(275, 15, 60, NULL),
+(276, 21, 60, NULL);
 
 -- --------------------------------------------------------
 
@@ -593,59 +610,18 @@ CREATE TABLE `responsables` (
   `lugar_de_trabajo` varchar(150) NOT NULL COMMENT 'Dirección del lugar de trabajo',
   `telefono_trabajo` varchar(9) NOT NULL COMMENT 'Teléfono del lugar de trabajo',
   `parentesco` varchar(30) NOT NULL COMMENT 'parentesco del familiar',
-  `telefono_1` varchar(9) NOT NULL,
-  `telefono_2` varchar(9) NOT NULL
+  `id_estudiante` int(11) NOT NULL COMMENT 'Campo id del estudiante correspondiente al responsable'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `responsables`
 --
 
-INSERT INTO `responsables` (`id_responsable`, `nombre_responsable`, `apellido_responsable`, `dui`, `correo_responsable`, `lugar_de_trabajo`, `telefono_trabajo`, `parentesco`, `telefono_1`, `telefono_2`) VALUES
-(1, 'William', 'Afton', '54545434-2', 'morado@gmail.com', 'freddy fazbears pizzeria', '6343-2343', 'Tutor legal', '', '');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `responsables_estudiantes`
---
-
-CREATE TABLE `responsables_estudiantes` (
-  `id_responsable_estudiante` int(11) NOT NULL COMMENT 'Id de responsable estudiante',
-  `id_responsable` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  responsable',
-  `id_estudiante` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla estudiante'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `responsables_estudiantes`
---
-
-INSERT INTO `responsables_estudiantes` (`id_responsable_estudiante`, `id_responsable`, `id_estudiante`) VALUES
-(1, 1, 14);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `telefonos_empleados`
---
-
-CREATE TABLE `telefonos_empleados` (
-  `id_telefono_empleado` int(11) NOT NULL COMMENT 'Id del teléfono del empleado',
-  `telefono` varchar(9) NOT NULL COMMENT 'Número de teléfono del empleado',
-  `id_empleado` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  empleado'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `telefonos_responsables`
---
-
-CREATE TABLE `telefonos_responsables` (
-  `id_telefono_responsable` int(11) NOT NULL COMMENT 'Id del teléfono del estudiante',
-  `telefono` varchar(9) NOT NULL COMMENT 'Número de teléfono del estudiante',
-  `id_responsable` int(11) NOT NULL COMMENT 'Campo foráneo conectado a la tabla  responsable '
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `responsables` (`id_responsable`, `nombre_responsable`, `apellido_responsable`, `dui`, `correo_responsable`, `lugar_de_trabajo`, `telefono_trabajo`, `parentesco`, `id_estudiante`) VALUES
+(1, 'William', 'Afton', '54545434-2', 'morado@gmail.com', 'freddy fazbears pizzeria', '6343-2343', 'Tutor legal', 14),
+(2, 'Cara deloco', 'De posada', '23423563-3', 'ellocod@gmail.com', 'por aqui y alla', '2323-4564', 'Padre', 19),
+(3, 'Cara Larga', 'Ludovina', '76453452-2', 'ggagte@gmail.com', 'alla', '2342-2323', 'Madre', 2),
+(5, 'el coco', 'ludovina', '76544323-2', 'aaaaaa@gmail.com', 'estudiante', '7655-4444', 'Padre', 2);
 
 -- --------------------------------------------------------
 
@@ -801,29 +777,8 @@ ALTER TABLE `notas`
 ALTER TABLE `responsables`
   ADD PRIMARY KEY (`id_responsable`),
   ADD UNIQUE KEY `dui` (`dui`),
-  ADD UNIQUE KEY `correo_responsable` (`correo_responsable`);
-
---
--- Indices de la tabla `responsables_estudiantes`
---
-ALTER TABLE `responsables_estudiantes`
-  ADD PRIMARY KEY (`id_responsable_estudiante`),
-  ADD KEY `fk_responsable_estudiante` (`id_responsable`),
-  ADD KEY `fk_estudiante_responsable` (`id_estudiante`);
-
---
--- Indices de la tabla `telefonos_empleados`
---
-ALTER TABLE `telefonos_empleados`
-  ADD PRIMARY KEY (`id_telefono_empleado`),
-  ADD KEY `fk_telefonos_empleados` (`id_empleado`);
-
---
--- Indices de la tabla `telefonos_responsables`
---
-ALTER TABLE `telefonos_responsables`
-  ADD PRIMARY KEY (`id_telefono_responsable`),
-  ADD KEY `fk_telefono_resposable` (`id_responsable`);
+  ADD UNIQUE KEY `correo_responsable` (`correo_responsable`),
+  ADD KEY `responsables_estudiantes` (`id_estudiante`);
 
 --
 -- Indices de la tabla `tipo_actividades`
@@ -846,7 +801,7 @@ ALTER TABLE `trimestres`
 -- AUTO_INCREMENT de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  MODIFY `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la actividad', AUTO_INCREMENT=58;
+  MODIFY `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la actividad', AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de la tabla `anios`
@@ -870,7 +825,7 @@ ALTER TABLE `cargos_empleados`
 -- AUTO_INCREMENT de la tabla `detalle_asignaturas_empleados`
 --
 ALTER TABLE `detalle_asignaturas_empleados`
-  MODIFY `id_detalle_asignatura_empleado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del detalle de la asignatura y empleado', AUTO_INCREMENT=61;
+  MODIFY `id_detalle_asignatura_empleado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del detalle de la asignatura y empleado', AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -894,37 +849,19 @@ ALTER TABLE `fichas`
 -- AUTO_INCREMENT de la tabla `grados`
 --
 ALTER TABLE `grados`
-  MODIFY `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del grado', AUTO_INCREMENT=12;
+  MODIFY `id_grado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del grado', AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=250;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT de la tabla `responsables`
 --
 ALTER TABLE `responsables`
-  MODIFY `id_responsable` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del responsable', AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `responsables_estudiantes`
---
-ALTER TABLE `responsables_estudiantes`
-  MODIFY `id_responsable_estudiante` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de responsable estudiante', AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `telefonos_empleados`
---
-ALTER TABLE `telefonos_empleados`
-  MODIFY `id_telefono_empleado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del teléfono del empleado';
-
---
--- AUTO_INCREMENT de la tabla `telefonos_responsables`
---
-ALTER TABLE `telefonos_responsables`
-  MODIFY `id_telefono_responsable` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del teléfono del estudiante';
+  MODIFY `id_responsable` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del responsable', AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_actividades`
@@ -981,27 +918,14 @@ ALTER TABLE `fichas`
 -- Filtros para la tabla `notas`
 --
 ALTER TABLE `notas`
-  ADD CONSTRAINT `fk_nt_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id_actividad`),
+  ADD CONSTRAINT `fk_nt_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id_actividad`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_nt_estudiantes` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`);
 
 --
--- Filtros para la tabla `responsables_estudiantes`
+-- Filtros para la tabla `responsables`
 --
-ALTER TABLE `responsables_estudiantes`
-  ADD CONSTRAINT `fk_estudiante_responsable` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`),
-  ADD CONSTRAINT `fk_responsable_estudiante` FOREIGN KEY (`id_responsable`) REFERENCES `responsables` (`id_responsable`);
-
---
--- Filtros para la tabla `telefonos_empleados`
---
-ALTER TABLE `telefonos_empleados`
-  ADD CONSTRAINT `fk_telefonos_empleados` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`);
-
---
--- Filtros para la tabla `telefonos_responsables`
---
-ALTER TABLE `telefonos_responsables`
-  ADD CONSTRAINT `fk_telefono_resposable` FOREIGN KEY (`id_responsable`) REFERENCES `responsables` (`id_responsable`);
+ALTER TABLE `responsables`
+  ADD CONSTRAINT `responsables_estudiantes` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`);
 
 --
 -- Filtros para la tabla `trimestres`
