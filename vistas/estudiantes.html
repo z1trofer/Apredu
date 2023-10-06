@@ -24,7 +24,8 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-4">
                     <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
-                        data-mdb-target="#ModalEstInfo" onclick="openCreate()"><i class="fas fa-plus"></i> Añadir estudiante</button>
+                        data-mdb-target="#ModalEstInfo" onclick="openCreate()"><i class="fas fa-plus"></i> Añadir
+                        estudiante</button>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-8 ">
                     <form method="post" id="search-form">
@@ -243,56 +244,55 @@
                             <div class="row">
                                 <div class="col-sm">
                                     <input type="hidden" name="id_estudiante" id="id_estudiante">
-                                    <h5>Nombre</h5>
-                                    <input type="text" id="nombre_estudiante" name="nombre_estudiante"
-                                        class="validate try" autocomplete="off" required>
+                                    <div class="form-outline">
+                                        <input type="text" id="nombre_estudiante" name="nombre_estudiante"
+                                            class="form-control" autocomplete="off" required />
+                                        <label class="form-label" for="typeEmail">Nombre</label>
+                                    </div>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Apellido</h5>
-                                    <input type="text" id="apellido_estudiante" name="apellido_estudiante"
-                                        class="validate try" autocomplete="off" required>
+                                    <div class="form-outline">
+                                        <input type="text" id="apellido_estudiante" name="apellido_estudiante"
+                                            class="form-control" autocomplete="off" required />
+                                        <label class="form-label" for="typeEmail">Apellido</label>
+                                    </div>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Grado</h5>
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="grado"
-                                        name="grado" data-mdb-toggle="dropdown" aria-expanded="false">
-                                        Grados
-                                    </button>
+                                    <select class="form-select" required aria-label="select example" id="grado"
+                                        name="grado">
+                                    </select>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura"
                                         name="lectura">
                                     </ul>
                                     <input type="hidden" id="grados_estudiante" name="grados_estudiante">
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Fecha de nacimiento</h5>
-                                    <input type="date" id="nacimiento" name="nacimiento" class="validate try" required>
+                                    <div class="form-outline">
+                                        <input type="date" id="nacimiento" name="nacimiento"
+                                            class="form-control" autocomplete="off" required />
+                                        <label class="form-label">Fecha de Nacimiento</label>
+                                    </div>
                                 </div>
                             </div>
                             <br>
-                            <br>
                             <div class="row">
-                                <div class="col-sm">
-                                    <h5>Dirección</h5>
-                                    <textarea name="direccion_estudiante" id="direccion_estudiante" class="Validate try"
-                                        autocomplete="off" rows="3"></textarea>
+                                <div class="col-sm-6">
+                                    <div class="form-outline">
+                                        <!--input dirección del empleado-->
+                                        <textarea class="form-control"name="direccion_estudiante" id="direccion_estudiante" rows="5"
+                                            autocomplete="off"></textarea>
+                                        <label class="form-label">Dirección</label>
+                                    </div>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>NIE</h5>
-                                    <input type="text" name="nie" id="nie" class="Validate try" autocomplete="off"
-                                        required>
+                                    <div class="form-outline">
+                                        <input type="text" name="nie" id="nie"
+                                            class="form-control" autocomplete="off" required />
+                                        <label class="form-label">NIE</label>
+                                    </div>
                                 </div>
                                 <div class="col-sm">
-                                    <h5>Usuario</h5>
-                                    <input type="text" id="usuario_estudiante" name="usuario_estudiante"
-                                        class="validate try" autocomplete="off" required>
-                                </div>
-                                <div class="col-sm">
-                                    <h5 id="nombre_clave">Clave</h5>
-                                    <input type="password" id="clave" name="clave" class="validate try"
-                                        autocomplete="off">
-                                </div>
-                                <div class="col-sm">
-                                    <h5>Estado del estudiante</h5>
+                                    <h5>Estado</h5>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch" id="estados"
                                             name="estados" />
