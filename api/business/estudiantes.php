@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
     //arreglo para filtro parametrizado
     $filtro = array('grado' => 0);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    if (isset($_SESSION['id_empleado'])and Validator::validateSessionTime()) {
+    if (isset($_SESSION['id_empleado']) and Validator::validateSessionTime()) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getVistaAutorizacion':
@@ -29,7 +29,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                 }
                 break;
-            //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
+                //se hace la consulta a la base por medio de parametros de la querie para llenado de la tabla
             case 'readAll':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_estudiantes');
@@ -47,7 +47,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-            //filtro de grado para el estudiante
+                //filtro de grado para el estudiante
             case 'FiltrosEstudiantes':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
@@ -89,7 +89,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-            //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
+                //Selecccionar un registro por medio de consultas en las queries accionado por un onUpdate
             case 'readOne':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_estudiantes');
@@ -144,14 +144,14 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Dirección incorrecta';
                 } elseif (!$estudiante->setNie($_POST['nie'])) {
                     $result['exception'] = 'NIE incorrecto';
-                } elseif (!$estudiante->setIdGrado($_POST['grados_estudiante'])) {
+                } elseif (!$estudiante->setIdGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
-                    $result['exception'] = 'Alias incorrecto';
+                } elseif (!$estudiante->setIdResponsable($_POST['selectRes'])) {
+                    $result['exception'] = 'responsable incorrecto';
+                } elseif (!$estudiante->setParentesco($_POST['parentesco'])) {
+                    $result['exception'] = 'parentesco incorrecto';
                 } elseif (!$estudiante->setEstado(isset($_POST['estado']) ? 0 : 1)) {
                     $result['exception'] = 'Estado incorrecto';
-                } elseif (!$estudiante->setClave($_POST['clave'])) {
-                    $result['exception'] = Validator::getPasswordError();
                 } elseif ($estudiante->CreateEstudiante()) {
                     $result['status'] = 1;
                     $result['message'] = 'Estudiante creado correctamente';
@@ -159,7 +159,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            // Acción para actualizar un dato en la tabla de estudiantes
+                // Acción para actualizar un dato en la tabla de estudiantes
             case 'updateEstudiante':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
@@ -183,10 +183,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Direccion incorrecta';
                 } elseif (!$estudiante->setNie($_POST['nie'])) {
                     $result['exception'] = 'NIE incorrecto';
-                } elseif (!$estudiante->setIdGrado($_POST['grados_estudiante'])) {
+                } elseif (!$estudiante->setIdGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif (!$estudiante->setUsuarioEstudiante($_POST['usuario_estudiante'])) {
-                    $result['exception'] = 'Alias incorrecto';
                 } elseif (!$estudiante->setEstado(isset($_POST['estados']) ? 0 : 1)) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif ($estudiante->UpdateEstudiante()) {
@@ -218,7 +216,26 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            //Acción para eliminar un dato en la tabla de clientes
+                //buscar un Responsable
+            case 'SearchResponsables':
+                $_POST = Validator::validateForm($_POST);
+                //obtener permisos de la accion
+                $access = array('view_responsables');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    //se deniega la acción
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                } elseif ($result['dataset'] = $estudiante->SearchResponsables($_POST['data'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['except+ion'] = 'No hay datos registrados';
+                }
+                break;
+                //Acción para eliminar un dato en la tabla de clientes
             case 'deleteEstudiante':
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_estudiantes');
@@ -251,4 +268,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>

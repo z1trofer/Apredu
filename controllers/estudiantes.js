@@ -154,9 +154,6 @@ async function openUpdate(id) {
     if (JSON.status) {
         // Se restauran los elementos del formulario.
         SAVE_FORM_E.reset();
-        //se oculta la clave
-        document.getElementById('clave').hidden = true;
-        document.getElementById('nombre_clave').hidden = true;
         // Se inicializan los campos del formulario.
         document.getElementById('id_estudiante').value = JSON.dataset.id_estudiante;
         document.getElementById('nombre_estudiante').value = JSON.dataset.nombre_estudiante;
@@ -164,16 +161,14 @@ async function openUpdate(id) {
         document.getElementById('nacimiento').value = JSON.dataset.fecha_nacimiento;
         document.getElementById('direccion_estudiante').value = JSON.dataset.direccion;
         document.getElementById('nie').value = JSON.dataset.nie;
-        document.getElementById('usuario_estudiante').value = JSON.dataset.usuario_estudiante;
-        document.getElementById('clave').value = JSON.dataset.clave;
-        document.getElementById('grados_estudiante').value = JSON.dataset.id_grado;
+        fillSelect(ESTUDIANTE_API, 'readGrado', 'grado', 'Grados', JSON.dataset.id_grado);
         document.getElementById('grado').innerHTML = JSON.dataset.grado;
+        document.getElementById('selectRes').innerHTML = `<option value="${JSON.dataset.id_responsable}">${JSON.dataset.nombreRes}</option>`;
         if (JSON.dataset.estado) {
             document.getElementById('estados').checked = false;
         } else {
             document.getElementById('estados').checked = true;
         }
-        fillList(ESTUDIANTE_API, 'readGrado', 'lectura', JSON.dataset.id_grado);
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
         document.getElementById('cancelar').hidden = false;
     } else {
@@ -181,11 +176,22 @@ async function openUpdate(id) {
     }
 }
 
+//buscar Reponsables
+document.getElementById('searchRes').addEventListener('change', async () => {
+    data = document.getElementById('searchRes').value;
+    const FORM = new FormData();
+    FORM.append('param', document.getElementById('searchRes').value);
+    fillSelect2(ESTUDIANTE_API, 'SearchResponsables', 'selectRes', data, null)
+   /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
+    if(JSON.status){
+        fillSelect
+    }*/
+});
 function openCreate() {
      
     // Se restauran los elementos del formulario.
     SAVE_FORM_E.reset();
-    fillList(ESTUDIANTE_API, 'readGrado', 'lectura')
+    fillSelect(ESTUDIANTE_API, 'readGrado', 'grado', 'Grados');
 
 }
 

@@ -41,7 +41,7 @@ class ResponsablesVistaQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function readOne()
     {
-        $sql = "SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco, CONCAT(nombre_estudiante, ' ', apellido_estudiante) as estudiante
+        $sql = "SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, CONCAT(nombre_estudiante, ' ', apellido_estudiante) as estudiante
         FROM responsables INNER JOIN estudiantes USING (id_responsable)
         WHERE id_responsable = ?";
         $params = array($this->id_responsable);

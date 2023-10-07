@@ -7,16 +7,16 @@ class EstudiantesQueries
     public function CreateEstudiante()
     {
         $sql = 'INSERT INTO estudiantes(
-            nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, usuario_estudiante, clave, estado)
+            nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, ,id_responsable, parentesco_responsable, estado)
             VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave, $this->estado);
+        $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->id_responsable, $this->parentesco, $this->estado);
         return Database::executeRow($sql, $params);
     }
 
     //Método para leer los registros de la tabla ordenandolos por sus apellidos por medio de una query general a la tabla
     public function readAll()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, usuario_estudiante, clave, estado
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, grado, estado
                 FROM estudiantes
                 INNER JOIN grados USING(id_grado)
                 order by id_grado ASC';
@@ -26,27 +26,24 @@ class EstudiantesQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function ReadOne()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, grado, usuario_estudiante, estado
-            FROM estudiantes
-            INNER JOIN grados USING(id_grado)
-            WHERE id_estudiante = ?';
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, grado, id_responsable, parentesco_responsable, CONCAT(responsables.nombre_responsable, " ", responsables.apellido_responsable) as nombreRes
+        FROM estudiantes
+        INNER JOIN grados USING(id_grado)
+        LEFT JOIN responsables USING (id_responsable)
+        WHERE id_estudiante = ?';
         $params = array($this->id_estudiante);
         return Database::getRow($sql, $params);
     }
 
-    public function checkUser($usuario_estudiante)
+    //Buscador de estudiantes
+    public function SearchResponsables($param)
     {
-        $sql = 'SELECT id_estudiante, estado FROM estudiantes WHERE usuario_estudiante = ?';
-        $params = array($usuario_estudiante);
-        if ($data = Database::getRow($sql, $params)) {
-            $this->id_estudiante = $data['id_estudiante'];
-            $this->estado = $data['estado'];
-            $this->usuario_estudiante = $usuario_estudiante;
-            return true;
-        } else {
-            return false;
-        }
+        $sql = "SELECT id_responsable, CONCAT(nombre_responsable, ' ', apellido_responsable) as nombreRes FROM responsables
+        WHERE nombre_responsable like ? OR apellido_responsable like ?";
+        $params = array("%$param%", "%$param%");
+        return Database::getRows($sql, $params);
     }
+
     //Metodo para leer los grados de la tabla "grados"
     public function readGrado()
     {
@@ -71,9 +68,9 @@ class EstudiantesQueries
     public function UpdateEstudiante()
     {
         $sql = 'UPDATE estudiantes
-        SET nombre_estudiante=?, apellido_estudiante=?, fecha_nacimiento=?, direccion=?, nie=?, id_grado=?, usuario_estudiante=?, clave=?, estado=?
+        SET nombre_estudiante=?, apellido_estudiante=?, fecha_nacimiento=?, direccion=?, nie=?, id_grado=?, id_responsable=?, parentesco_responsable=?, estado=?
         WHERE id_estudiante=?';
-        $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->usuario_estudiante, $this->clave, $this->estado, $this->id_estudiante);
+        $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->id_responsable, $this->parentesco, $this->estado, $this->id_estudiante);
         return Database::executeRow($sql, $params);
     }
 

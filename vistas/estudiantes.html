@@ -261,15 +261,11 @@
                                     <select class="form-select" required aria-label="select example" id="grado"
                                         name="grado">
                                     </select>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lectura"
-                                        name="lectura">
-                                    </ul>
-                                    <input type="hidden" id="grados_estudiante" name="grados_estudiante">
                                 </div>
                                 <div class="col-sm">
                                     <div class="form-outline">
-                                        <input type="date" id="nacimiento" name="nacimiento"
-                                            class="form-control" autocomplete="off" required />
+                                        <input type="date" id="nacimiento" name="nacimiento" class="form-control"
+                                            autocomplete="off" required />
                                         <label class="form-label">Fecha de Nacimiento</label>
                                     </div>
                                 </div>
@@ -279,15 +275,15 @@
                                 <div class="col-sm-6">
                                     <div class="form-outline">
                                         <!--input dirección del empleado-->
-                                        <textarea class="form-control"name="direccion_estudiante" id="direccion_estudiante" rows="5"
-                                            autocomplete="off"></textarea>
+                                        <textarea class="form-control" name="direccion_estudiante"
+                                            id="direccion_estudiante" rows="5" autocomplete="off"></textarea>
                                         <label class="form-label">Dirección</label>
                                     </div>
                                 </div>
                                 <div class="col-sm">
                                     <div class="form-outline">
-                                        <input type="text" name="nie" id="nie"
-                                            class="form-control" autocomplete="off" required />
+                                        <input type="text" name="nie" id="nie" class="form-control" autocomplete="off"
+                                            required />
                                         <label class="form-label">NIE</label>
                                     </div>
                                 </div>
@@ -299,6 +295,35 @@
                                         <label class="form-check-label" for="flexSwitchCheckDefault"> Inactivo/
                                             Activo</label>
                                     </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <h5>Responsable:</h5>
+                            <div class="row">
+                                <div class="input-field col-lg-6 col-md-12 col-sm-12 marginTop">
+                                    <div class="input-group">
+                                        <!--buscador por responsable-->
+                                        <div class="form-outline">
+                                            <input type="search" id="searchRes" name="searchRes" class="form-control" />
+                                            <label class="form-label" for="form1">Buscar Responsable</label>
+                                        </div>
+                                    </div>
+                                    <!--buscador por estudiante-->
+                                    <select class="form-select" required aria-label="select example" id="selectRes"
+                                        name="selectRes">
+                                        <option value="0">Seleccione Responsable</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col-lg-6 col-md-12 col-sm-12 marginTop">
+                                    <select class="form-select" required aria-label="select example" id="parentesco"
+                                        name="parentesco">
+                                        <option value="0" selected>Parentesco</option>
+                                        <option >madre</option>
+                                        <option >padre</option>
+                                        <option >tío/a</option>
+                                        <option >abuelo/a</option>
+                                        <option >tutor legal</option>
+                                    </select>
                                 </div>
                             </div>
                             <br>

@@ -18,12 +18,36 @@ class Estudiantes extends EstudiantesQueries{
     public $id_nota = null;
     public $descripcion_ficha = null;
     public $id_empleado = null;
+
+    public $id_responsable = null;
+
+    public $parentesco = null;
     
     //Setter del estudiante
     public function setIdEstudiante($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_estudiante = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setIdResponsable($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_responsable = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setParentesco($value)
+    {
+        if ($value == "madre" ||$value == "padre" ||$value == "tío/a" ||$value == "abuelo/a" ||$value == "tutor legal") {
+            $this->parentesco = $value;
             return true;
         } else {
             return false;
