@@ -52,6 +52,33 @@ class ActividadesQueries
         return Database::getRow($sql, $params);
     }
 
+    public function readOneTipoActividad()
+    {
+        $sql = "SELECT id_tipo_actividad from tipo_actividades where id_tipo_actividad = ?";
+        $params = array($this->id_tipo_actividad);
+        return Database::getRow($sql, $params);
+    }
+
+    
+    public function addTipoActividad(){
+        $sql = 'INSERT INTO tipo_actividades (tipo_actividad)
+         values (?)';
+        $params = array($this->tipo_actividad);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function updateTipoActividad(){
+        $sql = 'UPDATE tipo_actividades SET tipo_actividad=? where id_tipo_actividad = ?';
+        $params = array($this->tipo_actividad, $this->id_tipo_actividad);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function deleteTipoActividad(){
+        $sql = 'DELETE FROM tipo_actividades where id_tipo_actividad = ?';
+        $params = array($this->id_tipo_actividad);
+        return Database::executeRow($sql, $params);
+    }
+
     // Para cargar combobox
     public function readTipoActividades()
     {

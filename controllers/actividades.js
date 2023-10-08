@@ -3,7 +3,9 @@ const ACTIVIDADES_API = 'business/actividades.php';
 const NOTAS_API = 'business/notas.php';
 const TITULO_MODAL = document.getElementById('modal-title');
 const TBODY_ROWS = document.getElementById('tbody');
+const TBODY_ROWS_TIPO = document.getElementById('tbody-tipos');
 const FORMULARIO = document.getElementById('save-form');
+const FORM_TIPO = document.getElementById('form-tipos');
 const SEARCH_FORM = document.getElementById('search');
 
 //constante para obtener fechas
@@ -111,6 +113,104 @@ async function fillTable(form = null) {
         sweetAlert(4, JSON.exception, true);
     }
 }
+
+async function fillTipoActividades() {
+    // Se inicializa el contenido de la tabla.
+    TBODY_ROWS_TIPO.innerHTML = '';
+    // Se verifica la acción a realizar.
+    // Petición para obtener los registros disponibles.
+    const JSON = await dataFetch(ACTIVIDADES_API, 'readTipoActividades');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (JSON.status) {
+        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+        JSON.dataset.forEach(row => {
+            // Se establece un icono para el estado del producto.
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+            TBODY_ROWS_TIPO.innerHTML += `
+            <tr>
+                <th>${row.id_tipo_actividad}</th>
+                <td>${row.tipo_actividad}</td>
+                <td><button tittle="actualizar información"  onclick="openUpdateTipoActividades(${row.id_tipo_actividad}, '${row.tipo_actividad}')" type="button" class="btn btn-info "><i class="fa-solid fa-pencil"></i></button>
+                <button tittle="Eliminar" onclick="deleteTipoActividades(${row.id_tipo_actividad})" type="button" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                </td>
+                
+            </tr>`
+            ;
+        });
+
+        // RECORDS.textContent = JSON.message;
+
+    } else {
+        sweetAlert(4, JSON.exception, true);
+    }
+}
+
+FORM_TIPO.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let JSON;
+    const FORM = new FormData(FORM_TIPO);
+    debugger
+    if(document.getElementById('id_tipo').value == ""){
+        JSON = await dataFetch(ACTIVIDADES_API, 'addTipoActividad', FORM);
+
+    }else{
+        JSON = await dataFetch(ACTIVIDADES_API, 'updateTipoActividad', FORM);
+    }
+    if (JSON.status) {
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        FORM_TIPO.reset();
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, JSON.message, true);
+        fillTipoActividades();
+        document.getElementById('submitTipo').innerHTML = "Agregar";
+        document.getElementById('labelStatus').hidden = true;
+        document.getElementById('resetForm').hidden = true;
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+})
+
+async function deleteTipoActividades(id){
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const RESPONSE = await confirmAction('¿Estas seguro de eliminar este tipo de actividad? Solo podrás hacerlo si no hay actividades con este tipo de actividad y se borrará de manera permanente');
+    // Se verifica la respuesta del mensaje.
+    if (RESPONSE) {
+        // Se define una constante tipo objeto con los datos del registro seleccionado.
+        const FORM = new FormData();
+        FORM.append('id_tipo', id);
+        // Petición para eliminar el registro seleccionado.
+        const JSON = await dataFetch(ACTIVIDADES_API, 'deleteTipoActividad', FORM);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (JSON.status) {
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            fillTipoActividades();
+            // Se muestra un mensaje de éxito.
+            sweetAlert(1, JSON.message, true);
+        } else {
+            sweetAlert(2, JSON.exception, false);
+        }
+    }
+}
+
+function resetTipoActividades(){
+    FORM_TIPO.reset();
+    document.getElementById('labelStatus').hidden = true;
+    document.getElementById('submitTipo').innerHTML = "Agregar";
+    document.getElementById('resetForm').hidden = true;
+}
+
+function openUpdateTipoActividades(id, tipo){
+    document.getElementById('id_tipo').value = id;
+    document.getElementById('tipo_actividad').value = tipo;
+    document.getElementById('labelStatus').hidden = false;
+    document.getElementById('labelStatus').innerHTML = "Actualizando: "+tipo;
+    document.getElementById('submitTipo').innerHTML = "Guardar";
+    document.getElementById('resetForm').hidden = false;
+}
+
+document.getElementById('btnTipoActividades').addEventListener('click', async () => {
+    fillTipoActividades();
+})
 
 function createActividades() {
     FORMULARIO.reset();

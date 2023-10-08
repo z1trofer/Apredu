@@ -13,6 +13,7 @@ class Actividades extends ActividadesQueries
     protected $descripcion = null;
     protected $fecha_entrega = null;
     protected $id_tipo_actividad = null;
+    protected $tipo_actividad = null;
     protected $id_trimestre = null;
     protected $id_detalle_asignatura_empleado = null;
     protected $id_asignatura = null;
@@ -47,6 +48,16 @@ class Actividades extends ActividadesQueries
     {
         if (Validator::validateString($value, 1, 50)) {
             $this->nombre_actividad = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setTipo_actividad($value)
+    {
+        if (Validator::validateString($value, 1, 40)) {
+            $this->tipo_actividad = $value;
             return true;
         } else {
             return false;

@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     // Arreglo para el filtrado parametrizado
     $filtro = array('trimestre' => 0, 'grado' => 0, 'asignatura' => 0);
-    if (isset($_SESSION['id_empleado'])and Validator::validateSessionTime()) {
+    if (isset($_SESSION['id_empleado']) and Validator::validateSessionTime()) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getVistaAutorizacion':
@@ -212,8 +212,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha creado correctamente';
                 } else {
-                    $result['exception'] = Database::getException();
-                    ;
+                    $result['exception'] = Database::getException();;
                 }
                 break;
             case 'readOne':
@@ -287,6 +286,65 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+            case 'addTipoActividad':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$Actividades_p->setTipo_actividad($_POST['tipo_actividad'])) {
+                    $result['exception'] = 'tipo Actividad incorrecto incorrecto';
+                } elseif ($Actividades_p->addTipoActividad()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Tipo Actividad agregado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+            case 'updateTipoActividad':
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$Actividades_p->setid_tipo_actividad($_POST['id_tipo'])) {
+                    $result['exception'] = 'id tipo incorrecto';
+                } elseif (!$data = $Actividades_p->readOneTipoActividad()) {
+                    $result['exception'] = 'id inexistente';
+                } elseif (!$Actividades_p->setTipo_actividad($_POST['tipo_actividad'])) {
+                    $result['exception'] = 'id tipo incorrecto';
+                } elseif ($Actividades_p->updateTipoActividad()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Se ha actualizado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+            case 'deleteTipoActividad':
+                //se declaran los permisos necesarios para la accion
+                $access = array('edit_actividades', 'view_all_actividades');
+                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$permisos->getPermissions(($access))) {
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la accion
+                } elseif (!$Actividades_p->setid_tipo_actividad($_POST['id_tipo'])) {
+                    $result['exception'] = 'id tipo incorrecto';
+                } elseif (!$data = $Actividades_p->readOneTipoActividad()) {
+                    $result['exception'] = 'Actividad inexistente';
+                } elseif ($Actividades_p->deleteTipoActividad()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Se eliminó el registro correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
@@ -300,4 +358,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>
