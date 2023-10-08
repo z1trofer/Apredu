@@ -11,12 +11,9 @@ class ResponsablesVista extends ResponsablesVistaQueries{
         public $dui = null;
         public $correo = null;
         public $lugar_trabajo = null;
-        public $telefono_trabajo = null;
+        public $telefono = null;
         public $parentesco = null;
         
-        //Atributos telefono-responsable
-        public $telefono = null;
-
         //Atributos detalles_Alumnos
         public $id_alumno = null;
 
@@ -84,7 +81,7 @@ class ResponsablesVista extends ResponsablesVistaQueries{
     public function setTelefono($value)
     {
         if (Validator::validatePhone($value)) {
-            $this->telefono_trabajo = $value;
+            $this->telefono = $value;
             return true;
         } else {
             return false;
@@ -147,7 +144,7 @@ class ResponsablesVista extends ResponsablesVistaQueries{
 
     public function getTelefonoTrabajo()
     {
-        return $this->telefono_trabajo;
+        return $this->telefono;
     }
 
     public function getParentesco()

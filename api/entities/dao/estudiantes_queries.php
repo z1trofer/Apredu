@@ -7,8 +7,8 @@ class EstudiantesQueries
     public function CreateEstudiante()
     {
         $sql = 'INSERT INTO estudiantes(
-            nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, ,id_responsable, parentesco_responsable, estado)
-            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, id_responsable, parentesco_responsable, estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre_estudiante, $this->apellido_estudiante, $this->nacimiento, $this->direccion_estudiante, $this->nie, $this->id_grado, $this->id_responsable, $this->parentesco, $this->estado);
         return Database::executeRow($sql, $params);
     }

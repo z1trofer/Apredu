@@ -152,6 +152,10 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'parentesco incorrecto';
                 } elseif (!$estudiante->setEstado(isset($_POST['estado']) ? 0 : 1)) {
                     $result['exception'] = 'Estado incorrecto';
+                } elseif (!$estudiante->setIdResponsable($_POST['selectRes'])) {
+                    $result['exception'] = 'Resposnable incorrecto';
+                } elseif (!$estudiante->setParentesco($_POST['parentesco'])) {
+                    $result['exception'] = 'Parentesco incorrecto';
                 } elseif ($estudiante->CreateEstudiante()) {
                     $result['status'] = 1;
                     $result['message'] = 'Estudiante creado correctamente';
@@ -187,6 +191,10 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif (!$estudiante->setEstado(isset($_POST['estados']) ? 0 : 1)) {
                     $result['exception'] = 'Estado incorrecto';
+                } elseif (!$estudiante->setIdResponsable($_POST['selectRes'])) {
+                    $result['exception'] = 'Resposnable incorrecto';
+                } elseif (!$estudiante->setParentesco($_POST['parentesco'])) {
+                    $result['exception'] = 'Parentesco incorrecto';
                 } elseif ($estudiante->UpdateEstudiante()) {
                     $result['status'] = 1;
                     $result['message'] = 'Estudiante modificado correctamente';

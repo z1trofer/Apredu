@@ -9,16 +9,16 @@ class ResponsablesVistaQueries
     //Método para insertar datos a la tabla de clientes por medio de una query 
     public function createRow()
     {
-        $sql = 'INSERT INTO responsables(nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco)
-        VALUES ( ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono_trabajo, $this->parentesco);
+        $sql = 'INSERT INTO responsables(nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono)
+        VALUES (?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono);
         return Database::executeRow($sql, $params);
     }
 
     //Método para leer los registros de la tabla ordenandolos por sus apellidos por medio de una query general a la tabla
     public function readAll()
     {
-        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco
+        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono
         FROM responsables ORDER BY id_responsable
         ';
         return Database::getRows($sql);
@@ -27,8 +27,8 @@ class ResponsablesVistaQueries
     //funcion para buscar responsables
     public function search($param, $idEs)
     {
-        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco, estudiantes.id_estudiante
-        FROM responsables INNER JOIN estudiantes USING(id_estudiante) 
+        $sql = 'SELECT DISTINCT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono
+        FROM responsables LEFT JOIN estudiantes USING(id_responsable) 
         WHERE (nombre_responsable LIKE ? or apellido_responsable LIKE ?)';
         if($idEs != 'todos'){
             $sql = $sql.' and estudiantes.id_estudiante = '.$idEs;
@@ -41,9 +41,8 @@ class ResponsablesVistaQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function readOne()
     {
-        $sql = "SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, CONCAT(nombre_estudiante, ' ', apellido_estudiante) as estudiante
-        FROM responsables INNER JOIN estudiantes USING (id_responsable)
-        WHERE id_responsable = ?";
+        $sql = "SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono
+        FROM responsables WHERE id_responsable = ?";
         $params = array($this->id_responsable);
         return Database::getRow($sql, $params);
     }
@@ -59,9 +58,9 @@ class ResponsablesVistaQueries
     public function updateRow()
     {
         $sql = 'UPDATE responsables
-                SET nombre_responsable =?, apellido_responsable =?, dui =?, correo_responsable =?, lugar_de_trabajo =?, telefono_trabajo =?, parentesco=?
+                SET nombre_responsable =?, apellido_responsable =?, dui =?, correo_responsable =?, lugar_de_trabajo =?, telefono =?
                 WHERE id_responsable = ?';
-        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono_trabajo, $this->parentesco, $this->id_responsable);
+        $params = array($this->nombre_responsable, $this->apellido_responsable, $this->dui, $this->correo, $this->lugar_trabajo, $this->telefono, $this->id_responsable);
         return Database::executeRow($sql, $params);
     }
 

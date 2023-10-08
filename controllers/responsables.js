@@ -27,7 +27,8 @@ async function validate() {
 document.addEventListener('DOMContentLoaded', async () => {
     if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
-    fillTable();
+    const FORM = new FormData(SEARCH);
+    fillTable(FORM);
     }
 });
 
@@ -67,10 +68,10 @@ SEARCH.addEventListener('submit', async (event) => {
     fillTable(FORM);
 });
 
-
+/*
 //buscador estudiantes
 //Buscar estudiantes dentro de modal funcion
-document.getElementById('search').addEventListener('change', async () => {
+document.getElementById('searchEs').addEventListener('change', async () => {
     data = document.getElementById('search').value;
     const FORM = new FormData();
     FORM.append('param', document.getElementById('search').value);
@@ -78,9 +79,9 @@ document.getElementById('search').addEventListener('change', async () => {
    /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
     if(JSON.status){
         fillSelect
-    }*/
+    }
 });
-
+*/
 document.getElementById('searchEs').addEventListener('change', async () => {
     data = document.getElementById('searchEs').value;
     const FORM = new FormData();
@@ -120,8 +121,7 @@ async function fillTable(form = null) {
                     <td>${row.dui}</td>
                     <td>${row.correo_responsable}</td>
                     <td>${row.lugar_de_trabajo}</td>
-                    <td>${row.telefono_trabajo}</td>
-                    <td>${row.parentesco}</td>
+                    <td>${row.telefono}</td>
                     <td>
                     <button onclick="openUpdate(${row.id_responsable})"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa-solid fa-pencil"></i>
@@ -171,13 +171,7 @@ async function openUpdate(id) {
         document.getElementById('dui').value = JSON.dataset.dui;
         document.getElementById('correo').value = JSON.dataset.correo_responsable;
         document.getElementById('lugar').value = JSON.dataset.lugar_de_trabajo;
-        document.getElementById('telefono').value = JSON.dataset.telefono_trabajo;
-        document.getElementById('parentesco').value = JSON.dataset.parentesco;
-        document.getElementById('estudiante_label').hidden = false;
-        document.getElementById('estudiante_aniadir').hidden = false;
-        document.getElementById('estudiante').required = false;
-        document.getElementById('estudiante').innerHTML = `<option value="${JSON.dataset.id_estudiante}">${JSON.dataset.estudiante}</option>`;
-        document.getElementById('estudiante_label').innerHTML = `Estudiante: ${JSON.dataset.estudiante}`;
+        document.getElementById('telefono').value = JSON.dataset.telefono;
     } else {
         sweetAlert(2, JSON.exception, false);
     }

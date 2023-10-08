@@ -112,25 +112,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Lugar incorrecto';
                 } elseif (!$responsable->setTelefono($_POST['telefono'])) {
                     $result['exception'] = 'Telefono incorrecto';
-                } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
-                    $result['exception'] = 'Parentesco incorrecto';
-                } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
-                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->createRow()) {
-                    if(!$responsable->setIdResponsable($responsable->obtenerResponsableIDdui())){
-                        $result['exception'] = 'Error al crear el responsable';
-                    } elseif(!$responsable->removeRes()) {
-                        $result['exception'] = 'Error al eliminar el id';
-                    } elseif($responsable->updateEstId()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Responsable actualizado correctamente';
-                    } elseif (Database::getException()){
-                        $result['exception'] = Database::getException();
-                    } else {
-                        $result['exception'] = "error al guardar el estudiante";
-                    }
-                } else {
+                    $result['status'] = 1;
+                    $result['message'] = 'Responsable actualizado correctamente';
+                } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = "no se puedo actualizar el responsable";
                 }
                 break;
                 //leer un dato seleccionado para luego actualizarlo o solo leer la información 
@@ -178,21 +166,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Lugar incorrecto';
                 } elseif (!$responsable->setTelefono($_POST['telefono'])) {
                     $result['exception'] = 'Telefono incorrecto';
-                } elseif (!$responsable->setParentesco($_POST['parentesco'])) {
-                    $result['exception'] = 'Parentesco incorrecto';
-                } elseif (!$responsable->setIdAlumno($_POST['estudiante'])) {
-                    $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($responsable->updateRow()) {
-                    if(!$responsable->removeRes()) {
-                        $result['exception'] = 'Error al eliminar el id';
-                    } elseif ($responsable->updateEstId()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Responsable actualizado correctamente';
-                    } else{
-                        $result['exception'] = Database::getException();
-                    }
-                } else {
+                    $result['status'] = 1;
+                    $result['message'] = 'Responsable actualizado correctamente';
+                } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = "Error al actualizar responsables";
                 }
                 break;
 
