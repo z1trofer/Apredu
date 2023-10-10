@@ -21,15 +21,15 @@ $conexion->query($query);
 $mail = new PHPMailer(true);
 
 try {
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'paulrivas004@gmail.com';
-    $mail->Password   = 'jtlgtzpzjvtblyan';
-    $mail->Port       = 587;
+    $mail->isSMTP();                                 // Enviar usando SMTP
+    $mail->Host       = 'smtp.gmail.com';           // Configurar el servidor SMTP para enviar a través de Gmail
+    $mail->SMTPAuth   = true;                       // Habilitar autenticación SMTP
+    $mail->Username   = 'paulrivas004@gmail.com';       // Nombre de usuario SMTP
+    $mail->Password   = 'jtlgtzpzjvtblyan';             // Contraseña SMTP
+    $mail->Port       = 587;                             // Puerto TCP para conectarse; usa 587 si has configurado `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-    $mail->setFrom('paulrivas004@gmail.com', 'Asistente virtual-Apredu');
-    $mail->addAddress($email, 'NOMBRE_ELECTRONICO_PARA');
+    $mail->setFrom('paulrivas004@gmail.com', 'Asistente virtual-Apredu');       // Quien lo envía
+    $mail->addAddress($email, 'NOMBRE_ELECTRONICO_PARA');       // Agregar un destinatario
     $mail->isHTML(true);
     $mail->Subject = 'Recuperación de contraseña' ;
     $mail->Body    = 'Hola, este es un correo generado para solicitar tu recuperación de contraseña, por favor, visita la página de <a href="http://localhost/Apredu/change_password.php?token='.$token.'">Recuperación de contraseña</a>';

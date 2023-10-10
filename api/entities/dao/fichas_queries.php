@@ -22,6 +22,7 @@ class FichasQueries
         return Database::getRows($sql);
     }
 
+    // leer ficha de un estudiante en específico
     public function readOneestudiante()
     {
         $sql = 'SELECT id_estudiante, nombre_estudiante, apellido_estudiante, grado 
@@ -68,6 +69,7 @@ class FichasQueries
         return Database::getRows($sql);
     }
 
+    // para crear una ficha
     public function createRow()
     {
         $sql = 'INSERT INTO fichas (id_estudiante, descripcion_ficha, id_empleado)
@@ -76,6 +78,7 @@ class FichasQueries
         return Database::executeRow($sql, $params);
     }
 
+    // para actualizar una ficha
     public function updateRow()
     {
         $sql = 'UPDATE fichas SET id_estudiante = ?, descripcion_ficha = ?, fecha_ficha = ?, id_empleado = ? WHERE id_ficha = ?';
@@ -85,6 +88,7 @@ class FichasQueries
 
     //Metodo para eliminar un dato de la tabla por medio de un id específico
 
+    // para eliminar una contraseña
     public function deleteRow()
     {
         $sql = 'DELETE FROM fichas
@@ -93,6 +97,7 @@ class FichasQueries
         return Database::executeRow($sql, $params);
     }
 
+    // fichas por cada semana
     public function readFichasPorSemana()
     {
         $sql ='SELECT nombre_estudiante,apellido_estudiante,descripcion_ficha, fecha_ficha
@@ -102,6 +107,7 @@ class FichasQueries
         return Database::getRows($sql);
     }
 
+    // todas las fichas de un estudiante
     public function FichasXestudiante()
     {
         $sql = 'SELECT descripcion_ficha,nombre_empleado, fecha_ficha
@@ -111,6 +117,7 @@ class FichasQueries
         return Database::getRows($sql, $params);
     }
 
+    // gráfico de estudiantes con más reportes de conducta
     public function EstudianteMasReportes($param)
     {
         $sql = "SELECT nombre_estudiante, COUNT(id_ficha) AS cantidad_ficha

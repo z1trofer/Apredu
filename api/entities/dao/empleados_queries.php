@@ -6,7 +6,7 @@ require_once('../helpers/database.php');
 class EmpleadosQueries
 {
 
-
+    // funcion para leer todos los empleados
     public function readAll($check)
     {
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
@@ -20,7 +20,7 @@ class EmpleadosQueries
         return Database::getRows($sql);
     }
 
-    /*funcion para leer datos*/
+    /*funcion para leer datos específicos*/
     public function readOne()
     {
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.telefono, empleados.direccion, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado, cargos_empleados.id_cargo, empleados.estado, empleados.intentos
@@ -38,7 +38,7 @@ class EmpleadosQueries
         return Database::getRows($sql);
     }
 
-
+    // funcion para crear un empleado
     public function createRow()
     {
         $sql = 'INSERT INTO empleados (nombre_empleado, apellido_empleado, dui, fecha_nacimiento, id_cargo, usuario_empleado, direccion, clave, telefono, correo_empleado)
@@ -46,7 +46,7 @@ class EmpleadosQueries
         $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario_empleado, $this->direccion, $this->clave, $this->telefono, $this->correo_empleado);
         return Database::executeRow($sql, $params);
     }
-
+    // funcion para actualizar un empleado
     public function updateRow()
     {
         $sql = 'UPDATE empleados SET nombre_empleado = ?, apellido_empleado = ?, dui = ?, fecha_nacimiento = ?, id_cargo = ?, usuario_empleado = ?, direccion = ?, telefono = ?, correo_empleado = ?, estado = ? WHERE id_empleado= ? ';
@@ -54,6 +54,7 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para cambiar la contraseña de cierto empleado
     public function changePassword()
     {
         $sql = 'UPDATE empleados
@@ -63,6 +64,7 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para resetear intentos
     public function resetIntentos()
     {
         $sql = 'UPDATE empleados set intentos = 0 where usuario_empleado = ?';
@@ -70,6 +72,7 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para eliminar un empleado
     public function deleteRow()
     {
         $sql = 'DELETE FROM empleados
@@ -78,6 +81,7 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para buscar empleados específicos
     public function searchRows($value, $check)
     {
         $sql = 'SELECT empleados.id_empleado, empleados.nombre_empleado, empleados.apellido_empleado, empleados.dui, empleados.fecha_nacimiento, cargos_empleados.cargo, empleados.usuario_empleado, empleados.correo_empleado
@@ -93,6 +97,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    // llenar combobox de actividades
     function ObtenerActividades()
     {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, fecha_entrega, asignacion.grado, asignacion.asignatura
@@ -107,6 +112,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para leer todo sin filtro 
     function readSinFiltros()
     {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, fecha_entrega, asignacion.grado, asignacion.asignatura
@@ -121,7 +127,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
-
+    // funcion para leer asignaturas de cierto empleado
     public function readAsignaturas_empleado()
     {
         $sql = 'SELECT a.id_asignatura, b.asignatura FROM detalle_asignaturas_empleados a
@@ -133,6 +139,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para leer datos de asignaturas
     public function readAsignaturas()
     {
         $sql = 'SELECT a.id_asignatura, b.asignatura FROM detalle_asignaturas_empleados a
@@ -142,6 +149,7 @@ class EmpleadosQueries
         return Database::getRows($sql);
     }
 
+    // funcion de leer datos de asignaturas por grado
     public function readAsignaturasGrado($id)
     {
         $sql = 'SELECT id_asignatura, asignaturas.asignatura FROM detalle_asignaturas_empleados
@@ -151,6 +159,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para leer datos de grados por cierto empleado
     public function readGrados_empleado()
     {
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
@@ -162,6 +171,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para leer datos datos de grados
     public function readGrados()
     {
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
@@ -211,6 +221,7 @@ class EmpleadosQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para leer datos de empleados por cargo
     public function readPorCargos()
     {
         $sql = 'SELECT nombre_empleado, apellido_empleado, correo_empleado, cargo, dui
@@ -221,6 +232,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para leer empleados por asignatura 
     public function AsignaturaEmpleadoGrado()
     {
         $sql = 'SELECT nombre_empleado, apellido_empleado, grado, asignatura, cargo
@@ -236,6 +248,7 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para obtenener asignaturas por el grado
     public function gradoAsignaturas()
     {
         $sql = 'SELECT a.id_asignatura, a.asignatura
@@ -248,6 +261,8 @@ class EmpleadosQueries
         return Database::getRows($sql, $params);
     }
     
+
+    // funcion para obtener el correo del empleado en sesion
     public function ObtenerCorreo()
     {
         $sql = 'SELECT correo_empleado FROM empleados WHERE id_empleado = ?';

@@ -52,6 +52,7 @@ class EstudiantesQueries
             return Database::getRows($sql);
     }
 
+    // funcion para leer ficha específica
     public function readConducta()
     {
         $sql = 'SELECT id_ficha, id_estudiante ,nombre_estudiante, descripcion_ficha, fecha_ficha, nombre_empleado, id_grado, grado
@@ -96,7 +97,7 @@ class EstudiantesQueries
             return Database::getRows($sql, $params);
         }
     
-
+        // funcion para crear la ficha
     public function createFicha()
     {
         $sql = 'INSERT INTO fichas (id_estudiante, descripcion_ficha, id_empleado)
@@ -126,6 +127,7 @@ class EstudiantesQueries
         return Database::getRow($sql, $params);
     }
 
+    // funcion para verificar contraseña
     public function checkPassword($password)
     {
         $sql = 'SELECT clave FROM estudiantes WHERE id_estudiante = ?';
@@ -138,4 +140,3 @@ class EstudiantesQueries
         }
     }
 }
-?>

@@ -67,6 +67,7 @@ class GradosQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para insertar el detalle
     public function InsertarDetalle($asignatura)
     {
         $sql = 'INSERT INTO detalle_asignaturas_empleados (id_asignatura, id_grado)
@@ -75,6 +76,7 @@ class GradosQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para eliminar el detalle
     public function deleteDetalle()
     {
         $sql = 'DELETE FROM detalle_asignaturas_empleados
@@ -83,6 +85,7 @@ class GradosQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para leer todas las asignaturas
     public function readAsignaturas()
     {
         $sql = "SELECT id_asignatura, asignatura

@@ -219,7 +219,6 @@ class UsuariosQueries
     public function checkRecovery()
 
     {
-
         $sql = 'SELECT id_empleado, usuario_empleado FROM empleados WHERE correo_empleado = ? ';
         $params = array($this->correo_empleado);
         if ($data = Database::getRow($sql, $params)) {
@@ -289,6 +288,7 @@ class UsuariosQueries
         }
     }
 
+    // funcion para verificar datos del empleado y mandar el código de verificacion
     public function checkAD($id)
     {
         $sql = 'SELECT id_empleado, usuario_empleado, cargos_empleados.cargo, cargos_empleados.id_cargo FROM empleados
