@@ -2,7 +2,7 @@
 require_once('../helpers/validator.php');
 require_once('../entities/dao/notas_queries.php');
 /*
-*	Clase para manejar la transferencia de datos de la entidad USUARIO.
+*	Clase para manejar la transferencia de datos de la entidad NOTAS.
 */
 class Notas extends NotasQueries
 {

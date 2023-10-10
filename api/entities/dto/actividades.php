@@ -2,7 +2,7 @@
 require_once('../helpers/validator.php');
 require_once('../entities/dao/actividades_queries.php');
 /*
-*	Clase para manejar la transferencia de datos de la entidad PRODUCTO.
+*	Clase para manejar la transferencia de datos de la entidad ACTIVIDADES.
 */
 class Actividades extends ActividadesQueries
 {
