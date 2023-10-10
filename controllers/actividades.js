@@ -78,13 +78,11 @@ FORMULARIO.addEventListener('submit', async (event) => {
 * Parámetros: form (objeto opcional con los datos de búsqueda).
 * Retorno: ninguno.
 */
-async function fillTable(form = null) {
+async function fillTable(form) {
     // Se inicializa el contenido de la tabla.
     TBODY_ROWS.innerHTML = '';
-    // Se verifica la acción a realizar.
-    (form) ? action = 'FiltrosActividades' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const JSON = await dataFetch(ACTIVIDADES_API, action, form);
+    const JSON = await dataFetch(ACTIVIDADES_API, 'FiltrosActividades', form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -149,7 +147,7 @@ FORM_TIPO.addEventListener('submit', async (event) => {
     event.preventDefault();
     let JSON;
     const FORM = new FormData(FORM_TIPO);
-    debugger
+     
     if(document.getElementById('id_tipo').value == ""){
         JSON = await dataFetch(ACTIVIDADES_API, 'addTipoActividad', FORM);
 
@@ -215,6 +213,7 @@ document.getElementById('btnTipoActividades').addEventListener('click', async ()
 function createActividades() {
     FORMULARIO.reset();
     TITULO_MODAL.textContent = 'Asignar una nueva actividad';
+     
     fillSelect(ACTIVIDADES_API, 'readTipoActividades', 'tipo_actividad', 'Seleccione un tipo de actividad');
     fillSelect(ACTIVIDADES_API, 'readDetalle', 'detalle', 'Seleccione una asignación');
     fillSelect(ACTIVIDADES_API, 'readTrimestre', 'trimestre', 'Seleccione un trimestre');

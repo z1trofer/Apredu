@@ -108,7 +108,7 @@ class NotasQueries
         $sql = "SELECT  id_nota, ROW_NUMBER() OVER(ORDER BY estudiantes.apellido_estudiante asc) as 'n_lista', estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, actividades.nombre_actividad, actividades.descripcion, actividades.ponderacion, notas.nota from notas 
         INNER JOIN estudiantes USING(id_estudiante) INNER JOIN actividades USING (id_actividad)
         INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
-        where id_actividad = ? and detalle_asignaturas_empleados.id_empleado = ?";
+        where id_actividad = ? and detalle_asignaturas_empleados.id_empleado = ? and estudiantes.estado = 0";
         $params = array($this->id_actividad, $this->id_empleado);
         return Database::getRows($sql, $params);
     }
@@ -119,7 +119,7 @@ class NotasQueries
         $sql = "SELECT  id_nota, ROW_NUMBER() OVER(ORDER BY estudiantes.apellido_estudiante asc) as 'n_lista', estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, actividades.nombre_actividad, actividades.descripcion, actividades.ponderacion, notas.nota from notas 
         INNER JOIN estudiantes USING(id_estudiante) INNER JOIN actividades USING (id_actividad)
         INNER JOIN detalle_asignaturas_empleados USING (id_detalle_asignatura_empleado)
-        where id_actividad = ?";
+        where id_actividad = ? and estudiantes.estado = 0";
         $params = array($this->id_actividad);
         return Database::getRows($sql, $params);
     }
@@ -143,7 +143,7 @@ class NotasQueries
         INNER JOIN grados USING (id_grado)
         INNER JOIN trimestres USING (id_trimestre)
         where id_estudiante = ?
-        and trimestres.id_trimestre = ? and asignaturas.id_asignatura = ?) as consulta
+        and trimestres.id_trimestre = ? and asignaturas.id_asignatura = ?)  as consulta
         ";
         $params = array($this->id_estudiante, $this->id_trimestre, $this->id_asignatura);
         return Database::getRow($sql, $params);
@@ -175,14 +175,14 @@ class NotasQueries
         INNER JOIN trimestres USING (id_trimestre)
         INNER JOIN anios USING (id_anio)
         INNER JOIN grados USING (id_grado)
-        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true) ";
+        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true) and estudiantes.estado = 0";
         if ($parametros['grado'] != "Todos") {
             $sql = $sql . " and grados.id_grado = " . $parametros['grado'];
         };
         $sql = $sql . " ) as consulta 
         INNER JOIN trimestres USING (id_trimestre)
         INNER JOIN estudiantes USING (id_estudiante)
-        where trimestres.id_trimestre = consulta.id_trimestre and estudiantes.id_estudiante = consulta.id_estudiante
+        where trimestres.id_trimestre = consulta.id_trimestre and estudiantes.id_estudiante = consulta.id_estudiante and estudiantes.estado = 0
         GROUP BY trimestres.id_trimestre, consulta.asignatura, estudiantes.id_estudiante
         ORDER BY estudiantes.nombre_estudiante) as wea ";
         if ($parametros['trimestre'] != "Todos") {
@@ -217,14 +217,14 @@ class NotasQueries
         INNER JOIN trimestres USING (id_trimestre)
         INNER JOIN anios USING (id_anio)
         INNER JOIN grados USING (id_grado)
-        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true)";
+        INNER JOIN estudiantes USING (id_estudiante) where anios.anio = (select anio from anios INNER JOIN trimestres USING (id_anio) where trimestres.estado = true) and estudiantes.estado = 0 ";
         if ($parametros['grado'] != "Todos") {
             $sql = $sql . " and grados.id_grado = " . $parametros['grado'];
         };
         $sql = $sql . " ) as consulta 
     INNER JOIN trimestres USING (id_trimestre)
     INNER JOIN estudiantes USING (id_estudiante)
-    where trimestres.id_trimestre = consulta.id_trimestre and estudiantes.id_estudiante = consulta.id_estudiante
+    where trimestres.id_trimestre = consulta.id_trimestre and estudiantes.id_estudiante = consulta.id_estudiante and estudiantes.estado = 0
     GROUP BY trimestres.id_trimestre, consulta.asignatura, estudiantes.id_estudiante
     ORDER BY estudiantes.nombre_estudiante) as wea ";
     if ($parametros['trimestre'] != "Todos") {

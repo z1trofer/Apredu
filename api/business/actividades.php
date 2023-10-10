@@ -1,348 +1,404 @@
 <?php
 require_once('../entities/dto/actividades.php');
 require_once('../entities/dto/permisos.php');
-
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
-    // Se instancia la clase correspondiente.
-    $Actividades_p = new Actividades;
+    // Se instancia la clases correspondientes.
+    $actividades = new Actividades;
     $permisos = new Permisos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
-    // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
-    // Arreglo para el filtrado parametrizado
-    $filtro = array('trimestre' => 0, 'grado' => 0, 'asignatura' => 0);
+    // Se verifica si existe una sesión iniciada y válida, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_empleado']) and Validator::validateSessionTime()) {
-        // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
+        // Se compara la acción a realizar.
         switch ($_GET['action']) {
+                //verificar los permisos para ver la interfaz de actividades
             case 'getVistaAutorizacion':
+                //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
-                //se declaran los permisos necesarios para la accion
+                //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
+                //se valida el id del empleado logeado
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
+                    //se ejecuta la acción
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                 } else {
+                    //acceso concedido
                     $result['status'] = 1;
                 }
                 break;
-            case 'readAll':
-                //se declaran los permisos necesarios para la accion
-                $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
-                } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif ($result['dataset'] = $Actividades_p->readAll()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
+                //obtener los registros de actividades según parametros
             case 'FiltrosActividades':
+                //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
-                $filtro['grado'] = $_POST['grado'];
-                $filtro['asignatura'] = $_POST['asignatura'];
-                $filtro['trimestre'] = $_POST['trimestre'];
-                //se declaran los permisos necesarios para la accion
+                //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif ($result['dataset'] = $Actividades_p->FiltrarActividades($filtro)) {
+                    //se validan los parametros
+                } elseif (!$actividades->setid_grado($_POST['grado'])) {
+                    $result['exception'] = 'id grado invalido';
+                } elseif (!$actividades->setid_asignatura($_POST['asignatura'])) {
+                    $result['exception'] = 'id asignatura invalido';
+                } elseif (!$actividades->setid_trimestre($_POST['trimestre'])) {
+                    $result['exception'] = 'id trimestre invalido';
+                    //se ejecuta la acción
+                } elseif ($result['dataset'] = $actividades->FiltrarActividades()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
                 } else {
+                    //no hay datos registrados
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-
+                //obtener todos los registros de tipo_actividades
             case 'readTipoActividades':
-                //se declaran los permisos necesarios para la accion
+                //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif ($result['dataset'] = $Actividades_p->readTipoActividades()) {
+                    //se ejecuta la acción
+                } elseif ($result['dataset'] = $actividades->readTipoActividades()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
                 } else {
+                    //no hay datos registrados
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //obtener todos los registros de grados
             case 'readGrados':
-                $_POST = Validator::validateForm($_POST);
-                //se declaran los permisos necesarios para la accion
+                //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif ($result['dataset'] = $Actividades_p->readGrados()) {
+                    //se ejecuta la acción
+                } elseif ($result['dataset'] = $actividades->readGrados()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //obtener todos los registros de asignaturas
             case 'readAsignaturas':
-                //se declaran los permisos necesarios para la accion
+                //validar espacios en el formulario
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$Actividades_p->setid_grado($_POST['id_grado'])) {
-                    $result['exception'] = 'Grado malo';
-                } elseif ($result['dataset'] = $Actividades_p->readAsignaturas()) {
+                    //se validan los parametros
+                } elseif (!$actividades->setid_grado($_POST['id_grado'])) {
+                    $result['exception'] = 'id grado incorrecto';
+                    //se ejecuta la acción
+                } elseif ($result['dataset'] = $actividades->readAsignaturas()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //obtener todos los registros de trimestres
             case 'readTrimestre':
-                //se declaran los permisos necesarios para la accion
+                //se declaran los permisos necesarios para la acci´pn
                 $access = array('view_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción, view_actividades';
-                    //se ejecuta la accion
-                } elseif ($result['dataset'] = $Actividades_p->readTrimestres()) {
+                    //acceso denegado
+                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
+                    //se ejecuta la acción
+                } elseif ($result['dataset'] = $actividades->readTrimestres()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
+                    //error en base de datos
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Error';
+                    $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //obtener los detalles de las actividades (grado y asignatura a la que esta asignada)
             case 'readDetalle':
-                //se declaran los permisos necesarios para la accion
+                //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
+                //permiso para determinar el nivel de información a mostrar
                 $level = array('view_all_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif ($result['dataset'] = $Actividades_p->readDetalle_asignatura_grado($permisos->getPermissions(($level)))) {
+                    //se ejecuta la acción
+                } elseif ($result['dataset'] = $actividades->readDetalle_asignatura_grado($permisos->getPermissions(($level)))) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-            case 'search':
-                $_POST = Validator::validateForm($_POST);
-                //se declaran los permisos necesarios para la accion
-                $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
-                } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif ($_POST['search'] == '') {
-                    $result['exception'] = 'Ingrese un valor';
-                } elseif ($result['dataset'] = $Cliente_p->searchRows($_POST['search'])) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay coincidencias';
-                }
-                break;
+                //agregar un registro de actividad
             case 'create':
+                //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
-                //se declaran los permisos necesarios para la accion
+                //se declaran los permisos necesarios para la acción
                 $access = array('edit_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$Actividades_p->setnombre_actividad($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$Actividades_p->setponderacion($_POST['ponderacion'])) {
-                    $result['exception'] = 'Ponderación incorrecta';
-                } elseif (!$Actividades_p->setdescripcion($_POST['descripcion'])) {
+                    //se validan los campos a ingresar
+                } elseif (!$actividades->setnombre_actividad($_POST['nombre'])) {
+                    $result['exception'] = 'Nombre de actividad no valido';
+                } elseif (!$actividades->setponderacion($_POST['ponderacion'])) {
+                    $result['exception'] = 'Ponderación no valida, asegurate que sea unicamente un valor entero entre 1-100 sin el simbolo de porcentaje';
+                } elseif (!$actividades->setdescripcion($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
-                } elseif (!isset($_POST['tipo_actividad'])) {
-                    $result['exception'] = 'Seleccione un tipo de actividad';
-                } elseif (!$Actividades_p->setid_tipo_actividad($_POST['tipo_actividad'])) {
-                    $result['exception'] = 'Tipo de actividad incorrecto';
-                } elseif (!isset($_POST['detalle'])) {
-                    $result['exception'] = 'Seleccione un detalle';
-                } elseif (!$Actividades_p->setid_detalle_asignatura_empleado($_POST['detalle'])) {
-                    $result['exception'] = 'Tipo de asignación incorrecto';
-                } elseif (!isset($_POST['trimestre'])) {
-                    $result['exception'] = 'Seleccione un trimestre';
-                } elseif (!$Actividades_p->setid_trimestre($_POST['trimestre'])) {
-                    $result['exception'] = 'Trimestre incorrecto';
-                } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
-                    $result['exception'] = 'Fecha incorrecta';
-                } elseif (!$Actividades_p->validatePonderacion(false)) {
-                    $result['exception'] = 'La ponderación total dbe ser menor o igual a 100';
-                } elseif ($Actividades_p->createRow()) {
+                } elseif (!$actividades->setid_tipo_actividad($_POST['tipo_actividad'])) {
+                    $result['exception'] = 'Tipo de actividad inválido';
+                } elseif (!$actividades->setid_detalle_asignatura_empleado($_POST['detalle'])) {
+                    $result['exception'] = 'Asignación no válida';
+                } elseif (!$actividades->setid_trimestre($_POST['trimestre'])) {
+                    $result['exception'] = 'Trimestre no válido';
+                } elseif (!$actividades->setfecha_entrega($_POST['fecha_entrega'])) {
+                    $result['exception'] = 'Fecha no válida';
+                } elseif (!$actividades->validatePonderacion(false)) {
+                    $result['exception'] = 'La ponderación total be ser menor o igual a 100';
+                    //se ejecuta la acción
+                } elseif ($actividades->createRow()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Se ha creado correctamente';
+                } elseif (Database::getException()) {
+                    //error de base de datos
+                    $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = Database::getException();;
+                    $result['exception'] = "Ocurrio un error al ingresar la actividad";
                 }
                 break;
+                //obtener información de un registro de actividad
             case 'readOne':
-                //se declaran los permisos necesarios para la accion
+                //validar espacios en el formulario
+                $_POST = Validator::validateForm($_POST);
+                //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
+                    //acceso denegado
+                    $result['exceptión'] = 'No tienes autorizacion para realizar esta acción';
+                    //se valida los parametros
+                } elseif (!$actividades->setid_actividad($_POST['id_actividad'])) {
                     $result['exception'] = 'Actividad incorrecta';
-                } elseif ($result['dataset'] = $Actividades_p->readOne()) {
+                    //se ejecuta la acción
+                } elseif ($result['dataset'] = $actividades->readOne()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'Actividad inexistente';
                 }
                 break;
+                //actualizar un registro
             case 'update':
+                //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$Actividades_p->setid_actividad($_POST['id'])) {
+                    //se validan los parametros
+                } elseif (!$actividades->setid_actividad($_POST['id'])) {
                     $result['exception'] = 'id incorrecto';
-                } elseif (!$data = $Actividades_p->readOne()) {
+                } elseif (!$data = $actividades->readOne()) {
                     $result['exception'] = 'id inexistente';
-                } elseif (!$Actividades_p->setnombre_actividad($_POST['nombre'])) {
+                } elseif (!$actividades->setnombre_actividad($_POST['nombre'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$Actividades_p->setponderacion($_POST['ponderacion'])) {
+                } elseif (!$actividades->setponderacion($_POST['ponderacion'])) {
                     $result['exception'] = 'Ponderación incorrecta';
-                } elseif (!$Actividades_p->setdescripcion($_POST['descripcion'])) {
+                } elseif (!$actividades->setdescripcion($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
                 } elseif (!isset($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
-                } elseif (!$Actividades_p->setid_tipo_actividad($_POST['tipo_actividad'])) {
+                } elseif (!$actividades->setid_tipo_actividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Tipo de actividad incorrecto';
-                } elseif (!$Actividades_p->setfecha_entrega($_POST['fecha_entrega'])) {
+                } elseif (!$actividades->setfecha_entrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
-                } elseif (!$Actividades_p->validatePonderacion(true)) {
+                } elseif (!$actividades->validatePonderacion(true)) {
                     $result['exception'] = 'La ponderación total dbe ser menor o igual a 100';
-                } elseif ($Actividades_p->updateRow()) {
+                    //se ejecuta la accion
+                } elseif ($actividades->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha actualizado correctamente';
-                } else {
+                } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = "No se pudo actualizar el registro";
                 }
                 break;
+                //eliminar un registro de actividades
             case 'delete':
-                //se declaran los permisos necesarios para la accion
-                $access = array('edit_actividades', 'view_all_actividades');
+                //se declaran los permisos necesarios para la acción
+                $access = array('edit_actividades', 'view_all_actividades', 'edit_tipo_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$Actividades_p->setid_actividad($_POST['id_actividad'])) {
+                    //se valida el parametro
+                } elseif (!$actividades->setid_actividad($_POST['id_actividad'])) {
                     $result['exception'] = 'Actividad incorrecta';
-                } elseif (!$data = $Actividades_p->readOne()) {
+                } elseif (!$data = $actividades->readOne()) {
                     $result['exception'] = 'Actividad inexistente';
-                } elseif ($Actividades_p->deleteRow()) {
+                    //se ejecuta la acción
+                } elseif ($actividades->deleteRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Actividad eliminada correctamente';
-                } else {
+                } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = "No se pudo elimianr el registro";
                 }
                 break;
+                //añadir un registro a tipo_actividades
             case 'addTipoActividad':
+                //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
-                $access = array('edit_actividades');
+                $access = array('edit_tipo_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$Actividades_p->setTipo_actividad($_POST['tipo_actividad'])) {
+                } elseif (!$actividades->setTipo_actividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'tipo Actividad incorrecto incorrecto';
-                } elseif ($Actividades_p->addTipoActividad()) {
+                } elseif ($actividades->addTipoActividad()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Tipo Actividad agregado correctamente';
-                } else {
+                } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = "No se pudo agregar el registro";
                 }
                 break;
+                //actualizar un registro de tipo actividades
             case 'updateTipoActividad':
+                //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
-                //se declaran los permisos necesarios para la accion
-                $access = array('edit_actividades');
+                //se declaran los permisos necesarios para la acción
+                $access = array('edit_tipo_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$Actividades_p->setid_tipo_actividad($_POST['id_tipo'])) {
+                    //se validan los parametros
+                } elseif (!$actividades->setid_tipo_actividad($_POST['id_tipo'])) {
                     $result['exception'] = 'id tipo incorrecto';
-                } elseif (!$data = $Actividades_p->readOneTipoActividad()) {
+                } elseif (!$data = $actividades->readOneTipoActividad()) {
                     $result['exception'] = 'id inexistente';
-                } elseif (!$Actividades_p->setTipo_actividad($_POST['tipo_actividad'])) {
+                } elseif (!$actividades->setTipo_actividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'id tipo incorrecto';
-                } elseif ($Actividades_p->updateTipoActividad()) {
+                    //se ejecuta la accion
+                } elseif ($actividades->updateTipoActividad()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Se ha actualizado correctamente';
-                } else {
+                } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = "No se pudo agregar el registro";
                 }
                 break;
+                //eliminar un registro de tipo actividades
             case 'deleteTipoActividad':
+                //validar espacios en el formulario
+                $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
-                $access = array('edit_actividades', 'view_all_actividades');
+                $access = array('edit_actividades', 'view_all_actividades', 'edit_tipo_actividades');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$Actividades_p->setid_tipo_actividad($_POST['id_tipo'])) {
+                    //se validan los parametros
+                } elseif (!$actividades->setid_tipo_actividad($_POST['id_tipo'])) {
                     $result['exception'] = 'id tipo incorrecto';
-                } elseif (!$data = $Actividades_p->readOneTipoActividad()) {
+                } elseif (!$data = $actividades->readOneTipoActividad()) {
                     $result['exception'] = 'Actividad inexistente';
-                } elseif ($Actividades_p->deleteTipoActividad()) {
+                    //se ejecuta la acción
+                } elseif ($actividades->deleteTipoActividad()) {
+                    //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Se eliminó el registro correctamente';
-                } else {
+                } elseif (Database::getException()) {
+                    //error de base de datos
                     $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = "No se pudo agregar el registro";
                 }
                 break;
             default:

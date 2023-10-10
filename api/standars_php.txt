@@ -2,8 +2,10 @@ Estándares de programación utilizados del lado del servidor (PHP)
 Los estándares de programación en el lado del servidor, en el contexto de PHP, son pautas y convenciones que los desarrolladores siguen para escribir código PHP de manera organizada, segura y mantenible, que se detalla a continuación:
 
 Nomenclatura de Variables y Funciones:
-Utilizar nombres descriptivos y en minúsculas para las variables y funciones.
-Utilizar el formato snake_case (separando palabras con guiones bajos) para nombres de variables y funciones.
+Utilizar nombres descriptivos y en minúsculas para las variables.
+Utilizar el formato snake_case (separando palabras con guiones bajos) para nombres de variables.
+Se utiliza Camel case para el nombre de funciones y los para los case ubicados en business.
+Para los nombres de clases se usará Title case para cada palabra. Si hay mas de una palabra estas estaran unidas sin ningun guión bajo o separación.
 Evitar nombres de una sola letra o nombres poco descriptivos.
 Ejemplo
 $trimestres = new Trimestres;

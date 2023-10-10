@@ -7,49 +7,40 @@ require_once('../helpers/props.php');
 */
 class UsuariosQueries
 {
-    //funcion para verificar que todos los atributos solicitados en el parametro $access esten concedidos al cargo especificado
-    /*public function getPermissions($access)
-    {
-        $sql = 'SELECT ' . implode(",", $access) . ' from cargos_empleados INNER JOIN empleados USING(id_cargo) where empleados.id_empleado = ?';
-        $params = array($this->id);
-        $data = Database::getRow($sql, $params);
-        $autorized = true;
-        foreach ($data as $permission) {
-            if ($permission == 0) {
-                $autorized = false;
-            }
-        }
-        return $autorized;
-    }*/
-
     //funcion de login para permitir al usuario entrar al sistema
     public function logIn($clave)
     {
         $sql = "SELECT empleados.id_empleado, empleados.usuario_empleado, clave, cargos_empleados.id_cargo, 
         cargos_empleados.cargo, CONCAT(empleados.nombre_empleado, ' ', empleados.apellido_empleado) as nombre,
         empleados.estado, empleados.intentos, DATEDIFF(CURRENT_DATE, fecha_clave) as dias, empleados.timer_intento, correo_empleado from empleados INNER JOIN cargos_empleados USING(id_cargo)
-        WHERE usuario_empleado = ?";
+        WHERE usuario_empleado = BINARY ?";
         $params = array($this->usuario);
         $data = Database::getRow($sql, $params);
+        //se valida el resultado
         if ($data == null) {
+            //error en base de datos
             return false;
         } elseif ($data['estado'] == false) {
+            //el usuario esta bloqueado
             return 'zzz';
         } else {
             $timer = null;
+            //se verifica si el usuario tiene contador de tiempo
             if (Validator::validateAttemptsCd($data['timer_intento']) != true) {
+                //el usuario tiene contador de tiempo
                 $timer = false;
                 $this->tiempo_restante = Validator::validateAttemptsCd($data['timer_intento']);
             } else {
+                //el usuario no tiene contador
                 $this->usuario = $data['usuario_empleado'];
                 $this->subirTiempoInicio(null);
                 $timer = true;
             }
-            if ($data['estado'] == false) {
-                return 'zzz';
-            } elseif ($timer == false) {
+            if ($timer == false) {
+                //el usuario tiene contador de tiempo
                 return 'timer';
-            }elseif (password_verify($clave, $data['clave'])) {
+            } elseif (password_verify($clave, $data['clave'])) {
+                //las contraseñas coinciden
                 $this->id = $data['id_empleado'];
                 $this->usuario = $data['usuario_empleado'];
                 $this->cargo = $data['cargo'];
@@ -58,11 +49,14 @@ class UsuariosQueries
                 $this->dias_clave = $data['dias'];
                 $this->correo_empleado = $data['correo_empleado'];
                 return $data;
-            }  elseif ($data['intentos'] == 5 || $data['intentos'] == 10 || $data['intentos'] == 15 || $data['intentos'] == 20) {
+            } elseif ($data['intentos'] == 6 || $data['intentos'] == 12 || $data['intentos'] == 18 || $data['intentos'] == 24) {
+                //las contraseñas no coinciden, se validan los intentos de sesión para ver si el usuario deberia tener un cotnador
                 return 'time';
-            } elseif ($data['intentos'] > 25) {
+            } elseif ($data['intentos'] > 30) {
+                //las contraseñas no coinciden, se valida los intentos para ver si el usuario debe ser bloqueado
                 return 'bloquear';
-            }  else {
+            } else {
+                //el usuario fallo al incicar sesión
                 return 'fail';
             }
         }
@@ -131,11 +125,13 @@ class UsuariosQueries
         $params = array($this->usuario);
         $data = Database::getRow($sql, $params);
         if ($data != false) {
-            $this->correo_empleado = $data['correo_empleado'];
-            $_SESSION['id_empleado_clave'] = $data['id_empleado'];
-            return true;
-        } elseif($data['estado'] == false) {
-            return false;
+            if ($data['estado'] == 0) {
+                return false;
+            } else {
+                $this->correo_empleado = $data['correo_empleado'];
+                $_SESSION['id_empleado_clave'] = $data['id_empleado'];
+                return true;
+            }
         } else {
             return false;
         }
@@ -185,9 +181,9 @@ class UsuariosQueries
     //Funcion para crear un usuario en el primer uso
     public function createRow()
     {
-        $sql = 'INSERT INTO empleados (nombre_empleado, apellido_empleado, dui, fecha_nacimiento, id_cargo, usuario_empleado, direccion, clave, correo_empleado)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario, $this->direccion, $this->clave, $this->correo_empleado);
+        $sql = 'INSERT INTO empleados (nombre_empleado, apellido_empleado, dui, fecha_nacimiento, id_cargo, usuario_empleado, direccion, clave, correo_empleado, telefono)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario, $this->direccion, $this->clave, $this->correo_empleado, $this->telefono);
         return Database::executeRow($sql, $params);
     }
 

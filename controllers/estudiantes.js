@@ -93,7 +93,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'CreateEstudiante';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_E);
-    debugger
+     
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -152,7 +152,7 @@ async function openUpdate(id) {
     const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        debugger
+         
         // Se restauran los elementos del formulario.
         SAVE_FORM_E.reset();
         // Se inicializan los campos del formulario.

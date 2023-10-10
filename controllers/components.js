@@ -90,7 +90,7 @@ async function fillSelect(filename, action, select,Tittle, selected = null) {
     // Petición para obtener los datos.
     const JSON = await dataFetch(filename, action);
     let content = '';
-      
+     
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje.
     if (JSON.status) {
         content += `<option selected>${Tittle}</option>`;
@@ -128,6 +128,7 @@ async function fillSelect2(filename, action, select, data =null, selected = null
         content += `<option selected>Seleccione una opción</option>`;
         // Se recorre el conjunto de registros fila por fila a través del objeto row.
         JSON.dataset.forEach(row => {
+             
             // Se obtiene el dato del primer campo.
             value = Object.values(row)[0];
             // Se obtiene el dato del segundo campo.

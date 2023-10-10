@@ -5,6 +5,7 @@ require_once('../helpers/database.php');
 */
 class PermisosQueries
 {
+    //obtener permisos para cualquier proceso del sistema
     public function getPermissions($access)
     {
         $sql = 'SELECT ' . implode(",", $access). ' from cargos_empleados INNER JOIN empleados USING(id_cargo) where empleados.id_empleado = ?';

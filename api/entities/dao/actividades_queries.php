@@ -59,21 +59,24 @@ class ActividadesQueries
         return Database::getRow($sql, $params);
     }
 
-    
-    public function addTipoActividad(){
+
+    public function addTipoActividad()
+    {
         $sql = 'INSERT INTO tipo_actividades (tipo_actividad)
          values (?)';
         $params = array($this->tipo_actividad);
         return Database::executeRow($sql, $params);
     }
 
-    public function updateTipoActividad(){
+    public function updateTipoActividad()
+    {
         $sql = 'UPDATE tipo_actividades SET tipo_actividad=? where id_tipo_actividad = ?';
         $params = array($this->tipo_actividad, $this->id_tipo_actividad);
         return Database::executeRow($sql, $params);
     }
 
-    public function deleteTipoActividad(){
+    public function deleteTipoActividad()
+    {
         $sql = 'DELETE FROM tipo_actividades where id_tipo_actividad = ?';
         $params = array($this->id_tipo_actividad);
         return Database::executeRow($sql, $params);
@@ -117,28 +120,31 @@ class ActividadesQueries
         return Database::getRows($sql);
     }
 
-    // Para cargar combobox
+    //Querie obtener el datelle de una actividad (parametro: permiso de usuario view_all_actividades)
     public function readDetalle_asignatura_grado($level)
     {
         if ($level == true) {
+            //si el usuario tiene el permiso podrá ver todas las actividades
             $sql = "Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
             FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
             INNER JOIN asignaturas USING(id_asignatura)
             INNER JOIN grados USING (id_grado)";
             return Database::getRows($sql);
         } else {
+            //de lo contrario el usuario solo podrá ver las actividades asignadas a el
             $sql = "Select detalle_asignaturas_empleados.id_detalle_asignatura_empleado, concat(asignaturas.asignatura,' de ' ,grados.grado) as asignacion, id_empleado
             FROM detalle_asignaturas_empleados LEFT JOIN empleados USING (id_empleado)
             INNER JOIN asignaturas USING(id_asignatura)
             INNER JOIN grados USING (id_grado)
             WHERE id_empleado = ?";
+            //parámetros
             $params = array($_SESSION['id_empleado']);
             return Database::getRows($sql, $params);
         }
     }
 
     // Para la búsqueda parametrizada
-    public function FiltrarActividades($filtros)
+    public function FiltrarActividades()
     {
         $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, grados.grado, asignaturas.asignatura
         FROM actividades
@@ -148,7 +154,7 @@ class ActividadesQueries
         INNER JOIN asignaturas USING (id_asignatura)
         WHERE id_trimestre = ? and detalle_asignaturas_empleados.id_grado = ? and id_asignatura = ? GROUP BY  actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega
         ORDER BY actividades.nombre_actividad ASC";
-        $params = array($filtros['trimestre'], $filtros['grado'], $filtros['asignatura']);
+        $params = array($this->id_trimestre, $this->id_grado, $this->id_asignatura);
         return Database::getRows($sql, $params);
     }
 

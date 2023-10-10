@@ -22,6 +22,8 @@ class Usuarios extends UsuariosQueries
     public $tiempo_restante = null;
     public $codigo_recuperacion = null;
 
+    public $telefono = null;
+
 
     //atributos xtra
     public $cargo = null;
@@ -169,6 +171,16 @@ class Usuarios extends UsuariosQueries
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_cargo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setTelefono($value)
+    {
+        if (Validator::validatePhone($value)) {
+            $this->telefono = $value;
             return true;
         } else {
             return false;
