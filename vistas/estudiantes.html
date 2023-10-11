@@ -243,7 +243,7 @@
                         <form id="save-formE">
                             <div class="row">
                                 <div class="col-sm">
-                                    <input type="hidden" name="id_estudiante" id="id_estudiante">
+                                    <input class="visually-hidden-focusable" name="id_estudiante" id="id_estudiante">
                                     <div class="form-outline">
                                         <input type="text" id="nombre_estudiante" name="nombre_estudiante"
                                             class="form-control" autocomplete="off" required />
@@ -261,6 +261,7 @@
                                     <select class="form-select" required aria-label="select example" id="grado"
                                         name="grado">
                                     </select>
+                                    
                                 </div>
                                 <div class="col-sm">
                                     <div class="form-outline">
@@ -283,7 +284,7 @@
                                 <div class="col-sm">
                                     <div class="form-outline">
                                         <input type="text" name="nie" id="nie" class="form-control" autocomplete="off"
-                                            required />
+                                            maxlength="7" minlength="7" required />
                                         <label class="form-label">NIE</label>
                                     </div>
                                 </div>
@@ -291,12 +292,15 @@
                                     <h5>Estado</h5>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch" id="estados"
-                                            name="estados" />
+                                            name="estados"/>
                                         <label class="form-check-label" for="flexSwitchCheckDefault"> Inactivo/
                                             Activo</label>
                                     </div>
+                                    
                                 </div>
+                              
                             </div>
+                            <p id="warning" hidden style="color: red;">Adventencia: Si modificas el grado, se añadirán las notas respectivas de ese grado al estudiante Para esta acción necesitas tener permisos de administrador</p>
                             <hr>
                             <h5>Responsable:</h5>
                             <div class="row">

@@ -244,7 +244,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Se ha creado correctamente';
                 } else {
-                    $result['exception'] = Database::getException();;
+                    $result['exception'] = Database::getException();
                 }
                 break;
             case 'readOne':
@@ -276,6 +276,8 @@ if (isset($_GET['action'])) {
                     //accion
                 } elseif (!$Empleados_p->setid_empleado($_POST['id'])) {
                     $result['exception'] = 'id incorrecto';
+                } elseif ($_POST['id'] == $_SESSION['id_empleado']) {
+                    $result['exception'] = 'no podes cambiar tu propio usuario';
                 } elseif (!$Empleados_p->setnombre_empleado($_POST['nombres'])) {
                     $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$Empleados_p->setapellido_empleado($_POST['apellidos'])) {

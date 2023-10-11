@@ -15,7 +15,7 @@ class FichasQueries
     }
     public function readAll()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, usuario_estudiante, clave, estado
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, grado, estado
                 FROM estudiantes
                 INNER JOIN grados USING(id_grado)
                 order by id_grado ASC';

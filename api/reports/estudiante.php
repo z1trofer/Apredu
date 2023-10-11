@@ -62,11 +62,7 @@ if (isset($_GET['id_estudiante'])) {
                 $pdf->setFont('Arial', 'B', 11);
                 $pdf->cell(30, 10, $pdf->encodeString('Teléfono'), 1, 0, 'C', 1);
                 $pdf->setFont('Arial', '', 11);
-                $pdf->cell(40, 10, $pdf->encodeString($row['telefono_trabajo']), 1, 0, 'C', 1);
-                $pdf->setFont('Arial', 'B', 11);
-                $pdf->cell(30, 10, $pdf->encodeString('Parentesco'), 1, 0, 'C', 1);
-                $pdf->setFont('Arial', '', 11);
-                $pdf->cell(80, 10, $pdf->encodeString($row['parentesco']), 1, 0, 'C', 1);
+                $pdf->cell(40, 10, $pdf->encodeString($row['telefono']), 1, 0, 'C', 1);
                 $pdf->Ln(10);
                 $pdf->Ln(10);
                 /*$pdf->setFont('Arial', 'B', 11);

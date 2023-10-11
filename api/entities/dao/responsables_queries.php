@@ -102,9 +102,8 @@ class ResponsablesVistaQueries
     //reporte estudiantes (responsable segun id de estudiante)
     public function reportEstudiantesRes()
     {
-        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono_trabajo, parentesco
-        FROM responsables INNER JOIN responsables_estudiantes USING (id_responsable)
-        INNER JOIN estudiantes USING (id_estudiante)
+        $sql = 'SELECT id_responsable ,nombre_responsable, apellido_responsable, dui, correo_responsable, lugar_de_trabajo, telefono
+        FROM responsables INNER JOIN estudiantes USING (id_responsable)
         WHERE estudiantes.id_estudiante = ?';
         $params = array($this->id_alumno);
         return Database::getRows($sql, $params);

@@ -26,7 +26,7 @@ class EstudiantesQueries
     //Método para consultar una columna específica de la tabla por medio de su id
     public function ReadOne()
     {
-        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, grado, id_responsable, parentesco_responsable, CONCAT(responsables.nombre_responsable, " ", responsables.apellido_responsable) as nombreRes
+        $sql ='SELECT id_estudiante, nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, grado, id_responsable, parentesco_responsable, estado, CONCAT(responsables.nombre_responsable, " ", responsables.apellido_responsable) as nombreRes
         FROM estudiantes
         INNER JOIN grados USING(id_grado)
         LEFT JOIN responsables USING (id_responsable)
@@ -47,8 +47,8 @@ class EstudiantesQueries
     //Metodo para leer los grados de la tabla "grados"
     public function readGrado()
     {
-        $sql = 'SELECT id_grado, grado
-                FROM grados';
+        $sql = "SELECT id_grado, grado FROM grados order by id_grado
+        ";
             return Database::getRows($sql);
     }
 

@@ -30,8 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await cargarTrimestres();
     //Función para cargar las asignaturas 
     await cargarAsignaturas();
-    //cargar grafico
-    graficoPieNotas()
     }
 });
 

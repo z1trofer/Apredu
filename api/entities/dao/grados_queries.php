@@ -24,7 +24,7 @@ class GradosQueries
     {
         $sql = 'SELECT id_grado, grado 
                 FROM grados
-                ORDER BY id_grado';
+                ORDER BY id_grado ASC';
         return Database::getRows($sql);
     }
 

@@ -103,26 +103,6 @@ if (isset($_GET['action'])) {
                         $result['exception'] = Database::getException();
                     }
                 break;
-                // Acción para eliminar un dato de la tabla categorías
-            case 'delete':
-                //se declaran los permisos necesarios para la accion
-                $access = array('edit_trimestres');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
-                } elseif (!$permisos->getPermissions(($access))) {
-                    //se deniega el acceso
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                } elseif (!$grados->setIdAnio($_POST['id_anio'])) {
-                    $result['exception'] = 'Grado incorrecto';
-                } elseif (!$data = $trimestres->readOne()) {
-                    $result['exception'] = 'Grado inexistente';
-                } elseif ($trimestres->deleteRow()) {
-                    $result['status'] = 1;                   
-                    $result['message'] = 'Grado eliminado correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

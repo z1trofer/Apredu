@@ -150,7 +150,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'responsable incorrecto';
                 } elseif (!$estudiante->setParentesco($_POST['parentesco'])) {
                     $result['exception'] = 'parentesco incorrecto';
-                } elseif (!$estudiante->setEstado(isset($_POST['estado']) ? 0 : 1)) {
+                } elseif (!$estudiante->setEstado($_POST['estados'])) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif (!$estudiante->setIdResponsable($_POST['selectRes'])) {
                     $result['exception'] = 'Resposnable incorrecto';
@@ -165,9 +165,23 @@ if (isset($_GET['action'])) {
                 break;
                 // Acción para actualizar un dato en la tabla de estudiantes
             case 'updateEstudiante':
+
+                //se validan los espacios del formulario
                 $_POST = Validator::validateForm($_POST);
-                //se declaran los permisos necesarios para la accion
-                $access = array('edit_estudiantes');
+                //se valida si se modifica el id grado
+                if (!$estudiante->setIdEstudiante($_POST['id_estudiante'])) {
+                    $result['exception'] = 'Estudiante incorrecto';
+                } elseif (!$data = $estudiante->readOne()) {
+                    $result['exception'] = 'Estudiante inexistente';
+                }
+                if ($data['id_grado'] != $_POST['grado']) {
+                    //se declaran los permisos necesarios para la accion
+                    $access = array('edit_estudiantes', 'edit_admin');
+                } else {
+                    //se declaran los permisos necesarios para la accion
+                    $access = array('edit_estudiantes');
+                }
+                //se validan los permisos
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
@@ -189,7 +203,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'NIE incorrecto';
                 } elseif (!$estudiante->setIdGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif (!$estudiante->setEstado(isset($_POST['estados']) ? 0 : 1)) {
+                } elseif (!$estudiante->setEstado($_POST['estados'])) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif (!$estudiante->setIdResponsable($_POST['selectRes'])) {
                     $result['exception'] = 'Resposnable incorrecto';

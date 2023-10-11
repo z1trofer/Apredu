@@ -124,7 +124,7 @@ class Database
                 self::$error = 'Violación de restricción de integridad, verfique que los datos sean validos o que la acción no comprometa registros';
                 break;
             default:
-                self::$error = 'Ocurrió un problema en la base de datos';
+               // self::$error = 'Ocurrió un problema en la base de datos';
         }
     }
 

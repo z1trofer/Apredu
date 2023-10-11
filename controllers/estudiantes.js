@@ -11,6 +11,7 @@ const RECORDS = document.getElementById('records');
 
 //variables para busqueda parametrizada
 let id_grado = null;
+let warning = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
     if (await validate() == true) {
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const TODAY = new Date();
         let day = ('0' + TODAY.getDate()).slice(-2);
         var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
-        let year = TODAY.getFullYear() - 5;
+        let year = TODAY.getFullYear() - 4;
         let date = `${year}-${month}-${day}`;
         document.getElementById('nacimiento').max = date;
     } else {
@@ -81,7 +82,7 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     //se agrega el id grado al formulario
     FORM.append('grado', id_grado);
     //se carga la tabla nuevamente
-     
+
     fillTable(FORM);
 });
 
@@ -93,7 +94,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'CreateEstudiante';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_E);
-     
+    
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -101,6 +102,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
         fillTable();
         SAVE_FORM_E.reset();
         sweetAlert(1, JSON.message, true);
+        document.getElementById('cancelar').click();
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -118,7 +120,7 @@ async function fillTable(form = null) {
     // Se verifica la acción a realizar.
     (form) ? action = 'FiltrosEstudiantes' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-     
+
     const JSON = await dataFetch(ESTUDIANTE_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
@@ -148,11 +150,13 @@ async function openUpdate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
     FORM.append('id_estudiante', id);
+    document.getElementById('warning').hidden = true;
+    warning = true;
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-         
+
         // Se restauran los elementos del formulario.
         SAVE_FORM_E.reset();
         // Se inicializan los campos del formulario.
@@ -166,10 +170,10 @@ async function openUpdate(id) {
         document.getElementById('grado').innerHTML = JSON.dataset.grado;
         document.getElementById('selectRes').innerHTML = `<option value="${JSON.dataset.id_responsable}">${JSON.dataset.nombreRes}</option>`;
         document.getElementById('parentesco').value = JSON.dataset.parentesco_responsable;
-        if (JSON.dataset.estado) {
-            document.getElementById('estados').checked = false;
-        } else {
+        if (JSON.dataset.estado == 1) {
             document.getElementById('estados').checked = true;
+        } else {
+            document.getElementById('estados').checked = false;
         }
         // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
         document.getElementById('cancelar').hidden = false;
@@ -184,13 +188,14 @@ document.getElementById('searchRes').addEventListener('change', async () => {
     const FORM = new FormData();
     FORM.append('param', document.getElementById('searchRes').value);
     fillSelect2(ESTUDIANTE_API, 'SearchResponsables', 'selectRes', data, null)
-   /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
-    if(JSON.status){
-        fillSelect
-    }*/
+    /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
+     if(JSON.status){
+         fillSelect
+     }*/
 });
 function openCreate() {
-     
+    document.getElementById('warning').hidden = true;
+    warning = false;
     // Se restauran los elementos del formulario.
     SAVE_FORM_E.reset();
     fillSelect(ESTUDIANTE_API, 'readGrado', 'grado', 'Grados');
@@ -228,13 +233,12 @@ async function openDelete(id) {
 //función Cargar Grados
 async function CargarGrados() {
     //se instancia un formulario
-    const FORM = new FormData();
     //se instancia el año como parametro en el formulario
-    FORM.append('id_grado', id_grado);
     //se llama a la API para obtener los trimestres del año respectivo
-    const JSON = await dataFetch(ESTUDIANTE_API, 'readGrado', FORM);
+    const JSON = await dataFetch(ESTUDIANTE_API, 'readGrado');
     //se comprueba la respuesta de la api
     if (JSON.status) {
+        
         //se declara el combobox de trimestres en la variable dropdown
         dropdown = document.getElementById('listGrados');
         //se limpia el dropdown para asegurarse que no haya ningun contenido
@@ -252,7 +256,7 @@ async function CargarGrados() {
                 <li><a class="dropdown-item" onclick="OpcionGrado('${row.id_grado}','${row.grado}')">${row.grado}</a></li>
                 `
         });
-        
+
     } else {
         //se envia un mensaje con el error respectivo
         sweetAlert(2, "Ocurrio un error al cargar los grados, por favor comuniquese con un administrador", false);
@@ -268,6 +272,12 @@ function OpcionGrado(id_gradoFun, gradoFun) {
     //se designa el texto del boton como el trimestre seleccionado
     document.getElementById('dropGrados').innerHTML = gradoFun;
 };
+
+document.getElementById('grado').addEventListener('change', () => {
+    if (warning == true) {
+        document.getElementById('warning').hidden = false;
+    }
+})
 /*
 document.getElementById('buscar').addEventListener('onclick', async (event) => {
 

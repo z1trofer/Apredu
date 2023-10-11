@@ -144,7 +144,7 @@ async function openCreate(id) {
         //se verifica el id_cargo
         if(SESSION){
             //se llena el label con el nombre del docente
-            label.innerHTML = SESSION.nombre;
+            label.innerHTML = SESSION.empleado;
             document.getElementById('id_empleado').value = SESSION.id_empleado;
         }else{
             //se deja el label vacio

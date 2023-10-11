@@ -96,7 +96,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setNie($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 9)) {
+        if (Validator::validateAlphanumeric($value, 7, 7)) {
             $this->nie = $value;
             return true;
         } else {
@@ -136,6 +136,13 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setEstado($value)
     {
+        if($value == "on"){
+            $value = 1;
+        }elseif($value == "off"){
+            $value = 0;
+        }else{
+            return false;
+        }
         if (Validator::validateBoolean($value)) {
             $this->estado = $value;
             return true;

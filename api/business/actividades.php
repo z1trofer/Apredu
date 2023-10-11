@@ -378,7 +378,7 @@ if (isset($_GET['action'])) {
                 //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
-                $access = array('edit_actividades', 'view_all_actividades', 'edit_tipo_actividades');
+                $access = array('edit_actividades', 'view_all_actividades', 'edit_tipo_actividades' ,'edit_admin');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';

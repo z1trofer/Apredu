@@ -42,7 +42,7 @@ class EmpleadosQueries
     public function createRow()
     {
         $sql = 'INSERT INTO empleados (nombre_empleado, apellido_empleado, dui, fecha_nacimiento, id_cargo, usuario_empleado, direccion, clave, telefono, correo_empleado)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->fecha_nacimiento, $this->id_cargo, $this->usuario_empleado, $this->direccion, $this->clave, $this->telefono, $this->correo_empleado);
         return Database::executeRow($sql, $params);
     }
@@ -167,7 +167,7 @@ class EmpleadosQueries
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
         LEFT JOIN grados b USING(id_grado)
         LEFT JOIN empleados c USING(id_empleado)
-        GROUP BY id_grado, grado';
+        GROUP BY id_grado, grado ORDER BY "id_grado" ASC';
         return Database::getRows($sql);
     }
 

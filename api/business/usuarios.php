@@ -129,7 +129,7 @@ if (isset($_GET['action'])) {
                     //se validan los parametros
                 } elseif (!$usuario->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Usuario incorrecto';
-                } elseif (!$_POST['nueva'] != $_POST['actual']) {
+                } elseif ($_POST['nueva'] == $_POST['actual']) {
                     $result['exception'] = 'La clave nueva debe ser diferente a la actual.';
                 } elseif (!$usuario->checkPassword($_POST['actual'])) {
                     $result['exception'] = 'Clave actual incorrecta';

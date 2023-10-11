@@ -107,12 +107,6 @@ async function fillTable(form = null) {
                     <td>
                     `+checkbox+`
                     </td>
-                    <td>
-
-                    <button onclick="openDelete(${row.id_trimestre})" type="button" class="btn btn-danger ">
-                    <i class="fas fa-trash"></i></button>
-                    </td>
-                    </td>
                 </tr>
             `;
             
@@ -140,33 +134,5 @@ async function openUpdate(id) {
         document.getElementById('id_estudiante').value = JSON.dataset.id_estudiante;
     } else {
         sweetAlert(2, JSON.exception, false);
-    }
-}
-
-
-/*
-*   Función asíncrona para eliminar un registro.
-*   Parámetros: id (identificador del registro seleccionado).
-*   Retorno: ninguno.
-*/
-async function openDelete(id) {
-    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar el año lectivo de forma permanente?');
-    // Se verifica la respuesta del mensaje.
-    if (RESPONSE) {
-        // Se define una constante tipo objeto con los datos del registro seleccionado.
-        const FORM = new FormData();
-        FORM.append('id_anio', id);
-        // Petición para eliminar el registro seleccionado.
-        const JSON = await dataFetch(TRIMESTRES_API, 'delete', FORM);
-        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-        if (JSON.status) {
-            // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTable();
-            // Se muestra un mensaje de éxito.
-            sweetAlert(1, JSON.message, true);
-        } else {
-            sweetAlert(2, JSON.exception, false);
-        }
     }
 }
