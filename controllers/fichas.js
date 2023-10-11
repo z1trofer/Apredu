@@ -20,6 +20,7 @@ async function validate() {
     }
 }
 
+//Funcion para evitar recargar la pagina 
 document.addEventListener('DOMContentLoaded', async () => {
     if (await validate() == true) {
     // Llamada a la función para llenar la tabla con los registros disponibles.
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+//Funcion que nos permite insertar o actulizar depende de la petición del usuario 
 SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -48,6 +50,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     }
 });
 
+//Funcion que nos abre un modal para ver todas las fichas
 async function openFichas(id_ficha) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
@@ -78,7 +81,7 @@ async function openFichas(id_ficha) {
     }
 }
 
-
+//llenar la tabla con los datos de la base de datos
 async function fillTable(form = null) {
     // Se inicializa el contenido de la tabla.
     TBODY_ROWS.innerHTML = '';
@@ -123,6 +126,7 @@ async function fillTable(form = null) {
 fillSelect(FICHA_API, 'readEmpleado', 'nombre_empleado');
 
 
+//Crear una ficha 
 async function openCreate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
@@ -155,6 +159,7 @@ async function openCreate(id) {
     }
 }
 
+//Se abre un modal mostrando las fichas por cada estudiante 
 async function openDetallePorFicha(id_estudiante) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
@@ -182,6 +187,7 @@ async function openDetallePorFicha(id_estudiante) {
         sweetAlert(4, JSON.exception, true);
     }
 }
+
 
 async function openDetalle(id_ficha) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.

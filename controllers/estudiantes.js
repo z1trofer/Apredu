@@ -13,6 +13,7 @@ const RECORDS = document.getElementById('records');
 let id_grado = null;
 let warning = null;
 
+// Evitar recargar la pagina 
 document.addEventListener('DOMContentLoaded', async () => {
     if (await validate() == true) {
         // Llamada a la función para llenar la tabla con los registros disponibles.
@@ -146,6 +147,7 @@ async function fillTable(form = null) {
     }
 }
 
+//Funcion que nos permite abrir el modal para actualizar y al mismo tiempo manda a llamar los datos del id seleccionado
 async function openUpdate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();

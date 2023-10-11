@@ -104,6 +104,7 @@ async function validate() {
 
 }
 
+//Buscar en la tabla por medio de un search
 SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -239,6 +240,7 @@ async function fillTable(form = null) {
     }
 }
 
+//
 document.getElementById('DetallesGrado').addEventListener('change', () => {
     asignatura = document.getElementById('DetallesAsignatura');
     grado = document.getElementById('DetallesGrado');

@@ -1,7 +1,7 @@
 const SAVE_FORM_AUTENTIFICACION = document.getElementById("codigo_verificacion-form");
 const USER_API = 'business/usuarios.php';
 
-
+//Funcion para evitar recargar la página 
 document.addEventListener('DOMContentLoaded', async () => {
     // Petición para consultar los usuarios registrados.
     const JSON = await dataFetch(USER_API, 'getSession');
