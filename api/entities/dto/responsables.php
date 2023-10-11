@@ -70,7 +70,7 @@ class ResponsablesVista extends ResponsablesVistaQueries{
 
     public function setLugarTrabajo($value)
     {
-        if (Validator::validateString($value, 1, 200)) {
+        if (Validator::validateString($value, 1, 35)) {
             $this->lugar_trabajo = $value;
             return true;
         } else {

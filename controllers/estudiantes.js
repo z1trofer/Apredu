@@ -94,7 +94,14 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'CreateEstudiante';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_E);
-    
+    //declarando variable del switch
+    estado = document.getElementById('estados');
+    if(estado.checked == true){
+        FORM.append('estado', 'on');
+    }else{
+        FORM.append('estado' ,'off');
+    }
+
     // Petición para guardar los datos del formulario.
     const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.

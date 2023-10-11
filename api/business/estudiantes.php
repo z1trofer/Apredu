@@ -153,7 +153,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'responsable incorrecto';
                 } elseif (!$estudiante->setParentesco($_POST['parentesco'])) {
                     $result['exception'] = 'parentesco incorrecto';
-                } elseif (!$estudiante->setEstado($_POST['estados'])) {
+                } elseif (!$estudiante->setEstado($_POST['estado'])) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif (!$estudiante->setIdResponsable($_POST['selectRes'])) {
                     $result['exception'] = 'Resposnable incorrecto';
@@ -206,7 +206,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'NIE incorrecto';
                 } elseif (!$estudiante->setIdGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
-                } elseif (!$estudiante->setEstado($_POST['estados'])) {
+                } elseif (!$estudiante->setEstado($_POST['estado'])) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif (!$estudiante->setIdResponsable($_POST['selectRes'])) {
                     $result['exception'] = 'Resposnable incorrecto';

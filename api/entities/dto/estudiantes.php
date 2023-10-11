@@ -76,7 +76,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setNacimiento($value)
     {
-        if (Validator::validateDate($value)) {
+        if (Validator::validateDate4($value)) {
             $this->nacimiento = $value;
             return true;
         } else {

@@ -313,6 +313,24 @@ class Validator
 
     }
 
+    public static function validateDate4($value)
+    {
+        // Se dividen las partes de la fecha y se guardan en un arreglo en el siguiene orden: año, mes y día.
+        $datev = strtotime($value);
+        $datem = strtotime('-4 years', time());
+        if($datev > $datem){
+            return false;
+        }else{
+            $date = explode('-', $value);
+            if (checkdate($date[1], $date[2], $date[0])) {
+                return true;
+            } else {
+                return false;
+            }
+        }   
+
+    }
+
 
 
     /*
