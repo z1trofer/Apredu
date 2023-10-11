@@ -214,7 +214,6 @@ class UsuariosQueries
         return Database::getRow($sql, $params);
     }
 
-    //Método para comprobar el usuario
     public function checkAD($id)
     {
         $sql = 'SELECT id_empleado, usuario_empleado, cargos_empleados.cargo, cargos_empleados.id_cargo FROM empleados

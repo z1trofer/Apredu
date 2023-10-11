@@ -5,6 +5,7 @@ require_once('../helpers/database.php');
 */
 class ActividadesQueries
 {
+    // funcion para leer todos los datos de actividades
     public function readAll()
     {
         if ($_SESSION['tipo'] == 'administrador') {
@@ -34,7 +35,7 @@ class ActividadesQueries
         }
     }
 
-    /*funcion para leer datos*/
+    /*funcion para leer datos específicamente*/
     public function readOne()
     {
         $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, detalle_asignaturas_empleados.id_detalle_asignatura_empleado,
@@ -51,7 +52,7 @@ class ActividadesQueries
         $params = array($this->id_actividad);
         return Database::getRow($sql, $params);
     }
-
+    // funcion para leer cierto tipo de actividad
     public function readOneTipoActividad()
     {
         $sql = "SELECT id_tipo_actividad from tipo_actividades where id_tipo_actividad = ?";
@@ -59,7 +60,7 @@ class ActividadesQueries
         return Database::getRow($sql, $params);
     }
 
-
+    // funcion para ingresar un nuevo tipo de actividad
     public function addTipoActividad()
     {
         $sql = 'INSERT INTO tipo_actividades (tipo_actividad)
@@ -68,6 +69,7 @@ class ActividadesQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para actualizar un tipo de actividad
     public function updateTipoActividad()
     {
         $sql = 'UPDATE tipo_actividades SET tipo_actividad=? where id_tipo_actividad = ?';
@@ -75,6 +77,7 @@ class ActividadesQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para eliminar un tipo de actividad
     public function deleteTipoActividad()
     {
         $sql = 'DELETE FROM tipo_actividades where id_tipo_actividad = ?';
@@ -100,6 +103,7 @@ class ActividadesQueries
         return Database::getRows($sql);
     }
 
+    // funcion paara leer todas las asignaturas
     public function readAsignaturas()
     {
         $sql = "SELECT DISTINCT id_asignatura, asignatura
@@ -113,6 +117,7 @@ class ActividadesQueries
         return Database::getRows($sql, $params);
     }
 
+    // funcion para leer todo los trimestres por año
     public function readTrimestres()
     {
         $sql = "SELECT id_trimestre, trimestre, anios.anio, estado
@@ -158,6 +163,8 @@ class ActividadesQueries
         return Database::getRows($sql, $params);
     }
 
+
+    // Ingresar una nueva actividad
     public function createRow()
     {
         $sql = 'INSERT INTO actividades (nombre_actividad, ponderacion, descripcion, fecha_entrega, id_detalle_asignatura_empleado, id_tipo_actividad, id_trimestre)
@@ -214,6 +221,7 @@ class ActividadesQueries
         return Database::executeRow($sql, $params);
     }
 
+    // eliminar actividad
     public function deleteRow()
     {
         $sql = 'DELETE FROM actividades

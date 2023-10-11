@@ -40,14 +40,14 @@ class TrimestresQueries{
         $params = array($this->id_anio);
         return Database::executeRow($sql, $params);
     }
-
+    // Método para actualizar el trimestre
     public function updateRow()
     {
         $sql = 'UPDATE trimestres set estado = 1 where id_trimestre = ?';
     $params = array($this->id_trimestre);
     return Database::executeRow($sql, $params); 
     }
-    
+    // método para actualizar el estado de los trimestres de la tabla
     public function updateTabla()
     {
         $sql = 'UPDATE trimestres set estado = 0 where id_trimestre != ?';

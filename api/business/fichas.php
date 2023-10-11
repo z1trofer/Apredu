@@ -38,6 +38,7 @@ if (isset($_GET['action'])) {
                     //se ejecuta la accion
                 } elseif ($result['dataset'] = $fichas->readAll()) {
                     $result['status'] = 1;
+                    // se realiza un conteo de los registros
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -80,6 +81,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Estudiante inexistente';
                 }
                 break;
+                // para crear una ficha 
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
@@ -137,6 +139,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay ninguna ficha de conducta aplicada';
                 }
                 break;
+            // para leer uno
             case 'readOne':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
@@ -177,6 +180,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$fichas->setid_empleado($_POST['nombre_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif ($fichas->updateRow()) {
+                    // se realizó la accion de modificación
                     $result['status'] = 1;                  
                     $result['message'] = 'Ficha modificada correctamente';
                 } else {

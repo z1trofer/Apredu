@@ -49,8 +49,10 @@ if (isset($_GET['action'])) {
                 //se validan los permisos necesarios para la accion
                 $access = array('view_empleados');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    // Se comprueban los permisos para realizar la acción
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
+                    // Los permisos fueron denegados
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //accion
                 } elseif (!$Empleados_p->setid_empleado($_POST['id_empleado'])) {
@@ -64,6 +66,7 @@ if (isset($_GET['action'])) {
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
+                    // No se encontró al empleado
                     $result['exception'] = 'Empleado inexistente';
                 }
                 break;
@@ -89,6 +92,7 @@ if (isset($_GET['action'])) {
                 //se validan los permisos necesarios para la acción
                 $access = array('view_empleados');
                 if (!$permisos->setid($_SESSION['id_empleado'])) {
+                    // El empleado no coincide
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';

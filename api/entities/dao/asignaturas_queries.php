@@ -52,6 +52,7 @@ class AsignaturasQueries
         return Database::executeRow($sql, $params);
     }
 
+    // funcion para el grafico de materias asignadas a cada docente
     public function MateriasDocentes()
     {
         $sql = 'SELECT nombre_empleado, COUNT(*) AS cantidad_materias_asignadas

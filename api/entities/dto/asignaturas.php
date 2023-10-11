@@ -2,7 +2,7 @@
 require_once('../helpers/validator.php');
 require_once('../entities/dao/asignaturas_queries.php');
 /*
-*	Clase para manejar la transferencia de datos de la entidad CLIENTE.
+*	Clase para manejar la transferencia de datos de la entidad ASIGNATURA.
 */
 class Asignaturas extends AsignaturasQueries
 {

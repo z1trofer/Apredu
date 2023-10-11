@@ -56,12 +56,12 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
                 } elseif (!$estudiante->setIdGrado($_POST['grado'])) {
                     $result['exception'] = 'Id grado invalido';
                     //se ejecuta la accion
                 } elseif ($result['dataset'] = $estudiante->FiltrarEstudiante($_POST['search'])) {
                     $result['status'] = 1;
+                    // Realiza el conteo de cuantos resultados hay
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -69,6 +69,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                // Accion para la búsqueda
             case 'search':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
@@ -105,6 +106,7 @@ if (isset($_GET['action'])) {
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
+                    // el estudiante no existe
                     $result['exception'] = 'Estudiante inexistente';
                 }
                 break;
@@ -125,6 +127,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay grados registrados';
                 }
                 break;
+                // Crear un nuevo estudiante
             case 'CreateEstudiante':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
@@ -133,7 +136,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
+                    //se ejecuta la accion 
                 } elseif (!$estudiante->setNombresEstudiante($_POST['nombre_estudiante'])) {
                     $result['exception'] = 'Nombres incorrectos';
                 } elseif (!$estudiante->setApellidosEstudiante($_POST['apellido_estudiante'])) {
