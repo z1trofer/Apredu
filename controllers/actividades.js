@@ -18,6 +18,7 @@ let id_trimestre = null;
 let id_grado = null;
 let id_asignatura = null;
 
+//Funcion para validar las vistas de cada permiso de usuario
 async function validate() {
     const JSON = await dataFetch(ACTIVIDADES_API, 'getVistaAutorizacion');
     if (JSON.status) {
@@ -143,6 +144,7 @@ async function fillTipoActividades() {
     }
 }
 
+//Agregar actividades
 FORM_TIPO.addEventListener('submit', async (event) => {
     event.preventDefault();
     let JSON;
@@ -168,6 +170,7 @@ FORM_TIPO.addEventListener('submit', async (event) => {
     }
 })
 
+//Eliminar las actividades
 async function deleteTipoActividades(id){
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
     const RESPONSE = await confirmAction('¿Estas seguro de eliminar este tipo de actividad? Solo podrás hacerlo si no hay actividades con este tipo de actividad y se borrará de manera permanente');
@@ -190,6 +193,7 @@ async function deleteTipoActividades(id){
     }
 }
 
+//Se reinician valores del Forms
 function resetTipoActividades(){
     FORM_TIPO.reset();
     document.getElementById('labelStatus').hidden = true;
@@ -197,6 +201,7 @@ function resetTipoActividades(){
     document.getElementById('resetForm').hidden = true;
 }
 
+//Funcion para llenar los campos al actualizar
 function openUpdateTipoActividades(id, tipo){
     document.getElementById('id_tipo').value = id;
     document.getElementById('tipo_actividad').value = tipo;
@@ -206,10 +211,12 @@ function openUpdateTipoActividades(id, tipo){
     document.getElementById('resetForm').hidden = false;
 }
 
+//Filtrar actividades
 document.getElementById('btnTipoActividades').addEventListener('click', async () => {
     fillTipoActividades();
 })
 
+//Insertar actividades 
 function createActividades() {
     FORMULARIO.reset();
     TITULO_MODAL.textContent = 'Asignar una nueva actividad';
@@ -221,6 +228,7 @@ function createActividades() {
     document.getElementById('trimestre').disabled = false;
 }
 
+//Actualizar los datos de la tabla y el registro
 async function updateActividades(id_actividad) {
     FORMULARIO.reset();
     const FORM = new FormData();
@@ -242,6 +250,7 @@ async function updateActividades(id_actividad) {
     }
 }
 
+//Eliminar actividades por medio del id
 async function DeleteActividades(id_actividad) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
     const RESPONSE = await confirmAction('¿Desea eliminar la actividad de forma permanente?');
