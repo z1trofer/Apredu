@@ -83,7 +83,7 @@ class ResponsablesVistaQueries
         }
 
 
-    public function SearchEstudiantes($param)
+    public function searchEstudiantes($param)
     {
         $sql = "SELECT id_estudiante, CONCAT(nombre_estudiante, ' ', apellido_estudiante) FROM estudiantes
             WHERE nombre_estudiante like ? OR apellido_estudiante like ?";

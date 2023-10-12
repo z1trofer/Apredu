@@ -68,7 +68,7 @@ FORMULARIO.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, JSON.message, true);
         document.getElementById('closeAct').click();
-        BusquedaParametrizada();
+        //BusquedaParametrizada();
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -83,7 +83,7 @@ async function fillTable(form) {
     // Se inicializa el contenido de la tabla.
     TBODY_ROWS.innerHTML = '';
     // Petición para obtener los registros disponibles.
-    const JSON = await dataFetch(ACTIVIDADES_API, 'FiltrosActividades', form);
+    const JSON = await dataFetch(ACTIVIDADES_API, 'filtrosActividades', form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -253,7 +253,7 @@ async function updateActividades(id_actividad) {
 //Eliminar actividades por medio del id
 async function DeleteActividades(id_actividad) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar la actividad de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar la actividad de forma permanente?, ADVERTENCIA: si lo haces, eliminarás todas las notas asociadas a esta.');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.

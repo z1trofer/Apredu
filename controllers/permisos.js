@@ -122,7 +122,7 @@ async function cambiarPermiso(atributo, permiso, cargo){
         FORM.append('atributo', atributo);
         FORM.append('permiso', permiso);
         FORM.append('cargo', cargo);
-        const JSON = await dataFetch(PERMISOS_API, 'CambiarPermiso', FORM);
+        const JSON = await dataFetch(PERMISOS_API, 'cambiarPermiso', FORM);
         if(JSON.status){
             fillTable();
              

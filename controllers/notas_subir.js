@@ -58,7 +58,7 @@ async function cargarActividades(){
     FORM.append('grado', datos.get('idgrado'));
     console.log(datos.get('idgrado'));
     //se llama a la API para obtener las actividades correspondiente a las parametros en el formulario
-    const JSON = await dataFetch(NOTAS_API, 'ObtenerActividades', FORM);
+    const JSON = await dataFetch(NOTAS_API, 'obtenerActividades', FORM);
     //se verifica la respuesta de la API
     if(JSON.status){
         //se cargan las actividades en el combobox
@@ -90,7 +90,7 @@ async function cargarNotas(id_actividadFun, actividadFun) {
     //se asigna como label en el boton el nombre de la actividad seleccionada
     document.getElementById('btnactividad').innerHTML = actividadFun;
     //se llama a la API para obtener las notas de la actividad en base a los parametros del formulario
-    const JSON = await dataFetch(NOTAS_API, 'ObtenerActividad', FORM);
+    const JSON = await dataFetch(NOTAS_API, 'obtenerActividad', FORM);
      
     //se verifica la respuesta
     if(JSON.status){
@@ -159,7 +159,7 @@ async function UpdateNotas(){
             FORM.append('id', notas[i][0]);
             FORM.append('nota', notas[i][1]);
             //Se llama a la API para cambiar la nota con los parametros seleccionados
-            const JSON = await dataFetch(NOTAS_API, 'ActualizarNotas', FORM);
+            const JSON = await dataFetch(NOTAS_API, 'actualizarNotas', FORM);
             //se verifica la respuesta
             if(JSON.status != 1){
                 //de ser falsa se cambia la variable a false indicando que no se logro subir todas las notas

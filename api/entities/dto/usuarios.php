@@ -104,7 +104,7 @@ class Usuarios extends UsuariosQueries
         return true;
     }
 
-    public function setusuario_empleado($value)
+    public function setUsuarioEmpleado($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 50)) {
             $this->usuario_empleado = $value;
@@ -126,7 +126,7 @@ class Usuarios extends UsuariosQueries
         }
     }
 
-    public function setNombre_empleado($value)
+    public function setNombreEmpleado($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 150)) {
             $this->nombre_empleado = $value;
@@ -136,7 +136,7 @@ class Usuarios extends UsuariosQueries
         }
     }
 
-    public function setapellido_empleado($value)
+    public function setApellidoEmpleado($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 150)) {
             $this->apellido_empleado = $value;
@@ -146,7 +146,7 @@ class Usuarios extends UsuariosQueries
         }
     }
 
-    public function setcorreo_empleado($value)
+    public function setCorreoEmpleado($value)
     {
         if (Validator::validateEmail($value, 1, 150)) {
             $this->correo_empleado = $value;
@@ -167,7 +167,7 @@ class Usuarios extends UsuariosQueries
         }
     }
 
-    public function setId_cargo($value)
+    public function setIdCargo($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_cargo = $value;
@@ -187,7 +187,7 @@ class Usuarios extends UsuariosQueries
         }
     }
 
-    public function setFecha_nacimiento($value)
+    public function setFechaNacimiento($value)
     {
         if (Validator::validateDate($value)) {
             $this->fecha_nacimiento = $value;

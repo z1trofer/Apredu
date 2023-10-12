@@ -53,7 +53,7 @@ class AsignaturasQueries
     }
 
     // funcion para el grafico de materias asignadas a cada docente
-    public function MateriasDocentes()
+    public function materiasDocentes()
     {
         $sql = 'SELECT nombre_empleado, COUNT(*) AS cantidad_materias_asignadas
         FROM detalle_asignaturas_empleados INNER JOIN empleados USING(id_empleado)

@@ -50,15 +50,15 @@ if (isset($_GET['id'])) {
                 $pdf->cell(50, 10, 'Nota Final', 'B', 1, 'C');
                 $pdf->setFont('Arial', '', 10);
                 //se recorren las asignaturas segun los trimestres
-                if ($dataTrimestre = $notas->ObtenerTrimestresActual()) {
+                if ($dataTrimestre = $notas->obtenerTrimestresActual()) {
                     //por cada asignatura se crea una nueva fila
                     foreach ($dataAsignaturas as $rowAsignaturas) {
-                        $notas->setId_asignatura($rowAsignaturas['id_asignatura']);
+                        $notas->setIdAsignatura($rowAsignaturas['id_asignatura']);
                         $pdf->cell(50, 10, $pdf->encodeString($rowAsignaturas['asignatura']), 'R', 0, 'C');
                         $valores = array();
                         foreach ($dataTrimestre as $rowTrimestre) {
                             //por cada trimestre se crea una nueva columna
-                            $notas->setId_trimestre($rowTrimestre['id_trimestre']);
+                            $notas->setIdTrimestre($rowTrimestre['id_trimestre']);
                             if ($data = $notas->obtenerNotaTrimestre()) {
                                 if ($data['puntaje'] != null) {
                                     $pdf->cell(50, 10, $data['puntaje'], 'R', 0, 'C');

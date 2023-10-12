@@ -23,7 +23,7 @@ class Actividades extends ActividadesQueries
     /*
     *   Métodos para validar y asignar valores de los atributos. 13 campos
     */
-    public function setid_actividad($value)
+    public function setIdActividad($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_actividad = $value;
@@ -33,7 +33,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setid_grado($value)
+    public function setIdGrado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_grado = $value;
@@ -44,7 +44,7 @@ class Actividades extends ActividadesQueries
     }
 
 
-    public function setnombre_actividad($value)
+    public function setNombreActividad($value)
     {
         if (Validator::validateString($value, 1, 50)) {
             $this->nombre_actividad = $value;
@@ -54,7 +54,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setTipo_actividad($value)
+    public function setTipoActividad($value)
     {
         if (Validator::validateString($value, 1, 40)) {
             $this->tipo_actividad = $value;
@@ -64,7 +64,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setdescripcion($value)
+    public function setDescripcion($value)
     {
         if (Validator::validateString($value, 1, 150)) {
             $this->descripcion = $value;
@@ -74,7 +74,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setponderacion($value)
+    public function setPonderacion($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->ponderacion = $value;
@@ -84,7 +84,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setfecha_entrega($value)
+    public function setFechaEntrega($value)
     {
         if (Validator::validateDate($value)) {
             $this->fecha_entrega = $value;
@@ -95,7 +95,7 @@ class Actividades extends ActividadesQueries
     }
     
 
-    public function setid_tipo_actividad($value)
+    public function setIdTipoActividad($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_tipo_actividad = $value;
@@ -105,7 +105,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setid_trimestre($value)
+    public function setIdTrimestre($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_trimestre = $value;
@@ -115,7 +115,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setid_detalle_asignatura_empleado($value)
+    public function setIdDetalleAsignaturaEmpleado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_detalle_asignatura_empleado = $value;
@@ -125,7 +125,7 @@ class Actividades extends ActividadesQueries
         }
     }
 
-    public function setid_asignatura($value)
+    public function setIdAsignatura($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_asignatura = $value;

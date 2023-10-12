@@ -7,11 +7,11 @@ class NotasQueries
 {
 
     //funcion para obtener todas las materias y grados
-    function ObtenerMaterias()
+    function obtenerMaterias()
     {
         $sql = "SELECT empleados.id_empleado, CONCAT(empleados.nombre_empleado,' ', empleados.apellido_empleado) AS nombre, 
         asignaturas.id_asignatura, asignaturas.asignatura, grados.id_grado, grados.grado FROM detalle_asignaturas_empleados
-        INNER JOIN empleados USING(id_empleado)
+        LEFT JOIN empleados USING(id_empleado)
         INNER JOIN asignaturas USING(id_asignatura)
         INNER JOIN grados USING (id_grado)
         ";
@@ -23,7 +23,7 @@ class NotasQueries
     }
 
     //Obtener los trimestres del año lectivo
-    function ObtenerTrimestres()
+    function obtenerTrimestres()
     {
         if($_SESSION['id_cargo'] == 2){
             $sql = "SELECT trimestres.id_trimestre, trimestres.trimestre, anios.id_anio, anios.anio, trimestres.estado
@@ -37,7 +37,7 @@ class NotasQueries
     }
 
     //Obtener los trimestres del año lectivo (sin parametro)
-    function ObtenerTrimestresActual()
+    function obtenerTrimestresActual()
     {
         $sql = "SELECT id_trimestre, trimestre, anios.anio from trimestres 
         INNER JOIN anios USING (id_anio)
@@ -53,7 +53,7 @@ class NotasQueries
         return Database::getRow($sql);
     }
 
-    function ObtenerGrados()
+    function obtenerGrados()
     {
         $sql = "SELECT id_grado, grado from grados";
         return Database::getRows($sql);
@@ -68,7 +68,7 @@ class NotasQueries
     }
 
     //obtener actividades segun docente, asignatura y trimestre
-    function ObtenerActividades()
+    function obtenerActividades()
     {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad
         from actividades
@@ -80,7 +80,7 @@ class NotasQueries
     }
 
     //obtener actividades sin el docente
-    function ObtenerActividadesDirector()
+    function obtenerActividadesDirector()
     {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad
         from actividades
@@ -91,7 +91,7 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
-    function ObtenerActividad()
+    function obtenerActividad()
     {
         $sql = "SELECT  id_nota, ROW_NUMBER() OVER(ORDER BY estudiantes.apellido_estudiante asc) as 'n_lista', estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, actividades.nombre_actividad, actividades.descripcion, actividades.ponderacion, notas.nota from notas 
         INNER JOIN estudiantes USING(id_estudiante) INNER JOIN actividades USING (id_actividad)
@@ -102,7 +102,7 @@ class NotasQueries
     }
 
     //obtener notas de una actividad sin el id_empleado
-    function ObtenerActividadDirector()
+    function obtenerActividadDirector()
     {
         $sql = "SELECT  id_nota, ROW_NUMBER() OVER(ORDER BY estudiantes.apellido_estudiante asc) as 'n_lista', estudiantes.apellido_estudiante, estudiantes.nombre_estudiante, actividades.nombre_actividad, actividades.descripcion, actividades.ponderacion, notas.nota from notas 
         INNER JOIN estudiantes USING(id_estudiante) INNER JOIN actividades USING (id_actividad)
@@ -112,7 +112,7 @@ class NotasQueries
         return Database::getRows($sql, $params);
     }
 
-    //ActualizarNotas
+    //actualizarNotas
     function CambiarNotas()
     {
         $sql = "UPDATE notas SET nota = ? where id_nota = ?";
@@ -194,7 +194,7 @@ class NotasQueries
     }
 
     //consulta para obtener los estudiantes aprobados y reprobados
-    function AproYRepro($parametros)
+    function aproYRepro($parametros)
     {
         $sql = "SELECT COUNT(promedio) as cantidad from (SELECT id_estudiante, CONCAT(nombre_estudiante,' ', apellido_estudiante) as nombre, ROUND(AVG(promedio),2) as promedio from
         (select trimestres.id_trimestre, estudiantes.id_estudiante, estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, SUM(valor) as promedio from

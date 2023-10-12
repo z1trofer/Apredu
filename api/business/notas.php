@@ -20,7 +20,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -28,15 +28,15 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                 }
                 break;
-            case 'ObtenerMaterias':
+            case 'obtenerMaterias':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $notas->ObtenerMaterias()) {
+                } elseif ($result['dataset'] = $notas->obtenerMaterias()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -44,70 +44,70 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-            case 'ObtenerTrimestres':
+            case 'obtenerTrimestres':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $notas->ObtenerTrimestres()) {
+                } elseif ($result['dataset'] = $notas->obtenerTrimestres()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Error al obtener los trimestres';
                 }
                 break;
-            case 'ObtenerTrimestresNoParam':
+            case 'obtenerTrimestresNoParam':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $notas->ObtenerTrimestresActual()) {
+                } elseif ($result['dataset'] = $notas->obtenerTrimestresActual()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Error al obtener los trimestres';
                 }
                 break;
-            case 'ObtenerGrados':
+            case 'obtenerGrados':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif ($result['dataset'] = $notas->ObtenerGrados()) {
+                } elseif ($result['dataset'] = $notas->obtenerGrados()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'Error al obtener los grados';
                 }
                 break;
-            case 'ObtenerActividades':
+            case 'obtenerActividades':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$notas->setId_empleado($_SESSION['id_empleado'])) {
+                } elseif (!$notas->setIdEmpleado($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
-                } elseif (!$notas->setId_asignatura($_POST['asignatura'])) {
+                } elseif (!$notas->setIdAsignatura($_POST['asignatura'])) {
                     $result['exception'] = 'Asignatura incorrecta';
-                } elseif (!$notas->setId_trimestre($_POST['trimestre'])) {
+                } elseif (!$notas->setIdTrimestre($_POST['trimestre'])) {
                     $result['exception'] = 'Trimestre incorrecto';
-                } elseif (!$notas->setId_grado($_POST['grado'])) {
+                } elseif (!$notas->setIdGrado($_POST['grado'])) {
                     $result['exception'] = 'Grado incorrecto';
                 } elseif ($_SESSION['id_cargo'] == 2) {
-                    if ($result['dataset'] = $notas->ObtenerActividades()) {
+                    if ($result['dataset'] = $notas->obtenerActividades()) {
                         $result['status'] = 1;
                     } elseif (Database::getException()) {
                         $result['exception'] = Database::getException();
@@ -115,7 +115,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos registrados';
                     }
                 } else {
-                    if ($result['dataset'] = $notas->ObtenerActividadesDirector()) {
+                    if ($result['dataset'] = $notas->obtenerActividadesDirector()) {
                         $result['status'] = 1;
                     } elseif (Database::getException()) {
                         $result['exception'] = Database::getException();
@@ -127,7 +127,7 @@ if (isset($_GET['action'])) {
             case 'notaGlobal':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -138,14 +138,14 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
-            case 'ObtenerActividad':
+            case 'obtenerActividad':
                 $_POST = Validator::validateForm($_POST);
-                if (!$notas->setId_empleado($_SESSION['id_empleado'])) {
+                if (!$notas->setIdEmpleado($_SESSION['id_empleado'])) {
                     $result['exception'] = 'empleado incorrecto';
-                } elseif (!$notas->setId_actividad($_POST['actividad'])) {
+                } elseif (!$notas->setIdActividad($_POST['actividad'])) {
                     $result['exception'] = 'asignatura, incorrecta';
                 } elseif ($_SESSION['tipo'] == 2) {
-                    if ($result['dataset'] = $notas->ObtenerActividad()) {
+                    if ($result['dataset'] = $notas->obtenerActividad()) {
                         $result['status'] = 1;
                     } elseif (Database::getException()) {
                         $result['exception'] = Database::getException();
@@ -153,7 +153,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos registrados';
                     }
                 } else {
-                    if ($result['dataset'] = $notas->ObtenerActividadDirector()) {
+                    if ($result['dataset'] = $notas->obtenerActividadDirector()) {
                         $result['status'] = 1;
                     } elseif (Database::getException()) {
                         $result['exception'] = Database::getException();
@@ -162,7 +162,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
-            case 'ActualizarNotas':
+            case 'actualizarNotas':
                 $_POST = Validator::validateForm($_POST);
                 if (!$notas->setId_nota($_POST['id'])) {
                     $result['exception'] = 'id incorrecto';
@@ -177,12 +177,12 @@ if (isset($_GET['action'])) {
             case 'topNotas':
                 $_POST = Validator::validateForm($_POST);
                 $parametros = array('trimestre' => null, 'grado' => null);
-                if (!$notas->setId_trimestre($_POST['trimestre'])) {
+                if (!$notas->setIdTrimestre($_POST['trimestre'])) {
                     $parametros['trimestre'] = 'Todos';
                 } else {
                     $parametros['trimestre'] = $_POST['trimestre'];
                 }
-                if (!$notas->setId_grado($_POST['grado'])) {
+                if (!$notas->setIdGrado($_POST['grado'])) {
                     $parametros['grado'] = 'Todos';
                 } else {
                     $parametros['grado'] = $_POST['grado'];
@@ -199,18 +199,18 @@ if (isset($_GET['action'])) {
             case 'estudiantesAprobados':
                 $_POST = Validator::validateForm($_POST);
                 $parametros = array('trimestre' => null, 'grado' => null);
-                if (!$notas->setId_trimestre($_POST['trimestre'])) {
+                if (!$notas->setIdTrimestre($_POST['trimestre'])) {
                     $parametros['trimestre'] = 'Todos';
                 } else {
                     $parametros['trimestre'] = $_POST['trimestre'];
                 }
-                if (!$notas->setId_grado($_POST['grado'])) {
+                if (!$notas->setIdGrado($_POST['grado'])) {
                     $parametros['grado'] = 'Todos';
                 } else {
                     $parametros['grado'] = $_POST['grado'];
                 }
                 $parametros['condicion'] = $_POST['condicion'];
-                if ($result['dataset'] = $notas->AproYRepro($parametros)) {
+                if ($result['dataset'] = $notas->aproYRepro($parametros)) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();

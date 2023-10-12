@@ -19,7 +19,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
             case 'readAll':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -49,7 +49,7 @@ if (isset($_GET['action'])) {
             case 'readEmpleado':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -66,14 +66,14 @@ if (isset($_GET['action'])) {
             case 'readOneEstudiante':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
+                } elseif (!$fichas->setIdEstudiante($_POST['id_estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
-                } elseif ($result['dataset'] = $fichas->readOneestudiante()) {
+                } elseif ($result['dataset'] = $fichas->readOneEstudiante()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -86,16 +86,16 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
+                } elseif (!$fichas->setIdEstudiante($_POST['id_estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
-                } elseif (!$data = $fichas->setdescripcion_ficha($_POST['descripcion'])) {
+                } elseif (!$data = $fichas->setDescripcionFicha($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$data = $fichas->setid_empleado($_POST['id_empleado'])) {
+                } elseif (!$data = $fichas->setIdEmpleado($_POST['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif ($fichas->createRow()) {
                     $result['status'] = 1;
@@ -107,7 +107,7 @@ if (isset($_GET['action'])) {
             case 'readAllFichas':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -124,12 +124,12 @@ if (isset($_GET['action'])) {
             case 'readOneFichaXestudiante':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
+                } elseif (!$fichas->setIdEstudiante($_POST['id_estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
                 } elseif ($result['dataset'] = $fichas->readOneFichaXestudiante()) {
                     $result['status'] = 1;
@@ -143,12 +143,12 @@ if (isset($_GET['action'])) {
             case 'readOne':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$fichas->setid_ficha($_POST['id_ficha'])) {
+                } elseif (!$fichas->setIdFicha($_POST['id_ficha'])) {
                     $result['exception'] = 'Ficha incorrecta';
                 } elseif ($result['dataset'] = $fichas->readOne()) {
                     $result['status'] = 1;
@@ -162,22 +162,22 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$fichas->setid_ficha($_POST['id_ficha'])) {
+                } elseif (!$fichas->setIdFicha($_POST['id_ficha'])) {
                     $result['exception'] = 'Asignatura incorrecta';
                 } elseif (!$fichas->readOne()) {
                     $result['exception'] = 'Usuario inexistente';
-                } elseif (!$fichas->setIdestudiante($_POST['id_estudiante'])) {
+                } elseif (!$fichas->setIdEstudiante($_POST['id_estudiante'])) {
                     $result['exception'] = 'Estudiante incorrecto';
-                } elseif (!$fichas->setdescripcion_ficha($_POST['descripcion'])) {
+                } elseif (!$fichas->setDescripcionFicha($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$fichas->setfecha_ficha($_POST['fecha'])) {
+                } elseif (!$fichas->setFechaFicha($_POST['fecha'])) {
                     $result['exception'] = 'Fecha incorrecta';
-                } elseif (!$fichas->setid_empleado($_POST['nombre_empleado'])) {
+                } elseif (!$fichas->setIdEmpleado($_POST['nombre_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif ($fichas->updateRow()) {
                     // se realizó la accion de modificación
@@ -190,14 +190,14 @@ if (isset($_GET['action'])) {
             case 'MasFichasConducta':
                 //se valida el parametro
                 $_POST = Validator::validateForm($_POST);
-                if (!$fichas->setid_grado($_POST['grado_conduct'])) {
+                if (!$fichas->setIdGrado($_POST['grado_conduct'])) {
                     $parametro = 'Todos';
                 } else {
                     $parametro = $_POST['grado_conduct'];
                 }
                 //se declaran los permisos necesarios para la accion 
                 $access = array('view_fichas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';

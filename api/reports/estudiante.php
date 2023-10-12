@@ -13,7 +13,7 @@ if (isset($_GET['id_estudiante'])) {
     $estudiante = new Estudiantes;
     $responsable = new ResponsablesVista;
     // Se establece el valor de la categoría, de lo contrario se muestra un mensaje.
-    if ($estudiante->setIdestudiante($_GET['id_estudiante']) && $responsable->setIdAlumno($_GET['id_estudiante'])) {
+    if ($estudiante->setIdEstudiante($_GET['id_estudiante']) && $responsable->setIdAlumno($_GET['id_estudiante'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
         // Se inicia el reporte con el encabezado del documento.
         if ($rowEstudiante = $estudiante->reporteEstudianteOne()) {

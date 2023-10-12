@@ -92,7 +92,7 @@ SAVE_FORM_E.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'CreateEstudiante';
+    (document.getElementById('id_estudiante').value) ? action = 'updateEstudiante' : action = 'createEstudiante';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_E);
     //declarando variable del switch
@@ -196,8 +196,8 @@ document.getElementById('searchRes').addEventListener('change', async () => {
     data = document.getElementById('searchRes').value;
     const FORM = new FormData();
     FORM.append('param', document.getElementById('searchRes').value);
-    fillSelect2(ESTUDIANTE_API, 'SearchResponsables', 'selectRes', data, null)
-    /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
+    fillSelect2(ESTUDIANTE_API, 'searchResponsables', 'selectRes', data, null)
+    /* const JSON = dataFetch(RESPONSABLES_API, 'searchEstudiante', FORM);
      if(JSON.status){
          fillSelect
      }*/

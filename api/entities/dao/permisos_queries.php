@@ -42,9 +42,9 @@ class PermisosQueries
     //obtener el nombre de las columnas
     public function getHeaders()
     {
-        $sql = "SELECT COLUMN_NAME
+        $sql = "SELECT DISTINCT COLUMN_NAME
         FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = 'cargos_empleados' and COLUMN_NAME != 'cargo' and COLUMN_NAME != 'id_cargo'";
+        WHERE TABLE_NAME = 'cargos_empleados' and COLUMN_NAME != 'cargo' and COLUMN_NAME != 'id_cargo' and COLUMN_NAME != 'create_estudiantes' and COLUMN_NAME != 'update_estudiantes'";
         return Database::getRowsColumns($sql);
     }
 

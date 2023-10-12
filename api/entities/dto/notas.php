@@ -18,7 +18,7 @@ class Notas extends NotasQueries
     /*
     *   Métodos para validar y asignar valores de los atributos.
     */
-    public function setId_empleado($value)
+    public function setIdEmpleado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_empleado = $value;
@@ -39,7 +39,7 @@ class Notas extends NotasQueries
     }
 
 
-    public function setId_asignatura($value)
+    public function setIdAsignatura($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_asignatura = $value;
@@ -49,7 +49,7 @@ class Notas extends NotasQueries
         }
     }
 
-    public function setId_trimestre($value)
+    public function setIdTrimestre($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_trimestre = $value;
@@ -59,7 +59,7 @@ class Notas extends NotasQueries
         }
     }
 
-    public function setId_grado($value)
+    public function setIdGrado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_grado = $value;
@@ -69,7 +69,7 @@ class Notas extends NotasQueries
         }
     }
 
-    public function setId_actividad($value)
+    public function setIdActividad($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_actividad = $value;

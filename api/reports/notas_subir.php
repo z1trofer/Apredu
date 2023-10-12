@@ -35,7 +35,7 @@ if ($dataGrados = $grados->readAll()) {
         // Se instancia el módelo Producto para procesar los datos.
         $notas = new Notas;
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
-        if ($notas->setId_grado($rowGrados['id_grado'])) {
+        if ($notas->setIdGrado($rowGrados['id_grado'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataNotas = $notas->NotasDeEstudiantesPorActividades()) {
                 // Se recorren los registros fila por fila.

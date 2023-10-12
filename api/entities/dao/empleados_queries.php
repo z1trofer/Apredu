@@ -98,7 +98,7 @@ class EmpleadosQueries
     }
 
     // llenar combobox de actividades
-    function ObtenerActividades()
+    function obtenerActividades()
     {
         $sql = "SELECT id_detalle_asignatura_empleado, id_actividad, nombre_actividad, ponderacion, descripcion, fecha_entrega, asignacion.grado, asignacion.asignatura
         from actividades
@@ -128,7 +128,7 @@ class EmpleadosQueries
     }
 
     // funcion para leer asignaturas de cierto empleado
-    public function readAsignaturas_empleado()
+    public function readAsignaturasEmpleado()
     {
         $sql = 'SELECT a.id_asignatura, b.asignatura FROM detalle_asignaturas_empleados a
         INNER JOIN asignaturas b USING(id_asignatura)
@@ -160,7 +160,7 @@ class EmpleadosQueries
     }
 
     // funcion para leer datos de grados por cierto empleado
-    public function readGrados_empleado()
+    public function readGradosEmpleado()
     {
         $sql = 'SELECT a.id_grado, b.grado FROM detalle_asignaturas_empleados a
         INNER JOIN grados b USING(id_grado)
@@ -193,7 +193,7 @@ class EmpleadosQueries
     }
 
     //funcion actualizar detalle
-    public function ActualizarDetalle($asignatura, $grado)
+    public function actualizarDetalle($asignatura, $grado)
     {
         $sql = 'UPDATE detalle_asignaturas_empleados SET id_empleado = ? 
         where id_asignatura = ? and id_grado = ?';

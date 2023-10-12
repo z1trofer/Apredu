@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2023 a las 02:42:24
+-- Tiempo de generación: 12-10-2023 a las 04:44:20
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -90,7 +90,8 @@ INSERT INTO `anios` (`id_anio`, `anio`) VALUES
 (4, '2020'),
 (3, '2021'),
 (2, '2022'),
-(1, '2023');
+(1, '2023'),
+(22, '2024');
 
 --
 -- Disparadores `anios`
@@ -145,8 +146,6 @@ CREATE TABLE `cargos_empleados` (
   `create_usuarios` tinyint(1) NOT NULL DEFAULT 0,
   `edit_admin` tinyint(1) NOT NULL DEFAULT 0,
   `edit_perfil` tinyint(1) NOT NULL DEFAULT 0,
-  `create_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
-  `update_estudiantes` tinyint(1) NOT NULL DEFAULT 0,
   `update_notas` tinyint(1) NOT NULL DEFAULT 0,
   `view_notas` tinyint(1) NOT NULL DEFAULT 0,
   `edit_actividades` tinyint(1) NOT NULL DEFAULT 0,
@@ -175,9 +174,10 @@ CREATE TABLE `cargos_empleados` (
 -- Volcado de datos para la tabla `cargos_empleados`
 --
 
-INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `edit_permisos`, `create_usuarios`, `edit_admin`, `edit_perfil`, `create_estudiantes`, `update_estudiantes`, `update_notas`, `view_notas`, `edit_actividades`, `edit_tipo_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_responsables`, `edit_responsables`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
-(1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 'profesor', 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `cargos_empleados` (`id_cargo`, `cargo`, `edit_permisos`, `create_usuarios`, `edit_admin`, `edit_perfil`, `update_notas`, `view_notas`, `edit_actividades`, `edit_tipo_actividades`, `view_actividades`, `view_all_actividades`, `view_empleados`, `edit_empleados`, `view_estudiantes`, `edit_estudiantes`, `view_responsables`, `edit_responsables`, `view_fichas`, `delete_fichas`, `edit_fichas`, `view_grados`, `edit_grados`, `view_asignaturas`, `edit_asignaturas`, `view_trimestres`, `edit_trimestres`, `edit_detalles_docentes`) VALUES
+(1, 'admin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'profesor', 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(5, 'registro academico', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -240,12 +240,23 @@ CREATE TABLE `estudiantes` (
 --
 
 INSERT INTO `estudiantes` (`id_estudiante`, `nombre_estudiante`, `apellido_estudiante`, `fecha_nacimiento`, `direccion`, `nie`, `id_grado`, `id_responsable`, `parentesco_responsable`, `estado`) VALUES
-(24, 'Nelson', 'Alonso', '2019-10-08', 'asdasd', '5545454', 2, 13, 'padre', 1),
-(25, 'Juan', 'Pablo', '2019-01-01', 'sadasdsad', '4545555', 2, 11, 'padre', 1),
-(26, 'Alejandra', 'Carrasco', '2019-09-17', 'sadasd', '7777779', 2, 10, 'tío/a', 1),
-(27, 'Tatiana', 'Arevalo', '2019-09-11', 'Las terrazas', '7854555', 2, 15, 'madre', 1),
-(28, 'Daniel', 'Alonso', '2019-09-30', 'adsadsadsdfdsgf', '5454545', 2, 13, 'madre', 1),
-(29, 'Sebastian', 'Cristiano', '2018-12-28', 'fdgdfgdfgfdgfdg', '7856656', 2, 16, 'padre', 1);
+(24, 'Nelson Salvador', 'Alonso Contreras', '2019-10-08', 'asdasd', '5545454', 2, 13, 'padre', 1),
+(25, 'Juan Pablo', 'Enrique Mendez', '2019-01-01', 'sadasdsad', '4545555', 2, 11, 'padre', 1),
+(26, 'Alejandra Maria', 'Carrasco García', '2019-09-17', 'sadasd', '7777779', 2, 10, 'tío/a', 1),
+(27, 'Tatiana Estefany', 'Arevalo Gutierrez', '2019-09-11', 'Las terrazas', '7854555', 2, 15, 'madre', 1),
+(28, 'Daniel Alejandro', 'Alonso Murcia', '2019-09-30', 'adsadsadsdfdsgf', '5454545', 2, 13, 'madre', 1),
+(29, 'Sebastian Alfonso', 'Cristiano Argueta', '2018-12-28', 'fdgdfgdfgfdgfdg', '7856656', 2, 16, 'padre', 1),
+(30, 'Rodrigo Alejandro', 'Quintanilla Mendez', '2019-08-06', 'Calle los Robles', '4785555', 2, 20, 'padre', 1),
+(31, 'Diego Alejandro', 'Matamoros Martinez', '2019-08-21', 'Col la Gloria', '9862656', 3, 19, 'madre', 1),
+(32, 'Javier Marcelo', 'Chiquito García', '2018-02-12', 'San jacinto', '4453545', 3, 10, 'madre', 1),
+(33, 'Miguel Angel', 'Castillo Cercios', '2018-12-20', 'Jan Miguel', '1211345', 3, 18, 'padre', 1),
+(34, 'Mauricio Alex', 'Izquierdo Arevalo', '2019-01-11', 'Ayutuxtepeque', '2432423', 3, 15, 'madre', 1),
+(35, 'Diego Carlos', 'Maldonado Ascencio', '2017-01-30', 'Mejicanos', '4456545', 5, 16, 'padre', 1),
+(36, 'Gabriel Alejandro', 'Paredes Castro', '2017-12-11', 'Por Las cascadas', '5445645', 5, 25, 'tío/a', 1),
+(37, 'Victor Zavaleta', 'Martinez Rivas', '2017-06-05', 'En la casa de ahi', '1536456', 5, 24, 'padre', 1),
+(38, 'Rodrigo', 'Del Valle Clara', '2017-05-09', 'En el Valle', '1231231', 5, 23, 'padre', 1),
+(39, 'Gilberto Ricardo', 'Ramirez Lazo', '2017-01-11', 'En soya', '1234534', 5, 21, 'madre', 1),
+(40, 'Rebeca Alejandra', 'Rosales Castrol', '2017-02-07', 'En el monte', '2423143', 5, 22, 'tío/a', 1);
 
 --
 -- Disparadores `estudiantes`
@@ -345,7 +356,7 @@ CREATE TABLE `responsables` (
   `apellido_responsable` varchar(30) NOT NULL COMMENT 'Apellido del responsable',
   `dui` varchar(10) NOT NULL COMMENT 'Documento de identidad del estudiante',
   `correo_responsable` varchar(100) DEFAULT NULL COMMENT 'Correo electrónico del estudiante',
-  `lugar_de_trabajo` varchar(150) NOT NULL COMMENT 'Dirección del lugar de trabajo',
+  `lugar_de_trabajo` varchar(35) NOT NULL COMMENT 'Dirección del lugar de trabajo',
   `telefono` varchar(9) NOT NULL COMMENT 'Teléfono del lugar de trabajo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -354,13 +365,22 @@ CREATE TABLE `responsables` (
 --
 
 INSERT INTO `responsables` (`id_responsable`, `nombre_responsable`, `apellido_responsable`, `dui`, `correo_responsable`, `lugar_de_trabajo`, `telefono`) VALUES
-(10, 'Juan', 'bermudez', '23434232-3', 'adas@gmail.com', 'aedasdasd', '2323-5653'),
-(11, 'Javier', 'Enrique', '36543345-7', 'elpapu@gmail.com', 'el pepe', '7454-3434'),
-(12, 'Sandra', 'Cruz', '54785459-9', 'sandraCruz@gmail.com', 'M. de hacienda', '7545-5422'),
-(13, 'Xavi', 'Alonso', '78784555-9', 'Xaviaaaa@gmail.com', 'por alla', '2654-6255'),
-(14, 'Juan', 'Lopez', '98121115-3', 'JuanPe@gmail.com', 'Por aqui', '7526-6144'),
-(15, 'Marisol', 'Arevalo', '78456325-9', 'MariaaaaSol@gmail.com', 'Corte Suprema', '7854-6333'),
-(16, 'Sebastian', 'Cristiano', '85452232-6', 'Sebaaaa@gmail.com', 'por aca', '7545-6655');
+(10, 'Antonia Soraya', 'García Alvaro', '78842445-5', 'GarciaAas@gmail.com', 'La csa de aya', '7589-3561'),
+(11, 'Javier Alberto', 'Enrique', '36543345-7', 'elpapu@gmail.com', 'pepes car wash', '7454-3434'),
+(12, 'Sandra Cecillia', 'Cruz', '54785459-9', 'sandraCruz@gmail.com', 'M. de hacienda', '7545-5422'),
+(13, 'Xavi Morti', 'Alonso', '78784555-9', 'Xaviaaaa@gmail.com', 'por alla Company', '2654-6255'),
+(14, 'Juan Pablo', 'Lopez', '98121115-3', 'JuanPe@gmail.com', 'Fiscalia', '7526-6144'),
+(15, 'Marisol Camila', 'Arevalo', '78456325-9', 'MariaaaaSol@gmail.com', 'Corte Suprema', '7854-6333'),
+(16, 'Diego Pablo', 'Maldonado Ascencio', '79625625-6', 'Dieguido@gmail.com', 'Estado Cuscatlan', '7982-6666'),
+(17, 'Edgar Ricardo', 'Arjona Morales', '45465456-9', 'asdasd@gmail.com', 'srs bar', '7896-6666'),
+(18, 'Pedro', 'Pones Castillo', '89541233-3', 'Poner23@gmail.com', 'Carcas SA de SV', '7444-5555'),
+(19, 'Socorro Camila', 'Matamoros Valle', '98656565-6', 'gabSoco@gmail.com', 'Policia Nacional Civil', '7555-6442'),
+(20, 'Carlos Daniel', 'Quintanilla Avalos', '95556565-9', 'Quintales@gmail.com', 'quitnal el gordo', '7962-6565'),
+(21, 'Sonia', 'Carmen Lazo', '87815155-9', 'Carmencita@gmail.com', 'Alcaldia Municipal de Mejicanos', '7564-5666'),
+(22, 'Carol Carmen', 'Castrol Gonzales', '75211111-0', '5855Carmenq@gmail.com', 'Hospital Rosales', '7224-1111'),
+(23, 'Rodrigo Salvador', 'Campos Del Valle', '56655555-9', 'Campesiono@gmail.com', 'Jugo del Valle', '7254-1111'),
+(24, 'René Alejandro', 'Martinez Correas', '85555522-1', 'CorreAs@gmail.com', 'CocaCola Planta Lourdes', '2144-1214'),
+(25, 'William Carlos', 'Paredes Collares', '22155555-9', 'Collares@gmail.com', 'CollarAas', '7825-6666');
 
 -- --------------------------------------------------------
 
@@ -420,7 +440,10 @@ INSERT INTO `trimestres` (`id_trimestre`, `trimestre`, `id_anio`, `estado`) VALU
 (18, 'Tercer trimestre', 6, 0),
 (19, 'Primer trimestre', 7, 0),
 (20, 'Segundo trimestre', 7, 0),
-(21, 'Tercer trimestre', 7, 0);
+(21, 'Tercer trimestre', 7, 0),
+(22, 'Primer trimestre', 22, 0),
+(23, 'Segundo trimestre', 22, 0),
+(24, 'Tercer trimestre', 22, 0);
 
 --
 -- Índices para tablas volcadas
@@ -538,13 +561,13 @@ ALTER TABLE `trimestres`
 -- AUTO_INCREMENT de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  MODIFY `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la actividad', AUTO_INCREMENT=67;
+  MODIFY `id_actividad` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la actividad', AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `anios`
 --
 ALTER TABLE `anios`
-  MODIFY `id_anio` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del año', AUTO_INCREMENT=22;
+  MODIFY `id_anio` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del año', AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `asignaturas`
@@ -556,31 +579,31 @@ ALTER TABLE `asignaturas`
 -- AUTO_INCREMENT de la tabla `cargos_empleados`
 --
 ALTER TABLE `cargos_empleados`
-  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del cargo', AUTO_INCREMENT=5;
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del cargo', AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_asignaturas_empleados`
 --
 ALTER TABLE `detalle_asignaturas_empleados`
-  MODIFY `id_detalle_asignatura_empleado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del detalle de la asignatura y empleado', AUTO_INCREMENT=68;
+  MODIFY `id_detalle_asignatura_empleado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del detalle de la asignatura y empleado', AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del empleado', AUTO_INCREMENT=39;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del empleado', AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del estudiante', AUTO_INCREMENT=30;
+  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del estudiante', AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `fichas`
 --
 ALTER TABLE `fichas`
-  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la ficha', AUTO_INCREMENT=10;
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la ficha', AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `grados`
@@ -592,13 +615,13 @@ ALTER TABLE `grados`
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=802;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la nota', AUTO_INCREMENT=1039;
 
 --
 -- AUTO_INCREMENT de la tabla `responsables`
 --
 ALTER TABLE `responsables`
-  MODIFY `id_responsable` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del responsable', AUTO_INCREMENT=17;
+  MODIFY `id_responsable` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del responsable', AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_actividades`
@@ -610,7 +633,7 @@ ALTER TABLE `tipo_actividades`
 -- AUTO_INCREMENT de la tabla `trimestres`
 --
 ALTER TABLE `trimestres`
-  MODIFY `id_trimestre` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del trimestre', AUTO_INCREMENT=22;
+  MODIFY `id_trimestre` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del trimestre', AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas

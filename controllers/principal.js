@@ -79,7 +79,7 @@ async function graficoBarrasSubCategorias() {
 //mostrar grafico de materias
 async function graficoPieMaterias() {
     // Petición para obtener los datos del gráfico.
-    const DATA = await dataFetch(ASIGNATURA_API, 'MateriasDocentes');
+    const DATA = await dataFetch(ASIGNATURA_API, 'materiasDocentes');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
     if (DATA.status) {
         // Se declaran los arreglos para guardar los datos a graficar.
@@ -102,9 +102,9 @@ async function graficoPieMaterias() {
 
 //llenar combobox para parametrizar los graficos
 async function llenarCMB() {
-    await fillSelect(NOTAS_API, 'ObtenerTrimestresNoParam', 'trimestre_top', 'Todos');
-    await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_top', 'Todos');
-    await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_conduct', 'Todos');
+    await fillSelect(NOTAS_API, 'obtenerTrimestresNoParam', 'trimestre_top', 'Todos');
+    await fillSelect(NOTAS_API, 'obtenerGrados', 'grado_top', 'Todos');
+    await fillSelect(NOTAS_API, 'obtenerGrados', 'grado_conduct', 'Todos');
 }
 
 //grafico notas mas altas

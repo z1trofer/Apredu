@@ -40,7 +40,7 @@ async function cargarTrimestres() {
     //se instancia el año como parametro en el formulario
     FORM.append('anio', ANIO);
     //se llama a la API para obtener los trimestres del año respectivo
-    const JSON = await dataFetch(NOTAS_API, 'ObtenerTrimestres');
+    const JSON = await dataFetch(NOTAS_API, 'obtenerTrimestres');
     //se comprueba la respuesta de la api
     if (JSON.status) {
         const SESSION = await dataFetch(USER_API, 'getSession');
@@ -76,13 +76,12 @@ async function cargarAsignaturas(){
     //se declara la variable accion
     accion = null;
     //llamada a la API obtener las materias del docente logeado
-    const JSON = await dataFetch(NOTAS_API, 'ObtenerMaterias');
-     
+    const JSON = await dataFetch(NOTAS_API, 'obtenerMaterias');
     //Se compara la respuesta de la api
     if (JSON.status) {
          debugger
         //Se Carga el nombre del docente logeado en el label
-            document.getElementById('docenteNombre').innerHTML = JSON.dataset[0].nombre;
+            //document.getElementById('docenteNombre').innerHTML = JSON.dataset[0].nombre;
    
         //se vacia el contenedor de las asignaturas
         CONT_MATERIAS.innerHTML = '';

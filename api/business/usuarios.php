@@ -88,19 +88,19 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la acción
                 $access = array('edit_perfil');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se validan los parametros
-                } elseif (!$usuario->setNombre_empleado($_POST['nombres'])) {
+                } elseif (!$usuario->setNombreEmpleado($_POST['nombres'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$usuario->setapellido_empleado($_POST['apellidos'])) {
+                } elseif (!$usuario->setApellidoEmpleado($_POST['apellidos'])) {
                     $result['exception'] = 'Apellidos incorrectos';
-                } elseif (!$usuario->setcorreo_empleado($_POST['correo'])) {
+                } elseif (!$usuario->setCorreoEmpleado($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
-                } elseif (!$usuario->setusuario_empleado($_POST['usuario'])) {
+                } elseif (!$usuario->setUsuarioEmpleado($_POST['usuario'])) {
                     $result['exception'] = 'Usuario incorrecto';
                     //se ejecuta la acción
                 } elseif ($usuario->editProfile()) {
@@ -121,7 +121,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_perfil');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se deniega el acceso
@@ -387,19 +387,19 @@ if (isset($_GET['action'])) {
                 if ($usuario->readAll()) {
                     $result['exception'] = "Ya existen usuarios registrados";
                     //se validan los datos
-                } elseif (!$usuario->setNombre_empleado($_POST['nombres'])) {
+                } elseif (!$usuario->setNombreEmpleado($_POST['nombres'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$usuario->setapellido_empleado($_POST['apellidos'])) {
+                } elseif (!$usuario->setApellidoEmpleado($_POST['apellidos'])) {
                     $result['exception'] = 'Apellidos incorrectos';
-                } elseif (!$usuario->setdui($_POST['dui'])) {
+                } elseif (!$usuario->setDui($_POST['dui'])) {
                     $result['exception'] = 'DUI incorrecto';
                 } elseif (!$usuario->setUser($_POST['usuario'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 } elseif ($_POST['clave'] != $_POST['claveConfirm']) {
                     $result['exception'] = 'Las contraseñas no coinciden';
-                } elseif (!$usuario->setclave($_POST['clave'])) {
+                } elseif (!$usuario->setClave($_POST['clave'])) {
                     $result['exception'] = Validator::getPasswordError();
-                } elseif (!$usuario->setcorreo_empleado($_POST['correo'])) {
+                } elseif (!$usuario->setCorreoEmpleado($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$usuario->setDireccion($_POST['direccion'])) {
                     $result['exception'] = 'Direccion incorrecta';
@@ -407,9 +407,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!isset($_POST['cargo'])) {
                     $result['exception'] = 'Seleccione un cargo';
-                } elseif (!$usuario->setid_cargo($_POST['cargo'])) {
+                } elseif (!$usuario->setIdCargo($_POST['cargo'])) {
                     $result['exception'] = 'Cargo incorrecto';
-                } elseif (!$usuario->setfecha_nacimiento($_POST['fecha_nacimiento'])) {
+                } elseif (!$usuario->setFechaNacimiento($_POST['fecha_nacimiento'])) {
                     $result['exception'] = 'Fecha incorrecta';
                     //se ejecuta el proceso
                 } elseif ($usuario->createRow()) {

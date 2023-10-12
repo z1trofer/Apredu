@@ -75,8 +75,8 @@ document.getElementById('searchEs').addEventListener('change', async () => {
     data = document.getElementById('search').value;
     const FORM = new FormData();
     FORM.append('param', document.getElementById('search').value);
-    fillSelect2(RESPONSABLES_API, 'SearchEstudiante', 'estudiante', data, null)
-   /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
+    fillSelect2(RESPONSABLES_API, 'searchEstudiante', 'estudiante', data, null)
+   /* const JSON = dataFetch(RESPONSABLES_API, 'searchEstudiante', FORM);
     if(JSON.status){
         fillSelect
     }
@@ -86,8 +86,8 @@ document.getElementById('searchEs').addEventListener('change', async () => {
     data = document.getElementById('searchEs').value;
     const FORM = new FormData();
     FORM.append('param', document.getElementById('searchEs').value);
-    fillSelect2(RESPONSABLES_API, 'SearchEstudiante', 'selectEs', data, null)
-   /* const JSON = dataFetch(RESPONSABLES_API, 'SearchEstudiante', FORM);
+    fillSelect2(RESPONSABLES_API, 'searchEstudiante', 'selectEs', data, null)
+   /* const JSON = dataFetch(RESPONSABLES_API, 'searchEstudiante', FORM);
     if(JSON.status){
         fillSelect
     }*/
@@ -145,9 +145,6 @@ async function fillTable(form = null) {
 function openCreate() {
     // Se restauran los elementos del formulario.
     SAVE_FORM.reset();
-    document.getElementById('estudiante_label').hidden = true;
-    document.getElementById('estudiante_aniadir').hidden = true;
-    document.getElementById('estudiante').innerHTML = '<option value="">Seleccione un estudiante</option>';
 }
 
 /*

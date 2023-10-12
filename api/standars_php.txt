@@ -33,7 +33,7 @@ Minimiza el uso de variables globales para prevenir colisiones de nombres y mant
 Seguridad:
 Implementa medidas de seguridad adecuadas, como la validación y la sanitización de entradas, para prevenir ataques como la inyección de código SQL o la vulnerabilidad de scripts entre sitios (XSS).
 Ejemplo:
- public function setcorreo_empleado($value)
+ public function setCorreoEmpleado($value)
     {
         if (Validator::validateEmail($value, 1, 150)) {
             $this->correo_empleado = $value;

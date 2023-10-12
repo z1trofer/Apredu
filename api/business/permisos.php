@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_permisos');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -27,11 +27,11 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //cambiar los permisos de un usuario
-            case 'CambiarPermiso':
+            case 'cambiarPermiso':
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_permisos');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -40,7 +40,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Permiso inválido';
                 } elseif (!$permisos->setAtributo($_POST['atributo'])) {
                     $result['exception'] = 'Atributo inválido';
-                } elseif (!$permisos->setidCargo($_POST['cargo'])) {
+                } elseif (!$permisos->setIdCargo($_POST['cargo'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 } elseif ($_POST['cargo'] == 1) {
                     $result['exception'] = 'No puedes cambiar los permisos del administrador';
@@ -57,7 +57,7 @@ if (isset($_GET['action'])) {
             case 'getHeaders':
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_permisos');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -74,7 +74,7 @@ if (isset($_GET['action'])) {
             case 'ObtenerPermisos':
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_permisos');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se ejecuta la accion
@@ -105,7 +105,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_permisos');
-                if (!$permisos->setidCargo($_POST['id_cargo'])) {
+                if (!$permisos->setIdCargo($_POST['id_cargo'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 } elseif ($_POST['id_cargo'] == 1 ||$_POST['id_cargo'] == 2) {
                     $result['exception'] = 'No puedes eliminar este cargo';

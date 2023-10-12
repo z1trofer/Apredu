@@ -44,7 +44,7 @@ class Permisos extends PermisosQueries
         }
     }
 
-    public function setidCargo($value)
+    public function setIdCargo($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_cargo = $value;

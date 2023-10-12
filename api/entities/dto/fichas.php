@@ -21,7 +21,7 @@ class Fichas extends FichasQueries
     /*
     *   Métodos para validar y asignar valores de los atributos. 13 campos
     */
-    public function setid_ficha($value)
+    public function setIdFicha($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_ficha = $value;
@@ -31,7 +31,7 @@ class Fichas extends FichasQueries
         }
     }
 
-    public function setid_grado($value)
+    public function setIdGrado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_grado = $value;
@@ -61,7 +61,7 @@ class Fichas extends FichasQueries
         }
     }
 
-    public function setIdestudiante($value)
+    public function setIdEstudiante($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_estudiante = $value;
@@ -71,7 +71,7 @@ class Fichas extends FichasQueries
         }
     }
 
-    public function setdescripcion_ficha($value)
+    public function setDescripcionFicha($value)
     {
         if (Validator::validateString($value, 1, 150)) {
             $this->descripcion_ficha = $value;
@@ -81,7 +81,7 @@ class Fichas extends FichasQueries
         }
     }
     
-    public function setfecha_ficha($value)
+    public function setFechaFicha($value)
     {
         if (Validator::validateDate($value)) {
             $this->fecha_ficha = $value;
@@ -92,7 +92,7 @@ class Fichas extends FichasQueries
     }
     
 
-    public function setid_empleado($value)
+    public function setIdEmpleado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_empleado = $value;

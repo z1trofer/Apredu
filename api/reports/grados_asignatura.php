@@ -38,7 +38,7 @@ if ($dataGrados = $grado->readAll()) {
         $empleado = new Empleados;
         $estudiante = new Asignaturas;
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
-        if ($empleado->setid_grado($rowGrado['id_grado'])) {
+        if ($empleado->setIdGrado($rowGrado['id_grado'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataAsignatura = $empleado->gradoAsignaturas()) {
                 // Se recorren los registros fila por fila.

@@ -28,7 +28,7 @@ class Empleados extends EmpleadosQueries
     /*
     *   Métodos para validar y asignar valores de los atributos. 13 campos
     */
-    public function setid_empleado($value)
+    public function setIdEmpleado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_empleado = $value;
@@ -38,7 +38,7 @@ class Empleados extends EmpleadosQueries
         }
     }
 
-    public function setnombre_empleado($value)
+    public function setNombreEmpleado($value)
     {
         if (Validator::validateString($value, 1, 50)) {
             $this->nombre_empleado = $value;
@@ -54,7 +54,7 @@ class Empleados extends EmpleadosQueries
         }*/
     }
 
-    public function setapellido_empleado($value)
+    public function setApellidoEmpleado($value)
     {
         if (Validator::validateString($value, 1, 50)) {
             $this->apellido_empleado = $value;
@@ -70,7 +70,7 @@ class Empleados extends EmpleadosQueries
         }*/
     }
 
-    public function setdui($value)
+    public function setDui($value)
     {
         if (Validator::validateDUI($value, 1, 10)) {
             $this->dui = $value;
@@ -80,7 +80,7 @@ class Empleados extends EmpleadosQueries
         }
     }
 
-    public function setcorreo_empleado($value)
+    public function setCorreoEmpleado($value)
     {
         if (Validator::validateEmail($value, 1, 150)) {
             $this->correo_empleado = $value;
@@ -100,7 +100,7 @@ class Empleados extends EmpleadosQueries
         }
     }
 
-    public function setdireccion($value)
+    public function setDireccion($value)
     {
         if (Validator::validateString($value, 1, 150)) {
             $this->direccion = $value;
@@ -111,7 +111,7 @@ class Empleados extends EmpleadosQueries
     }
 
 
-    public function setfecha_nacimiento($value)
+    public function setFechaNacimiento($value)
     {
         if (Validator::validateDate18($value)) {
             $this->fecha_nacimiento = $value;
@@ -122,7 +122,7 @@ class Empleados extends EmpleadosQueries
     }
     
 
-    public function setid_cargo($value)
+    public function setIdCargo($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_cargo = $value;
@@ -132,7 +132,7 @@ class Empleados extends EmpleadosQueries
         }
     }
 
-    public function setusuario_empleado($value)
+    public function setUsuarioEmpleado($value)
     {
         /*if ($value) {
             $this->nombre_empleado = $value;
@@ -148,7 +148,7 @@ class Empleados extends EmpleadosQueries
         }
     }
 
-    public function setclave($value)
+    public function setClave($value)
     {
         if (Validator::validatePassword($value)) {
             $this->clave = password_hash($value, PASSWORD_DEFAULT);
@@ -168,7 +168,7 @@ class Empleados extends EmpleadosQueries
         }
     }
     
-    public function setid_grado($value)
+    public function setIdGrado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_grado = $value;
@@ -178,7 +178,7 @@ class Empleados extends EmpleadosQueries
         }
     }
 
-    public function setid_asignatura($value)
+    public function setIdAsignatura($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_asignatura = $value;
@@ -237,7 +237,7 @@ class Empleados extends EmpleadosQueries
     {
         return $this->clave;
     }
-    public function getestado()
+    public function getEstado()
     {
         return $this->estado;
     }

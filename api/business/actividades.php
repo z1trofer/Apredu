@@ -21,7 +21,7 @@ if (isset($_GET['action'])) {
                 //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
                 //se valida el id del empleado logeado
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                     //se ejecuta la acción
                 } elseif (!$permisos->getPermissions(($access))) {
@@ -33,26 +33,26 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //obtener los registros de actividades según parametros
-            case 'FiltrosActividades':
+            case 'filtrosActividades':
                 //validar espacios en el formulario
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se validan los parametros
-                } elseif (!$actividades->setid_grado($_POST['grado'])) {
+                } elseif (!$actividades->setIdGrado($_POST['grado'])) {
                     $result['exception'] = 'id grado invalido';
-                } elseif (!$actividades->setid_asignatura($_POST['asignatura'])) {
+                } elseif (!$actividades->setIdAsignatura($_POST['asignatura'])) {
                     $result['exception'] = 'id asignatura invalido';
-                } elseif (!$actividades->setid_trimestre($_POST['trimestre'])) {
+                } elseif (!$actividades->setIdTrimestre($_POST['trimestre'])) {
                     $result['exception'] = 'id trimestre invalido';
                     //se ejecuta la acción
-                } elseif ($result['dataset'] = $actividades->FiltrarActividades()) {
+                } elseif ($result['dataset'] = $actividades->filtrarActividades()) {
                     //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
@@ -68,7 +68,7 @@ if (isset($_GET['action'])) {
             case 'readTipoActividades':
                 //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
@@ -91,7 +91,7 @@ if (isset($_GET['action'])) {
             case 'readGrados':
                 //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
@@ -115,14 +115,14 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se validan los parametros
-                } elseif (!$actividades->setid_grado($_POST['id_grado'])) {
+                } elseif (!$actividades->setIdGrado($_POST['id_grado'])) {
                     $result['exception'] = 'id grado incorrecto';
                     //se ejecuta la acción
                 } elseif ($result['dataset'] = $actividades->readAsignaturas()) {
@@ -140,7 +140,7 @@ if (isset($_GET['action'])) {
             case 'readTrimestre':
                 //se declaran los permisos necesarios para la acci´pn
                 $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
@@ -164,14 +164,14 @@ if (isset($_GET['action'])) {
                 $access = array('view_actividades');
                 //permiso para determinar el nivel de información a mostrar
                 $level = array('view_all_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la acción
-                } elseif ($result['dataset'] = $actividades->readDetalle_asignatura_grado($permisos->getPermissions(($level)))) {
+                } elseif ($result['dataset'] = $actividades->readDetalleAsignaturaGrado($permisos->getPermissions(($level)))) {
                     //proceso exitoso
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
@@ -188,26 +188,26 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la acción
                 $access = array('edit_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se validan los campos a ingresar
-                } elseif (!$actividades->setnombre_actividad($_POST['nombre'])) {
+                } elseif (!$actividades->setNombreActividad($_POST['nombre'])) {
                     $result['exception'] = 'Nombre de actividad no valido';
-                } elseif (!$actividades->setponderacion($_POST['ponderacion'])) {
+                } elseif (!$actividades->setPonderacion($_POST['ponderacion'])) {
                     $result['exception'] = 'Ponderación no valida, asegurate que sea unicamente un valor entero entre 1-100 sin el simbolo de porcentaje';
-                } elseif (!$actividades->setdescripcion($_POST['descripcion'])) {
+                } elseif (!$actividades->setDescripcion($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$actividades->setid_tipo_actividad($_POST['tipo_actividad'])) {
+                } elseif (!$actividades->setIdTipoActividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Tipo de actividad inválido';
-                } elseif (!$actividades->setid_detalle_asignatura_empleado($_POST['detalle'])) {
+                } elseif (!$actividades->setIdDetalleAsignaturaEmpleado($_POST['detalle'])) {
                     $result['exception'] = 'Asignación no válida';
-                } elseif (!$actividades->setid_trimestre($_POST['trimestre'])) {
+                } elseif (!$actividades->setIdTrimestre($_POST['trimestre'])) {
                     $result['exception'] = 'Trimestre no válido';
-                } elseif (!$actividades->setfecha_entrega($_POST['fecha_entrega'])) {
+                } elseif (!$actividades->setFechaEntrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha no válida';
                 } elseif (!$actividades->validatePonderacion(false)) {
                     $result['exception'] = 'La ponderación total be ser menor o igual a 100';
@@ -229,14 +229,14 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la acción
                 $access = array('view_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exceptión'] = 'No tienes autorizacion para realizar esta acción';
                     //se valida los parametros
-                } elseif (!$actividades->setid_actividad($_POST['id_actividad'])) {
+                } elseif (!$actividades->setIdActividad($_POST['id_actividad'])) {
                     $result['exception'] = 'Actividad incorrecta';
                     //se ejecuta la acción
                 } elseif ($result['dataset'] = $actividades->readOne()) {
@@ -255,28 +255,28 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se validan los parametros
-                } elseif (!$actividades->setid_actividad($_POST['id'])) {
+                } elseif (!$actividades->setIdActividad($_POST['id'])) {
                     $result['exception'] = 'id incorrecto';
                 } elseif (!$data = $actividades->readOne()) {
                     $result['exception'] = 'id inexistente';
-                } elseif (!$actividades->setnombre_actividad($_POST['nombre'])) {
+                } elseif (!$actividades->setNombreActividad($_POST['nombre'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$actividades->setponderacion($_POST['ponderacion'])) {
+                } elseif (!$actividades->setPonderacion($_POST['ponderacion'])) {
                     $result['exception'] = 'Ponderación incorrecta';
-                } elseif (!$actividades->setdescripcion($_POST['descripcion'])) {
+                } elseif (!$actividades->setDescripcion($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
                 } elseif (!isset($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Seleccione un tipo de actividad';
-                } elseif (!$actividades->setid_tipo_actividad($_POST['tipo_actividad'])) {
+                } elseif (!$actividades->setIdTipoActividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'Tipo de actividad incorrecto';
-                } elseif (!$actividades->setfecha_entrega($_POST['fecha_entrega'])) {
+                } elseif (!$actividades->setFechaEntrega($_POST['fecha_entrega'])) {
                     $result['exception'] = 'Fecha incorrecta';
                 } elseif (!$actividades->validatePonderacion(true)) {
                     $result['exception'] = 'La ponderación total dbe ser menor o igual a 100';
@@ -294,14 +294,14 @@ if (isset($_GET['action'])) {
             case 'delete':
                 //se declaran los permisos necesarios para la acción
                 $access = array('edit_actividades', 'view_all_actividades', 'edit_tipo_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se valida el parametro
-                } elseif (!$actividades->setid_actividad($_POST['id_actividad'])) {
+                } elseif (!$actividades->setIdActividad($_POST['id_actividad'])) {
                     $result['exception'] = 'Actividad incorrecta';
                 } elseif (!$data = $actividades->readOne()) {
                     $result['exception'] = 'Actividad inexistente';
@@ -322,14 +322,14 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_tipo_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$actividades->setTipo_actividad($_POST['tipo_actividad'])) {
+                } elseif (!$actividades->setTipoActividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'tipo Actividad incorrecto incorrecto';
                 } elseif ($actividades->addTipoActividad()) {
                     //proceso exitoso
@@ -348,18 +348,18 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la acción
                 $access = array('edit_tipo_actividades');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                      //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //acceso denegado
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se validan los parametros
-                } elseif (!$actividades->setid_tipo_actividad($_POST['id_tipo'])) {
+                } elseif (!$actividades->setIdTipoActividad($_POST['id_tipo'])) {
                     $result['exception'] = 'id tipo incorrecto';
                 } elseif (!$data = $actividades->readOneTipoActividad()) {
                     $result['exception'] = 'id inexistente';
-                } elseif (!$actividades->setTipo_actividad($_POST['tipo_actividad'])) {
+                } elseif (!$actividades->setTipoActividad($_POST['tipo_actividad'])) {
                     $result['exception'] = 'id tipo incorrecto';
                     //se ejecuta la accion
                 } elseif ($actividades->updateTipoActividad()) {
@@ -379,13 +379,13 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('edit_actividades', 'view_all_actividades', 'edit_tipo_actividades' ,'edit_admin');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     //se valida el id del empleado logeado
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se validan los parametros
-                } elseif (!$actividades->setid_tipo_actividad($_POST['id_tipo'])) {
+                } elseif (!$actividades->setIdTipoActividad($_POST['id_tipo'])) {
                     $result['exception'] = 'id tipo incorrecto';
                 } elseif (!$data = $actividades->readOneTipoActividad()) {
                     $result['exception'] = 'Actividad inexistente';

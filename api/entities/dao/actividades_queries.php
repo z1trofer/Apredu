@@ -96,9 +96,9 @@ class ActividadesQueries
     public function readGrados()
     {
         $sql = "SELECT DISTINCT id_grado, grado
-            FROM grados LEFT JOIN detalle_asignaturas_empleados USING (id_grado)";
+            FROM grados LEFT JOIN detalle_asignaturas_empleados USING (id_grado) order by id_grado";
         if ($_SESSION['id_cargo'] == 2) {
-            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'];
+            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'] . "order by id_grado";
         }
         return Database::getRows($sql);
     }
@@ -126,7 +126,7 @@ class ActividadesQueries
     }
 
     //Querie obtener el datelle de una actividad (parametro: permiso de usuario view_all_actividades)
-    public function readDetalle_asignatura_grado($level)
+    public function readDetalleAsignaturaGrado($level)
     {
         if ($level == true) {
             //si el usuario tiene el permiso podrá ver todas las actividades
@@ -149,7 +149,7 @@ class ActividadesQueries
     }
 
     // Para la búsqueda parametrizada
-    public function FiltrarActividades()
+    public function filtrarActividades()
     {
         $sql = "SELECT actividades.id_actividad, actividades.nombre_actividad, actividades.ponderacion, actividades.descripcion, actividades.fecha_entrega, tipo_actividades.tipo_actividad, grados.grado, asignaturas.asignatura
         FROM actividades

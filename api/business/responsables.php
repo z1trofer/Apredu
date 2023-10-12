@@ -19,7 +19,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -30,7 +30,7 @@ if (isset($_GET['action'])) {
             case 'readAll':
                 //obtener permisos de la accion
                 $access = array('view_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se deniega la acción
@@ -54,7 +54,7 @@ if (isset($_GET['action'])) {
                 }
                 //obtener permisos de la accion
                 $access = array('view_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se deniega la acción
@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //obtener permisos de la accion
                 $access = array('edit_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se deniega la acción
@@ -94,7 +94,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //obtener permisos de la accion
                 $access = array('edit_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se deniega la acción
@@ -125,7 +125,7 @@ if (isset($_GET['action'])) {
             case 'readOne':
                 //se verifican los permisos necesarios
                 $access = array('view_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -145,7 +145,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 //obtener permisos de la accion
                 $access = array('edit_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se deniega la acción
@@ -180,7 +180,7 @@ if (isset($_GET['action'])) {
             case 'removeRes':
                 //se verifican los permisos necesarios
                 $access = array('edit_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
@@ -196,16 +196,16 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No se pudo eliminar el registro';
                 }
                 break;
-            case 'SearchEstudiante':
+            case 'searchEstudiante':
                 $_POST = Validator::validateForm($_POST);
                 //obtener permisos de la accion
                 $access = array('view_responsables');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
+                if (!$permisos->setId($_SESSION['id_empleado'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 } elseif (!$permisos->getPermissions(($access))) {
                     //se deniega la acción
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                } elseif ($result['dataset'] = $responsable->SearchEstudiantes($_POST['data'])) {
+                } elseif ($result['dataset'] = $responsable->searchEstudiantes($_POST['data'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {

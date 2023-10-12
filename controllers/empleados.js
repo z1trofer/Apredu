@@ -358,8 +358,8 @@ function openDetalleActividad(id_empleado) {
     TBODY_ROWS_ACT.innerHTML = '';
     //console.log(id_empleado);
     TITULO_MODAL2.textContent = 'Información de actividades';
-    fillSelect2(EMPLEADOS_API, 'readAsignaturas_empleado', 'asignatura', id_empleado);
-    fillSelect2(EMPLEADOS_API, 'readGrados_empleado', 'grado', id_empleado);
+    fillSelect2(EMPLEADOS_API, 'readAsignaturasEmpleado', 'asignatura', id_empleado);
+    fillSelect2(EMPLEADOS_API, 'readGradosEmpleado', 'grado', id_empleado);
     fillTable2(id_empleado);
     valor_empleado = id_empleado;
     CapturandoDatos();

@@ -111,7 +111,7 @@
                                         <div class="col-sm">
                                             <h5>Nombre de la actividad</h5>
                                             <input id="nombre" name="nombre" type="text" class="form-control is-valid"
-                                                id="validationServer01" required>
+                                                id="validationServer01" required autocomplete="off">
                                             <div class="invalid-feedback">
                                                 Por favor ingrese una datos en el área de texto.
                                             </div>
@@ -119,7 +119,7 @@
                                         <div class="col-4">
                                             <h5>Ponderación (%)</h5>
                                             <div class="mb-3">
-                                                <input id="ponderacion" name="ponderacion" type="text"
+                                                <input id="ponderacion" max="100" name="ponderacion" type="number"
                                                     class="form-control is-valid" id="input-ponderacion" required>
                                             </div>
                                         </div>
@@ -177,7 +177,7 @@
                                             <!--descripción de la actividad-->
                                             <h5>Descripción</h5>
                                             <textarea class="form-control" name="descripcion" id="descripcion" rows="4"
-                                                autocomplete="off"></textarea>
+                                                autocomplete="off" maxlength="150"></textarea>
                                         </div>
 
                                     </div>

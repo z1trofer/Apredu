@@ -68,7 +68,7 @@ class GradosQueries
     }
 
     // funcion para insertar el detalle
-    public function InsertarDetalle($asignatura)
+    public function insertarDetalle($asignatura)
     {
         $sql = 'INSERT INTO detalle_asignaturas_empleados (id_asignatura, id_grado)
                 VALUES(?, ?)';

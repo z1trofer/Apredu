@@ -23,7 +23,7 @@ class FichasQueries
     }
 
     // leer ficha de un estudiante en específico
-    public function readOneestudiante()
+    public function readOneEstudiante()
     {
         $sql = 'SELECT id_estudiante, nombre_estudiante, apellido_estudiante, grado 
         FROM estudiantes

@@ -34,7 +34,7 @@ if ($dataCargo = $empleados->readCargos()) {
         $pdf->cell(0, 10, $pdf->encodeString('Cargo: ' . $rowCargo['cargo']), 1, 1, 'C', 1);
         // Se instancia el módelo Producto para procesar los datos.
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
-        if ($empleados->setid_cargo($rowCargo['id_cargo'])) {
+        if ($empleados->setIdCargo($rowCargo['id_cargo'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataEmpleados = $empleados->readPorCargos()) {
                 // Se recorren los registros fila por fila.

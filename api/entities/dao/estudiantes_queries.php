@@ -4,7 +4,7 @@ require_once('../helpers/database.php');
 class EstudiantesQueries
 {
     //Método para insertar datos a la tabla de clientes por medio de una query 
-    public function CreateEstudiante()
+    public function createEstudiante()
     {
         $sql = 'INSERT INTO estudiantes(
             nombre_estudiante, apellido_estudiante, fecha_nacimiento, direccion, nie, id_grado, id_responsable, parentesco_responsable, estado)
@@ -36,7 +36,7 @@ class EstudiantesQueries
     }
 
     //Buscador de estudiantes
-    public function SearchResponsables($param)
+    public function searchResponsables($param)
     {
         $sql = "SELECT id_responsable, CONCAT(nombre_responsable, ' ', apellido_responsable) as nombreRes FROM responsables
         WHERE nombre_responsable like ? OR apellido_responsable like ?";
@@ -66,7 +66,7 @@ class EstudiantesQueries
 
 
     //Metodo para actualizar un dato de la tabla por medio del id
-    public function UpdateEstudiante()
+    public function updateEstudiante()
     {
         $sql = 'UPDATE estudiantes
         SET nombre_estudiante=?, apellido_estudiante=?, fecha_nacimiento=?, direccion=?, nie=?, id_grado=?, id_responsable=?, parentesco_responsable=?, estado=?
@@ -97,14 +97,7 @@ class EstudiantesQueries
             return Database::getRows($sql, $params);
         }
     
-        // funcion para crear la ficha
-    public function createFicha()
-    {
-        $sql = 'INSERT INTO fichas (id_estudiante, descripcion_ficha, id_empleado)
-        VALUES (?, ?, ?)';
-        $params = array($this->id_estudiante, $this->descripcion_ficha, $this->id_empleado);
-        return Database::executeRow($sql, $params);
-    } 
+
 
     //consulta para el reporte de estudiantes por grados
     public function reporteEstudiantes(){
