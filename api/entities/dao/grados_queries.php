@@ -117,7 +117,9 @@ class GradosQueries
         JOIN grados g USING(id_grado)
         JOIN anios an USING(id_anio)
         WHERE g.id_grado = ?
-        AND an.anio = (SELECT MAX(anio) FROM anios)
+        AND an.anio = (SELECT DISTINCT anios.anio from trimestres 
+        INNER JOIN anios USING (id_anio)
+        where id_anio = (select id_anio from trimestres where estado = true))
         ORDER BY t.id_trimestre, a.fecha_entrega, asi.asignatura';
         $params = array($this->id);
         return Database::getRows($sql, $params);

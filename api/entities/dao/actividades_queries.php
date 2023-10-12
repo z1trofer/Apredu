@@ -96,9 +96,9 @@ class ActividadesQueries
     public function readGrados()
     {
         $sql = "SELECT DISTINCT id_grado, grado
-            FROM grados LEFT JOIN detalle_asignaturas_empleados USING (id_grado) order by id_grado";
+            FROM grados LEFT JOIN detalle_asignaturas_empleados USING (id_grado)";
         if ($_SESSION['id_cargo'] == 2) {
-            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'] . "order by id_grado";
+            $sql = $sql . " WHERE detalle_asignaturas_empleados.id_empleado = " . $_SESSION['id_empleado'];
         }
         return Database::getRows($sql);
     }

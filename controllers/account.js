@@ -117,8 +117,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" id="userActive">admin</a>
-                                    <a class="dropdown-item">cargo: admin</a>
+                                    <a class="dropdown-item" id="userActive">${JSON.usuario}</a>
+                                    <a class="dropdown-item">cargo: ${JSON.tipo}</a>
                                     <a class="dropdown-item" href="perfil.html"> Editar perfil</a>
                                     <a class="dropdown-item" onclick="logOut()">Cerrar sesión</a>
                                 </li>
