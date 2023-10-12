@@ -64,15 +64,3 @@ PASSWORD_FORM.addEventListener('submit', async (event) => {
         sweetAlert(2, JSON.exception, false);
     }
 });
-
-/*
-*   Función para preparar el formulario al momento de cambiar la constraseña.
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
-function openPassword() {
-    // Se abre la caja de diálogo que contiene el formulario.
-    // PASSWORD_MODAL.getElementById()
-    // Se restauran los elementos del formulario.
-    // PASSWORD_FORM.reset();
-}

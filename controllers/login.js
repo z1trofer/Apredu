@@ -140,7 +140,7 @@ FORM_US.addEventListener('submit', async (event) => {
     }
 });
 
-//
+//evento para validar la recuperación de contraseña
 FORM_COD.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();

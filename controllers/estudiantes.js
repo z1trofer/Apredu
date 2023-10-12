@@ -286,66 +286,8 @@ document.getElementById('grado').addEventListener('change', () => {
     if (warning == true) {
         document.getElementById('warning').hidden = false;
     }
-})
-/*
-document.getElementById('buscar').addEventListener('onclick', async (event) => {
-
-});*/
-
-/*
-// Método manejador de eventos para cuando se envía el formulario de guardar.
-SAVE_FORM_C.addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se verifica la acción a realizar.
-    (document.getElementById('id_estudiante_ficha').value) ? action = 'createFicha' : action = 'createFicha';
-    // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM_C);
-    // Petición para guardar los datos del formulario.
-    const JSON = await dataFetch(ESTUDIANTE_API, action, FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (JSON.status) {
-
-        sweetAlert(1, JSON.message, true);
-    } else {
-        sweetAlert(2, JSON.exception, false);
-    }
-
 });
-*/
-/*
-async function openFicha(id) {
-    // Se define una constante tipo objeto con los datos del registro seleccionado.
-    const FORM = new FormData();
-    FORM.append('id_estudiante', id);
-    // Petición para obtener los datos del registro solicitado.
-    const JSON = await dataFetch(ESTUDIANTE_API, 'readOne', FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (JSON.status) {
-        // Se inicializan los campos del formulario.
-        document.getElementById('id_estudiante_ficha').value = JSON.dataset.id_estudiante;
-        document.getElementById('nombre_ficha').value = JSON.dataset.nombre_estudiante;
-        document.getElementById('apellido_ficha').value = JSON.dataset.apellido_estudiante;
-        document.getElementById('grado_ficha').value = JSON.dataset.grado;
-        //se llama a la API para obtener los datos
-        label = document.getElementById('nombre_empleado');
-        //se llama a la API para obtener los datos
-        const SESSION = await dataFetch(USER_API, 'getSession');
-        //se verifica el id_cargo
-        if (SESSION) {
-            //se llena el label con el nombre del docente
-            label.innerHTML = "Docente: " + SESSION.nombre;
-            document.getElementById('id_empleado').value = SESSION.id_empleado;
-        } else {
-            //se deja el label vacio
-            label.innerHTML = "ekis de";
-        }
-        // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
-    } else {
-        sweetAlert(2, JSON.exception, false);
-    }
-}
-*/
+
 
 //funcion para cargar el nombre del docente cuando sea un docente el que ha iniciado session
 async function CargarNombreDocente() {

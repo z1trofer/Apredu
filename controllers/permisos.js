@@ -104,11 +104,6 @@ async function fillTable() {
                     </td>
                         `;
                 }
-
-                /*htm = htm + `
-                
-                <td>${JSON_C.dataset[is][i]}</td>
-                `;*/
             }
             htm = htm + '</tr>';
             TB_BODY.innerHTML += htm;
@@ -118,6 +113,7 @@ async function fillTable() {
     }
 }
 
+//Función asíncrona para cambiar los permisos de un cargo
 async function cambiarPermiso(atributo, permiso, cargo){
     const RESPONSE = await confirmAction('¿Estas seguro de cambiar los permisos de '+ atributo +'?');
     // Se verifica la respuesta del mensaje.
@@ -141,9 +137,12 @@ async function cambiarPermiso(atributo, permiso, cargo){
     }
 };
 
+//evento para agregar un cargo al sistema
 FORM_INSERT.addEventListener('submit', async (event) => {
     event.preventDefault();
+    //se confirma la acción con el usuario
     RESPONSE = await confirmAction('¿Estas seguro de añadir el cargo "'+ FORM_INSERT.cargo.value +'"? no podras modificar su nombre y solo lo podras eliminar cuando no este asignado a ningun empleado');
+            //se evalua la respuesta
     if (RESPONSE) {
         const FORM = new FormData(FORM_INSERT);
         const JSON = await dataFetch(PERMISOS_API, 'agregarCargo', FORM);
@@ -156,6 +155,7 @@ FORM_INSERT.addEventListener('submit', async (event) => {
     }
 });
 
+//eliminar un cargo de un sistema
 async function deleteCargo(id, cargo){
     RESPONSE = await confirmAction('¿Estas seguro de añadir el cargo "'+ cargo +'"? no podras modificar su nombre y solo lo podras eliminar cuando no este asignado a ningun empleado');
     if (RESPONSE) {

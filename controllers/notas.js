@@ -71,32 +71,19 @@ async function cargarTrimestres() {
 }
 
 async function cargarAsignaturas(){
-    const SESSION = await dataFetch(USER_API, 'getSession');
     //se declara la variable materia
     let materia = null;
-    //se carga el año actual en el label respectivo
-    document.getElementById('aniooo').innerHTML = 'año ' + ANIO;
     //se declara la variable accion
     accion = null;
-    //se copara el tipo de usuario para determinar la accion a realizar
-    if(SESSION.id_cargo == 2){
-        accion = 'ObtenerMateriasDocente';
-    }else{
-        accion = 'ObtenerMaterias';
-    }
-     
     //llamada a la API obtener las materias del docente logeado
     const JSON = await dataFetch(NOTAS_API, 'ObtenerMaterias');
      
     //Se compara la respuesta de la api
     if (JSON.status) {
-         
+         debugger
         //Se Carga el nombre del docente logeado en el label
-        if(accion == 'ObtenerMateriasDocente'){
-            document.getElementById('docenteNombre').innerHTML = JSON.dataset[1].nombre;
-        }else{
-            document.getElementById('docenteNombre').hidden = true;
-        }
+            document.getElementById('docenteNombre').innerHTML = JSON.dataset[0].nombre;
+   
         //se vacia el contenedor de las asignaturas
         CONT_MATERIAS.innerHTML = '';
         //se llena el contenedor con los datos
@@ -155,6 +142,7 @@ async function cargarAsignaturas(){
             }
         });
     } else {
+        document.getElementById('docenteNombre').hidden = true;
         //se manda un mensaje con el error respectivo
         sweetAlert(2, "Ha habido un problema al cargar las asignaturas", false);
     }

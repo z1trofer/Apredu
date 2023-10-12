@@ -24,10 +24,12 @@
                     <h4>Vista de fichas general</h4>
                 </div>
                 <div class="col">
+                    <!--boton para abrir el modal de fichas-->
                     <button onclick="openFichas()" type="button" class="btn btn-danger" data-mdb-toggle="modal"
                         data-mdb-target="#FichasGenerales">
                         <i class="fa-solid fa-eye"></i>
                     </button>
+                    <!--boton para abrir el offCanvas con  el reporte semanal-->
                     <button class="btn btn-primary btn-outline btn-floating
                 data-mdb-ripple-color=" dark type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -42,6 +44,7 @@
                         </div>
                         <div class="offcanvas-body">
                             <div>
+                                <!--abrir reporte semanal de fichas-->
                                 <button onclick="openReportSemanal()" type="button"
                                     class="btn btn-success btn-rounded">Reporte semanal</button>
                             </div>
@@ -50,7 +53,7 @@
                 </div>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal de para ver vista general de las fichas -->
             <div class="modal fade" id="FichasGenerales" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-xl">
@@ -61,11 +64,13 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <!--contenido del modal-->
                             <div class="container">
                                 <div class="container col-6">
                                     <label>Buscar ficha de conducta:</label>
                                     <input class="form-control me-2 light-table-filter" data-table="table" type="text">
                                 </div>
+                                <!--tabla de fichas del estudiante-->
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -86,6 +91,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!--cerrar el modal-->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
                         </div>
@@ -93,15 +99,18 @@
                 </div>
             </div>
         </div>
+        <!--Contenido de la pagina (buscador y tabla principal de estudiantes)-->
         <div class="container">
             <div class="container col-6">
                 <div class="form-outline">
+                    <!--buscador-->
                     <form id="search" role="search" action="">
                         <input class="form-control me-2 light-table-filter" data-table="table" type="text">
                         <label class="form-label" for="form1">Buscar por Nombre</label>
                     </form>
                 </div>
             </div>
+            <!--tabla principal de estudiantes-->
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -115,6 +124,7 @@
                             <th scope="col">Agregar/Ver fichas</th>
                         </tr>
                     </thead>
+                    <!--registros-->
                     <tbody id="tbody-rows">
 
                     </tbody>
@@ -123,23 +133,25 @@
         </div>
 
         <div>
-            <!-- Button trigger modal -->
-
-            <!-- Modal -->
+            <!-- Modal agregar ficha-->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
+                            <!--encabezado del modal-->
                             <h5 class="modal-title" id="exampleModalLabel">Agregar ficha</h5>
                             <button type="button" class="btn-close" data-mdb-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <!--contenido del modal-->
                             <form id="save-form" action="">
+                                <!--inputs ocultos para guardar los id's-->
                                 <input type="hidden" id="id_ficha" name="id_ficha">
                                 <input type="hidden" id="id_estudiante" name="id_estudiante">
                                 <div class="col">
+                                    <!--informacion del estudiante-->
                                     <h5>Estudiante</h5>
                                     <input class="try2" type="text" name="nombre_ficha" id="nombre_ficha" readonly>
                                     <input class="try2" type="text" name="apellido_ficha" id="apellido_ficha" readonly>
@@ -147,12 +159,14 @@
                                     <p id="apellido_ficha"></p>
                                 </div>
                                 <div class="row">
+                                    <!--grado del estudiante-->
                                     <div class="col-4">
                                         <h5>Grado</h5>
                                         <input class="try2" type="text" name="grado_ficha" id="grado_ficha" readonly>
                                         <p id="grado_ficha"></p>
                                     </div>
                                     <div class="col-6">
+                                        <!--nombre del usuario que asignara la ficha-->
                                         <h5>Docente</h5>
                                         <p id="nombre_empleado"></p>
                                         <input class="try2" type="text" name="nombre_empleado2" id="nombre_empleado2"
@@ -160,14 +174,18 @@
                                         <input class="try2" type="hidden" name="id_empleado" id="id_empleado" readonly>
                                     </div>
                                 </div>
+                                <!--descripcion de las acciones que llevaron a la falta-->
                                 <div class="input-field col s12 m6">
                                     <label for="nombres">Descripción</label>
                                     <textarea class="form-control" id="descripcion" name="descripcion" rows="7"
-                                        autocomplete="off"></textarea>
+                                        autocomplete="off" required></textarea>
                                 </div>
+                                <!--pie del modal-->
                                 <div class="modal-footer">
+                                    <!--cerrar el modal-->
                                     <button id="btnClose" type="button" class="btn btn-secondary"
                                         data-mdb-dismiss="modal">Cerrar</button>
+                                        <!--guardar ficha-->
                                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                 </div>
                             </form>
@@ -178,7 +196,7 @@
         </div>
 
         <div>
-            <!-- Modal -->
+            <!-- Modal ver fichas de un estudiante -->
             <div class="modal fade" id="VerInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -188,6 +206,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <!--contenido del modal-->
                             <table class="table table-responsive-sm">
                                 <thead>
                                     <tr id="records3"></tr>
@@ -197,6 +216,7 @@
                                         <th scope="col">Profesor que la asignó</th>
                                     </tr>
                                 </thead>
+                                <!--contenido del record de fichas del estudiante-->
                                 <tbody id="tbody-rows3">
 
                                 </tbody>

@@ -106,7 +106,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$permisos->getPermissions(($access))) {
                     $result['exception'] = 'No tienes autorizacion para realizar esta acción';
                     //se ejecuta la accion
-                } elseif (!$grados->setId($_POST['id'])) {
+                } elseif (!$grados->setId($_POST['id_grado'])) {
                     $result['exception'] = 'Grado incorrecta';
                 } elseif (!$data = $grados->readOne()) {
                     $result['exception'] = 'Grado inexistente';

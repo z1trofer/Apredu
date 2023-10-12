@@ -28,24 +28,6 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                 }
                 break;
-            case 'ObtenerMateriasDocente':
-                //se declaran los permisos necesarios para la accion
-                $access = array('view_notas');
-                if (!$permisos->setid($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
-                } elseif (!$permisos->getPermissions(($access))) {
-                    $result['exception'] = 'No tienes autorizacion para realizar esta acción';
-                    //se ejecuta la accion
-                } elseif (!$notas->setId_empleado($_SESSION['id_empleado'])) {
-                    $result['exception'] = 'Empleado incorrecto';
-                } elseif ($result['dataset'] = $notas->ObtenerMateriasDocente()) {
-                    $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
             case 'ObtenerMaterias':
                 //se declaran los permisos necesarios para la accion
                 $access = array('view_notas');

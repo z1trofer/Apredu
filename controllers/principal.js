@@ -76,7 +76,7 @@ async function graficoBarrasSubCategorias() {
         document.getElementById('chartspace1').innerHTML = "No hay datos para mostrar";
     }
 }
-
+//mostrar grafico de materias
 async function graficoPieMaterias() {
     // Petición para obtener los datos del gráfico.
     const DATA = await dataFetch(ASIGNATURA_API, 'MateriasDocentes');
@@ -100,14 +100,15 @@ async function graficoPieMaterias() {
     }
 }
 
+//llenar combobox para parametrizar los graficos
 async function llenarCMB() {
     await fillSelect(NOTAS_API, 'ObtenerTrimestresNoParam', 'trimestre_top', 'Todos');
     await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_top', 'Todos');
     await fillSelect(NOTAS_API, 'ObtenerGrados', 'grado_conduct', 'Todos');
 }
 
+//grafico notas mas altas
 async function graficoBarrasNotas() {
-
     const FORM = new FormData();
     FORM.append('trimestre', document.getElementById('trimestre_top').value);
     FORM.append('grado', document.getElementById('grado_top').value);
@@ -132,6 +133,7 @@ async function graficoBarrasNotas() {
     }
 }
 
+//grafico reportes de conducta
 async function graficoReportesConductas() {
 
     const FORM = new FormData();
@@ -208,7 +210,7 @@ document.getElementById('trimestre_top').addEventListener('change', async () => 
     graficoBarrasNotas();
     graficoReproYApro();
 });
-
+//evento detectar cambios en el combobox de grado top notas
 document.getElementById('grado_top').addEventListener('change', async () => {
     //se resetean los canvas de los graficos para dar lugar a unos nuevos
     document.getElementById('chartspace4').innerHTML = "<canvas id='chart4'></canvas>";
@@ -218,18 +220,10 @@ document.getElementById('grado_top').addEventListener('change', async () => {
     graficoReproYApro();
 });
 
+//evento detectar cambios en el combobox de grado, conducta
 document.getElementById('grado_conduct').addEventListener('change', async () => {
     //se resetean los canvas de los graficos para dar lugar a unos nuevos
     document.getElementById('chartspace3').innerHTML = "<canvas id='chart3'></canvas>";
     //se recargan los graficos
     graficoReportesConductas();
 });
-/*
-let clicks = 0;
-document.getElementById('logoA').addEventListener('click', () =>{
-    if(clicks > 20){
-        document.getElementById('logoA').height= 1000;
-    }else{
-        clicks++;
-    }
-})*/

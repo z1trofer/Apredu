@@ -240,14 +240,13 @@ async function fillTable(form = null) {
     }
 }
 
-//
+//detectar cambio de valor en cmbDetallesGrado
 document.getElementById('DetallesGrado').addEventListener('change', () => {
     asignatura = document.getElementById('DetallesAsignatura');
     grado = document.getElementById('DetallesGrado');
     // CAPTURANDO EL ID DE GRADO CADA VEZ QUE SE CAMBIA
     asignatura.className = "form-select";
     fillSelect2(EMPLEADOS_API, 'readAsignaturasGrado', 'DetallesAsignatura', grado.value);
-    // fillTable2(null, valor_grado, null);
 });
 
 //funcion cargar asignaturas y grados del docente
@@ -363,7 +362,6 @@ function openDetalleActividad(id_empleado) {
     fillSelect2(EMPLEADOS_API, 'readGrados_empleado', 'grado', id_empleado);
     fillTable2(id_empleado);
     valor_empleado = id_empleado;
-    //document.getElementById('nombre_empleado').innerHTML = `Nombre: ${JSON.nombre_empleado}`
     CapturandoDatos();
 }
 
