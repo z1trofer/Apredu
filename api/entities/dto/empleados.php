@@ -40,7 +40,7 @@ class Empleados extends EmpleadosQueries
 
     public function setNombreEmpleado($value)
     {
-        if (Validator::validateString($value, 1, 50)) {
+        if (Validator::validateAlphanumeric($value, 1, 30)) {
             $this->nombre_empleado = $value;
             return true;
         } else {
@@ -56,7 +56,7 @@ class Empleados extends EmpleadosQueries
 
     public function setApellidoEmpleado($value)
     {
-        if (Validator::validateString($value, 1, 50)) {
+        if (Validator::validateAlphanumeric($value, 1, 30)) {
             $this->apellido_empleado = $value;
             return true;
         } else {
@@ -82,7 +82,7 @@ class Empleados extends EmpleadosQueries
 
     public function setCorreoEmpleado($value)
     {
-        if (Validator::validateEmail($value, 1, 150)) {
+        if (Validator::validateEmail($value, 1, 100)) {
             $this->correo_empleado = $value;
             return true;
         } else {

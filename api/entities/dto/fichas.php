@@ -43,7 +43,7 @@ class Fichas extends FichasQueries
 
     public function setNombresEstudiante($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 60)) {
+        if (Validator::validateAlphanumeric($value, 1, 30)) {
             $this->nombre_estudiante = $value;
             return true;
         } else {
@@ -53,7 +53,7 @@ class Fichas extends FichasQueries
 
     public function setApellidosEstudiante($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 60)) {
+        if (Validator::validateAlphanumeric($value, 1, 30)) {
             $this->apellido_estudiante = $value;
             return true;
         } else {
@@ -73,7 +73,7 @@ class Fichas extends FichasQueries
 
     public function setDescripcionFicha($value)
     {
-        if (Validator::validateString($value, 1, 150)) {
+        if (Validator::validateString($value, 1, 200)) {
             $this->descripcion_ficha = $value;
             return true;
         } else {

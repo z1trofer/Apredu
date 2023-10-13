@@ -46,7 +46,7 @@ class Actividades extends ActividadesQueries
 
     public function setNombreActividad($value)
     {
-        if (Validator::validateString($value, 1, 50)) {
+        if (Validator::validateString($value, 1, 40)) {
             $this->nombre_actividad = $value;
             return true;
         } else {

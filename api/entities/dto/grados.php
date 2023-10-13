@@ -24,7 +24,7 @@ class Grados extends GradosQueries
 
     public function setGrado($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (Validator::validateAlphanumeric($value, 1, 20)) {
             $this->grado = $value;
             return true;
         } else {

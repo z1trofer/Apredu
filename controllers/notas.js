@@ -79,7 +79,6 @@ async function cargarAsignaturas(){
     const JSON = await dataFetch(NOTAS_API, 'obtenerMaterias');
     //Se compara la respuesta de la api
     if (JSON.status) {
-         debugger
         //Se Carga el nombre del docente logeado en el label
             //document.getElementById('docenteNombre').innerHTML = JSON.dataset[0].nombre;
    

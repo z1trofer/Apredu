@@ -56,7 +56,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setNombresEstudiante($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 60)) {
+        if (Validator::validateAlphanumeric($value, 1, 30)) {
             $this->nombre_estudiante = $value;
             return true;
         } else {
@@ -66,7 +66,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setApellidosEstudiante($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 60)) {
+        if (Validator::validateAlphanumeric($value, 1, 30)) {
             $this->apellido_estudiante = $value;
             return true;
         } else {
@@ -86,7 +86,7 @@ class Estudiantes extends EstudiantesQueries{
 
     public function setDireccionEstudiante($value)
     {
-        if (Validator::validateString($value, 1, 200)) {
+        if (Validator::validateString($value, 1, 150)) {
             $this->direccion_estudiante = $value;
             return true;
         } else {
