@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <!--estudiantes-->
                                 <li>
-                                    <a class="dropdown-item" id="vista_estudiantes" href="estudiantes.html">Alumnos</a>
+                                    <a class="dropdown-item" id="vista_estudiantes" href="estudiantes.html">Estudiantes</a>
                                 </li>
                                 <!--Responsables-->
                                 <li>
